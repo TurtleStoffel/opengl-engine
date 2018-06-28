@@ -27,7 +27,7 @@ Application::Application() {
     glClearColor(0.0, 0.0, 0.2, 1.0);
     glEnable(GL_DEPTH_TEST);
 
-    Shader shader = Shader("../shaders/vertex.glsl", "../shaders/fragment.glsl");
+    Shader shader = Shader("../shaders/vertex.glsl", "../shaders/geometry.glsl", "../shaders/fragment.glsl");
     shader.use();
     _shader = shader._ID;
 }
