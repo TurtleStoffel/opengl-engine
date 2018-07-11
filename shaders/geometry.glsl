@@ -9,11 +9,11 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-//uniform vec3 cameraPosition;
+uniform vec3 cameraPosition;
 
 const vec3 lightDirection = normalize(vec3(0.4, -1.0, 0.8));
 const vec3 lightColor = vec3(1.0, 0.6, 0.6);
-const float reflectivity = 0.5;
+const float reflectivity = 0.2;
 const float shineDamper = 14.0;
 const float ambientLighting = 0.5;
 
@@ -23,7 +23,7 @@ vec3 calculateTriangleNormal() {
     vec3 normal = cross(tangent, bitangent);
     return normalize(normal);
 }
-/*
+
 vec3 calculateSpecular(vec4 worldPosition, vec3 normal) {
     vec3 viewVector = normalize(cameraPosition - worldPosition.xyz);
     vec3 reflectedLightDirection = reflect(lightDirection, normal);
@@ -31,7 +31,6 @@ vec3 calculateSpecular(vec4 worldPosition, vec3 normal) {
     specularFactor = max(pow(specularFactor, shineDamper), 0.0);
     return lightColor * specularFactor * reflectivity;
 }
-*/
 
 void main() {
     vec3 normal = calculateTriangleNormal();
@@ -40,17 +39,15 @@ void main() {
 
     vec4 worldPosition = gl_in[0].gl_Position;
     gl_Position = projection * view * model * worldPosition;
-    vertexColor = vec4(color, 1.0);// + calculateSpecular(worldPosition, normal);
+    vertexColor = vec4(color + calculateSpecular(worldPosition, normal), 0.0);
     EmitVertex();
 
     worldPosition = gl_in[1].gl_Position;
     gl_Position = projection * view * model * worldPosition;
-    vertexColor = vec4(color, 1.0);// + calculateSpecular(worldPosition, normal);
     EmitVertex();
 
     worldPosition = gl_in[2].gl_Position;
     gl_Position = projection * view * model * worldPosition;
-    vertexColor = vec4(color, 1.0);// + calculateSpecular(worldPosition, normal);
     EmitVertex();
 
     EndPrimitive();

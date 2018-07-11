@@ -41,9 +41,10 @@ void Application::run() {
     GLuint modelMatrix = glGetUniformLocation(_shader, "model");
     GLuint viewMatrix = glGetUniformLocation(_shader, "view");
     GLuint projectionMatrix = glGetUniformLocation(_shader, "projection");
+    GLuint shaderCameraPosition = glGetUniformLocation(_shader, "cameraPosition");
 
     glm::vec3 cameraPosition = glm::vec3(0.0f, -5.0f, 10.0f);
-    glm::vec3 cameraDirection = glm::vec3(0.0f, 0.5f, -1.0f);
+    glm::vec3 cameraDirection = glm::vec3(0.0f, 0.8f, -1.0f);
     glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
     unsigned int lastFrame = SDL_GetTicks();
@@ -62,6 +63,8 @@ void Application::run() {
 
         glm::mat4 model = glm::mat4(1.0);
         glUniformMatrix4fv(modelMatrix, 1, GL_FALSE, &model[0][0]);
+
+        glUniform3fv(shaderCameraPosition, 1, &cameraPosition[0]);
 
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
