@@ -6,6 +6,7 @@
 namespace color {
 
 glm::vec3 brown();
+glm::vec3 blue();
 
 }
 
