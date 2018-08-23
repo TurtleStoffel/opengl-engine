@@ -8,8 +8,10 @@ class Ground : public Model {
     Ground();
 
    private:
-    const unsigned int _tiles = 16;
-    const float _tileSize = 1.0f;
+    const unsigned int _tiles = 32;
+    const float _tileSize     = 1.0f;
+    const float _noiseFactor  = 0.08f;
+    const float _maxHeight    = 2.0f;
 };
 
 #endif
