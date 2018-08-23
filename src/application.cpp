@@ -21,7 +21,7 @@ Application::Application(SDL_Window* pWindow) {
     shader.use();
     _shader = shader._ID;
 
-    setScene(new Scene());
+    setScene(new Scene(this));
 }
 
 Application::~Application() {
@@ -29,32 +29,22 @@ Application::~Application() {
 }
 
 void Application::run() {
-    GLuint modelMatrix          = glGetUniformLocation(_shader, "model");
-    GLuint viewMatrix           = glGetUniformLocation(_shader, "view");
-    GLuint projectionMatrix     = glGetUniformLocation(_shader, "projection");
-    GLuint shaderCameraPosition = glGetUniformLocation(_shader, "cameraPosition");
+    GLuint modelMatrix      = glGetUniformLocation(_shader, "model");
+    GLuint projectionMatrix = glGetUniformLocation(_shader, "projection");
 
     int lastFrame = SDL_GetTicks();
 
     while (_running) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // TODO Optimize model/view/projection matrix
         glm::mat4 projection = glm::perspective(glm::radians(45.0f),
                                                 (float)_windowWidth / _windowHeight,
                                                 0.1f,
                                                 100.0f);
         glUniformMatrix4fv(projectionMatrix, 1, GL_FALSE, &projection[0][0]);
 
-        glm::mat4 view = glm::lookAt(_cameraPosition,
-                                     _cameraPosition + _cameraDirection,
-                                     _cameraUp);
-        glUniformMatrix4fv(viewMatrix, 1, GL_FALSE, &view[0][0]);
-
         glm::mat4 model = glm::mat4(1.0);
         glUniformMatrix4fv(modelMatrix, 1, GL_FALSE, &model[0][0]);
-
-        glUniform3fv(shaderCameraPosition, 1, &_cameraPosition[0]);
 
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
@@ -65,6 +55,7 @@ void Application::run() {
 
         _pScene->render();
 
+        // Swap window buffers
         SDL_GL_SwapWindow(_pWindow);
 
         // Limit number of frames per second
@@ -78,6 +69,10 @@ void Application::run() {
 
 void Application::setScene(Scene* pScene) {
     _pScene = pScene;
+}
+
+GLuint Application::getShaderID() {
+    return _shader;
 }
 
 bool Application::_handleInput(SDL_Event event) {
@@ -98,18 +93,6 @@ bool Application::_handleInput(SDL_Event event) {
                 case SDLK_ESCAPE:
                     _running = false;
                     return true;
-                case SDLK_w:
-                    _cameraPosition += glm::vec3(0.0f, 0.1f, 0.0f);
-                    return true;
-                case SDLK_s:
-                    _cameraPosition += glm::vec3(0.0f, -0.1f, 0.0f);
-                    return true;
-                case SDLK_a:
-                    _cameraPosition += glm::vec3(-0.1f, 0.0f, 0.0f);
-                    return true;
-                case SDLK_d:
-                    _cameraPosition += glm::vec3(0.1f, 0.0f, 0.0f);
-                    break;
                 case SDLK_z:
                     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
                     return true;

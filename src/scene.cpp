@@ -1,21 +1,21 @@
 #include "scene.hpp"
 
+#include "application.hpp"
+#include "flatcamera.hpp"
+
 #include "models/ground.hpp"
 
-Scene::Scene() {
+Scene::Scene(Application* parent) {
     _renderable.push_back(Ground());
-    //_pModel = new Ground();
-}
-
-Scene::~Scene() {
+    _camera = new FlatCamera(parent->getShaderID());
 }
 
 void Scene::handleInput(SDL_Event event) {
+    _camera->handleInput(event);
 }
 
 void Scene::render() {
     for (Model model : _renderable) {
         model.render();
     }
-    //_pModel->render();
 }

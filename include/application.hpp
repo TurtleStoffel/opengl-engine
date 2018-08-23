@@ -15,6 +15,8 @@ class Application {
     void run();
     void setScene(Scene* pScene);
 
+    GLuint getShaderID();
+
    private:
     bool _handleInput(SDL_Event event);
 
@@ -26,10 +28,6 @@ class Application {
 
     int _windowWidth;
     int _windowHeight;
-
-    glm::vec3 _cameraPosition  = glm::vec3(0.0f, -5.0f, 10.0f);
-    glm::vec3 _cameraDirection = glm::vec3(0.0f, 0.8f, -1.0f);
-    glm::vec3 _cameraUp        = glm::vec3(0.0f, 1.0f, 0.0f);
 };
 
 #endif

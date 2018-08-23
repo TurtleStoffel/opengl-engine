@@ -8,10 +8,12 @@
 #include "models/model.hpp"
 #include "models/selectable.hpp"
 
+class Application;
+class Camera;
+
 class Scene {
    public:
-    Scene();
-    ~Scene();
+    Scene(Application* parent);
 
     void render();
     void handleInput(SDL_Event event);
@@ -19,7 +21,7 @@ class Scene {
    private:
     std::vector<Selectable> _selectable;
     std::vector<Model> _renderable;
-    // Model* _pModel;
+    Camera* _camera;
 };
 
 #endif
