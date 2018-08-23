@@ -53,6 +53,7 @@ void Application::run() {
             }
         }
 
+        _pScene->update();
         _pScene->render();
 
         // Swap window buffers

@@ -15,6 +15,7 @@ class Scene {
    public:
     Scene(Application* parent);
 
+    void update();
     void render();
     void handleInput(SDL_Event event);
 

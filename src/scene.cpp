@@ -14,6 +14,10 @@ void Scene::handleInput(SDL_Event event) {
     _camera->handleInput(event);
 }
 
+void Scene::update() {
+    _camera->update();
+}
+
 void Scene::render() {
     for (Model model : _renderable) {
         model.render();

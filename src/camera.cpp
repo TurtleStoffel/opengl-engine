@@ -4,11 +4,15 @@
 
 Camera::Camera(GLuint shader) {
     _shader = shader;
+
+    // Set initial values in shader
     _configureShader();
 }
 
-void Camera::handleInput(SDL_Event event) {
-    if (_handleInput(event)) {
+void Camera::update() {
+    // Check if camera has been changed this frame
+    if (_update()) {
+        // Set values in shader
         _configureShader();
     }
 }

@@ -7,8 +7,10 @@ class FlatCamera : public Camera {
    public:
     FlatCamera(GLuint shader);
 
+    virtual void handleInput(SDL_Event event);
+
    protected:
-    virtual bool _handleInput(SDL_Event event);
+    virtual bool _update();
 };
 
 #endif
