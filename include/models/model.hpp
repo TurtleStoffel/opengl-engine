@@ -16,8 +16,6 @@ class Model {
     Model(GLuint shader);
     void render();
 
-    glm::vec3 getPosition();
-
    protected:
     void _setupBuffers();
 

@@ -4,10 +4,12 @@
 #include "flatcamera.hpp"
 
 #include "models/ground.hpp"
+#include "models/sphere.hpp"
 
 Scene::Scene(Application* pParent) {
     GLuint shaderID = pParent->getShaderID();
-    _renderable.push_back(new Ground(shaderID));
+    _renderable.push_back(new Sphere(shaderID));
+    //_renderable.push_back(new Ground(shaderID));
     _camera = new FlatCamera(shaderID);
 }
 
