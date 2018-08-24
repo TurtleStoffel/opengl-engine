@@ -6,8 +6,10 @@ Sphere::Sphere(GLuint shader) : Sphere(shader, 3) {
 }
 
 Sphere::Sphere(GLuint shader, int depth) : Model(shader) {
-    float d = (1.0f + sqrt(5.0f)) / 2.0f;
+    // Increase size of object
+    _scale = glm::vec3(4.0f, 4.0f, 4.0f);
 
+    float d = (1.0f + sqrt(5.0f)) / 2.0f;
     // clang-format off
     Vertex v1  = {glm::normalize(glm::vec3(-1.0f,  d, 0.0f)), glm::vec3(1.0f, 1.0f, 1.0f)};
     Vertex v2  = {glm::normalize(glm::vec3( 1.0f,  d, 0.0f)), glm::vec3(1.0f, 1.0f, 1.0f)};

@@ -13,7 +13,8 @@ Model::Model(GLuint shader) {
 
 void Model::render() {
     // Apply model transformation matrix
-    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), _position);
+    glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), _scale);
+    modelMatrix           = glm::translate(modelMatrix, _position);
     glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, &modelMatrix[0][0]);
 
     // Render vertices

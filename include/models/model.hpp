@@ -20,9 +20,13 @@ class Model {
     void _setupBuffers();
 
     glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f);
-    GLuint _modelMatrixUniform;
+    glm::vec3 _scale    = glm::vec3(1.0f, 1.0f, 1.0f);
 
     std::vector<Vertex> _vertices;
+
+   private:
+    GLuint _modelMatrixUniform;
+
     GLuint _vao;
     GLuint _vbo;
 };
