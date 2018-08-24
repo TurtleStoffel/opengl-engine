@@ -4,7 +4,8 @@
 #include <glm/glm.hpp>
 
 #include "opengl.hpp"
-#include "updateable.hpp"
+
+#include "interfaces/updateable.hpp"
 
 class Camera : public Updateable {
    public:

@@ -4,7 +4,8 @@
 #include <vector>
 
 #include "opengl.hpp"
-#include "updateable.hpp"
+
+#include "interfaces/updateable.hpp"
 
 #include "models/model.hpp"
 #include "models/selectable.hpp"
