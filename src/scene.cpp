@@ -6,12 +6,16 @@
 #include "models/ground.hpp"
 
 Scene::Scene(Application* pParent) {
-    _renderable.push_back(Ground());
-    _camera = new FlatCamera(pParent->getShaderID());
+    GLuint shaderID = pParent->getShaderID();
+    _renderable.push_back(new Ground(shaderID));
+    _camera = new FlatCamera(shaderID);
 }
 
 Scene::~Scene() {
     delete _camera;
+    for (Model* model : _renderable) {
+        delete model;
+    }
 }
 
 void Scene::handleInput(SDL_Event event) {
@@ -23,7 +27,7 @@ void Scene::update(int t) {
 }
 
 void Scene::render() {
-    for (Model model : _renderable) {
-        model.render();
+    for (Model* model : _renderable) {
+        model->render();
     }
 }

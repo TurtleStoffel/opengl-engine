@@ -5,7 +5,7 @@
 
 class Settlement : public Model {
    public:
-    Settlement();
+    Settlement(GLuint shader);
 
    private:
 };

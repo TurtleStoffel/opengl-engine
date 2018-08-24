@@ -25,7 +25,6 @@ Application::~Application() {
 }
 
 void Application::run() {
-    GLuint modelMatrix      = glGetUniformLocation(_shader, "model");
     GLuint projectionMatrix = glGetUniformLocation(_shader, "projection");
 
     int lastFPSTick     = SDL_GetTicks();
@@ -39,9 +38,6 @@ void Application::run() {
                                                 0.1f,
                                                 100.0f);
         glUniformMatrix4fv(projectionMatrix, 1, GL_FALSE, &projection[0][0]);
-
-        glm::mat4 model = glm::mat4(1.0);
-        glUniformMatrix4fv(modelMatrix, 1, GL_FALSE, &model[0][0]);
 
         SDL_Event event;
         while (SDL_PollEvent(&event)) {

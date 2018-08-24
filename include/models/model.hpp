@@ -13,11 +13,16 @@ struct Vertex {
 
 class Model {
    public:
-    Model();
+    Model(GLuint shader);
     void render();
+
+    glm::vec3 getPosition();
 
    protected:
     void _setupBuffers();
+
+    glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f);
+    GLuint _modelMatrixUniform;
 
     std::vector<Vertex> _vertices;
     GLuint _vao;

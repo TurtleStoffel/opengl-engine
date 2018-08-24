@@ -5,7 +5,7 @@
 
 class Square : public Model {
    public:
-    Square();
+    Square(GLuint shader);
 };
 
 #endif

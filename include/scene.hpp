@@ -24,8 +24,8 @@ class Scene : public Updateable {
     virtual void update(int t);
 
    private:
-    std::vector<Selectable> _selectable;
-    std::vector<Model> _renderable;
+    std::vector<Selectable*> _selectable;
+    std::vector<Model*> _renderable;
     Camera* _camera;
 };
 
