@@ -11,6 +11,9 @@ Model::Model(GLuint shader) {
     _modelMatrixUniform = glGetUniformLocation(shader, "model");
 }
 
+Model::~Model() {
+}
+
 void Model::render() {
     // Apply model transformation matrix
     glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), _scale);
@@ -20,6 +23,18 @@ void Model::render() {
     // Render vertices
     glBindVertexArray(_vao);
     glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
+}
+
+void Model::scale(glm::vec3 v) {
+    _scale *= v;
+}
+
+void Model::translate(glm::vec3 v) {
+    _position += v;
+}
+
+void Model::rotate(glm::vec3 v) {
+    _rotation += v;
 }
 
 void Model::_setupBuffers() {

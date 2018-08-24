@@ -6,17 +6,18 @@
 #include "models/ground.hpp"
 #include "models/sphere.hpp"
 
+#include "objects/planet.hpp"
+
 Scene::Scene(Application* pParent) {
     GLuint shaderID = pParent->getShaderID();
-    _renderable.push_back(new Sphere(shaderID));
-    //_renderable.push_back(new Ground(shaderID));
+    _objects.push_back(new Planet(shaderID, this));
     _camera = new FlatCamera(shaderID);
 }
 
 Scene::~Scene() {
     delete _camera;
-    for (Model* model : _renderable) {
-        delete model;
+    for (Object* object : _objects) {
+        delete object;
     }
 }
 
@@ -32,4 +33,8 @@ void Scene::render() {
     for (Model* model : _renderable) {
         model->render();
     }
+}
+
+void Scene::addRenderable(Model* pModel) {
+    _renderable.push_back(pModel);
 }
