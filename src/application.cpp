@@ -6,10 +6,6 @@
 #include "scene.hpp"
 #include "shader.hpp"
 
-#include "models/ground.hpp"
-#include "models/model.hpp"
-#include "models/square.hpp"
-
 Application::Application(SDL_Window* pWindow) {
     _pWindow      = pWindow;
     _windowWidth  = constant::initialWindowWidth;
@@ -32,7 +28,8 @@ void Application::run() {
     GLuint modelMatrix      = glGetUniformLocation(_shader, "model");
     GLuint projectionMatrix = glGetUniformLocation(_shader, "projection");
 
-    int lastFrame = SDL_GetTicks();
+    int lastFPSTick     = SDL_GetTicks();
+    int lastUpdateTicks = SDL_GetTicks();
 
     while (_running) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -52,19 +49,22 @@ void Application::run() {
                 _pScene->handleInput(event);
             }
         }
+        int currentUpdateTicks = SDL_GetTicks();
+        int passedTicks        = currentUpdateTicks - lastUpdateTicks;
+        lastUpdateTicks        = currentUpdateTicks;
+        _pScene->update(passedTicks);
 
-        _pScene->update();
         _pScene->render();
 
         // Swap window buffers
         SDL_GL_SwapWindow(_pWindow);
 
         // Limit number of frames per second
-        int currentFrame = SDL_GetTicks();
-        if (currentFrame - lastFrame < 1000 / constant::FPS) {
-            SDL_Delay(1000 / constant::FPS - currentFrame + lastFrame);
+        int currentFPSTick = SDL_GetTicks();
+        if (currentFPSTick - lastFPSTick < (1000 / constant::FPS)) {
+            SDL_Delay(1000 / constant::FPS - currentFPSTick + lastFPSTick);
         }
-        lastFrame = currentFrame;
+        lastFPSTick = currentFPSTick;
     }
 }
 

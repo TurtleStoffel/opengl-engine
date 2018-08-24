@@ -5,17 +5,21 @@
 
 #include "models/ground.hpp"
 
-Scene::Scene(Application* parent) {
+Scene::Scene(Application* pParent) {
     _renderable.push_back(Ground());
-    _camera = new FlatCamera(parent->getShaderID());
+    _camera = new FlatCamera(pParent->getShaderID());
+}
+
+Scene::~Scene() {
+    delete _camera;
 }
 
 void Scene::handleInput(SDL_Event event) {
     _camera->handleInput(event);
 }
 
-void Scene::update() {
-    _camera->update();
+void Scene::update(int t) {
+    _camera->update(t);
 }
 
 void Scene::render() {

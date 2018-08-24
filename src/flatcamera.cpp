@@ -3,18 +3,21 @@
 FlatCamera::FlatCamera(GLuint shader) : Camera(shader) {
 }
 
-bool FlatCamera::_update() {
+FlatCamera::~FlatCamera() {
+}
+
+bool FlatCamera::_update(int t) {
     if (_wPressed) {
-        _cameraPosition += glm::vec3(0.0f, 0.1f, 0.0f);
+        _cameraPosition += glm::vec3(0.0f, 0.01f, 0.0f) * ((float)t);
     }
     if (_aPressed) {
-        _cameraPosition += glm::vec3(-0.1f, 0.0f, 0.0f);
+        _cameraPosition += glm::vec3(-0.01f, 0.0f, 0.0f) * ((float)t);
     }
     if (_sPressed) {
-        _cameraPosition += glm::vec3(0.0f, -0.1f, 0.0f);
+        _cameraPosition += glm::vec3(0.0f, -0.01f, 0.0f) * ((float)t);
     }
     if (_dPressed) {
-        _cameraPosition += glm::vec3(0.1f, 0.0f, 0.0f);
+        _cameraPosition += glm::vec3(0.01f, 0.0f, 0.0f) * ((float)t);
     }
     return (_wPressed || _aPressed || _sPressed || _dPressed);
 }

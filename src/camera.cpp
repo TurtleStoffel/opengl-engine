@@ -9,9 +9,12 @@ Camera::Camera(GLuint shader) {
     _configureShader();
 }
 
-void Camera::update() {
+Camera::~Camera() {
+}
+
+void Camera::update(int t) {
     // Check if camera has been changed this frame
-    if (_update()) {
+    if (_update(t)) {
         // Set values in shader
         _configureShader();
     }

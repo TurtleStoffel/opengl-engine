@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "opengl.hpp"
+#include "updateable.hpp"
 
 #include "models/model.hpp"
 #include "models/selectable.hpp"
@@ -11,13 +12,16 @@
 class Application;
 class Camera;
 
-class Scene {
+class Scene : public Updateable {
    public:
-    Scene(Application* parent);
+    Scene(Application* pParent);
+    virtual ~Scene();
 
-    void update();
-    void render();
     void handleInput(SDL_Event event);
+    void render();
+
+    // Updateable Interface
+    virtual void update(int t);
 
    private:
     std::vector<Selectable> _selectable;
