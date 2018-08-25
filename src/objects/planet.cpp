@@ -10,3 +10,7 @@ Planet::Planet(Scene* pScene) {
 Planet::~Planet() {
     delete _pModel;
 }
+
+void Planet::update(int t) {
+    rotate(0.0001f * t);
+}

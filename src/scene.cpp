@@ -7,8 +7,8 @@ Scene::~Scene() {
     if (_camera) {
         delete _camera;
     }
-    for (Object* object : _objects) {
-        delete object;
+    for (Object* pObject : _objects) {
+        delete pObject;
     }
 }
 
@@ -18,6 +18,10 @@ void Scene::handleInput(SDL_Event event) {
 
 void Scene::update(int t) {
     _camera->update(t);
+
+    for (Object* pObject : _objects) {
+        pObject->update(t);
+    }
 }
 
 void Scene::render() {

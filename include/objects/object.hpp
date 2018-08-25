@@ -4,16 +4,21 @@
 #include <glm/glm.hpp>
 
 #include "interfaces/transformable.hpp"
+#include "interfaces/updateable.hpp"
 
 #include "models/model.hpp"
 
-class Object : public Transformable {
+class Object : public Transformable, public Updateable {
    public:
     virtual ~Object();
 
+    // Transformable interface
     virtual void scale(glm::vec3 v);
     virtual void translate(glm::vec3 v);
-    virtual void rotate(glm::vec3 v);
+    virtual void rotate(float degrees);
+
+    // Updateable interface
+    virtual void update(int t) = 0;
 
    protected:
     /**

@@ -9,6 +9,9 @@ class Planet : public Object {
    public:
     Planet(Scene* pScene);
     ~Planet();
+
+    // Updateable interface
+    virtual void update(int t);
 };
 
 #endif

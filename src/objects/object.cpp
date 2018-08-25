@@ -16,8 +16,8 @@ void Object::translate(glm::vec3 v) {
     }
 }
 
-void Object::rotate(glm::vec3 v) {
+void Object::rotate(float degrees) {
     if (_pModel) {
-        _pModel->rotate(v);
+        _pModel->rotate(degrees);
     }
 }

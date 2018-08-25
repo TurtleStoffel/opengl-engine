@@ -10,3 +10,6 @@ Sun::Sun(Scene* pScene) {
 Sun::~Sun() {
     delete _pModel;
 }
+
+void Sun::update(int t) {
+}
