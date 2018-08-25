@@ -16,6 +16,10 @@ class Object : public Transformable {
     virtual void rotate(glm::vec3 v);
 
    protected:
+    /**
+     * Every Object is responsible to add its own model to the scene
+     * (game objects without models are possible)
+     */
     Model* _pModel;
 };
 
