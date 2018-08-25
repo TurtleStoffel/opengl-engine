@@ -13,9 +13,11 @@ class Sphere : public Model {
    public:
     Sphere();
     Sphere(int depth);
+    Sphere(glm::vec3 (*colorGenerator)());
+    Sphere(int depth, glm::vec3 (*colorGenerator)());
 
    private:
-    Vertex _getMidpoint(Vertex p1, Vertex p2);
+    Vertex _getMidpoint(Vertex p1, Vertex p2, glm::vec3 (*colorGenerator)());
 };
 
 #endif

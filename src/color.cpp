@@ -18,4 +18,4 @@ glm::vec3 blue() {
                      util::randf(0.5f, 1.0f));
     // clang-format on
 }
-}
+}  // namespace color
