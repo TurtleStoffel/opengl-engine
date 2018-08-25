@@ -20,9 +20,9 @@ class Camera : public Updateable {
    protected:
     virtual bool _update(int t) = 0;
 
-    glm::vec3 _cameraPosition  = glm::vec3(0.0f, -5.0f, 10.0f);
-    glm::vec3 _cameraDirection = glm::vec3(0.0f, 0.8f, -1.0f);
-    glm::vec3 _cameraUp        = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 _cameraPosition  = glm::vec3(0.0f, -5.0f, 5.0f);
+    glm::vec3 _cameraDirection = glm::vec3(0.0f, 1.0f, -1.0f);
+    glm::vec3 _cameraUp        = glm::vec3(0.0f, 1.0f, 1.0f);
 
     bool _wPressed = false;
     bool _aPressed = false;
