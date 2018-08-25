@@ -5,7 +5,10 @@ class Transformable {
    public:
     virtual void scale(glm::vec3 v)     = 0;
     virtual void translate(glm::vec3 v) = 0;
-    virtual void rotate(glm::vec3 v)    = 0;
+    /**
+     * Rotation is always assumed to be around z-axis
+     */
+    virtual void rotate(float degrees) = 0;
 };
 
 #endif

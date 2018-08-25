@@ -20,9 +20,11 @@ Model::~Model() {
 }
 
 void Model::render() {
-    // Apply model transformation matrix
-    glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), _scale);
+    // Calculate model transformation matrix
+    glm::mat4 modelMatrix = glm::rotate(glm::mat4(1.0f), _rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+    modelMatrix           = glm::scale(modelMatrix, _scale);
     modelMatrix           = glm::translate(modelMatrix, _position);
+    // Apply model transformation matrix
     glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, &modelMatrix[0][0]);
 
     // Render vertices
@@ -38,8 +40,8 @@ void Model::translate(glm::vec3 v) {
     _position += v;
 }
 
-void Model::rotate(glm::vec3 v) {
-    _rotation += v;
+void Model::rotate(float degrees) {
+    _rotation += degrees;
 }
 
 void Model::_setupBuffers() {

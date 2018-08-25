@@ -22,14 +22,14 @@ class Model : public Transformable {
     // Transformable Interface
     virtual void scale(glm::vec3 v);
     virtual void translate(glm::vec3 v);
-    virtual void rotate(glm::vec3 v);
+    virtual void rotate(float degrees);
 
    protected:
     void _setupBuffers();
 
     glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 _scale    = glm::vec3(1.0f, 1.0f, 1.0f);
-    glm::vec3 _rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+    float _rotation     = 0.0f;
 
     std::vector<Vertex> _vertices;
 
