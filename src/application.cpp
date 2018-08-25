@@ -3,8 +3,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "const.hpp"
-#include "scene.hpp"
 #include "shader.hpp"
+
+#include "planetscene.hpp"
 
 Application::Application(SDL_Window* pWindow) {
     _pWindow      = pWindow;
@@ -17,7 +18,7 @@ Application::Application(SDL_Window* pWindow) {
     shader.use();
     _shader = shader._ID;
 
-    setScene(new Scene(this));
+    setScene(new PlanetScene(this));
 }
 
 Application::~Application() {

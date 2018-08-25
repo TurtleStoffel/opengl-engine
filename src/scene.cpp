@@ -1,21 +1,16 @@
 #include "scene.hpp"
 
 #include "application.hpp"
-#include "flatcamera.hpp"
-
-#include "models/ground.hpp"
-#include "models/sphere.hpp"
-
-#include "objects/planet.hpp"
+#include "camera.hpp"
 
 Scene::Scene(Application* pParent) {
-    GLuint shaderID = pParent->getShaderID();
-    _objects.push_back(new Planet(shaderID, this));
-    _camera = new FlatCamera(shaderID);
+    _shader = pParent->getShaderID();
 }
 
 Scene::~Scene() {
-    delete _camera;
+    if (_camera) {
+        delete _camera;
+    }
     for (Object* object : _objects) {
         delete object;
     }

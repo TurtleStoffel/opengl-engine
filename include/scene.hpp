@@ -17,7 +17,6 @@ class Camera;
 
 class Scene : public Updateable {
    public:
-    Scene(Application* pParent);
     virtual ~Scene();
 
     void handleInput(SDL_Event event);
@@ -28,11 +27,18 @@ class Scene : public Updateable {
     // Updateable Interface
     virtual void update(int t);
 
+   protected:
+    Scene(Application* pParent);
+
+    GLuint _shader;
+
+    std::vector<Object*> _objects;
+
+    Camera* _camera;
+
    private:
     std::vector<Selectable*> _selectable;
     std::vector<Model*> _renderable;
-    std::vector<Object*> _objects;
-    Camera* _camera;
 };
 
 #endif
