@@ -3,10 +3,6 @@
 #include "application.hpp"
 #include "camera.hpp"
 
-Scene::Scene(Application* pParent) {
-    _shader = pParent->getShaderID();
-}
-
 Scene::~Scene() {
     if (_camera) {
         delete _camera;

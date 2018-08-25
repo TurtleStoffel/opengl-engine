@@ -5,7 +5,7 @@
 
 class PlanetScene : public Scene {
    public:
-    PlanetScene(Application* pParent);
+    PlanetScene();
 };
 
 #endif

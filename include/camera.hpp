@@ -9,7 +9,7 @@
 
 class Camera : public Updateable {
    public:
-    Camera(GLuint shader);
+    Camera();
     virtual ~Camera();
 
     virtual void handleInput(SDL_Event event) = 0;
@@ -31,7 +31,7 @@ class Camera : public Updateable {
 
    private:
     void _configureShader();
-    GLuint _shader;
+    GLint _shader;
 };
 
 #endif

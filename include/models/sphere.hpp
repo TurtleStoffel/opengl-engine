@@ -11,8 +11,8 @@ struct Face {
 
 class Sphere : public Model {
    public:
-    Sphere(GLuint shader);
-    Sphere(GLuint shader, int depth);
+    Sphere();
+    Sphere(int depth);
 
    private:
     Vertex _getMidpoint(Vertex p1, Vertex p2);

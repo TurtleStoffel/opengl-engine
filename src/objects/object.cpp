@@ -1,6 +1,7 @@
 #include "objects/object.hpp"
 
 Object::~Object() {
+    // Empty virtual destructor
 }
 
 void Object::scale(glm::vec3 v) {

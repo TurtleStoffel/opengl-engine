@@ -5,12 +5,13 @@
 
 class FlatCamera : public Camera {
    public:
-    FlatCamera(GLuint shader);
     virtual ~FlatCamera();
 
+    // Abstract Camera function
     virtual void handleInput(SDL_Event event);
 
    protected:
+    // Abstract Camera function
     virtual bool _update(int t);
 };
 

@@ -2,8 +2,8 @@
 
 #include "models/sphere.hpp"
 
-Planet::Planet(GLuint shader, Scene* pScene) {
-    _pModel = new Sphere(shader);
+Planet::Planet(Scene* pScene) {
+    _pModel = new Sphere();
     pScene->addRenderable(_pModel);
 }
 

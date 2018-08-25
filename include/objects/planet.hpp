@@ -7,7 +7,7 @@
 
 class Planet : public Object {
    public:
-    Planet(GLuint shader, Scene* pScene);
+    Planet(Scene* pScene);
     ~Planet();
 };
 

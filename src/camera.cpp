@@ -2,14 +2,16 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Camera::Camera(GLuint shader) {
-    _shader = shader;
+Camera::Camera() {
+    // Get current shader ID
+    glGetIntegerv(GL_CURRENT_PROGRAM, &_shader);
 
     // Set initial values in shader
     _configureShader();
 }
 
 Camera::~Camera() {
+    // Empty virtual destructor
 }
 
 void Camera::update(int t) {

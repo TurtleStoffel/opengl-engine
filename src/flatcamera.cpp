@@ -1,9 +1,7 @@
 #include "flatcamera.hpp"
 
-FlatCamera::FlatCamera(GLuint shader) : Camera(shader) {
-}
-
 FlatCamera::~FlatCamera() {
+    // Empty virtual destructor
 }
 
 bool FlatCamera::_update(int t) {

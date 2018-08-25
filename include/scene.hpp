@@ -28,10 +28,6 @@ class Scene : public Updateable {
     virtual void update(int t);
 
    protected:
-    Scene(Application* pParent);
-
-    GLuint _shader;
-
     std::vector<Object*> _objects;
 
     Camera* _camera;

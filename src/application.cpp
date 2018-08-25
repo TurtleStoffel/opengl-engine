@@ -18,7 +18,7 @@ Application::Application(SDL_Window* pWindow) {
     shader.use();
     _shader = shader._ID;
 
-    setScene(new PlanetScene(this));
+    setScene(new PlanetScene());
 }
 
 Application::~Application() {
@@ -34,6 +34,7 @@ void Application::run() {
     while (_running) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // Set projection matrix
         glm::mat4 projection = glm::perspective(glm::radians(45.0f),
                                                 (float)_windowWidth / _windowHeight,
                                                 0.1f,
@@ -46,6 +47,8 @@ void Application::run() {
                 _pScene->handleInput(event);
             }
         }
+
+        // Get number of ms since previous update
         int currentUpdateTicks = SDL_GetTicks();
         int passedTicks        = currentUpdateTicks - lastUpdateTicks;
         lastUpdateTicks        = currentUpdateTicks;
@@ -67,10 +70,6 @@ void Application::run() {
 
 void Application::setScene(Scene* pScene) {
     _pScene = pScene;
-}
-
-GLuint Application::getShaderID() {
-    return _shader;
 }
 
 bool Application::_handleInput(SDL_Event event) {

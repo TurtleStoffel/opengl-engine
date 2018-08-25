@@ -2,16 +2,21 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Model::Model(GLuint shader) {
+#include "opengl.hpp"
+
+Model::Model() {
     // Generate OpenGL buffers
     glGenVertexArrays(1, &_vao);
     glGenBuffers(1, &_vbo);
 
     // Get uniform location for model matrix
+    GLint shader;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &shader);
     _modelMatrixUniform = glGetUniformLocation(shader, "model");
 }
 
 Model::~Model() {
+    // Empty virtual destructor
 }
 
 void Model::render() {

@@ -15,8 +15,6 @@ class Application {
     void run();
     void setScene(Scene* pScene);
 
-    GLuint getShaderID();
-
    private:
     bool _handleInput(SDL_Event event);
 

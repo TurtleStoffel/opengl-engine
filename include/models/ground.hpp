@@ -5,7 +5,7 @@
 
 class Ground : public Model {
    public:
-    Ground(GLuint shader);
+    Ground();
 
    private:
     const unsigned int _tiles = 32;

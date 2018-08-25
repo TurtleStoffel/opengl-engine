@@ -15,7 +15,7 @@ struct Vertex {
 
 class Model : public Transformable {
    public:
-    Model(GLuint shader);
+    Model();
     virtual ~Model();
     void render();
 

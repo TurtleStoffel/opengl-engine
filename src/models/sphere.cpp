@@ -2,10 +2,10 @@
 
 #include <math.h>
 
-Sphere::Sphere(GLuint shader) : Sphere(shader, 3) {
+Sphere::Sphere() : Sphere(3) {
 }
 
-Sphere::Sphere(GLuint shader, int depth) : Model(shader) {
+Sphere::Sphere(int depth) {
     // Increase size of object
     _scale = glm::vec3(4.0f, 4.0f, 4.0f);
 
