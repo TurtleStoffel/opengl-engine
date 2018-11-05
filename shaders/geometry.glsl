@@ -12,6 +12,7 @@ uniform mat4 projection;
 uniform vec3 cameraPosition;
 
 const vec3 lightDirection = normalize(vec3(0.4, 1.0, -0.8));
+//const vec3 lightDirection = normalize(vec3(0.0, 1.0, 0.0));
 const vec3 lightColor = vec3(1.0, 0.6, 0.6);
 const float reflectivity = 0.2;
 const float shineDamper = 14.0;
@@ -37,9 +38,9 @@ vec3 calculateSpecular(vec4 worldPosition, vec3 normal) {
 }
 
 void main() {
-    vec4 p1 = projection * view * model * gl_in[0].gl_Position;
-    vec4 p2 = projection * view * model * gl_in[1].gl_Position;
-    vec4 p3 = projection * view * model * gl_in[2].gl_Position;
+    vec4 p1 = model * gl_in[0].gl_Position;
+    vec4 p2 = model * gl_in[1].gl_Position;
+    vec4 p3 = model * gl_in[2].gl_Position;
 
 
     vec3 normal = calculateTriangleNormal(p1.xyz, p2.xyz, p3.xyz);
@@ -47,14 +48,15 @@ void main() {
     float brightness = max(dot(-lightDirection, normal), ambientLighting);
     vec3 color = vertexColorVS[0] * brightness;
 
-    gl_Position = p1;
-    vertexColor = vec4(color + calculateSpecular(p1, normal), 0.0);
+    gl_Position = projection * view * p1;
+    vertexColor = vec4(color, 0.0);
+    //vertexColor = vec4(color + calculateSpecular(view * p1, normal), 0.0);
     EmitVertex();
 
-    gl_Position = p2;
+    gl_Position = projection * view * p2;
     EmitVertex();
 
-    gl_Position = p3;
+    gl_Position = projection * view * p3;
     EmitVertex();
 
     EndPrimitive();
