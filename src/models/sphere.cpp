@@ -15,7 +15,7 @@ Sphere::Sphere(glm::vec3 (*colorGenerator)()) : Sphere(3, colorGenerator) {
 
 Sphere::Sphere(int depth, glm::vec3 (*colorGenerator)()) {
     // Increase size of object
-    _scale = glm::vec3(4.0f, 4.0f, 4.0f);
+    //_scale = glm::vec3(4.0f, 4.0f, 4.0f);
 
     float d = (1.0f + sqrt(5.0f)) / 2.0f;
     // clang-format off

@@ -6,6 +6,7 @@
 #include "shader.hpp"
 
 #include "planetscene.hpp"
+#include "systemscene.hpp"
 
 Application::Application(SDL_Window* pWindow) {
     _pWindow      = pWindow;
@@ -18,7 +19,7 @@ Application::Application(SDL_Window* pWindow) {
     shader.use();
     _shader = shader._ID;
 
-    setScene(new PlanetScene());
+    setScene(new SystemScene());
 }
 
 Application::~Application() {

@@ -14,6 +14,14 @@ Camera::~Camera() {
     // Empty virtual destructor
 }
 
+void Camera::set(glm::vec3 position, glm::vec3 direction, glm::vec3 up) {
+    _cameraPosition  = position;
+    _cameraDirection = direction;
+    _cameraUp        = up;
+
+    _configureShader();
+}
+
 void Camera::update(int t) {
     // Check if camera has been changed this frame
     if (_update(t)) {
