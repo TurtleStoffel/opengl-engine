@@ -95,7 +95,7 @@ bool Sphere::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
     glm::vec3 intersectionPoint;
     glm::vec3 intersectionNormal;
     return glm::intersectRaySphere(rayPosition,
-                                   rayDirection,
+                                   glm::normalize(rayDirection),
                                    _position,
                                    1.0f,
                                    intersectionPoint,

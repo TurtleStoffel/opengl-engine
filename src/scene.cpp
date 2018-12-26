@@ -64,7 +64,7 @@ void Scene::_mousePick(SDL_Event event) {
                                             glm::vec4(0.0, 0.0, windowWidth, windowHeight));
 
         for (Model* model : _renderable) {
-            if (model->intersect(nearPoint, glm::normalize(farPoint - nearPoint))) {
+            if (model->intersect(nearPoint, farPoint - nearPoint)) {
                 std::cout << "Intersection with an object!" << std::endl;
             }
         }
