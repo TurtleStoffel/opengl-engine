@@ -19,6 +19,8 @@ class Model : public Transformable {
     virtual ~Model();
     void render();
 
+    virtual bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) = 0;
+
     // Transformable Interface
     virtual void scale(glm::vec3 v);
     virtual void translate(glm::vec3 v);

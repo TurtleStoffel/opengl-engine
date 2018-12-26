@@ -1,11 +1,14 @@
 #include "scene.hpp"
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
+
 #include "application.hpp"
 #include "camera.hpp"
 
 Scene::~Scene() {
-    if (_camera) {
-        delete _camera;
+    if (_pCamera) {
+        delete _pCamera;
     }
     for (Object* pObject : _objects) {
         delete pObject;
@@ -13,15 +16,11 @@ Scene::~Scene() {
 }
 
 void Scene::handleInput(SDL_Event event) {
-    _camera->handleInput(event);
-}
+    // ---Camera Update---
+    _pCamera->handleInput(event);
 
-void Scene::update(int t) {
-    _camera->update(t);
-
-    for (Object* pObject : _objects) {
-        pObject->update(t);
-    }
+    // ---Mouse Picking Objects---
+    _mousePick(event);
 }
 
 void Scene::render() {
@@ -32,4 +31,48 @@ void Scene::render() {
 
 void Scene::addRenderable(Model* pModel) {
     _renderable.push_back(pModel);
+}
+
+void Scene::update(int t) {
+    _pCamera->update(t);
+
+    for (Object* pObject : _objects) {
+        pObject->update(t);
+    }
+}
+
+void Scene::_mousePick(SDL_Event event) {
+    // Only update if mouse has moved
+    if (event.type == SDL_MOUSEMOTION) {
+        // Get coordinates in window space
+        int x = event.motion.x;
+        int y = event.motion.y;
+
+        Application* pApplication = Application::instance();
+
+        glm::mat4 projectionMatrix = pApplication->_projectionMatrix;
+        glm::mat4 viewMatrix       = _pCamera->_viewMatrix;
+        int windowWidth            = pApplication->_windowWidth;
+        int windowHeight           = pApplication->_windowHeight;
+
+        // Transform coordinates to world space
+        glm::vec3 nearPoint = glm::unProject(glm::vec3(x, y, 0.0),
+                                             viewMatrix,
+                                             projectionMatrix,
+                                             glm::vec4(0.0, 0.0, windowWidth, windowHeight));
+
+        glm::vec3 farPoint = glm::unProject(glm::vec3(x, y, 1.0),
+                                            viewMatrix,
+                                            projectionMatrix,
+                                            glm::vec4(0.0, 0.0, windowWidth, windowHeight));
+
+        std::cout << nearPoint.x << ", " << nearPoint.y << ", " << nearPoint.z << std::endl;
+        std::cout << farPoint.x << ", " << farPoint.y << ", " << farPoint.z << std::endl;
+
+        for (Model* model : _renderable) {
+            if (model->intersect(nearPoint, glm::normalize(farPoint - nearPoint))) {
+                std::cout << "Intersection with an object!" << std::endl;
+            }
+        }
+    }
 }

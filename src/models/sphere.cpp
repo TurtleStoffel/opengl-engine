@@ -1,6 +1,10 @@
 #include "models/sphere.hpp"
 
 #include <math.h>
+#include <iostream>
+
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/intersect.hpp>
 
 #include "color.hpp"
 
@@ -85,6 +89,17 @@ Sphere::Sphere(int depth, glm::vec3 (*colorGenerator)()) {
     }
 
     _setupBuffers();
+}
+
+bool Sphere::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
+    glm::vec3 intersectionPoint;
+    glm::vec3 intersectionNormal;
+    return glm::intersectRaySphere(rayPosition,
+                                   rayDirection,
+                                   _position,
+                                   1.0f,
+                                   intersectionPoint,
+                                   intersectionNormal);
 }
 
 Vertex Sphere::_getMidpoint(Vertex p1, Vertex p2, glm::vec3 (*colorGenerator)()) {

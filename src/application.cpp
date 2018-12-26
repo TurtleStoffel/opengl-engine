@@ -2,11 +2,18 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#define NANOVG_GL3_IMPLEMENTATION
+#include "nanovg_gl.h"
+
 #include "const.hpp"
 #include "shader.hpp"
 
 #include "planetscene.hpp"
 #include "systemscene.hpp"
+
+#include <iostream>
+
+Application* Application::pApplication = nullptr;
 
 Application::Application(SDL_Window* pWindow) {
     _pWindow      = pWindow;
@@ -20,28 +27,34 @@ Application::Application(SDL_Window* pWindow) {
     _shader = shader._ID;
 
     setScene(new SystemScene());
+
+    _vg = nvgCreateGL3(NVG_ANTIALIAS);
 }
 
 Application::~Application() {
     delete _pScene;
+
+    nvgDeleteGL3(_vg);
+}
+
+Application* Application::instance(SDL_Window* pWindow) {
+    if (pApplication == nullptr) {
+        pApplication = new Application(pWindow);
+    }
+
+    return pApplication;
+}
+
+Application* Application::instance() {
+    return pApplication;
 }
 
 void Application::run() {
-    GLuint projectionMatrix = glGetUniformLocation(_shader, "projection");
-
     int lastFPSTick     = SDL_GetTicks();
     int lastUpdateTicks = SDL_GetTicks();
 
     while (_running) {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // Set projection matrix
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f),
-                                                (float)_windowWidth / _windowHeight,
-                                                0.1f,
-                                                100.0f);
-        glUniformMatrix4fv(projectionMatrix, 1, GL_FALSE, &projection[0][0]);
-
+        // ---Input handling---
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             if (!_handleInput(event)) {
@@ -49,16 +62,16 @@ void Application::run() {
             }
         }
 
+        // ---Scene Update---
         // Get number of ms since previous update
         int currentUpdateTicks = SDL_GetTicks();
         int passedTicks        = currentUpdateTicks - lastUpdateTicks;
         lastUpdateTicks        = currentUpdateTicks;
+        // Update scene
         _pScene->update(passedTicks);
 
-        _pScene->render();
-
-        // Swap window buffers
-        SDL_GL_SwapWindow(_pWindow);
+        // ---Rendering---
+        _render();
 
         // Limit number of frames per second
         int currentFPSTick = SDL_GetTicks();
@@ -100,4 +113,61 @@ bool Application::_handleInput(SDL_Event event) {
             }
     }
     return false;
+}
+
+void Application::_render() {
+    // Cleanup rendering buffers
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    // Reenable shader every frame because disabled by NanoVG
+    glUseProgram(_shader);
+
+    // Set projection matrix
+    GLuint projectionMatrix = glGetUniformLocation(_shader, "projection");
+
+    _projectionMatrix = glm::perspective(glm::radians(45.0f),
+                                         (float)_windowWidth / _windowHeight,
+                                         0.1f,
+                                         100.0f);
+    glUniformMatrix4fv(projectionMatrix, 1, GL_FALSE, &_projectionMatrix[0][0]);
+
+    // Render scene
+    _pScene->render();
+
+    // Render GUI
+    int x = 50;
+    int y = 50;
+    int w = 120;
+    int h = 30;
+
+    // Get window Size for to start NanoVG frame
+    int bufferWidth;
+    int bufferHeight;
+    SDL_GL_GetDrawableSize(_pWindow, &bufferWidth, &bufferHeight);
+    nvgBeginFrame(_vg, _windowWidth, _windowHeight, (float)bufferWidth / _windowHeight);
+
+    nvgSave(_vg);
+
+    nvgBeginPath(_vg);
+    nvgRect(_vg, x, y, w, h);
+    nvgFillColor(_vg, nvgRGBA(255, 192, 0, 255));
+    nvgFill(_vg);
+
+    if (nvgCreateFont(_vg, "sans", "../res/Roboto-Regular.ttf") == -1) {
+        std::cout << "could not open font" << std::endl;
+    }
+
+    nvgFontSize(_vg, 30.0f);
+    nvgFontFace(_vg, "sans");
+    nvgTextAlign(_vg, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
+
+    nvgFillColor(_vg, nvgRGBA(255, 255, 255, 255));
+    nvgText(_vg, x + 5, y + h / 2, "test", NULL);
+
+    nvgRestore(_vg);
+
+    nvgEndFrame(_vg);
+
+    // Swap window buffers
+    SDL_GL_SwapWindow(_pWindow);
 }

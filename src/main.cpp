@@ -10,12 +10,17 @@ int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused)))
                                            SDL_WINDOWPOS_CENTERED,
                                            constant::initialWindowWidth,
                                            constant::initialWindowHeight,
-                                           SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+                                           SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
+                                               SDL_WINDOW_BORDERLESS);
 
     // Generate OpenGL Context
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+    // Enable Stencil Buffer for NanoVG
+    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 1);
+
     SDL_GLContext context __attribute__((unused)) = SDL_GL_CreateContext(pWindow);
 
 #ifndef __APPLE__
@@ -29,8 +34,8 @@ int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused)))
     glEnable(GL_DEPTH_TEST);
 
     // Startup Application
-    Application application = Application(pWindow);
-    application.run();
+    Application* pApplication = Application::instance(pWindow);
+    pApplication->run();
 
     // Destroy Application
     SDL_DestroyWindow(pWindow);

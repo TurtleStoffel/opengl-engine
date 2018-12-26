@@ -39,6 +39,6 @@ void Camera::_configureShader() {
     glUniform3fv(shaderCameraPosition, 1, &_cameraPosition[0]);
 
     // Set camera view matrix
-    glm::mat4 view = glm::lookAt(_cameraPosition, _cameraPosition + _cameraDirection, _cameraUp);
-    glUniformMatrix4fv(viewMatrix, 1, GL_FALSE, &view[0][0]);
+    _viewMatrix = glm::lookAt(_cameraPosition, _cameraPosition + _cameraDirection, _cameraUp);
+    glUniformMatrix4fv(viewMatrix, 1, GL_FALSE, &_viewMatrix[0][0]);
 }

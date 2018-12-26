@@ -30,11 +30,13 @@ class Scene : public Updateable {
    protected:
     std::vector<Object*> _objects;
 
-    Camera* _camera;
+    Camera* _pCamera;
 
    private:
     std::vector<Selectable*> _selectable;
     std::vector<Model*> _renderable;
+
+    void _mousePick(SDL_Event event);
 };
 
 #endif
