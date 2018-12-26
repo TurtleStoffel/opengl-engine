@@ -8,6 +8,7 @@
 #include "const.hpp"
 #include "shader.hpp"
 
+#include "camera.hpp"
 #include "planetscene.hpp"
 #include "systemscene.hpp"
 
@@ -16,9 +17,7 @@
 Application* Application::pApplication = nullptr;
 
 Application::Application(SDL_Window* pWindow) {
-    _pWindow      = pWindow;
-    _windowWidth  = constant::initialWindowWidth;
-    _windowHeight = constant::initialWindowHeight;
+    _pWindow = pWindow;
 
     Shader shader = Shader("../shaders/vertex.glsl",
                            "../shaders/geometry.glsl",
@@ -90,10 +89,8 @@ bool Application::_handleInput(SDL_Event event) {
     switch (event.type) {
         case SDL_WINDOWEVENT:
             if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
-                _windowWidth  = event.window.data1;
-                _windowHeight = event.window.data2;
-
-                glViewport(0, 0, _windowWidth, _windowHeight);
+                Camera::instance()->setWindowSize(event.window.data1,   // Window Width
+                                                  event.window.data2);  // Window Height
             }
             return true;
         case SDL_QUIT:
@@ -122,15 +119,6 @@ void Application::_render() {
     // Reenable shader every frame because disabled by NanoVG
     glUseProgram(_shader);
 
-    // Set projection matrix
-    GLuint projectionMatrix = glGetUniformLocation(_shader, "projection");
-
-    _projectionMatrix = glm::perspective(glm::radians(45.0f),
-                                         (float)_windowWidth / _windowHeight,
-                                         0.1f,
-                                         100.0f);
-    glUniformMatrix4fv(projectionMatrix, 1, GL_FALSE, &_projectionMatrix[0][0]);
-
     // Render scene
     _pScene->render();
 
@@ -144,7 +132,11 @@ void Application::_render() {
     int bufferWidth;
     int bufferHeight;
     SDL_GL_GetDrawableSize(_pWindow, &bufferWidth, &bufferHeight);
-    nvgBeginFrame(_vg, _windowWidth, _windowHeight, (float)bufferWidth / _windowHeight);
+
+    int windowWidth;
+    int windowHeight;
+    Camera::instance()->getWindowSize(windowWidth, windowHeight);
+    nvgBeginFrame(_vg, windowWidth, windowHeight, (float)bufferWidth / windowHeight);
 
     nvgSave(_vg);
 

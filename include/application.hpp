@@ -19,11 +19,6 @@ class Application {
     void run();
     void setScene(Scene* pScene);
 
-    glm::mat4 _projectionMatrix;
-
-    int _windowWidth;
-    int _windowHeight;
-
    private:
     static Application* pApplication;
     Application(SDL_Window* pWindow);

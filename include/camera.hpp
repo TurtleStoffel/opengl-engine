@@ -19,6 +19,9 @@ class Camera : public Updateable {
      */
     void set(glm::vec3 position, glm::vec3 direction, glm::vec3 up);
 
+    void setWindowSize(int windowWidth, int windowHeight);
+    void getWindowSize(int& windowWidth, int& windowHeight);
+
     /**
      * Abstract class to force child classes to implement handleInput
      */
@@ -28,6 +31,7 @@ class Camera : public Updateable {
      * TODO will be cleaned up
      */
     glm::mat4 _viewMatrix;
+    glm::mat4 _projectionMatrix;
 
     /**
      * Updateable Interface methods
@@ -61,6 +65,12 @@ class Camera : public Updateable {
    private:
     void _configureShader();
     GLint _shader;
+
+    /**
+     * Window Size
+     */
+    int _windowWidth;
+    int _windowHeight;
 };
 
 #endif

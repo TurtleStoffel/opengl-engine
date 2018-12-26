@@ -45,12 +45,12 @@ void Scene::_mousePick(SDL_Event event) {
         int x = event.motion.x;
         int y = event.motion.y;
 
-        Application* pApplication = Application::instance();
-
-        glm::mat4 projectionMatrix = pApplication->_projectionMatrix;
+        glm::mat4 projectionMatrix = _pCamera->_projectionMatrix;
         glm::mat4 viewMatrix       = _pCamera->_viewMatrix;
-        int windowWidth            = pApplication->_windowWidth;
-        int windowHeight           = pApplication->_windowHeight;
+
+        int windowWidth;
+        int windowHeight;
+        _pCamera->getWindowSize(windowWidth, windowHeight);
 
         // Transform coordinates to world space
         glm::vec3 nearPoint = glm::unProject(glm::vec3(x, y, 0.0),
