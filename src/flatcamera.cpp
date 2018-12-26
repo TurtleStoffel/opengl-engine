@@ -56,3 +56,13 @@ void FlatCamera::handleInput(SDL_Event event) {
             break;
     }
 }
+
+FlatCamera::FlatCamera() {
+    // Empty private constructor
+}
+
+Camera* FlatCamera::changeInstance() {
+    _pCamera = new FlatCamera();
+
+    return Camera::_pCamera;
+}

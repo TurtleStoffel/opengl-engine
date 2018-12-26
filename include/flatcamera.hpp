@@ -3,7 +3,12 @@
 
 #include "camera.hpp"
 
+#include "systemscene.hpp"
+
 class FlatCamera : public Camera {
+    // Only allow SystemScene to create an instance of FlatCamera
+    friend class SystemScene;
+
    public:
     virtual ~FlatCamera();
 
@@ -13,6 +18,10 @@ class FlatCamera : public Camera {
    protected:
     // Abstract Camera function
     virtual bool _update(int t);
+
+   private:
+    FlatCamera();
+    static Camera* changeInstance();
 };
 
 #endif

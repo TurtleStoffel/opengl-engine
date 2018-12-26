@@ -7,9 +7,6 @@
 #include "camera.hpp"
 
 Scene::~Scene() {
-    if (_pCamera) {
-        delete _pCamera;
-    }
     for (Object* pObject : _objects) {
         delete pObject;
     }
@@ -65,9 +62,6 @@ void Scene::_mousePick(SDL_Event event) {
                                             viewMatrix,
                                             projectionMatrix,
                                             glm::vec4(0.0, 0.0, windowWidth, windowHeight));
-
-        std::cout << nearPoint.x << ", " << nearPoint.y << ", " << nearPoint.z << std::endl;
-        std::cout << farPoint.x << ", " << farPoint.y << ", " << farPoint.z << std::endl;
 
         for (Model* model : _renderable) {
             if (model->intersect(nearPoint, glm::normalize(farPoint - nearPoint))) {

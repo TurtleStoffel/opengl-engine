@@ -6,5 +6,5 @@
 
 PlanetScene::PlanetScene() {
     _objects.push_back(new Planet(this));
-    _pCamera = new FlatCamera();
+    //_pCamera = new FlatCamera();
 }

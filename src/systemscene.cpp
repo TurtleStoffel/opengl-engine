@@ -7,7 +7,7 @@
 
 SystemScene::SystemScene() {
     // Create camera
-    _pCamera = new FlatCamera();
+    _pCamera = FlatCamera::changeInstance();
     _pCamera->set(glm::vec3(0.0f, 0.0f, 5.0f),
                   glm::vec3(0.0f, 0.0f, -1.0f),
                   glm::vec3(0.0f, 1.0f, 0.0f));

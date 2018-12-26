@@ -13,7 +13,6 @@ class Application {
    public:
     ~Application();
 
-    static Application* pApplication;
     static Application* instance(SDL_Window* pWindow);
     static Application* instance();
 
@@ -25,10 +24,10 @@ class Application {
     int _windowWidth;
     int _windowHeight;
 
-   protected:
+   private:
+    static Application* pApplication;
     Application(SDL_Window* pWindow);
 
-   private:
     bool _handleInput(SDL_Event event);
     void _render();
 

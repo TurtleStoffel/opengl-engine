@@ -2,6 +2,16 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+Camera* Camera::_pCamera = nullptr;
+
+Camera* Camera::instance() {
+    // There should always be an instance of the camera when requesting it
+    assert(_pCamera);
+
+    // Return current instance
+    return _pCamera;
+}
+
 Camera::Camera() {
     // Get current shader ID
     glGetIntegerv(GL_CURRENT_PROGRAM, &_shader);
