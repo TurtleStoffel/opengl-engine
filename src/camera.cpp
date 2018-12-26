@@ -50,6 +50,23 @@ void Camera::getWindowSize(int& windowWidth, int& windowHeight) {
     windowHeight = _windowHeight;
 }
 
+void Camera::calculateClickRay(int x, int y, glm::vec3& point, glm::vec3& direction) {
+    // Transform coordinates to world space
+    glm::vec3 nearPoint = glm::unProject(glm::vec3(x, y, 0.0),
+                                         _viewMatrix,
+                                         _projectionMatrix,
+                                         glm::vec4(0.0, 0.0, _windowWidth, _windowHeight));
+
+    // Transform coordinates of far off point to calculate direction
+    glm::vec3 farPoint = glm::unProject(glm::vec3(x, y, 1.0),
+                                        _viewMatrix,
+                                        _projectionMatrix,
+                                        glm::vec4(0.0, 0.0, _windowWidth, _windowHeight));
+
+    point     = nearPoint;
+    direction = farPoint - nearPoint;
+}
+
 void Camera::update(int t) {
     // Check if camera has been changed this frame
     if (_update(t)) {

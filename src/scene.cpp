@@ -41,30 +41,13 @@ void Scene::update(int t) {
 void Scene::_mousePick(SDL_Event event) {
     // Only update if mouse has moved
     if (event.type == SDL_MOUSEMOTION) {
-        // Get coordinates in window space
-        int x = event.motion.x;
-        int y = event.motion.y;
-
-        glm::mat4 projectionMatrix = _pCamera->_projectionMatrix;
-        glm::mat4 viewMatrix       = _pCamera->_viewMatrix;
-
-        int windowWidth;
-        int windowHeight;
-        _pCamera->getWindowSize(windowWidth, windowHeight);
-
-        // Transform coordinates to world space
-        glm::vec3 nearPoint = glm::unProject(glm::vec3(x, y, 0.0),
-                                             viewMatrix,
-                                             projectionMatrix,
-                                             glm::vec4(0.0, 0.0, windowWidth, windowHeight));
-
-        glm::vec3 farPoint = glm::unProject(glm::vec3(x, y, 1.0),
-                                            viewMatrix,
-                                            projectionMatrix,
-                                            glm::vec4(0.0, 0.0, windowWidth, windowHeight));
+        // Transform point to ray in world space
+        glm::vec3 point;
+        glm::vec3 direction;
+        _pCamera->calculateClickRay(event.motion.x, event.motion.y, point, direction);
 
         for (Model* model : _renderable) {
-            if (model->intersect(nearPoint, farPoint - nearPoint)) {
+            if (model->intersect(point, direction)) {
                 std::cout << "Intersection with an object!" << std::endl;
             }
         }

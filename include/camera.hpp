@@ -23,15 +23,15 @@ class Camera : public Updateable {
     void getWindowSize(int& windowWidth, int& windowHeight);
 
     /**
+     * Calculate ray when clicking on point (x,y) on the screen
+     * return output in point and direction parameters
+     */
+    void calculateClickRay(int x, int y, glm::vec3& point, glm::vec3& direction);
+
+    /**
      * Abstract class to force child classes to implement handleInput
      */
     virtual void handleInput(SDL_Event event) = 0;
-
-    /**
-     * TODO will be cleaned up
-     */
-    glm::mat4 _viewMatrix;
-    glm::mat4 _projectionMatrix;
 
     /**
      * Updateable Interface methods
@@ -71,6 +71,12 @@ class Camera : public Updateable {
      */
     int _windowWidth;
     int _windowHeight;
+
+    /**
+     * OpenGL matrices
+     */
+    glm::mat4 _viewMatrix;
+    glm::mat4 _projectionMatrix;
 };
 
 #endif
