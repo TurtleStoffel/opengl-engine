@@ -7,6 +7,7 @@
 
 #include "const.hpp"
 #include "shader.hpp"
+#include "shadercontainer.hpp"
 
 #include "camera.hpp"
 #include "planetscene.hpp"
@@ -19,11 +20,8 @@ Application* Application::pApplication = nullptr;
 Application::Application(SDL_Window* pWindow) {
     _pWindow = pWindow;
 
-    Shader shader = Shader("../shaders/vertex.glsl",
-                           "../shaders/geometry.glsl",
-                           "../shaders/fragment.glsl");
-    shader.use();
-    _shader = shader._ID;
+    ShaderContainer::init();
+    ShaderContainer::lowPolyShader->use();
 
     setScene(new SystemScene());
 
@@ -32,6 +30,8 @@ Application::Application(SDL_Window* pWindow) {
 
 Application::~Application() {
     delete _pScene;
+
+    ShaderContainer::destroy();
 
     nvgDeleteGL3(_vg);
 }
@@ -158,7 +158,7 @@ void Application::_render() {
     nvgEndFrame(_vg);
 
     // Reenable shader every frame because disabled by NanoVG
-    glUseProgram(_shader);
+    ShaderContainer::lowPolyShader->use();
 
     // Swap window buffers
     SDL_GL_SwapWindow(_pWindow);

@@ -30,7 +30,6 @@ class Application {
 
     Scene* _pScene;
     SDL_Window* _pWindow;
-    GLuint _shader;
     NVGcontext* _vg;
 };
 
