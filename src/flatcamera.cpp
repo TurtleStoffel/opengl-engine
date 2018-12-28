@@ -6,16 +6,16 @@ FlatCamera::~FlatCamera() {
 
 bool FlatCamera::_update(int t) {
     if (_wPressed) {
-        _cameraPosition += glm::vec3(0.0f, 0.01f, 0.0f) * ((float)t);
+        _cameraPosition += glm::vec3(0.0f, _speed, 0.0f) * ((float)t);
     }
     if (_aPressed) {
-        _cameraPosition += glm::vec3(-0.01f, 0.0f, 0.0f) * ((float)t);
+        _cameraPosition += glm::vec3(-_speed, 0.0f, 0.0f) * ((float)t);
     }
     if (_sPressed) {
-        _cameraPosition += glm::vec3(0.0f, -0.01f, 0.0f) * ((float)t);
+        _cameraPosition += glm::vec3(0.0f, -_speed, 0.0f) * ((float)t);
     }
     if (_dPressed) {
-        _cameraPosition += glm::vec3(0.01f, 0.0f, 0.0f) * ((float)t);
+        _cameraPosition += glm::vec3(_speed, 0.0f, 0.0f) * ((float)t);
     }
     return (_wPressed || _aPressed || _sPressed || _dPressed);
 }

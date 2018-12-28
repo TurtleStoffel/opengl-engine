@@ -22,6 +22,8 @@ class FlatCamera : public Camera {
    private:
     FlatCamera();
     static Camera* changeInstance();
+
+    const float _speed = 0.001f;
 };
 
 #endif
