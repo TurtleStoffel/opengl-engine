@@ -46,6 +46,7 @@ void Scene::_mousePick(SDL_Event event) {
         glm::vec3 direction;
         _pCamera->calculateClickRay(event.motion.x, event.motion.y, point, direction);
 
+        // Check for each object in scene if there was an intersection
         for (Model* model : _renderable) {
             if (model->intersect(point, direction)) {
                 std::cout << "Intersection with an object!" << std::endl;

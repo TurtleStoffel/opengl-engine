@@ -116,9 +116,6 @@ void Application::_render() {
     // Cleanup rendering buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-    // Reenable shader every frame because disabled by NanoVG
-    glUseProgram(_shader);
-
     // Render scene
     _pScene->render();
 
@@ -159,6 +156,9 @@ void Application::_render() {
     nvgRestore(_vg);
 
     nvgEndFrame(_vg);
+
+    // Reenable shader every frame because disabled by NanoVG
+    glUseProgram(_shader);
 
     // Swap window buffers
     SDL_GL_SwapWindow(_pWindow);
