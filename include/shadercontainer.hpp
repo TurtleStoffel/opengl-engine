@@ -6,7 +6,7 @@
 class ShaderContainer {
    public:
     static Shader* lowPolyShader;
-    // static Shader* silhouetteShader;
+    static Shader* silhouetteShader;
 
     static void init();
     static void destroy();

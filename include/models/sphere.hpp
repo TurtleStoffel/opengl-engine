@@ -19,7 +19,8 @@ class Sphere : public Model {
     virtual bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
    private:
-    Vertex _getMidpoint(Vertex p1, Vertex p2, glm::vec3 (*colorGenerator)());
+    Vertex _getMidpoint(Vertex p1, Vertex p2, glm::vec3 color);
+    Vertex _createVertex(glm::vec3 point, glm::vec3 color);
 };
 
 #endif
