@@ -49,7 +49,9 @@ void Scene::_mousePick(SDL_Event event) {
         // Check for each object in scene if there was an intersection
         for (Model* model : _renderable) {
             if (model->intersect(point, direction)) {
-                std::cout << "Intersection with an object!" << std::endl;
+                model->setSelected(true);
+            } else {
+                model->setSelected(false);
             }
         }
     }

@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "opengl.hpp"
+#include "shadercontainer.hpp"
 
 Model::Model() {
     // Generate OpenGL buffers
@@ -27,9 +28,24 @@ void Model::render() {
     // Apply model transformation matrix
     glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, &modelMatrix[0][0]);
 
-    // Render vertices
+    ShaderContainer::instance()->setModelViewProjectionMatrix(&modelMatrix[0][0], nullptr, nullptr);
+
+    // Bind vertex data of current model
     glBindVertexArray(_vao);
+
+    // Render silhouette if object is selected
+    if (_selected) {
+        ShaderContainer::silhouetteShader()->use();
+        glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
+    }
+
+    // Render object itself
+    ShaderContainer::lowPolyShader()->use();
     glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
+}
+
+void Model::setSelected(bool selected) {
+    _selected = selected;
 }
 
 void Model::scale(glm::vec3 v) {

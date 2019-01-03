@@ -5,14 +5,16 @@ layout(triangle_strip, max_vertices=3) out;
 in vec3 vertexColorVS[];
 out vec4 vertexColor;
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
+// std140 for explicit layout specification (for sharing)
+layout(std140) uniform ModelViewProjection {
+    mat4 model;
+    mat4 view;
+    mat4 projection;
+};
 
 uniform vec3 cameraPosition;
 
 const vec3 lightDirection = normalize(vec3(0.4, 1.0, -0.8));
-//const vec3 lightDirection = normalize(vec3(0.0, 1.0, 0.0));
 const vec3 lightColor = vec3(1.0, 0.6, 0.6);
 const float reflectivity = 0.2;
 const float shineDamper = 14.0;

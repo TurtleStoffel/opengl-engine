@@ -20,6 +20,11 @@ class Model : public Transformable {
     virtual ~Model();
     void render();
 
+    void setSelected(bool selected);
+
+    /**
+     * Return true if ray intersects this model
+     */
     virtual bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) = 0;
 
     // Transformable Interface
@@ -41,6 +46,8 @@ class Model : public Transformable {
 
     GLuint _vao;
     GLuint _vbo;
+
+    bool _selected = false;
 };
 
 #endif
