@@ -42,8 +42,6 @@ class Model : public Transformable {
     std::vector<Vertex> _vertices;
 
    private:
-    GLuint _modelMatrixUniform;
-
     GLuint _vao;
     GLuint _vbo;
 

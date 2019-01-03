@@ -9,11 +9,6 @@ Model::Model() {
     // Generate OpenGL buffers
     glGenVertexArrays(1, &_vao);
     glGenBuffers(1, &_vbo);
-
-    // Get uniform location for model matrix
-    GLint shader;
-    glGetIntegerv(GL_CURRENT_PROGRAM, &shader);
-    _modelMatrixUniform = glGetUniformLocation(shader, "model");
 }
 
 Model::~Model() {
@@ -25,9 +20,8 @@ void Model::render() {
     glm::mat4 modelMatrix = glm::rotate(glm::mat4(1.0f), _rotation, glm::vec3(0.0f, 0.0f, 1.0f));
     modelMatrix           = glm::scale(modelMatrix, _scale);
     modelMatrix           = glm::translate(modelMatrix, _position);
-    // Apply model transformation matrix
-    glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, &modelMatrix[0][0]);
 
+    // Apply model transformation matrix
     ShaderContainer::instance()->setModelViewProjectionMatrix(&modelMatrix[0][0], nullptr, nullptr);
 
     // Bind vertex data of current model
