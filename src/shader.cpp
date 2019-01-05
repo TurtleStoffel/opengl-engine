@@ -36,6 +36,19 @@ Shader::Shader(const char* vertexShader, const char* fragmentShader) {
     glDeleteShader(fShader);
 }
 
+GLuint Shader::getUniformBlockIndex(const char* name) {
+    return glGetUniformBlockIndex(_ID, name);
+}
+
+void Shader::setUniform3fv(const char* name, GLfloat* value) {
+    GLuint location = glGetUniformLocation(_ID, name);
+    glUniform3fv(location, 1, value);
+}
+
+void Shader::uniformBlockBinding(GLuint blockIndex, GLuint bindingIndex) {
+    glUniformBlockBinding(_ID, blockIndex, bindingIndex);
+}
+
 void Shader::use() {
     glUseProgram(_ID);
 }
@@ -57,7 +70,7 @@ GLuint Shader::_compileShader(const char* path, GLenum type) {
     }
 
     const char* shaderCode = code.c_str();
-    GLuint shaderId = glCreateShader(type);
+    GLuint shaderId        = glCreateShader(type);
     glShaderSource(shaderId, 1, &shaderCode, NULL);
     glCompileShader(shaderId);
     _checkCompileErrors(shaderId, _getShaderType(type));

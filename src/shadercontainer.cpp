@@ -59,10 +59,11 @@ ShaderContainer::ShaderContainer() {
 
     // Bind Uniform Block to Uniform Buffer Object
     GLuint bindingIndex     = 1;
-    GLuint matrixBlockIndex = glGetUniformBlockIndex(_lowPolyShader->_ID, "ModelViewProjection");
-    // Bind blocks for both shaders
-    glUniformBlockBinding(_lowPolyShader->_ID, matrixBlockIndex, bindingIndex);
-    glUniformBlockBinding(_silhouetteShader->_ID, matrixBlockIndex, bindingIndex);
+    GLuint matrixBlockIndex = _lowPolyShader->getUniformBlockIndex("ModelViewProjection");
+    // Bind shader block to index
+    _lowPolyShader->uniformBlockBinding(matrixBlockIndex, bindingIndex);
+    _silhouetteShader->uniformBlockBinding(matrixBlockIndex, bindingIndex);
+    // Bind buffer to index
     glBindBufferRange(GL_UNIFORM_BUFFER, bindingIndex, _matrixUBO, 0, sizeof(glm::mat4) * 3);
 }
 

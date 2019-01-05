@@ -20,9 +20,6 @@ Camera::Camera() {
     _windowWidth  = constant::initialWindowWidth;
     _windowHeight = constant::initialWindowHeight;
 
-    // Set _shader member to current active Shader
-    glGetIntegerv(GL_CURRENT_PROGRAM, &_shader);
-
     // Set initial values in shader
     _configureShader();
 }
@@ -44,6 +41,8 @@ void Camera::setWindowSize(int windowWidth, int windowHeight) {
     _windowHeight = windowHeight;
 
     glViewport(0, 0, _windowWidth, _windowHeight);
+
+    _configureShader();
 }
 
 void Camera::getWindowSize(int& windowWidth, int& windowHeight) {
@@ -78,8 +77,8 @@ void Camera::update(int t) {
 
 void Camera::_configureShader() {
     // Set camera position
-    GLuint cameraPositionIndex = glGetUniformLocation(_shader, "cameraPosition");
-    glUniform3fv(cameraPositionIndex, 1, &_cameraPosition[0]);
+    ShaderContainer::instance()->lowPolyShader()->setUniform3fv("cameraPosition",
+                                                                &_cameraPosition[0]);
 
     // calculate projection and view matrix
     _projectionMatrix = glm::perspective(glm::radians(45.0f),

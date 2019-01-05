@@ -63,8 +63,10 @@ class Camera : public Updateable {
     bool _dPressed = false;
 
    private:
+    /**
+     * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
+     */
     void _configureShader();
-    GLint _shader;
 
     /**
      * Window Size

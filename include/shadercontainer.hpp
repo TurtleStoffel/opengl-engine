@@ -3,6 +3,9 @@
 
 #include "shader.hpp"
 
+/**
+ * Singleton class responsible for maintaining all shaders and data shared between the shaders
+ */
 class ShaderContainer {
    public:
     static ShaderContainer* instance();
