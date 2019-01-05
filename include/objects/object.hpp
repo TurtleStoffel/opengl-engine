@@ -3,29 +3,31 @@
 
 #include <glm/glm.hpp>
 
-#include "interfaces/transformable.hpp"
 #include "interfaces/updateable.hpp"
-
 #include "models/model.hpp"
+#include "objects/transform.hpp"
 
-class Object : public Transformable, public Updateable {
+class Object : public Updateable {
    public:
+    Object();
     virtual ~Object();
-
-    // Transformable interface
-    virtual void scale(glm::vec3 v);
-    virtual void translate(glm::vec3 v);
-    virtual void rotate(float degrees);
 
     // Updateable interface
     virtual void update(int t) = 0;
 
    protected:
     /**
-     * Every Object is responsible to add its own model to the scene
+     * Object is responsible to add its own model to the scene
      * (game objects without models are possible)
      */
     Model* _pModel;
+
+    /**
+     * Object has the local transform (even though it is used by the Model) because an object needs
+     * a notion of where it is even when it has no model (e.g. only load model when objects will be
+     * visible)
+     */
+    Transform* _pTransform;
 };
 
 #endif

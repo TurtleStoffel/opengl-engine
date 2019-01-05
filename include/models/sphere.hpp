@@ -11,10 +11,10 @@ struct Face {
 
 class Sphere : public Model {
    public:
-    Sphere();
-    Sphere(int depth);
-    Sphere(glm::vec3 (*colorGenerator)());
-    Sphere(int depth, glm::vec3 (*colorGenerator)());
+    Sphere(Transform* pTransform);
+    Sphere(Transform* pTransform, int depth);
+    Sphere(Transform* pTransform, glm::vec3 (*colorGenerator)());
+    Sphere(Transform* pTransform, int depth, glm::vec3 (*colorGenerator)());
 
     virtual bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 

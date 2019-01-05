@@ -5,7 +5,7 @@
 
 class Square : public Model {
    public:
-    Square();
+    Square(Transform* pTransform);
 };
 
 #endif

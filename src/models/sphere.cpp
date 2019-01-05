@@ -8,16 +8,18 @@
 
 #include "color.hpp"
 
-Sphere::Sphere() : Sphere(3) {
+Sphere::Sphere(Transform* pTransform) : Sphere(pTransform, 3) {
 }
 
-Sphere::Sphere(int depth) : Sphere(depth, color::brown) {
+Sphere::Sphere(Transform* pTransform, int depth) : Sphere(pTransform, depth, color::brown) {
 }
 
-Sphere::Sphere(glm::vec3 (*colorGenerator)()) : Sphere(3, colorGenerator) {
+Sphere::Sphere(Transform* pTransform, glm::vec3 (*colorGenerator)())
+    : Sphere(pTransform, 3, colorGenerator) {
 }
 
-Sphere::Sphere(int depth, glm::vec3 (*colorGenerator)()) {
+Sphere::Sphere(Transform* pTransform, int depth, glm::vec3 (*colorGenerator)())
+    : Model(pTransform) {
     float d = (1.0f + sqrt(5.0f)) / 2.0f;
     // clang-format off
     Vertex v1  = _createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f)), colorGenerator());
@@ -93,7 +95,7 @@ bool Sphere::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
     glm::vec3 intersectionNormal;
     return glm::intersectRaySphere(rayPosition,
                                    glm::normalize(rayDirection),
-                                   _position,
+                                   _pTransform->getPosition(),
                                    1.0f,
                                    intersectionPoint,
                                    intersectionNormal);

@@ -5,7 +5,7 @@
 #include "models/sphere.hpp"
 
 Sun::Sun(Scene* pScene) {
-    _pModel = new Sphere(color::yellow);
+    _pModel = new Sphere(_pTransform, color::yellow);
     pScene->addRenderable(_pModel);
 }
 

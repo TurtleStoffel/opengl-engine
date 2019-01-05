@@ -4,6 +4,8 @@ IF(NOT CMAKE_BUILD_TYPE)
     MESSAGE(STATUS "Building in Release mode")
     SET(CMAKE_BUILD_TYPE Release)
     SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
+ELSE()
+    MESSAGE(STATUS "Building in Debug mode")
 ENDIF()
 
 FIND_PACKAGE(SDL2 REQUIRED)

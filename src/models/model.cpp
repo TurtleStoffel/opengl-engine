@@ -5,7 +5,9 @@
 #include "opengl.hpp"
 #include "shadercontainer.hpp"
 
-Model::Model() {
+Model::Model(Transform* pTransform) {
+    _pTransform = pTransform;
+
     // Generate OpenGL buffers
     glGenVertexArrays(1, &_vao);
     glGenBuffers(1, &_vbo);
@@ -16,13 +18,8 @@ Model::~Model() {
 }
 
 void Model::render() {
-    // Calculate model transformation matrix
-    glm::mat4 modelMatrix = glm::rotate(glm::mat4(1.0f), _rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-    modelMatrix           = glm::scale(modelMatrix, _scale);
-    modelMatrix           = glm::translate(modelMatrix, _position);
-
-    // Apply model transformation matrix
-    ShaderContainer::instance()->setModelViewProjectionMatrix(&modelMatrix[0][0], nullptr, nullptr);
+    // Set Model Matrix in Shader
+    _pTransform->passModelMatrixToShader();
 
     // Bind vertex data of current model
     glBindVertexArray(_vao);
@@ -40,18 +37,6 @@ void Model::render() {
 
 void Model::setSelected(bool selected) {
     _selected = selected;
-}
-
-void Model::scale(glm::vec3 v) {
-    _scale *= v;
-}
-
-void Model::translate(glm::vec3 v) {
-    _position += v;
-}
-
-void Model::rotate(float degrees) {
-    _rotation += degrees;
 }
 
 void Model::_setupBuffers() {

@@ -1,4 +1,4 @@
 #include "models/settlement.hpp"
 
-Settlement::Settlement() {
+Settlement::Settlement(Transform* pTransform) : Model(pTransform) {
 }

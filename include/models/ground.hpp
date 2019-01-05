@@ -5,7 +5,7 @@
 
 class Ground : public Model {
    public:
-    Ground();
+    Ground(Transform* pTransform);
 
    private:
     const unsigned int _tiles = 32;
