@@ -18,14 +18,14 @@
 Application* Application::pApplication = nullptr;
 
 Application::Application(SDL_Window* pWindow) {
+    // Initialize data members
     _pWindow = pWindow;
+    _vg      = nvgCreateGL3(NVG_ANTIALIAS);
 
+    // Initialize all shaders
     ShaderContainer::init();
-    ShaderContainer::silhouetteShader()->use();
 
     setScene(new SystemScene());
-
-    _vg = nvgCreateGL3(NVG_ANTIALIAS);
 }
 
 Application::~Application() {
@@ -154,9 +154,6 @@ void Application::_render() {
     nvgRestore(_vg);
 
     nvgEndFrame(_vg);
-
-    // Reenable shader every frame because disabled by NanoVG
-    ShaderContainer::silhouetteShader()->use();
 
     // Swap window buffers
     SDL_GL_SwapWindow(_pWindow);
