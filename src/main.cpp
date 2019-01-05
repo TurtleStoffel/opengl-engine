@@ -34,7 +34,7 @@ int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused)))
     glEnable(GL_DEPTH_TEST);
 
     // Startup Application
-    Application* pApplication = Application::instance(pWindow);
+    Application* pApplication = Application::createInstance(pWindow);
     pApplication->run();
 
     // Destroy Application

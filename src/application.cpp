@@ -34,15 +34,17 @@ Application::~Application() {
     nvgDeleteGL3(_vg);
 }
 
-Application* Application::instance(SDL_Window* pWindow) {
-    if (pApplication == nullptr) {
-        pApplication = new Application(pWindow);
-    }
+Application* Application::createInstance(SDL_Window* pWindow) {
+    // Only one instance of this class should ever be created, otherwise throw error
+    assert(!pApplication);
 
+    pApplication = new Application(pWindow);
     return pApplication;
 }
 
 Application* Application::instance() {
+    assert(pApplication);
+
     return pApplication;
 }
 

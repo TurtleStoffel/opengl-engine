@@ -13,7 +13,15 @@ class Application {
    public:
     ~Application();
 
-    static Application* instance(SDL_Window* pWindow);
+    /**
+     * Create new Application instance with a window, this method can only be called once in the
+     * entire program, otherwise will throw error
+     */
+    static Application* createInstance(SDL_Window* pWindow);
+    /**
+     * Requests the current instance of the application, assumes one has been created before using
+     * Application::createInstance(SDL_Window* pWindow)
+     */
     static Application* instance();
 
     void run();
