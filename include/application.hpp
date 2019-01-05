@@ -3,11 +3,10 @@
 
 #include <glm/glm.hpp>
 
-#include "opengl.hpp"
-
 #include "nanovg.h"
 
-class Scene;
+#include "opengl.hpp"
+#include "scene.hpp"
 
 class Application {
    public:
