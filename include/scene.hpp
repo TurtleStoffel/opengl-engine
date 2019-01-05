@@ -5,15 +5,11 @@
 
 #include "opengl.hpp"
 
+#include "camera.hpp"
 #include "interfaces/updateable.hpp"
-
 #include "models/model.hpp"
 #include "models/selectable.hpp"
-
 #include "objects/object.hpp"
-
-class Application;
-class Camera;
 
 class Scene : public Updateable {
    public:
