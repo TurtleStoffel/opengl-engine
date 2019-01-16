@@ -62,6 +62,11 @@ FlatCamera::FlatCamera() {
 }
 
 Camera* FlatCamera::changeInstance() {
+    // There is already an instance of the camera
+    if (_pCamera) {
+        delete _pCamera;
+    }
+
     _pCamera = new FlatCamera();
 
     return Camera::_pCamera;

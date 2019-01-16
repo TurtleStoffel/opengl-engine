@@ -10,6 +10,11 @@
 class Camera : public Updateable {
    public:
     /**
+     * Destructor has to be public to allow child classes to delete singleton instance
+     */
+    virtual ~Camera();
+
+    /**
      * Request current singleton instance
      */
     static Camera* instance();
@@ -41,7 +46,6 @@ class Camera : public Updateable {
    protected:
     // Singleton class
     Camera();
-    virtual ~Camera();
 
     static Camera* _pCamera;
 
