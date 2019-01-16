@@ -11,7 +11,7 @@ layout(std140) uniform ModelViewProjection {
 
 out vec3 outputColor;
 
-const float OFFSET = 0.02f;
+const float OFFSET = 0.04f;
 
 void main() {
     gl_Position = projection * view * model * vec4(vPosition + vNormal*OFFSET, 1.0f);

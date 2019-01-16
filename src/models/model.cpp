@@ -26,11 +26,17 @@ void Model::render() {
 
     // Render silhouette if object is selected
     if (_selected) {
+        // Disable depth test to render to background
+        glDisable(GL_DEPTH_TEST);
+        // Render using Silhouette Shader
         ShaderContainer::silhouetteShader()->use();
         glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
     }
 
     // Render object itself
+    // Enable depth test to render object normally
+    glEnable(GL_DEPTH_TEST);
+    // Render using Low Poly Shader
     ShaderContainer::lowPolyShader()->use();
     glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
 }
