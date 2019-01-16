@@ -157,6 +157,11 @@ void Application::_render() {
 
     nvgEndFrame(_vg);
 
+    // Restore variables edited by NanoVG
+    glDisable(GL_BLEND);
+    glDisable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
+
     // Swap window buffers
     SDL_GL_SwapWindow(_pWindow);
 }
