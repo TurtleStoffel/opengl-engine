@@ -35,7 +35,6 @@ class Application {
 
     bool _running = true;
 
-    Scene* _pScene;
     SDL_Window* _pWindow;
     NVGcontext* _vg;
 };

@@ -25,12 +25,10 @@ Application::Application(SDL_Window* pWindow) {
     // Initialize all shaders
     ShaderContainer::init();
 
-    setScene(SystemScene::setInitialScene());
+    SystemScene::setInitialScene();
 }
 
 Application::~Application() {
-    delete _pScene;
-
     nvgDeleteGL3(_vg);
 }
 
@@ -57,7 +55,7 @@ void Application::run() {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             if (!_handleInput(event)) {
-                _pScene->handleInput(event);
+                Scene::instance()->handleInput(event);
             }
         }
 
@@ -67,7 +65,7 @@ void Application::run() {
         int passedTicks        = currentUpdateTicks - lastUpdateTicks;
         lastUpdateTicks        = currentUpdateTicks;
         // Update scene
-        _pScene->update(passedTicks);
+        Scene::instance()->update(passedTicks);
 
         // ---Rendering---
         _render();
@@ -79,10 +77,6 @@ void Application::run() {
         }
         lastFPSTick = currentFPSTick;
     }
-}
-
-void Application::setScene(Scene* pScene) {
-    _pScene = pScene;
 }
 
 bool Application::_handleInput(SDL_Event event) {
@@ -117,7 +111,7 @@ void Application::_render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     // Render scene
-    _pScene->render();
+    Scene::instance()->render();
 
     // Render GUI
     int x = 50;
