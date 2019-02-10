@@ -1,9 +1,9 @@
 #include "systemscene.hpp"
 
 #include "flatcamera.hpp"
-
 #include "objects/planet.hpp"
 #include "objects/sun.hpp"
+#include "planetscene.hpp"
 
 Scene* SystemScene::setInitialScene() {
     // This method is only allowed to be called once
@@ -27,4 +27,7 @@ SystemScene::SystemScene() {
 
 void SystemScene::_changeScene() {
     assert(_pScene);
+
+    delete _pScene;
+    _pScene = new PlanetScene();
 }
