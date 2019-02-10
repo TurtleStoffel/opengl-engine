@@ -11,7 +11,14 @@ class ShaderContainer {
     static ShaderContainer* instance();
     static void init();
 
-    void setModelViewProjectionMatrix(void* model, void* view, void* projection);
+    /**
+     * View and Projection matrix are always set simultaneously by the Camera
+     */
+    void setViewProjectionMatrix(void* view, void* projection);
+    /**
+     * Model matrix is set separately by the Transform of the Object
+     */
+    void setModelMatrix(void* model);
     static Shader* lowPolyShader();
     static Shader* silhouetteShader();
 

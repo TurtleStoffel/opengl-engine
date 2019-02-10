@@ -26,17 +26,24 @@ Shader* ShaderContainer::silhouetteShader() {
     return _instance->_silhouetteShader;
 }
 
-void ShaderContainer::setModelViewProjectionMatrix(void* model, void* view, void* projection) {
+void ShaderContainer::setViewProjectionMatrix(void* view, void* projection) {
     glBindBuffer(GL_UNIFORM_BUFFER, _matrixUBO);
 
-    if (model) {
-        glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), model);
-    }
     if (view) {
         glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), view);
     }
     if (projection) {
         glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4) * 2, sizeof(glm::mat4), projection);
+    }
+
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+}
+
+void ShaderContainer::setModelMatrix(void* model) {
+    glBindBuffer(GL_UNIFORM_BUFFER, _matrixUBO);
+
+    if (model) {
+        glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), model);
     }
 
     glBindBuffer(GL_UNIFORM_BUFFER, 0);

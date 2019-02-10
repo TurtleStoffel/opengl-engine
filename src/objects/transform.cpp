@@ -33,7 +33,7 @@ void Transform::passModelMatrixToShader() {
     glm::mat4 modelMatrix = _calculateModelMatrix();
 
     // Apply model transformation matrix
-    ShaderContainer::instance()->setModelViewProjectionMatrix(&modelMatrix[0][0], nullptr, nullptr);
+    ShaderContainer::instance()->setModelMatrix(&modelMatrix[0][0]);
 }
 
 glm::mat4 Transform::_calculateModelMatrix() {

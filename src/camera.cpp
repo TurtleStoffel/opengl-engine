@@ -89,7 +89,6 @@ void Camera::_configureShader() {
     _viewMatrix = glm::lookAt(_cameraPosition, _cameraPosition + _cameraDirection, _cameraUp);
 
     // Set matrix values in shaders
-    ShaderContainer::instance()->setModelViewProjectionMatrix(nullptr,
-                                                              &_viewMatrix[0][0],
-                                                              &_projectionMatrix[0][0]);
+    ShaderContainer::instance()->setViewProjectionMatrix(&_viewMatrix[0][0],
+                                                         &_projectionMatrix[0][0]);
 }
