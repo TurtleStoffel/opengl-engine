@@ -20,12 +20,18 @@ Scene* Scene::instance() {
     return _pScene;
 }
 
-void Scene::handleInput(SDL_Event event) {
+bool Scene::handleInput(SDL_Event event) {
     // ---Camera Update---
-    _pCamera->handleInput(event);
+    if (_pCamera->handleInput(event)) {
+        return true;
+    }
+    // Camera has precedence over Mouse Picking and Mousepicking has no impact on return value
+    else {
+        // ---Mouse Picking Objects---
+        _mousePick(event);
+    }
 
-    // ---Mouse Picking Objects---
-    _mousePick(event);
+    return false;
 }
 
 void Scene::render() {

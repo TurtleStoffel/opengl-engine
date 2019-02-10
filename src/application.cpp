@@ -55,6 +55,9 @@ void Application::run() {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             if (!_handleInput(event)) {
+                // Check if GUI handled input
+
+                // GUI has precedence over Scene
                 Scene::instance()->handleInput(event);
             }
         }

@@ -20,7 +20,7 @@ class Scene : public Updateable {
      */
     static Scene* instance();
 
-    void handleInput(SDL_Event event);
+    bool handleInput(SDL_Event event);
     void render();
 
     void addRenderable(Model* pModel);
