@@ -25,7 +25,7 @@ Application::Application(SDL_Window* pWindow) {
     // Initialize all shaders
     ShaderContainer::init();
 
-    setScene(new SystemScene());
+    setScene(SystemScene::setInitialScene());
 }
 
 Application::~Application() {

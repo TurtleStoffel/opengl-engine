@@ -6,10 +6,18 @@
 #include "application.hpp"
 #include "camera.hpp"
 
+Scene* Scene::_pScene = nullptr;
+
 Scene::~Scene() {
     for (Object* pObject : _objects) {
         delete pObject;
     }
+}
+
+Scene* Scene::instance() {
+    assert(_pScene);
+
+    return _pScene;
 }
 
 void Scene::handleInput(SDL_Event event) {
@@ -36,6 +44,10 @@ void Scene::update(int t) {
     for (Object* pObject : _objects) {
         pObject->update(t);
     }
+}
+
+Scene::Scene() {
+    // Empty constructor
 }
 
 void Scene::_mousePick(SDL_Event event) {
