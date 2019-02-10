@@ -15,6 +15,7 @@ class Transform {
 
     glm::vec3 getInitialPosition();
     glm::vec3 getPosition();
+    glm::vec3 getScale();
 
     void passModelMatrixToShader();
 

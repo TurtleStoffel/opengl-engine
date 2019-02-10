@@ -96,7 +96,7 @@ bool Sphere::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
     return glm::intersectRaySphere(rayPosition,
                                    glm::normalize(rayDirection),
                                    _pTransform->getPosition(),
-                                   1.0f,
+                                   _pTransform->getScale()[0],  // Sphere has uniform Scale
                                    intersectionPoint,
                                    intersectionNormal);
 }

@@ -25,6 +25,10 @@ glm::vec3 Transform::getPosition() {
     return glm::vec3(transformedPosition.x, transformedPosition.y, transformedPosition.z);
 }
 
+glm::vec3 Transform::getScale() {
+    return _scale;
+}
+
 void Transform::passModelMatrixToShader() {
     glm::mat4 modelMatrix = _calculateModelMatrix();
 
