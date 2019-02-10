@@ -13,7 +13,7 @@ class FlatCamera : public Camera {
     virtual ~FlatCamera();
 
     // Abstract Camera function
-    virtual void handleInput(SDL_Event event);
+    virtual bool handleInput(SDL_Event event);
 
    protected:
     // Abstract Camera function

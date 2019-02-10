@@ -35,8 +35,9 @@ class Camera : public Updateable {
 
     /**
      * Abstract class to force child classes to implement handleInput
+     * Return true if input has been handled by the camera
      */
-    virtual void handleInput(SDL_Event event) = 0;
+    virtual bool handleInput(SDL_Event event) = 0;
 
     /**
      * Updateable Interface methods

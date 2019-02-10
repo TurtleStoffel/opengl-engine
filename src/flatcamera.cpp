@@ -20,21 +20,27 @@ bool FlatCamera::_update(int t) {
     return (_wPressed || _aPressed || _sPressed || _dPressed);
 }
 
-void FlatCamera::handleInput(SDL_Event event) {
+bool FlatCamera::handleInput(SDL_Event event) {
+    bool handled = false;
+
     switch (event.type) {
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
                 case SDLK_w:
                     _wPressed = true;
+                    handled   = true;
                     break;
                 case SDLK_a:
                     _aPressed = true;
+                    handled   = true;
                     break;
                 case SDLK_s:
                     _sPressed = true;
+                    handled   = true;
                     break;
                 case SDLK_d:
                     _dPressed = true;
+                    handled   = true;
                     break;
             }
             break;
@@ -42,19 +48,25 @@ void FlatCamera::handleInput(SDL_Event event) {
             switch (event.key.keysym.sym) {
                 case SDLK_w:
                     _wPressed = false;
+                    handled   = true;
                     break;
                 case SDLK_a:
                     _aPressed = false;
+                    handled   = true;
                     break;
                 case SDLK_s:
                     _sPressed = false;
+                    handled   = true;
                     break;
                 case SDLK_d:
                     _dPressed = false;
+                    handled   = true;
                     break;
             }
             break;
     }
+
+    return handled;
 }
 
 FlatCamera::FlatCamera() {
