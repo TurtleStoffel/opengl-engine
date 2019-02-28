@@ -32,7 +32,7 @@ class Application {
     bool _running = true;
 
     SDL_Window* _pWindow;
-    Gui* _pGui;
+    gui::Gui* _pGui;
 };
 
 #endif

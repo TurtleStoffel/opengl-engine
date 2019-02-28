@@ -4,6 +4,9 @@
 #include "nanovg_gl.h"
 
 #include "camera.hpp"
+#include "gui/panel.hpp"
+
+namespace gui {
 
 Gui::Gui(SDL_Window* pWindow) {
     _pWindow = pWindow;
@@ -13,6 +16,12 @@ Gui::Gui(SDL_Window* pWindow) {
     if (nvgCreateFont(_vg, "sans", "../res/Roboto-Regular.ttf") == -1) {
         SDL_Log("Could not open font");
     }
+
+    Panel* testPanel = new Panel(nullptr, 50, 50);
+    testPanel->setMinWidth(120);
+    testPanel->setMinHeight(30);
+
+    _children.push_back(testPanel);
 }
 
 Gui::~Gui() {
@@ -20,12 +29,6 @@ Gui::~Gui() {
 }
 
 void Gui::render() {
-    // Render GUI
-    int x = 50;
-    int y = 50;
-    int w = 120;
-    int h = 30;
-
     // Get window Size for to start NanoVG frame
     int bufferWidth;
     int bufferHeight;
@@ -39,20 +42,9 @@ void Gui::render() {
     // Save NanoVG State
     nvgSave(_vg);
 
-    // Draw Rectangle
-    nvgBeginPath(_vg);
-    nvgRect(_vg, x, y, w, h);
-    nvgFillColor(_vg, nvgRGBA(255, 192, 0, 255));
-    nvgFill(_vg);
-
-    // Set Text Settings
-    nvgFontSize(_vg, 30.0f);
-    nvgFontFace(_vg, "sans");
-    nvgTextAlign(_vg, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
-
-    // Draw Text
-    nvgFillColor(_vg, nvgRGBA(255, 255, 255, 255));
-    nvgText(_vg, x + 5, y + h / 2, "test", NULL);
+    for (GuiObject* guiObject : _children) {
+        guiObject->_render(_vg);
+    }
 
     // Reset NanoVG State
     nvgRestore(_vg);
@@ -63,3 +55,5 @@ void Gui::render() {
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
 }
+
+}  // namespace gui

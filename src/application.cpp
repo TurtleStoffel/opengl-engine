@@ -14,7 +14,7 @@ Application* Application::pApplication = nullptr;
 Application::Application(SDL_Window* pWindow) {
     // Initialize data members
     _pWindow = pWindow;
-    _pGui    = new Gui(pWindow);
+    _pGui    = new gui::Gui(pWindow);
 
     // Initialize all shaders
     ShaderContainer::init();
