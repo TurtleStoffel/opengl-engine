@@ -10,6 +10,11 @@
 Gui::Gui(SDL_Window* pWindow) {
     _pWindow = pWindow;
     _vg      = nvgCreateGL3(NVG_ANTIALIAS);
+
+    // Initialise font
+    if (nvgCreateFont(_vg, "sans", "../res/Roboto-Regular.ttf") == -1) {
+        std::cout << "could not open font" << std::endl;
+    }
 }
 
 Gui::~Gui() {
@@ -33,24 +38,25 @@ void Gui::render() {
     Camera::instance()->getWindowSize(windowWidth, windowHeight);
     nvgBeginFrame(_vg, windowWidth, windowHeight, (float)bufferWidth / windowHeight);
 
+    // Save NanoVG State
     nvgSave(_vg);
 
+    // Draw Rectangle
     nvgBeginPath(_vg);
     nvgRect(_vg, x, y, w, h);
     nvgFillColor(_vg, nvgRGBA(255, 192, 0, 255));
     nvgFill(_vg);
 
-    if (nvgCreateFont(_vg, "sans", "../res/Roboto-Regular.ttf") == -1) {
-        std::cout << "could not open font" << std::endl;
-    }
-
+    // Set Text Settings
     nvgFontSize(_vg, 30.0f);
     nvgFontFace(_vg, "sans");
     nvgTextAlign(_vg, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
 
+    // Draw Text
     nvgFillColor(_vg, nvgRGBA(255, 255, 255, 255));
     nvgText(_vg, x + 5, y + h / 2, "test", NULL);
 
+    // Reset NanoVG State
     nvgRestore(_vg);
 
     nvgEndFrame(_vg);
