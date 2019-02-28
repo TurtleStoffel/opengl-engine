@@ -3,8 +3,6 @@
 #define NANOVG_GL3_IMPLEMENTATION
 #include "nanovg_gl.h"
 
-#include <iostream>
-
 #include "camera.hpp"
 
 Gui::Gui(SDL_Window* pWindow) {
@@ -13,7 +11,7 @@ Gui::Gui(SDL_Window* pWindow) {
 
     // Initialise font
     if (nvgCreateFont(_vg, "sans", "../res/Roboto-Regular.ttf") == -1) {
-        std::cout << "could not open font" << std::endl;
+        SDL_Log("Could not open font");
     }
 }
 

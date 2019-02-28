@@ -1,7 +1,6 @@
 #include "models/sphere.hpp"
 
 #include <math.h>
-#include <iostream>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/intersect.hpp>

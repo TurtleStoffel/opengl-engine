@@ -1,7 +1,6 @@
 #include "shader.hpp"
 
 #include <fstream>
-#include <iostream>
 #include <sstream>
 #include <string>
 
@@ -66,7 +65,7 @@ GLuint Shader::_compileShader(const char* path, GLenum type) {
         shaderFile.close();
         code = shaderStream.str();
     } catch (std::ifstream::failure e) {
-        std::cout << "Unable to load shader file" << std::endl;
+        SDL_Log("Unable to load shader file");
     }
 
     const char* shaderCode = code.c_str();
@@ -98,15 +97,13 @@ void Shader::_checkCompileErrors(GLuint shader, std::string type) {
         glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
         if (!success) {
             glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "Error shader compilation of type: " << type << std::endl
-                      << infoLog << std::endl;
+            SDL_Log("Error shader compilation");
         }
     } else {
         glGetProgramiv(shader, GL_LINK_STATUS, &success);
         if (!success) {
             glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "Error shader linking of type: " << type << std::endl
-                      << infoLog << std::endl;
+            SDL_Log("Error shader linking");
         }
     }
 }

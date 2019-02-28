@@ -2,15 +2,12 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "camera.hpp"
 #include "const.hpp"
+#include "planetscene.hpp"
 #include "shader.hpp"
 #include "shadercontainer.hpp"
-
-#include "camera.hpp"
-#include "planetscene.hpp"
 #include "systemscene.hpp"
-
-#include <iostream>
 
 Application* Application::pApplication = nullptr;
 

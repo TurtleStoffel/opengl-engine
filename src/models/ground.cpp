@@ -10,7 +10,6 @@ Ground::Ground(Transform* pTransform) : Model(pTransform) {
             float x = (-float(_tiles) / 2 + i) * _tileSize;
             float y = (float(_tiles) / 2 - j) * _tileSize;
             float z = SimplexNoise::noise(x * _noiseFactor, y * _noiseFactor) * _maxHeight;
-            // std::cout << z << std::endl;
             // Calculate vertex position
             glm::vec3 position        = glm::vec3(x, y, z);
             vertexList[i][j].position = position;
