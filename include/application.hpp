@@ -3,15 +3,11 @@
 
 #include <glm/glm.hpp>
 
-#include "nanovg.h"
-
-#include "opengl.hpp"
+#include "gui/gui.hpp"
 #include "scene.hpp"
 
 class Application {
    public:
-    ~Application();
-
     /**
      * Create new Application instance with a window, this method can only be called once in the
      * entire program, otherwise will throw error
@@ -36,7 +32,7 @@ class Application {
     bool _running = true;
 
     SDL_Window* _pWindow;
-    NVGcontext* _vg;
+    Gui* _pGui;
 };
 
 #endif
