@@ -4,7 +4,7 @@
 
 namespace gui {
 
-Panel::Panel(GuiObject* pParent, int relX, int relY) : GuiObject(pParent, relX, relY) {
+Panel::Panel(int relX, int relY) : GuiObject(relX, relY) {
 }
 
 void Panel::_renderImplementation(NVGcontext* vg) {

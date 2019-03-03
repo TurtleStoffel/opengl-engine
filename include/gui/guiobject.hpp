@@ -13,7 +13,7 @@ class GuiObject {
      * Construct GUI Object where Top left is x and y relative to Parent Top Left, if Parent is
      * null, x and y are absolute coordinates
      */
-    GuiObject(GuiObject* pParent, int relX, int relY);
+    GuiObject(int relX, int relY);
 
    protected:
     /**
@@ -31,8 +31,6 @@ class GuiObject {
      * 5. Pop context state from the stack
      */
     void _render(NVGcontext* vg);
-
-    GuiObject* _pParent;
 
     int _relX;
     int _relY;

@@ -17,7 +17,7 @@ Gui::Gui(SDL_Window* pWindow) {
         SDL_Log("Could not open font");
     }
 
-    Panel* testPanel = new Panel(nullptr, 50, 50);
+    Panel* testPanel = new Panel(50, 50);
     testPanel->setMinWidth(120);
     testPanel->setMinHeight(30);
 

@@ -2,10 +2,9 @@
 
 namespace gui {
 
-GuiObject::GuiObject(GuiObject* pParent, int relX, int relY) {
-    _pParent = pParent;
-    _relX    = relX;
-    _relY    = relY;
+GuiObject::GuiObject(int relX, int relY) {
+    _relX = relX;
+    _relY = relY;
 }
 
 void GuiObject::_render(NVGcontext* vg) {
