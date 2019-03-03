@@ -8,14 +8,18 @@ GuiObject::GuiObject(GuiObject* pParent, int relX, int relY) {
     _relY    = relY;
 }
 
-int GuiObject::_getAbsoluteX() {
-    int offset = _pParent ? _pParent->_getAbsoluteX() : 0;
-    return _relX + offset;
-}
+void GuiObject::_render(NVGcontext* vg) {
+    // Push current context state to the stack
+    nvgSave(vg);
 
-int GuiObject::_getAbsoluteY() {
-    int offset = _pParent ? _pParent->_getAbsoluteY() : 0;
-    return _relY + offset;
+    // Perform context transformations
+    nvgTranslate(vg, _relX, _relY);
+
+    // Call the implementation of the render method
+    _renderImplementation(vg);
+
+    // Reset context state by popping the stack
+    nvgRestore(vg);
 }
 
 }  // namespace gui

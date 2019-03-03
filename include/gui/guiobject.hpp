@@ -16,11 +16,22 @@ class GuiObject {
     GuiObject(GuiObject* pParent, int relX, int relY);
 
    protected:
-    virtual void _render(NVGcontext* vg) = 0;
-    int _getAbsoluteX();
-    int _getAbsoluteY();
+    /**
+     * Perform the rendering of the component itself
+     */
+    virtual void _renderImplementation(NVGcontext* vg) = 0;
 
    private:
+    /**
+     * Manage state and call rendering implementations
+     * 1. Push current context state to the stack
+     * 2. Execute transformations
+     * 3. Call _renderImplementation
+     * 4. Call _render from child elements
+     * 5. Pop context state from the stack
+     */
+    void _render(NVGcontext* vg);
+
     GuiObject* _pParent;
 
     int _relX;

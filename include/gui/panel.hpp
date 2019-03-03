@@ -18,7 +18,7 @@ class Panel : public GuiObject {
     void setMinHeight(int minHeight);
 
    protected:
-    virtual void _render(NVGcontext* vg);
+    virtual void _renderImplementation(NVGcontext* vg);
 
    private:
     int _minWidth;

@@ -7,10 +7,10 @@ namespace gui {
 Panel::Panel(GuiObject* pParent, int relX, int relY) : GuiObject(pParent, relX, relY) {
 }
 
-void Panel::_render(NVGcontext* vg) {
+void Panel::_renderImplementation(NVGcontext* vg) {
     // Draw Rectangle
     nvgBeginPath(vg);
-    nvgRect(vg, _getAbsoluteX(), _getAbsoluteY(), _minWidth, _minHeight);
+    nvgRect(vg, 0, 0, _minWidth, _minHeight);
     nvgFillColor(vg, nvgRGBA(255, 192, 0, 255));
     nvgFill(vg);
 
