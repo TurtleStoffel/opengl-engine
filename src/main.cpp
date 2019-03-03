@@ -5,13 +5,13 @@
 int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused))) {
     // Init SDL and create window
     SDL_Init(SDL_INIT_VIDEO);
+    // Add SDL_WINDOW_FULLSCREEN_DESKTOP flag for Fullscreen at desktop resolution
     SDL_Window* pWindow = SDL_CreateWindow("GodWorld",
                                            SDL_WINDOWPOS_CENTERED,
                                            SDL_WINDOWPOS_CENTERED,
                                            constant::initialWindowWidth,
                                            constant::initialWindowHeight,
-                                           SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
-                                               SDL_WINDOW_BORDERLESS);
+                                           SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
 
     // Generate OpenGL Context
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
