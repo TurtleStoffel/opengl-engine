@@ -23,8 +23,6 @@ class Panel : public GuiObject {
    private:
     int _minWidth;
     int _minHeight;
-
-    std::vector<GuiObject> children;
 };
 
 }  // namespace gui

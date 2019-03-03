@@ -3,6 +3,8 @@
 
 #include "nanovg.h"
 
+#include <vector>
+
 namespace gui {
 
 class GuiObject {
@@ -14,6 +16,8 @@ class GuiObject {
      * null, x and y are absolute coordinates
      */
     GuiObject(int relX, int relY);
+
+    void addChild(GuiObject* pChild);
 
    protected:
     /**
@@ -34,6 +38,8 @@ class GuiObject {
 
     int _relX;
     int _relY;
+
+    std::vector<GuiObject*> _children;
 };
 
 }  // namespace gui

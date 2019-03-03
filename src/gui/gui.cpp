@@ -18,8 +18,14 @@ Gui::Gui(SDL_Window* pWindow) {
     }
 
     Panel* testPanel = new Panel(50, 50);
-    testPanel->setMinWidth(120);
-    testPanel->setMinHeight(30);
+    testPanel->setMinWidth(200);
+    testPanel->setMinHeight(50);
+
+    Panel* testPanel2 = new Panel(20, 20);
+    testPanel2->setMinWidth(120);
+    testPanel2->setMinHeight(20);
+
+    testPanel->addChild(testPanel2);
 
     _children.push_back(testPanel);
 }

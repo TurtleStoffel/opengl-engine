@@ -14,6 +14,11 @@ void Panel::_renderImplementation(NVGcontext* vg) {
     nvgFillColor(vg, nvgRGBA(255, 192, 0, 255));
     nvgFill(vg);
 
+    nvgBeginPath(vg);
+    nvgRect(vg, 0, 0, _minWidth, _minHeight);
+    nvgStrokeColor(vg, nvgRGBA(0, 0, 0, 255));
+    nvgStroke(vg);
+
     /* Stefan Wauters
      * Use this as reference for when Textfield gets added to GUI (GW-80)
     // Set Text Settings
