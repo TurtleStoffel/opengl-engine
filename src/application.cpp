@@ -14,7 +14,7 @@ Application* Application::pApplication = nullptr;
 Application::Application(SDL_Window* pWindow) {
     // Initialize data members
     _pWindow = pWindow;
-    _pGui    = new gui::Gui(pWindow);
+    _pGui    = new gui::Gui();
 
     // Initialize all shaders
     ShaderContainer::init();
@@ -76,8 +76,13 @@ bool Application::_handleInput(SDL_Event event) {
     switch (event.type) {
         case SDL_WINDOWEVENT:
             if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
-                Camera::instance()->setWindowSize(event.window.data1,   // Window Width
-                                                  event.window.data2);  // Window Height
+                int windowWidth  = event.window.data1;
+                int windowHeight = event.window.data2;
+                // Set window size in Camera
+                Camera::instance()->setWindowSize(windowWidth, windowHeight);
+
+                // Set values in GUI
+                _pGui->setWindowParameters(windowWidth, windowHeight);
             }
             return true;
         case SDL_QUIT:

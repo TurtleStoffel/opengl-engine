@@ -3,14 +3,18 @@
 #define NANOVG_GL3_IMPLEMENTATION
 #include "nanovg_gl.h"
 
-#include "camera.hpp"
+#include "const.hpp"
 #include "gui/panel.hpp"
 
 namespace gui {
 
-Gui::Gui(SDL_Window* pWindow) {
-    _pWindow = pWindow;
-    _vg      = nvgCreateGL3(NVG_ANTIALIAS);
+Gui::Gui() {
+    // Create rendering context
+    _vg = nvgCreateGL3(NVG_ANTIALIAS);
+
+    // Set initial buffer and window sizes
+    _windowWidth  = constant::initialWindowWidth;
+    _windowHeight = constant::initialWindowHeight;
 
     // Initialise font
     if (nvgCreateFont(_vg, "sans", "../res/Roboto-Regular.ttf") == -1) {
@@ -35,15 +39,8 @@ Gui::~Gui() {
 }
 
 void Gui::render() {
-    // Get window Size for to start NanoVG frame
-    int bufferWidth;
-    int bufferHeight;
-    SDL_GL_GetDrawableSize(_pWindow, &bufferWidth, &bufferHeight);
-
-    int windowWidth;
-    int windowHeight;
-    Camera::instance()->getWindowSize(windowWidth, windowHeight);
-    nvgBeginFrame(_vg, windowWidth, windowHeight, (float)bufferWidth / windowHeight);
+    // Begin NanoVG Frame, ratio is always 1.0f if not a High DPI Screen
+    nvgBeginFrame(_vg, _windowWidth, _windowHeight, 1.0f);
 
     // Save NanoVG State
     nvgSave(_vg);
@@ -60,6 +57,11 @@ void Gui::render() {
     // Restore variables edited by NanoVG
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
+}
+
+void Gui::setWindowParameters(int windowWidth, int windowHeight) {
+    _windowWidth  = windowWidth;
+    _windowHeight = windowHeight;
 }
 
 }  // namespace gui

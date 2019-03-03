@@ -12,14 +12,18 @@ namespace gui {
 
 class Gui {
    public:
-    Gui(SDL_Window* pWindow);
+    Gui();
     ~Gui();
 
     void render();
 
+    void setWindowParameters(int windowWidth, int windowHeight);
+
    private:
-    SDL_Window* _pWindow;
     NVGcontext* _vg;
+
+    int _windowWidth;
+    int _windowHeight;
 
     std::vector<GuiObject*> _children;
 };
