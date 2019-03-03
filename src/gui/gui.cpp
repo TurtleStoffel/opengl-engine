@@ -36,6 +36,10 @@ Gui::Gui() {
 
 Gui::~Gui() {
     nvgDeleteGL3(_vg);
+
+    for (GuiObject* child : _children) {
+        delete child;
+    }
 }
 
 void Gui::render() {

@@ -7,6 +7,12 @@ GuiObject::GuiObject(int relX, int relY) {
     _relY = relY;
 }
 
+GuiObject::~GuiObject() {
+    for (GuiObject* child : _children) {
+        delete child;
+    }
+}
+
 void GuiObject::addChild(GuiObject* pChild) {
     _children.push_back(pChild);
 }

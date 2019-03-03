@@ -16,6 +16,7 @@ class GuiObject {
      * null, x and y are absolute coordinates
      */
     GuiObject(int relX, int relY);
+    virtual ~GuiObject();
 
     void addChild(GuiObject* pChild);
 
