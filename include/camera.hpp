@@ -50,6 +50,9 @@ class Camera : public Updateable {
 
     static Camera* _pCamera;
 
+    /**
+     * Internal update method for Camera, return true if values have to be updated in the shader
+     */
     virtual bool _update(int t) = 0;
 
     /**

@@ -1,23 +1,34 @@
 #include "flatcamera.hpp"
 
+#include "glm/gtc/epsilon.hpp"
+
 FlatCamera::~FlatCamera() {
     // Empty virtual destructor
 }
 
 bool FlatCamera::_update(int t) {
+    glm::vec3 direction = glm::vec3(0.0f, 0.0f, 0.0f);
+
     if (_wPressed) {
-        _cameraPosition += glm::vec3(0.0f, _speed, 0.0f) * ((float)t);
+        direction += glm::vec3(0.0f, 1.0f, 0.0f);
     }
     if (_aPressed) {
-        _cameraPosition += glm::vec3(-_speed, 0.0f, 0.0f) * ((float)t);
+        direction += glm::vec3(-1.0f, 0.0f, 0.0f);
     }
     if (_sPressed) {
-        _cameraPosition += glm::vec3(0.0f, -_speed, 0.0f) * ((float)t);
+        direction += glm::vec3(0.0f, -1.0f, 0.0f);
     }
     if (_dPressed) {
-        _cameraPosition += glm::vec3(_speed, 0.0f, 0.0f) * ((float)t);
+        direction += glm::vec3(1.0f, 0.0f, 0.0f);
     }
-    return (_wPressed || _aPressed || _sPressed || _dPressed);
+
+    // Only update camera if direction is not zero
+    if (glm::length(direction) > 0.0f) {
+        _cameraPosition += glm::normalize(direction) * _speed * ((float)t);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool FlatCamera::handleInput(SDL_Event event) {
