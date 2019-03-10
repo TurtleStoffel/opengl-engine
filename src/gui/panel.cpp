@@ -4,6 +4,9 @@
 
 namespace gui {
 
+Panel::Panel() : GuiObject() {
+}
+
 Panel::Panel(int relX, int relY) : GuiObject(relX, relY) {
 }
 

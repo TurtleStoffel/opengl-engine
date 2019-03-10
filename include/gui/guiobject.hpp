@@ -12,8 +12,13 @@ class GuiObject {
 
    public:
     /**
-     * Construct GUI Object where Top left is x and y relative to Parent Top Left, if Parent is
-     * null, x and y are absolute coordinates
+     * Top Left corner is offset using the defaults from Top Left of parent object. If parent is
+     * nullptr, x and y are absolute coordinates
+     */
+    GuiObject();
+    /**
+     * Top Left corner is offset x and y relative to Top Left of parent object. If parent is
+     * nullptr, x and y are absolute coordinates
      */
     GuiObject(int relX, int relY);
     virtual ~GuiObject();
@@ -27,6 +32,9 @@ class GuiObject {
     virtual void _renderImplementation(NVGcontext* vg) = 0;
 
    private:
+    static const int _DEFAULT_X_OFFSET = 5;
+    static const int _DEFAULT_Y_OFFSET = 5;
+
     /**
      * Manage state and call rendering implementations
      * 1. Push current context state to the stack

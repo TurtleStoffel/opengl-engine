@@ -11,9 +11,7 @@ class Panel : public GuiObject {
     enum StackingMethod { HORIZONTAL, VERTICAL };
 
    public:
-    /**
-     * Construct Panel with x and y the coordinates of the Top Left Corner
-     */
+    Panel();
     Panel(int relX, int relY);
 
     void setMinWidth(int minWidth);

@@ -28,12 +28,12 @@ Gui::Gui() {
     testPanel->setMinHeight(50);
 
     // Create Child Panel
-    Panel* testPanel2 = new Panel(20, 20);
+    Panel* testPanel2 = new Panel();
     testPanel2->setMinWidth(120);
     testPanel2->setMinHeight(20);
 
     // Create Textfield to add to Child Panel
-    TextField* textField = new TextField(5, 5);
+    TextField* textField = new TextField();
     textField->setContent("Some Text");
 
     testPanel2->addChild(textField);

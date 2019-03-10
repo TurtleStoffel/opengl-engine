@@ -9,6 +9,7 @@ namespace gui {
 
 class TextField : public GuiObject {
    public:
+    TextField();
     TextField(int relX, int relY);
 
     void setContent(std::string content);

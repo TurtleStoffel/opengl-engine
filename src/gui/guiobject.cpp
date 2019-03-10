@@ -2,6 +2,9 @@
 
 namespace gui {
 
+GuiObject::GuiObject() : GuiObject(_DEFAULT_X_OFFSET, _DEFAULT_Y_OFFSET) {
+}
+
 GuiObject::GuiObject(int relX, int relY) {
     _relX = relX;
     _relY = relY;

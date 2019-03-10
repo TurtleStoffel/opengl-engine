@@ -4,6 +4,9 @@
 
 namespace gui {
 
+TextField::TextField() : GuiObject() {
+}
+
 TextField::TextField(int relX, int relY) : GuiObject(relX, relY) {
 }
 
