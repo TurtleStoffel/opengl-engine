@@ -5,6 +5,7 @@
 
 #include "const.hpp"
 #include "gui/panel.hpp"
+#include "gui/textfield.hpp"
 
 namespace gui {
 
@@ -21,13 +22,21 @@ Gui::Gui() {
         SDL_Log("Could not open font");
     }
 
+    // Create Parent Panel
     Panel* testPanel = new Panel(50, 50);
     testPanel->setMinWidth(200);
     testPanel->setMinHeight(50);
 
+    // Create Child Panel
     Panel* testPanel2 = new Panel(20, 20);
     testPanel2->setMinWidth(120);
     testPanel2->setMinHeight(20);
+
+    // Create Textfield to add to Child Panel
+    TextField* textField = new TextField(5, 5);
+    textField->setContent("Some Text");
+
+    testPanel2->addChild(textField);
 
     testPanel->addChild(testPanel2);
 
