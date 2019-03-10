@@ -8,6 +8,8 @@
 namespace gui {
 
 class Panel : public GuiObject {
+    enum StackingMethod { HORIZONTAL, VERTICAL };
+
    public:
     /**
      * Construct Panel with x and y the coordinates of the Top Left Corner
@@ -23,6 +25,7 @@ class Panel : public GuiObject {
    private:
     int _minWidth;
     int _minHeight;
+    StackingMethod _stackingMethod;
 };
 
 }  // namespace gui
