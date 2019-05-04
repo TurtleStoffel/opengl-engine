@@ -15,30 +15,33 @@ class Property {
      *     this->_rerender();
      *   })
      */
-    void addCallback(std::function<void()> callback) {
+    void addCallback(std::function<void(T)> callback) {
         _callbacks.push_back(callback);
     }
 
+    /**
+     * Return value stored in Property
+     */
     T value() {
         return _value;
     }
 
     /**
-     * Operator overloading that automatically calls all callbacks when value is changed
+     * If value has been changed, call all callbacks with new value
      */
-    T& operator=(const T& other) {
-        _value = other;
+    void set(const T newValue) {
+        if (_value != newValue) {
+            _value = newValue;
 
-        for (std::function<void()> callback : _callbacks) {
-            callback();
+            for (std::function<void(T)> callback : _callbacks) {
+                callback(newValue);
+            }
         }
-
-        return _value;
     }
 
    private:
     T _value;
-    std::vector<std::function<void()>> _callbacks;
+    std::vector<std::function<void(T)>> _callbacks;
 };
 
 #endif

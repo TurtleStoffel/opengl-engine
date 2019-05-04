@@ -6,6 +6,7 @@
 
 #include "objects/transform.hpp"
 #include "opengl.hpp"
+#include "property.hpp"
 
 struct Vertex {
     glm::vec3 position;
@@ -16,13 +17,14 @@ struct Vertex {
 class Model {
    public:
     /**
-     * Create Model and get Transform pointer from parent Object (parent is responsible to destroy
-     * the Transform
+     * Create Model with Transform pointer and selected Boolean Property from parent Object because
+     * this is state that always has to be shared between GameObject and Model (parent
+     * is responsible to destroy the Transform)
      */
-    Model(Transform* pTransform);
+    Model(Transform* pTransform, Property<bool> selected);
     virtual ~Model();
-    void render();
 
+    void render();
     void setSelected(bool selected);
 
     /**
@@ -44,7 +46,7 @@ class Model {
     GLuint _vao;
     GLuint _vbo;
 
-    bool _selected = false;
+    Property<bool> _selected;
 };
 
 #endif

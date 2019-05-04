@@ -2,6 +2,7 @@
 #define SPHERE_HPP
 
 #include "models/model.hpp"
+#include "property.hpp"
 
 struct Face {
     Vertex v1;
@@ -11,10 +12,11 @@ struct Face {
 
 class Sphere : public Model {
    public:
-    Sphere(Transform* pTransform);
-    Sphere(Transform* pTransform, int depth);
-    Sphere(Transform* pTransform, glm::vec3 (*colorGenerator)());
-    Sphere(Transform* pTransform, int depth, glm::vec3 (*colorGenerator)());
+    Sphere(Transform* pTransform, Property<bool> selected);
+    Sphere(Transform* pTransform, Property<bool> selected, int depth);
+    Sphere(Transform* pTransform, Property<bool> selected, glm::vec3 (*colorGenerator)());
+    Sphere(Transform* pTransform, Property<bool> selected, int depth,
+           glm::vec3 (*colorGenerator)());
 
     virtual bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 

@@ -5,8 +5,9 @@
 #include "opengl.hpp"
 #include "shadercontainer.hpp"
 
-Model::Model(Transform* pTransform) {
+Model::Model(Transform* pTransform, Property<bool> selected) {
     _pTransform = pTransform;
+    _selected   = selected;
 
     // Generate OpenGL buffers
     glGenVertexArrays(1, &_vao);
@@ -25,7 +26,7 @@ void Model::render() {
     glBindVertexArray(_vao);
 
     // Render silhouette if object is selected
-    if (_selected) {
+    if (_selected.value()) {
         // Disable depth test to render to background
         glDisable(GL_DEPTH_TEST);
         // Render using Silhouette Shader
@@ -42,7 +43,7 @@ void Model::render() {
 }
 
 void Model::setSelected(bool selected) {
-    _selected = selected;
+    _selected.set(selected);
 }
 
 void Model::_setupBuffers() {

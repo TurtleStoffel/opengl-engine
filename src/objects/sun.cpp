@@ -5,8 +5,10 @@
 #include "models/sphere.hpp"
 
 Sun::Sun(Scene* pScene) {
-    _pModel = new Sphere(_pTransform, color::yellow);
+    _pModel = new Sphere(_pTransform, _selected, color::yellow);
     pScene->addRenderable(_pModel);
+
+    _temperature = 6000;
 }
 
 Sun::~Sun() {

@@ -3,7 +3,7 @@
 #include "models/sphere.hpp"
 
 Planet::Planet(Scene* pScene) {
-    _pModel = new Sphere(_pTransform);
+    _pModel = new Sphere(_pTransform, _selected);
     pScene->addRenderable(_pModel);
 
     _pTransform->translate(glm::vec3(3.0f, 0.0f, 0.0f));

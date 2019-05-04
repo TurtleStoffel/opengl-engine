@@ -2,6 +2,7 @@
 
 #include "const.hpp"
 
+// Set argc and argv as unused to remove compiler warnings
 int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused))) {
     // Init SDL and create window
     SDL_Init(SDL_INIT_VIDEO);

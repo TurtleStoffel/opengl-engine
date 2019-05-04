@@ -5,7 +5,7 @@
 
 class Settlement : public Model {
    public:
-    Settlement(Transform* pTransform);
+    Settlement(Transform* pTransform, Property<bool> selected);
 
    private:
 };

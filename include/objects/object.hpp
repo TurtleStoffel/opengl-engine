@@ -6,16 +6,21 @@
 #include "interfaces/updateable.hpp"
 #include "models/model.hpp"
 #include "objects/transform.hpp"
+#include "property.hpp"
 
 class Object : public Updateable {
    public:
     Object();
     virtual ~Object();
 
-    // Updateable interface
     virtual void update(int t) = 0;
 
    protected:
+    /**
+     * This method is automatically executed when the selected state of the object has changed.
+     */
+    virtual void _changeSelected(bool selected);
+
     /**
      * Object is responsible to add its own model to the scene
      * (game objects without models are possible)
@@ -28,6 +33,12 @@ class Object : public Updateable {
      * visible)
      */
     Transform* _pTransform;
+
+    /**
+     * Property representing if the object has been selected or not. Is passed to the Model of the
+     * object and a change to this value automatically calls _changeSelected.
+     */
+    Property<bool> _selected;
 };
 
 #endif

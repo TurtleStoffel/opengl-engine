@@ -12,6 +12,10 @@ class Sun : public Object {
 
     // Updateable interface
     virtual void update(int t);
+
+   private:
+    // Temperature in Kelvin
+    int _temperature;
 };
 
 #endif
