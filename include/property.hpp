@@ -19,6 +19,10 @@ class Property {
         _callbacks.push_back(callback);
     }
 
+    T value() {
+        return _value;
+    }
+
     /**
      * Operator overloading that automatically calls all callbacks when value is changed
      */
