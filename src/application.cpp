@@ -12,14 +12,9 @@
 Application* Application::pApplication = nullptr;
 
 Application::Application(SDL_Window* pWindow) {
-    // Initialize data members
+    // Set data members from constuctor input
+    // Remainder of setup is automatically performed in _setup method before Program Loop
     _pWindow = pWindow;
-    _pGui    = new gui::Gui();
-
-    // Initialize all shaders
-    ShaderContainer::init();
-
-    SystemScene::setInitialScene();
 }
 
 Application* Application::createInstance(SDL_Window* pWindow) {
@@ -37,6 +32,9 @@ Application* Application::instance() {
 }
 
 void Application::run() {
+    // Initial setup to make Application functional has to be done before program loop starts
+    _setup();
+
     int lastFPSTick     = SDL_GetTicks();
     int lastUpdateTicks = SDL_GetTicks();
 
@@ -70,6 +68,15 @@ void Application::run() {
         }
         lastFPSTick = currentFPSTick;
     }
+}
+
+void Application::_setup() {
+    _pGui = new gui::Gui();
+
+    // Initialize all shaders
+    ShaderContainer::init();
+
+    SystemScene::setInitialScene();
 }
 
 bool Application::_handleInput(SDL_Event event) {

@@ -26,6 +26,13 @@ class Application {
     static Application* pApplication;
     Application(SDL_Window* pWindow);
 
+    /**
+     * Initialize everything in the application to make it functional. Automatically called at the
+     * start of the run method. If this is not used there might be issues if data in the setup
+     * already requires the Application instance itself.
+     */
+    void _setup();
+
     bool _handleInput(SDL_Event event);
     void _render();
 
