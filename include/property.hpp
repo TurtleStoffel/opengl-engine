@@ -11,12 +11,17 @@ class Property {
      * Add new callback to Property
      *
      * Example usage:
-     *   fooProperty.addCallback([this] {
-     *     this->_rerender();
-     *   })
+     *   fooProperty.addCallback(std::bind(&Object::method, this, std::placeholders::_1));
      */
     void addCallback(std::function<void(T)> callback) {
         _callbacks.push_back(callback);
+    }
+    /**
+     * Example usage:
+     *   fooProperty.addCallback(std::bind(&Object::method, this));
+     */
+    void addGenericCallback(std::function<void()> callback) {
+        _genericCallbacks.push_back(callback);
     }
 
     /**
@@ -33,15 +38,24 @@ class Property {
         if (_value != newValue) {
             _value = newValue;
 
+            // Call callbacks which expect the new Property value
             for (std::function<void(T)> callback : _callbacks) {
                 callback(newValue);
+            }
+            // Call generic callbacks which expect no value
+            for (std::function<void()> callback : _genericCallbacks) {
+                callback();
             }
         }
     }
 
    private:
     T _value;
+
+    // List of callbacks that automatically get the new value
     std::vector<std::function<void(T)>> _callbacks;
+    // List of callbacks that are generic methods that accept no arguments
+    std::vector<std::function<void()>> _genericCallbacks;
 };
 
 #endif
