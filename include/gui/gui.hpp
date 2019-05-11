@@ -7,6 +7,7 @@
 #include "opengl.hpp"
 
 #include "gui/guiobject.hpp"
+#include "gui/panel.hpp"
 
 namespace gui {
 
@@ -18,8 +19,11 @@ class Gui {
     void render();
 
     void setWindowParameters(int windowWidth, int windowHeight);
+    void setSelectedPanel(Panel* pPanel);
 
    private:
+    void _clearChildren();
+
     NVGcontext* _vg;
 
     int _windowWidth;

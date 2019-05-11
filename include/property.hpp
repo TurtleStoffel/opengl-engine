@@ -16,7 +16,10 @@ class Property {
     void addCallback(std::function<void(T)> callback) {
         _callbacks.push_back(callback);
     }
+
     /**
+     * Add new generic callback (one that does not require the new value) to Property
+     *
      * Example usage:
      *   fooProperty.addCallback(std::bind(&Object::method, this));
      */

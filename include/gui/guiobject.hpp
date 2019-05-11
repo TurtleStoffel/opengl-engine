@@ -13,7 +13,7 @@ class GuiObject {
    public:
     /**
      * Top Left corner is offset using the defaults from Top Left of parent object. If parent is
-     * nullptr, x and y are absolute coordinates
+     * nullptr, x and y are 0 (top left)
      */
     GuiObject();
     /**

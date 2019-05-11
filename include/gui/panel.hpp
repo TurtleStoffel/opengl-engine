@@ -11,7 +11,15 @@ class Panel : public GuiObject {
     enum StackingMethod { HORIZONTAL, VERTICAL };
 
    public:
+    /**
+     * Top Left corner is offset using the defaults from Top Left of parent object. If parent is
+     * nullptr, x and y are 0 (top left)
+     */
     Panel();
+    /**
+     * Top Left corner is offset x and y relative to Top Left of parent object. If parent is
+     * nullptr, x and y are absolute coordinates
+     */
     Panel(int relX, int relY);
 
     void setMinWidth(int minWidth);

@@ -1,11 +1,15 @@
 #ifndef SUN_HPP
 #define SUN_HPP
 
-#include "scene.hpp"
-
 #include "objects/object.hpp"
 
+#include "guibinding/sunguibinding.hpp"
+#include "property.hpp"
+#include "scene.hpp"
+
 class Sun : public Object {
+    friend class SunGuiBinding;
+
    public:
     Sun(Scene* pScene);
     ~Sun();
@@ -15,7 +19,10 @@ class Sun : public Object {
 
    private:
     // Temperature in Kelvin
-    int _temperature;
+    Property<int> _temperature;
+
+    // GUI representation of the Object is defined in the GUI binding
+    SunGuiBinding* _pGuiBinding;
 };
 
 #endif

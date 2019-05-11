@@ -77,4 +77,16 @@ void Gui::setWindowParameters(int windowWidth, int windowHeight) {
     _windowHeight = windowHeight;
 }
 
+void Gui::setSelectedPanel(Panel* pPanel) {
+    _clearChildren();
+    _children.push_back(pPanel);
+}
+
+void Gui::_clearChildren() {
+    for (GuiObject* pGuiObject : _children) {
+        delete pGuiObject;
+    }
+    _children.clear();
+}
+
 }  // namespace gui

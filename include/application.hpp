@@ -20,7 +20,8 @@ class Application {
     static Application* instance();
 
     void run();
-    void setScene(Scene* pScene);
+
+    gui::Gui* getGui();
 
    private:
     static Application* pApplication;

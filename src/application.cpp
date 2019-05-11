@@ -70,6 +70,10 @@ void Application::run() {
     }
 }
 
+gui::Gui* Application::getGui() {
+    return _pGui;
+}
+
 void Application::_setup() {
     _pGui = new gui::Gui();
 
