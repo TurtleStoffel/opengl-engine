@@ -21,26 +21,6 @@ Gui::Gui() {
     if (nvgCreateFont(_vg, "sans", "../res/Roboto-Regular.ttf") == -1) {
         SDL_Log("Could not open font");
     }
-
-    // Create Parent Panel
-    Panel* testPanel = new Panel(50, 50);
-    testPanel->setMinWidth(200);
-    testPanel->setMinHeight(50);
-
-    // Create Child Panel
-    Panel* testPanel2 = new Panel();
-    testPanel2->setMinWidth(120);
-    testPanel2->setMinHeight(20);
-
-    // Create Textfield to add to Child Panel
-    TextField* textField = new TextField();
-    textField->setContent("Some Text");
-
-    testPanel2->addChild(textField);
-
-    testPanel->addChild(testPanel2);
-
-    _children.push_back(testPanel);
 }
 
 Gui::~Gui() {
