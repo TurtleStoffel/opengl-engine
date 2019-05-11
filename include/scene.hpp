@@ -8,7 +8,6 @@
 #include "camera.hpp"
 #include "interfaces/updateable.hpp"
 #include "models/model.hpp"
-#include "models/selectable.hpp"
 #include "objects/object.hpp"
 
 class Scene : public Updateable {
@@ -45,7 +44,6 @@ class Scene : public Updateable {
     virtual void _changeScene() = 0;
     void _mousePick(SDL_Event event);
 
-    std::vector<Selectable*> _selectable;
     std::vector<Model*> _renderable;
 };
 
