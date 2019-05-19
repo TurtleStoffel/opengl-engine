@@ -2,6 +2,7 @@
 #define OBJECT_HPP
 
 #include <glm/glm.hpp>
+#include <map>
 
 #include "interfaces/updateable.hpp"
 #include "models/model.hpp"
@@ -14,6 +15,8 @@ class Object : public Updateable {
     virtual ~Object();
 
     virtual void update(int t) = 0;
+
+    std::map<std::string, std::string> getPropertyMap();
 
    protected:
     /**
@@ -39,6 +42,11 @@ class Object : public Updateable {
      * object and a change to this value automatically calls _changeSelected.
      */
     Property<bool> _selected;
+
+    /**
+     * Every Property on an object that can be rendered in the GUI should be registered in this map.
+     */
+    std::map<std::string, std::string> _propertyMap;
 };
 
 #endif

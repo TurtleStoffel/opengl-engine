@@ -9,6 +9,12 @@ Sun::Sun(Scene* pScene) {
 
     _pGuiBinding = new SunGuiBinding(this);
 
+    // Initialize Temperature Property
+    _temperature.addCallback([this](int newTemperature) -> void {
+        _propertyMap["Temperature"] = std::to_string(newTemperature);
+    });
+    // Update GUI when Property changes
+    _temperature.addGenericCallback(std::bind(&SunGuiBinding::render, _pGuiBinding));
     _temperature.set(6000);
 }
 

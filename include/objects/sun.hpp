@@ -8,8 +8,6 @@
 #include "scene.hpp"
 
 class Sun : public Object {
-    friend class SunGuiBinding;
-
    public:
     Sun(Scene* pScene);
     ~Sun();

@@ -3,18 +3,16 @@
 
 #include "gui/panel.hpp"
 #include "gui/textfield.hpp"
+#include "guibinding/guibinding.hpp"
 
-// Forward declaration of Sun because of circular dependencies
-class Sun;
-
-class SunGuiBinding {
+class SunGuiBinding : public GuiBinding {
    public:
-    SunGuiBinding(Sun* pSun);
+    SunGuiBinding(Object* pObject);
+    ~SunGuiBinding(){};
+
+    virtual void render();
 
    private:
-    void _update();
-
-    Sun* _pSun;
     gui::Panel* _pPanel;
     gui::TextField* _pTemperatureText;
 };

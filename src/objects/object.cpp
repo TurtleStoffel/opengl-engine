@@ -11,5 +11,9 @@ Object::~Object() {
     delete _pTransform;
 }
 
+std::map<std::string, std::string> Object::getPropertyMap() {
+    return _propertyMap;
+}
+
 void Object::_changeSelected(bool selected) {
 }
