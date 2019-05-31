@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <map>
+#include <memory>
 
 #include "guibinding/guibinding.hpp"
 #include "interfaces/updateable.hpp"
@@ -50,9 +51,9 @@ class Object : public Updateable {
     std::map<std::string, std::string> _propertyMap;
 
     /**
-     * GUI Representation of the object
+     * GUI Representation of the object, belongs uniquely to the instance of this Object
      */
-    GuiBinding* _pGuiBinding = nullptr;
+    std::unique_ptr<GuiBinding> _pGuiBinding;
 };
 
 #endif

@@ -25,7 +25,7 @@ INCLUDE_DIRECTORIES(
 )
 
 ADD_COMPILE_OPTIONS(
-    -std=c++11
+    -std=c++14
     -Wall
     -Wextra
 )
