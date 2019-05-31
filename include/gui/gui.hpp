@@ -19,11 +19,13 @@ class Gui {
     void render();
 
     void setWindowParameters(int windowWidth, int windowHeight);
+    /**
+     * Clear all information currently in the GUI and add pPanel.
+     * if pPanel == null, the GUI is cleared
+     */
     void setSelectedPanel(Panel* pPanel);
 
    private:
-    void _clearChildren();
-
     NVGcontext* _vg;
 
     int _windowWidth;

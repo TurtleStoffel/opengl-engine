@@ -3,8 +3,9 @@
 Object::Object() {
     _pTransform = new Transform();
 
+    _selected = new Property<bool>();
     // Register changelister to _selected Property
-    _selected.addCallback(std::bind(&Object::_changeSelected, this, std::placeholders::_1));
+    _selected->addCallback(std::bind(&Object::_changeSelected, this, std::placeholders::_1));
 }
 
 Object::~Object() {
@@ -16,4 +17,8 @@ std::map<std::string, std::string> Object::getPropertyMap() {
 }
 
 void Object::_changeSelected(bool selected) {
+    // Only update GuiBinding if it has been initialized
+    if (_pGuiBinding) {
+        _pGuiBinding->changeSelected(selected);
+    }
 }

@@ -13,7 +13,6 @@ class SunGuiBinding : public GuiBinding {
     virtual void render();
 
    private:
-    gui::Panel* _pPanel;
     gui::TextField* _pTemperatureText;
 };
 

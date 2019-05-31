@@ -5,7 +5,7 @@
 
 class Square : public Model {
    public:
-    Square(Transform* pTransform, Property<bool> selected);
+    Square(Transform* pTransform, Property<bool>* selected);
 };
 
 #endif

@@ -58,15 +58,13 @@ void Gui::setWindowParameters(int windowWidth, int windowHeight) {
 }
 
 void Gui::setSelectedPanel(Panel* pPanel) {
-    _clearChildren();
-    _children.push_back(pPanel);
-}
-
-void Gui::_clearChildren() {
-    for (GuiObject* pGuiObject : _children) {
-        delete pGuiObject;
-    }
+    // Clear _children list, Objects that added them are responsible for freeing the memory!
     _children.clear();
+
+    // Only add panel if it is an actual instance of a Panel
+    if (pPanel) {
+        _children.push_back(pPanel);
+    }
 }
 
 }  // namespace gui

@@ -18,9 +18,6 @@ class Sun : public Object {
    private:
     // Temperature in Kelvin
     Property<int> _temperature;
-
-    // GUI representation of the Object is defined in the GUI binding
-    SunGuiBinding* _pGuiBinding;
 };
 
 #endif

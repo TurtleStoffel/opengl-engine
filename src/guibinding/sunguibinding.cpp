@@ -4,7 +4,6 @@
 #include "objects/sun.hpp"
 
 SunGuiBinding::SunGuiBinding(Object* pObject) : GuiBinding(pObject) {
-    _pPanel = new gui::Panel();
     _pPanel->setMinHeight(50);
     _pPanel->setMinWidth(100);
 
@@ -15,9 +14,6 @@ SunGuiBinding::SunGuiBinding(Object* pObject) : GuiBinding(pObject) {
     _pPanel->addChild(_pTemperatureText);
 
     render();
-
-    // Add panel in Application GUI
-    Application::instance()->getGui()->setSelectedPanel(_pPanel);
 }
 
 void SunGuiBinding::render() {

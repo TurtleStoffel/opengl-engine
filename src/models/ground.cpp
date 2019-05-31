@@ -3,7 +3,7 @@
 #include "noise/simplex_noise.hpp"
 #include "util.hpp"
 
-Ground::Ground(Transform* pTransform, Property<bool> selected) : Model(pTransform, selected) {
+Ground::Ground(Transform* pTransform, Property<bool>* selected) : Model(pTransform, selected) {
     Vertex vertexList[_tiles + 1][_tiles + 1];
     for (unsigned int i = 0; i < _tiles + 1; i++) {
         for (unsigned int j = 0; j < _tiles + 1; j++) {

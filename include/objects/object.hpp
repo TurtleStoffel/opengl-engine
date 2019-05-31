@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <map>
 
+#include "guibinding/guibinding.hpp"
 #include "interfaces/updateable.hpp"
 #include "models/model.hpp"
 #include "objects/transform.hpp"
@@ -41,12 +42,17 @@ class Object : public Updateable {
      * Property representing if the object has been selected or not. Is passed to the Model of the
      * object and a change to this value automatically calls _changeSelected.
      */
-    Property<bool> _selected;
+    Property<bool>* _selected;
 
     /**
      * Every Property on an object that can be rendered in the GUI should be registered in this map.
      */
     std::map<std::string, std::string> _propertyMap;
+
+    /**
+     * GUI Representation of the object
+     */
+    GuiBinding* _pGuiBinding = nullptr;
 };
 
 #endif

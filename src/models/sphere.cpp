@@ -7,18 +7,18 @@
 
 #include "color.hpp"
 
-Sphere::Sphere(Transform* pTransform, Property<bool> selected) : Sphere(pTransform, selected, 3) {
+Sphere::Sphere(Transform* pTransform, Property<bool>* selected) : Sphere(pTransform, selected, 3) {
 }
 
-Sphere::Sphere(Transform* pTransform, Property<bool> selected, int depth)
+Sphere::Sphere(Transform* pTransform, Property<bool>* selected, int depth)
     : Sphere(pTransform, selected, depth, color::brown) {
 }
 
-Sphere::Sphere(Transform* pTransform, Property<bool> selected, glm::vec3 (*colorGenerator)())
+Sphere::Sphere(Transform* pTransform, Property<bool>* selected, glm::vec3 (*colorGenerator)())
     : Sphere(pTransform, selected, 3, colorGenerator) {
 }
 
-Sphere::Sphere(Transform* pTransform, Property<bool> selected, int depth,
+Sphere::Sphere(Transform* pTransform, Property<bool>* selected, int depth,
                glm::vec3 (*colorGenerator)())
     : Model(pTransform, selected) {
     float d = (1.0f + sqrt(5.0f)) / 2.0f;

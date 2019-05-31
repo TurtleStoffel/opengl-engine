@@ -23,7 +23,7 @@ class TextField : public GuiObject {
     virtual void _renderImplementation(NVGcontext* vg);
 
    private:
-    std::string _content;
+    std::string _content = "";
 };
 
 }  // namespace gui

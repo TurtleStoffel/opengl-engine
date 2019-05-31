@@ -21,7 +21,7 @@ class Model {
      * this is state that always has to be shared between GameObject and Model (parent
      * is responsible to destroy the Transform)
      */
-    Model(Transform* pTransform, Property<bool> selected);
+    Model(Transform* pTransform, Property<bool>* selected);
     virtual ~Model();
 
     void render();
@@ -46,7 +46,7 @@ class Model {
     GLuint _vao;
     GLuint _vbo;
 
-    Property<bool> _selected;
+    Property<bool>* _selected;
 };
 
 #endif
