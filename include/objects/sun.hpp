@@ -17,7 +17,7 @@ class Sun : public Object {
 
    private:
     // Temperature in Kelvin
-    Property<int> _temperature;
+    Property<int>* _pTemperature;
 };
 
 #endif

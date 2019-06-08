@@ -18,7 +18,7 @@ class Object : public Updateable {
 
     virtual void update(int t) = 0;
 
-    std::map<std::string, std::string> getPropertyMap();
+    std::map<std::string, AbstractProperty*> getPropertyMap();
 
    protected:
     /**
@@ -48,7 +48,7 @@ class Object : public Updateable {
     /**
      * Every Property on an object that can be rendered in the GUI should be registered in this map.
      */
-    std::map<std::string, std::string> _propertyMap;
+    std::map<std::string, AbstractProperty*> _propertyMap;
 
     /**
      * GUI Representation of the object, belongs uniquely to the instance of this Object

@@ -12,7 +12,7 @@ Object::~Object() {
     delete _pTransform;
 }
 
-std::map<std::string, std::string> Object::getPropertyMap() {
+std::map<std::string, AbstractProperty*> Object::getPropertyMap() {
     return _propertyMap;
 }
 
