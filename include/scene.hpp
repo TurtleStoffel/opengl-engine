@@ -23,6 +23,7 @@ class Scene : public Updateable {
     void render();
 
     void addRenderable(Model* pModel);
+    void addCollider(Collider* pCollider);
 
     // Updateable Interface
     virtual void update(int t);
@@ -32,6 +33,9 @@ class Scene : public Updateable {
      * Protected constructer because Singleton class
      */
     Scene();
+
+    virtual void _initialize() = 0;
+
     /**
      * Singleton instance
      */
@@ -44,7 +48,8 @@ class Scene : public Updateable {
     virtual void _changeScene() = 0;
     void _mousePick(SDL_Event event);
 
-    std::vector<Model*> _renderable;
+    std::vector<Model*> _models;
+    std::vector<Collider*> _colliders;
 };
 
 #endif

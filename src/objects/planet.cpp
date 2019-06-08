@@ -1,10 +1,11 @@
 #include "objects/planet.hpp"
 
 #include "models/sphere.hpp"
+#include "objects/collider.hpp"
 
 Planet::Planet(Scene* pScene) {
-    _pModel = new Sphere(_pTransform, _selected);
-    pScene->addRenderable(_pModel);
+    _pModel = new Sphere(_pTransform, _pSelectionCollider->getCollidedProperty());
+    // pScene->addRenderable(_pModel);
 
     _pTransform->translate(glm::vec3(3.0f, 0.0f, 0.0f));
 }

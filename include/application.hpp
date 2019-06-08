@@ -24,7 +24,7 @@ class Application {
     gui::Gui* getGui();
 
    private:
-    static Application* pApplication;
+    static Application* _pApplication;
     Application(SDL_Window* pWindow);
 
     /**

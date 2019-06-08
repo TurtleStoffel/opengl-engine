@@ -9,7 +9,7 @@
 #include "shadercontainer.hpp"
 #include "systemscene.hpp"
 
-Application* Application::pApplication = nullptr;
+Application* Application::_pApplication = nullptr;
 
 Application::Application(SDL_Window* pWindow) {
     // Set data members from constuctor input
@@ -19,16 +19,17 @@ Application::Application(SDL_Window* pWindow) {
 
 Application* Application::createInstance(SDL_Window* pWindow) {
     // Only one instance of this class should ever be created, otherwise throw error
-    assert(!pApplication);
+    assert(!_pApplication);
 
-    pApplication = new Application(pWindow);
-    return pApplication;
+    _pApplication = new Application(pWindow);
+    return _pApplication;
 }
 
 Application* Application::instance() {
-    assert(pApplication);
+    // Check that an instance of the Application already exists
+    assert(_pApplication);
 
-    return pApplication;
+    return _pApplication;
 }
 
 void Application::run() {

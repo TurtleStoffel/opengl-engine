@@ -12,8 +12,6 @@ Scene* PlanetScene::setInitialScene() {
 }
 
 PlanetScene::PlanetScene() {
-    _objects.push_back(new Planet(this));
-    //_pCamera = new FlatCamera();
 }
 
 void PlanetScene::_changeScene() {
@@ -22,4 +20,9 @@ void PlanetScene::_changeScene() {
 
     delete _pScene;
     _pScene = new SystemScene();
+}
+
+void PlanetScene::_initialize() {
+    _objects.push_back(new Planet(this));
+    //_pCamera = new FlatCamera();
 }

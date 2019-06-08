@@ -5,6 +5,9 @@
 #include "opengl.hpp"
 #include "shadercontainer.hpp"
 
+Model::Model(Transform* pTransform) : Model(pTransform, nullptr) {
+}
+
 Model::Model(Transform* pTransform, Property<bool>* selected) {
     _pTransform = pTransform;
     _selected   = selected;
@@ -26,7 +29,7 @@ void Model::render() {
     glBindVertexArray(_vao);
 
     // Render silhouette if object is selected
-    if (_selected->value()) {
+    if (_selected && _selected->value()) {
         // Disable depth test to render to background
         glDisable(GL_DEPTH_TEST);
         // Render using Silhouette Shader
@@ -40,10 +43,6 @@ void Model::render() {
     // Render using Low Poly Shader
     ShaderContainer::lowPolyShader()->use();
     glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
-}
-
-void Model::setSelected(bool selected) {
-    _selected->set(selected);
 }
 
 void Model::_setupBuffers() {

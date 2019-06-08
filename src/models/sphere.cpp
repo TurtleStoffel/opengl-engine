@@ -2,10 +2,8 @@
 
 #include <math.h>
 
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/intersect.hpp>
-
 #include "color.hpp"
+#include "scene.hpp"
 
 Sphere::Sphere(Transform* pTransform, Property<bool>* selected) : Sphere(pTransform, selected, 3) {
 }
@@ -89,17 +87,8 @@ Sphere::Sphere(Transform* pTransform, Property<bool>* selected, int depth,
     }
 
     _setupBuffers();
-}
 
-bool Sphere::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
-    glm::vec3 intersectionPoint;
-    glm::vec3 intersectionNormal;
-    return glm::intersectRaySphere(rayPosition,
-                                   glm::normalize(rayDirection),
-                                   _pTransform->getPosition(),
-                                   _pTransform->getScale()[0],  // Sphere has uniform Scale
-                                   intersectionPoint,
-                                   intersectionNormal);
+    Scene::instance()->addRenderable(this);
 }
 
 Vertex Sphere::_getMidpoint(Vertex p1, Vertex p2, glm::vec3 color) {
@@ -112,7 +101,7 @@ Vertex Sphere::_getMidpoint(Vertex p1, Vertex p2, glm::vec3 color) {
 Vertex Sphere::_createVertex(glm::vec3 point, glm::vec3 color) {
     return Vertex{
         point,  // Position
-        point,  // Normal
+        point,  // Normal is equal to Position on a Sphere
         color   // Color
     };
 }

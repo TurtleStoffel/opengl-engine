@@ -1,11 +1,14 @@
 #include "objects/object.hpp"
 
-Object::Object() {
-    _pTransform = new Transform();
+#include "objects/collider.hpp"
 
-    _selected = new Property<bool>();
-    // Register changelister to _selected Property
-    _selected->addCallback(std::bind(&Object::_changeSelected, this, std::placeholders::_1));
+Object::Object() {
+    _pTransform         = new Transform();
+    _pSelectionCollider = std::make_unique<Collider>(_pTransform);
+
+    // Add callback when selection state changes
+    _pSelectionCollider->getCollidedProperty()->addCallback(
+        std::bind(&Object::_changeSelected, this, std::placeholders::_1));
 }
 
 Object::~Object() {

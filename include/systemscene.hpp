@@ -13,6 +13,7 @@ class SystemScene : public Scene {
     SystemScene();
 
     virtual void _changeScene();
+    virtual void _initialize();
 };
 
 #endif

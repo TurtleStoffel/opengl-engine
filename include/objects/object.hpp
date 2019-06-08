@@ -11,6 +11,9 @@
 #include "objects/transform.hpp"
 #include "property.hpp"
 
+// Forward Declaration to prevent Circular Imports
+class Collider;
+
 class Object : public Updateable {
    public:
     Object();
@@ -40,10 +43,9 @@ class Object : public Updateable {
     Transform* _pTransform;
 
     /**
-     * Property representing if the object has been selected or not. Is passed to the Model of the
-     * object and a change to this value automatically calls _changeSelected.
+     * Collider is responsible to check if an object has been selected
      */
-    Property<bool>* _selected;
+    std::unique_ptr<Collider> _pSelectionCollider;
 
     /**
      * Every Property on an object that can be rendered in the GUI should be registered in this map.

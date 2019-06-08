@@ -4,10 +4,10 @@
 
 #include "color.hpp"
 #include "models/sphere.hpp"
+#include "objects/collider.hpp"
 
 Sun::Sun(Scene* pScene) {
-    _pModel = new Sphere(_pTransform, _selected, color::yellow);
-    pScene->addRenderable(_pModel);
+    _pModel = new Sphere(_pTransform, _pSelectionCollider->getCollidedProperty(), color::yellow);
 
     // Initialize Temperature Property
     _pTemperature               = new Property<int>();

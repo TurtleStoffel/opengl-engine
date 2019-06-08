@@ -13,6 +13,7 @@ class PlanetScene : public Scene {
     PlanetScene();
 
     void _changeScene();
+    virtual void _initialize();
 };
 
 #endif

@@ -4,6 +4,7 @@
 
 #include "application.hpp"
 #include "camera.hpp"
+#include "objects/collider.hpp"
 
 Scene* Scene::_pScene = nullptr;
 
@@ -34,13 +35,17 @@ bool Scene::handleInput(SDL_Event event) {
 }
 
 void Scene::render() {
-    for (Model* model : _renderable) {
+    for (Model* model : _models) {
         model->render();
     }
 }
 
 void Scene::addRenderable(Model* pModel) {
-    _renderable.push_back(pModel);
+    _models.push_back(pModel);
+}
+
+void Scene::addCollider(Collider* pCollider) {
+    _colliders.push_back(pCollider);
 }
 
 void Scene::update(int t) {
@@ -64,11 +69,12 @@ void Scene::_mousePick(SDL_Event event) {
         _pCamera->calculateClickRay(event.motion.x, event.motion.y, point, direction);
 
         // Check for each object in scene if there was an intersection
-        for (Model* model : _renderable) {
-            if (model->intersect(point, direction)) {
-                model->setSelected(true);
+        for (Collider* collider : _colliders) {
+            // Implemented like this to make selection of closest object in the future easier
+            if (collider->intersect(point, direction)) {
+                collider->setSelected(true);
             } else {
-                model->setSelected(false);
+                collider->setSelected(false);
             }
         }
     }

@@ -14,13 +14,13 @@ class Transform {
     void rotate(float degrees);
 
     glm::vec3 getInitialPosition();
-    glm::vec3 getPosition();
-    glm::vec3 getScale();
+    glm::vec3 getPosition() const;
+    glm::vec3 getScale() const;
 
     void passModelMatrixToShader();
 
    private:
-    glm::mat4 _calculateModelMatrix();
+    glm::mat4 _calculateModelMatrix() const;
 
     glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 _scale    = glm::vec3(1.0f, 1.0f, 1.0f);
