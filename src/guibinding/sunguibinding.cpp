@@ -17,6 +17,6 @@ SunGuiBinding::SunGuiBinding(Object* pObject) : GuiBinding(pObject) {
 }
 
 void SunGuiBinding::render() {
-    std::map<std::string, std::string> propertyMap = _pObject->getPropertyMap();
-    _pTemperatureText->setContent("Temperature\t" + propertyMap["Temperature"]);
+    std::map<std::string, AbstractProperty*> propertyMap = _pObject->getPropertyMap();
+    _pTemperatureText->setContent("Temperature\t" + propertyMap["Temperature"]->getString());
 }

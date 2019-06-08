@@ -2,23 +2,38 @@
 #define PROPERTY_HPP
 
 #include <functional>
+#include <string>
 #include <vector>
 
+/**
+ * Abstract Property placeholder
+ * enables us to pass properties around in a map or list without specifying
+ * the internal type of the property.
+ */
+class AbstractProperty {
+   public:
+    AbstractProperty(){};
+    virtual ~AbstractProperty(){};
+    virtual std::string getString() = 0;
+};
+
 template <typename T>
-class Property {
+class Property : public AbstractProperty {
    public:
     /**
      * Add new callback to Property
      *
      * Example usage:
-     *   fooProperty.addCallback(std::bind(&Object::method, this, std::placeholders::_1));
+     *   fooProperty.addCallback(std::bind(&Object::method, this,
+     * std::placeholders::_1));
      */
     void addCallback(std::function<void(T)> callback) {
         _callbacks.push_back(callback);
     }
 
     /**
-     * Add new generic callback (one that does not require the new value) to Property
+     * Add new generic callback (one that does not require the new value) to
+     * Property
      *
      * Example usage:
      *   fooProperty.addCallback(std::bind(&Object::method, this));
@@ -50,6 +65,13 @@ class Property {
                 callback();
             }
         }
+    }
+
+    /**
+     * Returns the string representation of the property content
+     */
+    virtual std::string getString() {
+        return std::to_string(_value);
     }
 
    private:
