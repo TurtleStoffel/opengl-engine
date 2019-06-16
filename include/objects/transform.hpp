@@ -11,7 +11,8 @@ class Transform {
    public:
     void scale(glm::vec3 v);
     void translate(glm::vec3 v);
-    void rotate(float degrees);
+    void rotateLocal(float degrees);
+    void rotateGlobal(float degrees);
 
     glm::vec3 getInitialPosition();
     glm::vec3 getPosition() const;
@@ -24,7 +25,11 @@ class Transform {
 
     glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 _scale    = glm::vec3(1.0f, 1.0f, 1.0f);
-    float _rotation     = 0.0f;
+
+    // Local Rotation is around its own center
+    float _localRotation = 0.0f;
+    // Global Rotation is around the origin
+    float _globalRotation = 0.0f;
 };
 
 #endif

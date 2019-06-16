@@ -23,6 +23,5 @@ void PlanetScene::_changeScene() {
 }
 
 void PlanetScene::_initialize() {
-    _objects.push_back(new Planet(this));
-    //_pCamera = new FlatCamera();
+    // TODO
 }
