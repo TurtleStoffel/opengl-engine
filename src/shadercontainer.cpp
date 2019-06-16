@@ -52,7 +52,6 @@ void ShaderContainer::setModelMatrix(void* model) {
 ShaderContainer::ShaderContainer() {
     // Create shader programs
     _lowPolyShader = new Shader("../shaders/low-poly/vertex.glsl",
-                                "../shaders/low-poly/geometry.glsl",
                                 "../shaders/low-poly/fragment.glsl");
 
     _silhouetteShader = new Shader("../shaders/silhouette/vertex.glsl",
