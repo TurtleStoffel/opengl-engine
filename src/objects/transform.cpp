@@ -1,6 +1,7 @@
 #include "objects/transform.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/transform.hpp>
 
 #include "shadercontainer.hpp"
 
@@ -12,8 +13,12 @@ void Transform::translate(glm::vec3 v) {
     _position += v;
 }
 
-void Transform::rotate(float degrees) {
-    _rotation += degrees;
+void Transform::rotateLocal(float degrees) {
+    _localRotation += degrees;
+}
+
+void Transform::rotateGlobal(float degrees) {
+    _globalRotation += degrees;
 }
 
 glm::vec3 Transform::getInitialPosition() {
@@ -21,9 +26,8 @@ glm::vec3 Transform::getInitialPosition() {
 }
 
 glm::vec3 Transform::getPosition() const {
-    glm::vec4 transformedPosition = glm::vec4(_position, 1.0f) * _calculateModelMatrix();
-    // Negative y coordinate is needed to make mousePicking work correctly
-    return glm::vec3(transformedPosition.x, -transformedPosition.y, transformedPosition.z);
+    glm::vec4 transformedPosition = _calculateModelMatrix() * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    return glm::vec3(transformedPosition.x, transformedPosition.y, transformedPosition.z);
 }
 
 glm::vec3 Transform::getScale() const {
@@ -38,9 +42,10 @@ void Transform::passModelMatrixToShader() {
 }
 
 glm::mat4 Transform::_calculateModelMatrix() const {
-    glm::mat4 modelMatrix = glm::rotate(glm::mat4(1.0f), _rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-    modelMatrix           = glm::scale(modelMatrix, _scale);
-    modelMatrix           = glm::translate(modelMatrix, _position);
+    glm::mat4 scaleMatrix          = glm::scale(_scale);
+    glm::mat4 localRotationMatrix  = glm::rotate(_localRotation, glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 translateMatrix      = glm::translate(_position);
+    glm::mat4 globalRotationMatrix = glm::rotate(_globalRotation, glm::vec3(0.0f, 0.0f, 1.0f));
 
-    return modelMatrix;
+    return globalRotationMatrix * translateMatrix * localRotationMatrix * scaleMatrix;
 }

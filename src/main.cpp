@@ -1,5 +1,6 @@
-#include "application.hpp"
+#include <time.h>
 
+#include "application.hpp"
 #include "const.hpp"
 
 // Set argc and argv as unused to remove compiler warnings
@@ -33,6 +34,9 @@ int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused)))
     glClearColor(0.0, 0.0, 0.2, 1.0);
     // Make sure depth is correctly rendered
     glEnable(GL_DEPTH_TEST);
+
+    // set random seed
+    srand(time(NULL));
 
     // Startup Application
     Application* pApplication = Application::createInstance(pWindow);
