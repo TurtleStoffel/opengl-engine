@@ -5,9 +5,6 @@
 #include "opengl.hpp"
 #include "shadercontainer.hpp"
 
-Model::Model(Transform* pTransform) : Model(pTransform, nullptr) {
-}
-
 Model::Model(Transform* pTransform, Property<bool>* selected) {
     _pTransform = pTransform;
     _selected   = selected;
@@ -15,6 +12,14 @@ Model::Model(Transform* pTransform, Property<bool>* selected) {
     // Generate OpenGL buffers
     glGenVertexArrays(1, &_vao);
     glGenBuffers(1, &_vbo);
+}
+
+Model::Model(Transform* pTransform) : Model(pTransform, nullptr) {
+    // Constructor Overload
+}
+
+Model::Model() : Model(nullptr, nullptr) {
+    // Constructor Overload
 }
 
 Model::~Model() {
@@ -34,7 +39,7 @@ void Model::render() {
         glDisable(GL_DEPTH_TEST);
         // Render using Silhouette Shader
         ShaderContainer::silhouetteShader()->use();
-        glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
+        glDrawArrays(_renderingMode, 0, _vertices.size());
     }
 
     // Render object itself
@@ -42,7 +47,7 @@ void Model::render() {
     glEnable(GL_DEPTH_TEST);
     // Render using Low Poly Shader
     ShaderContainer::lowPolyShader()->use();
-    glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
+    glDrawArrays(_renderingMode, 0, _vertices.size());
 }
 
 void Model::_setupBuffers() {

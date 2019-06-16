@@ -51,14 +51,17 @@ void Camera::getWindowSize(int& windowWidth, int& windowHeight) {
 }
 
 void Camera::calculateClickRay(int x, int y, glm::vec3& point, glm::vec3& direction) {
+    // Y coord is inverted in OpenGL
+    int transformedY = _windowHeight - y;
+
     // Transform coordinates to world space
-    glm::vec3 nearPoint = glm::unProject(glm::vec3(x, y, 0.0),
+    glm::vec3 nearPoint = glm::unProject(glm::vec3(x, transformedY, 0.0f),
                                          _viewMatrix,
                                          _projectionMatrix,
                                          glm::vec4(0.0, 0.0, _windowWidth, _windowHeight));
 
     // Transform coordinates of far off point to calculate direction
-    glm::vec3 farPoint = glm::unProject(glm::vec3(x, y, 1.0),
+    glm::vec3 farPoint = glm::unProject(glm::vec3(x, transformedY, 1.0f),
                                         _viewMatrix,
                                         _projectionMatrix,
                                         glm::vec4(0.0, 0.0, _windowWidth, _windowHeight));

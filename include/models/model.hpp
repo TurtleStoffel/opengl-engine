@@ -21,8 +21,19 @@ class Model {
      * this is state that always has to be shared between GameObject and Model (parent
      * is responsible to destroy the Transform)
      */
-    Model(Transform* pTransform);
     Model(Transform* pTransform, Property<bool>* selected);
+    /**
+     * Overloading when the Parent Object is not selectable
+     */
+    Model(Transform* pTransform);
+    /**
+     * Overloading when the Model is not linked to a Game Object (for debug purposes)
+     *
+     * IMPORTANT!: When using this constructor, the Model implementation is responsible to Set and
+     * Destroy the Model Transform
+     */
+    Model();
+
     virtual ~Model();
 
     void render();
@@ -30,10 +41,10 @@ class Model {
    protected:
     void _setupBuffers();
 
-    /**
-     * Pointer to Transform from parent Object
-     */
+    // Pointer to Transform from parent Object (unless Model is not owned by a Game Object
     Transform* _pTransform;
+
+    GLenum _renderingMode = GL_TRIANGLES;
 
     std::vector<Vertex> _vertices;
 

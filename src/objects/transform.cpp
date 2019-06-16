@@ -21,8 +21,9 @@ glm::vec3 Transform::getInitialPosition() {
 }
 
 glm::vec3 Transform::getPosition() const {
-    glm::vec4 transformedPosition = glm::vec4(_position, 0.0f) * _calculateModelMatrix();
-    return glm::vec3(transformedPosition.x, transformedPosition.y, transformedPosition.z);
+    glm::vec4 transformedPosition = glm::vec4(_position, 1.0f) * _calculateModelMatrix();
+    // Negative y coordinate is needed to make mousePicking work correctly
+    return glm::vec3(transformedPosition.x, -transformedPosition.y, transformedPosition.z);
 }
 
 glm::vec3 Transform::getScale() const {
