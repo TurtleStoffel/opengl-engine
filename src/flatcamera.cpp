@@ -21,6 +21,12 @@ bool FlatCamera::_update(int t) {
     if (_dPressed) {
         direction += glm::vec3(1.0f, 0.0f, 0.0f);
     }
+    if (_qPressed) {
+        direction += glm::vec3(0.0f, 0.0f, 1.0f);
+    }
+    if (_ePressed) {
+        direction += glm::vec3(0.0f, 0.0f, -1.0f);
+    }
 
     // Only update camera if direction is not zero
     if (glm::length(direction) > 0.0f) {
@@ -53,6 +59,14 @@ bool FlatCamera::handleInput(SDL_Event event) {
                     _dPressed = true;
                     handled   = true;
                     break;
+                case SDLK_q:
+                    _qPressed = true;
+                    handled   = true;
+                    break;
+                case SDLK_e:
+                    _ePressed = true;
+                    handled   = true;
+                    break;
             }
             break;
         case SDL_KEYUP:
@@ -71,6 +85,14 @@ bool FlatCamera::handleInput(SDL_Event event) {
                     break;
                 case SDLK_d:
                     _dPressed = false;
+                    handled   = true;
+                    break;
+                case SDLK_q:
+                    _qPressed = false;
+                    handled   = true;
+                    break;
+                case SDLK_e:
+                    _ePressed = false;
                     handled   = true;
                     break;
             }

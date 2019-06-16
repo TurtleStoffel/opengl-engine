@@ -69,6 +69,8 @@ class Camera : public Updateable {
     bool _aPressed = false;
     bool _sPressed = false;
     bool _dPressed = false;
+    bool _qPressed = false;
+    bool _ePressed = false;
 
    private:
     /**
