@@ -14,7 +14,11 @@ class AbstractProperty {
    public:
     AbstractProperty(){};
     virtual ~AbstractProperty(){};
-    virtual std::string getString() = 0;
+    virtual std::string getString() const = 0;
+
+    // Generic Callbacks can already be defined on AbstractProperty to allow callbacks that only
+    // read the string of the Property
+    virtual void addGenericCallback(std::function<void()> callback) = 0;
 };
 
 template <typename T>
@@ -38,7 +42,7 @@ class Property : public AbstractProperty {
      * Example usage:
      *   fooProperty.addCallback(std::bind(&Object::method, this));
      */
-    void addGenericCallback(std::function<void()> callback) {
+    virtual void addGenericCallback(std::function<void()> callback) {
         _genericCallbacks.push_back(callback);
     }
 
@@ -70,7 +74,7 @@ class Property : public AbstractProperty {
     /**
      * Returns the string representation of the property content
      */
-    virtual std::string getString() {
+    virtual std::string getString() const {
         return std::to_string(_value);
     }
 

@@ -15,7 +15,7 @@ Object::~Object() {
     delete _pTransform;
 }
 
-std::map<std::string, AbstractProperty*> Object::getPropertyMap() {
+const std::map<std::string, AbstractProperty*> Object::getPropertyMap() const {
     return _propertyMap;
 }
 

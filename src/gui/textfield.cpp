@@ -4,14 +4,16 @@
 
 namespace gui {
 
-TextField::TextField() : GuiObject() {
+TextField::TextField(GuiObject* pParent) : GuiObject(pParent) {
 }
 
-TextField::TextField(int relX, int relY) : GuiObject(relX, relY) {
+TextField::TextField(GuiObject* pParent, int relX, int relY) : GuiObject(pParent, relX, relY) {
 }
 
 void TextField::setContent(std::string content) {
     _content = content;
+    // Content has changed, mark parent as dirty so that bounds are recalculated
+    _pParent->setDirty();
 }
 
 void TextField::getBounds(NVGcontext* vg, float* bounds) {

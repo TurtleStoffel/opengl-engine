@@ -3,13 +3,13 @@
 
 #include "objects/object.hpp"
 
-#include "guibinding/sunguibinding.hpp"
+#include "guibinding/guibinding.hpp"
 #include "property.hpp"
 #include "scene.hpp"
 
 class Sun : public Object {
    public:
-    Sun(Scene* pScene);
+    Sun();
     ~Sun();
 
     // Updateable interface

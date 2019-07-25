@@ -8,6 +8,7 @@
 namespace gui {
 
 class Panel : public GuiObject {
+    // TODO use this in implementation
     enum StackingMethod { HORIZONTAL, VERTICAL };
 
    public:
@@ -15,22 +16,26 @@ class Panel : public GuiObject {
      * Top Left corner is offset using the defaults from Top Left of parent object. If parent is
      * nullptr, x and y are 0 (top left)
      */
-    Panel();
+    Panel(GuiObject* pParent);
     /**
      * Top Left corner is offset x and y relative to Top Left of parent object. If parent is
      * nullptr, x and y are absolute coordinates
      */
-    Panel(int relX, int relY);
+    Panel(GuiObject* pParent, int relX, int relY);
 
-    void setMinWidth(int minWidth);
-    void setMinHeight(int minHeight);
+    void setWidth(int width);
+    void setHeight(int height);
+
+    virtual void calculateBounds(NVGcontext* vg);
+    virtual void getBounds(NVGcontext* vg, float* bounds);
+    void recalculateSize();
 
    protected:
     virtual void _renderImplementation(NVGcontext* vg);
 
    private:
-    int _minWidth;
-    int _minHeight;
+    int _width;
+    int _height;
     StackingMethod _stackingMethod;
 };
 
