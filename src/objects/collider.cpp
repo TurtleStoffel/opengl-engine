@@ -3,13 +3,13 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/intersect.hpp>
 
-#include "scene.hpp"
+#include "application.hpp"
 
 Collider::Collider(const Transform* pTransform) {
     _pTransform = pTransform;
     _collided   = std::make_unique<Property<bool>>();
 
-    Scene::instance()->addCollider(this);
+    Application::instance()->getScene()->addCollider(this);
 }
 
 bool Collider::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {

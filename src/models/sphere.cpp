@@ -2,8 +2,8 @@
 
 #include <math.h>
 
+#include "application.hpp"
 #include "color.hpp"
-#include "scene.hpp"
 
 Sphere::Sphere(Transform* pTransform, Property<bool>* selected) : Sphere(pTransform, selected, 3) {
 }
@@ -88,7 +88,7 @@ Sphere::Sphere(Transform* pTransform, Property<bool>* selected, int depth,
 
     _setupBuffers();
 
-    Scene::instance()->addRenderable(this);
+    Application::instance()->getScene()->addRenderable(this);
 }
 
 Vertex Sphere::_getMidpoint(Vertex p1, Vertex p2, glm::vec3 color) {

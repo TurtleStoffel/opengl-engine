@@ -9,15 +9,8 @@
 class Camera : public Updateable {
    public:
     enum MovementMode { FLAT, SPHERICAL };
-    /**
-     * Request current singleton instance
-     */
-    static Camera* instance();
 
-    /**
-     * Set parameters of camera
-     */
-    void set(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode);
+    Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode);
 
     void setWindowSize(int windowWidth, int windowHeight);
     void getWindowSize(int& windowWidth, int& windowHeight);
@@ -40,10 +33,16 @@ class Camera : public Updateable {
     virtual void update(int dt);
 
    private:
-    // Singleton class
-    Camera();
+    /**
+     * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
+     */
+    void _configureShader();
 
-    static Camera* _pCamera;
+    /**
+     * Movement methods that will be called depending on _movementMode
+     */
+    bool _moveFlat(int dt);
+    bool _moveSpherical(int dt);
 
     /**
      * Camera parameters
@@ -61,17 +60,6 @@ class Camera : public Updateable {
     bool _dPressed = false;
     bool _qPressed = false;
     bool _ePressed = false;
-
-    /**
-     * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
-     */
-    void _configureShader();
-
-    /**
-     * Movement methods that will be called depending on _movementMode
-     */
-    bool _moveFlat(int dt);
-    bool _moveSpherical(int dt);
 
     /**
      * Determines how the camera moves in the _update call
