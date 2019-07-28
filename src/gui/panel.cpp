@@ -27,18 +27,17 @@ void Panel::getBounds(NVGcontext* vg, float* bounds) {
     for (std::unique_ptr<GuiObject>& pChild : _children) {
         float childBounds[4];
         pChild->getBounds(vg, childBounds);
+        // By default use vertical stacking
+        // take min/max for x
         if (childBounds[0] < bounds[0]) {
             bounds[0] = childBounds[0];
-        }
-        if (childBounds[1] < bounds[1]) {
-            bounds[1] = childBounds[1];
         }
         if (childBounds[2] > bounds[2]) {
             bounds[2] = childBounds[2];
         }
-        if (childBounds[3] > bounds[3]) {
-            bounds[3] = childBounds[3];
-        }
+
+        // add y coordinates together
+        bounds[3] += childBounds[3] - childBounds[1];
     }
 }
 

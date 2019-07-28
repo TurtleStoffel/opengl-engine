@@ -13,7 +13,7 @@ TextField::TextField(GuiObject* pParent, int relX, int relY) : GuiObject(pParent
 void TextField::setContent(std::string content) {
     _content = content;
     // Content has changed, mark parent as dirty so that bounds are recalculated
-    _pParent->setDirty();
+    _pParent->markDirty();
 }
 
 void TextField::getBounds(NVGcontext* vg, float* bounds) {

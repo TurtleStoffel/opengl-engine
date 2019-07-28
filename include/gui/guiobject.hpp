@@ -25,7 +25,10 @@ class GuiObject {
     virtual ~GuiObject();
 
     void addChild(std::unique_ptr<GuiObject> pChild);
-    void setDirty();
+    /**
+     * Set this GUI element as dirty to recalculate bounds on next render
+     */
+    void markDirty();
     virtual void calculateBounds(NVGcontext* vg);
 
     /**

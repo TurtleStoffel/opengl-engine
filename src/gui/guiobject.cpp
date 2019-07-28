@@ -20,11 +20,11 @@ void GuiObject::addChild(std::unique_ptr<GuiObject> pChild) {
     _children.push_back(std::move(pChild));
 }
 
-void GuiObject::setDirty() {
+void GuiObject::markDirty() {
     _dirty = true;
 
     if (_pParent) {
-        _pParent->setDirty();
+        _pParent->markDirty();
     }
 }
 
@@ -41,6 +41,7 @@ void GuiObject::_render(NVGcontext* vg) {
     nvgTranslate(vg, _relX, _relY);
 
     // If element is marked dirty, recalculate bounds
+    // TODO keep this only for Panel if it is split up from GuiObject (US-13)
     if (_dirty) {
         calculateBounds(vg);
     }
