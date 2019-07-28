@@ -25,10 +25,6 @@ Gui::Gui() {
 
 Gui::~Gui() {
     nvgDeleteGL3(_vg);
-
-    for (GuiObject* child : _children) {
-        delete child;
-    }
 }
 
 void Gui::render() {
@@ -38,7 +34,7 @@ void Gui::render() {
     // Save NanoVG State
     nvgSave(_vg);
 
-    for (GuiObject* guiObject : _children) {
+    for (std::shared_ptr<GuiObject> guiObject : _children) {
         guiObject->_render(_vg);
     }
 
@@ -57,11 +53,11 @@ void Gui::setWindowParameters(int windowWidth, int windowHeight) {
     _windowHeight = windowHeight;
 }
 
-void Gui::setSelectedPanel(Panel* pPanel) {
+void Gui::setSelectedPanel(std::shared_ptr<Panel> pPanel) {
     // Clear _children list, Objects that added them are responsible for freeing the memory!
     _children.clear();
 
-    // Only add panel if it is an actual instance of a Panel
+    // Only add panel if it is not a nullptr
     if (pPanel) {
         _children.push_back(pPanel);
     }

@@ -21,7 +21,7 @@ class Object : public Updateable {
 
     virtual void update(int t) = 0;
 
-    std::map<std::string, AbstractProperty*> getPropertyMap();
+    const std::map<std::string, AbstractProperty*> getPropertyMap() const;
 
    protected:
     /**

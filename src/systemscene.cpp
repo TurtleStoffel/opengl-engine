@@ -36,7 +36,7 @@ void SystemScene::_initialize() {
                   glm::vec3(0.0f, 1.0f, 0.0f));
 
     // Create objects
-    _objects.push_back(new Sun(this));
+    _objects.push_back(new Sun());
     float minPlanetOffset = 2.0f;
     float maxPlanetOffset = 3.0f;
     float minPlanetRadius = 0.3f;

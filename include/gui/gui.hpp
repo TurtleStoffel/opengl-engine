@@ -1,6 +1,7 @@
 #ifndef GUI_HPP
 #define GUI_HPP
 
+#include <memory>
 #include <vector>
 
 #include "nanovg.h"
@@ -19,11 +20,12 @@ class Gui {
     void render();
 
     void setWindowParameters(int windowWidth, int windowHeight);
+
     /**
      * Clear all information currently in the GUI and add pPanel.
      * if pPanel == null, the GUI is cleared
      */
-    void setSelectedPanel(Panel* pPanel);
+    void setSelectedPanel(std::shared_ptr<Panel> pPanel);
 
    private:
     NVGcontext* _vg;
@@ -31,7 +33,7 @@ class Gui {
     int _windowWidth;
     int _windowHeight;
 
-    std::vector<GuiObject*> _children;
+    std::vector<std::shared_ptr<GuiObject>> _children;
 };
 
 }  // namespace gui
