@@ -1,6 +1,6 @@
 #include "systemscene.hpp"
 
-#include "flatcamera.hpp"
+#include "camera.hpp"
 #include "objects/planet.hpp"
 #include "objects/sun.hpp"
 #include "planetscene.hpp"
@@ -30,10 +30,13 @@ void SystemScene::_changeScene() {
 
 void SystemScene::_initialize() {
     // Create camera
-    _pCamera = FlatCamera::changeInstance();
+    // TODO This call will be removed in US-20 because the Scene will manage its own camera (create
+    // new instance instead of Camera as a singleton
+    _pCamera = Camera::instance();
     _pCamera->set(glm::vec3(0.0f, 0.0f, 15.0f),
                   glm::vec3(0.0f, 0.0f, -1.0f),
-                  glm::vec3(0.0f, 1.0f, 0.0f));
+                  glm::vec3(0.0f, 1.0f, 0.0f),
+                  Camera::MovementMode::FLAT);
 
     // Create objects
     _objects.push_back(new Sun());

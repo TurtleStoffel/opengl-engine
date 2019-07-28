@@ -3,17 +3,12 @@
 
 #include <glm/glm.hpp>
 
-#include "opengl.hpp"
-
 #include "interfaces/updateable.hpp"
+#include "opengl.hpp"
 
 class Camera : public Updateable {
    public:
-    /**
-     * Destructor has to be public to allow child classes to delete singleton instance
-     */
-    virtual ~Camera();
-
+    enum MovementMode { FLAT, SPHERICAL };
     /**
      * Request current singleton instance
      */
@@ -22,7 +17,7 @@ class Camera : public Updateable {
     /**
      * Set parameters of camera
      */
-    void set(glm::vec3 position, glm::vec3 direction, glm::vec3 up);
+    void set(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode);
 
     void setWindowSize(int windowWidth, int windowHeight);
     void getWindowSize(int& windowWidth, int& windowHeight);
@@ -34,26 +29,21 @@ class Camera : public Updateable {
     void calculateClickRay(int x, int y, glm::vec3& point, glm::vec3& direction);
 
     /**
-     * Abstract class to force child classes to implement handleInput
-     * Return true if input has been handled by the camera
+     * Checks if any of the relevant keys for the Camera have been pressed. Returns True if input
+     * has been handled
      */
-    virtual bool handleInput(SDL_Event event) = 0;
+    bool handleInput(SDL_Event event);
 
     /**
      * Updateable Interface methods
      */
-    virtual void update(int t);
+    virtual void update(int dt);
 
-   protected:
+   private:
     // Singleton class
     Camera();
 
     static Camera* _pCamera;
-
-    /**
-     * Internal update method for Camera, return true if values have to be updated in the shader
-     */
-    virtual bool _update(int t) = 0;
 
     /**
      * Camera parameters
@@ -63,7 +53,7 @@ class Camera : public Updateable {
     glm::vec3 _cameraUp        = glm::vec3(0.0f, 1.0f, 0.0f);
 
     /**
-     * Camera movement parameters
+     * Variables to track key presses
      */
     bool _wPressed = false;
     bool _aPressed = false;
@@ -72,11 +62,22 @@ class Camera : public Updateable {
     bool _qPressed = false;
     bool _ePressed = false;
 
-   private:
     /**
      * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
      */
     void _configureShader();
+
+    /**
+     * Movement methods that will be called depending on _movementMode
+     */
+    bool _moveFlat(int dt);
+    bool _moveSpherical(int dt);
+
+    /**
+     * Determines how the camera moves in the _update call
+     */
+    MovementMode _movementMode;
+    const float _speed = 0.001f;
 
     /**
      * Window Size
