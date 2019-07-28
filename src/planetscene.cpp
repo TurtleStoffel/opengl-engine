@@ -1,7 +1,5 @@
 #include "planetscene.hpp"
 
-#include "flatcamera.hpp"
-
 #include "objects/planet.hpp"
 
 Scene* PlanetScene::setInitialScene() {
@@ -19,7 +17,7 @@ void PlanetScene::_changeScene() {
     assert(_pScene);
 
     delete _pScene;
-    _pScene = new SystemScene();
+    //_pScene = new SystemScene();
 }
 
 void PlanetScene::_initialize() {

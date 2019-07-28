@@ -8,8 +8,10 @@
 Camera* Camera::_pCamera = nullptr;
 
 Camera* Camera::instance() {
-    // There should always be an instance of the camera when requesting it
-    assert(_pCamera);
+    // Create new instance of the camera if there is none
+    if (!_pCamera) {
+        _pCamera = new Camera();
+    }
 
     // Return current instance
     return _pCamera;
@@ -24,14 +26,12 @@ Camera::Camera() {
     _configureShader();
 }
 
-Camera::~Camera() {
-    // Empty virtual destructor
-}
-
-void Camera::set(glm::vec3 position, glm::vec3 direction, glm::vec3 up) {
+void Camera::set(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode) {
+    // TODO update this to 'position', 'target' and calculate 'up' from that in US-21
     _cameraPosition  = position;
     _cameraDirection = direction;
     _cameraUp        = up;
+    _movementMode    = movementMode;
 
     _configureShader();
 }
@@ -70,9 +70,85 @@ void Camera::calculateClickRay(int x, int y, glm::vec3& point, glm::vec3& direct
     direction = farPoint - nearPoint;
 }
 
-void Camera::update(int t) {
-    // Check if camera has been changed this frame
-    if (_update(t)) {
+bool Camera::handleInput(SDL_Event event) {
+    bool handled = false;
+
+    switch (event.type) {
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+                case SDLK_w:
+                    _wPressed = true;
+                    handled   = true;
+                    break;
+                case SDLK_a:
+                    _aPressed = true;
+                    handled   = true;
+                    break;
+                case SDLK_s:
+                    _sPressed = true;
+                    handled   = true;
+                    break;
+                case SDLK_d:
+                    _dPressed = true;
+                    handled   = true;
+                    break;
+                case SDLK_q:
+                    _qPressed = true;
+                    handled   = true;
+                    break;
+                case SDLK_e:
+                    _ePressed = true;
+                    handled   = true;
+                    break;
+            }
+            break;
+        case SDL_KEYUP:
+            switch (event.key.keysym.sym) {
+                case SDLK_w:
+                    _wPressed = false;
+                    handled   = true;
+                    break;
+                case SDLK_a:
+                    _aPressed = false;
+                    handled   = true;
+                    break;
+                case SDLK_s:
+                    _sPressed = false;
+                    handled   = true;
+                    break;
+                case SDLK_d:
+                    _dPressed = false;
+                    handled   = true;
+                    break;
+                case SDLK_q:
+                    _qPressed = false;
+                    handled   = true;
+                    break;
+                case SDLK_e:
+                    _ePressed = false;
+                    handled   = true;
+                    break;
+            }
+            break;
+    }
+
+    return handled;
+}
+
+void Camera::update(int dt) {
+    bool updated = false;
+    // Call the correct update method according to MovementMode
+    switch (_movementMode) {
+        case FLAT:
+            updated = _moveFlat(dt);
+            break;
+        case SPHERICAL:
+            updated = _moveSpherical(dt);
+            break;
+    }
+
+    // If camera has been changed this frame, update the shaders
+    if (updated) {
         // Set values in shader
         _configureShader();
     }
@@ -94,4 +170,40 @@ void Camera::_configureShader() {
     // Set matrix values in shaders
     ShaderContainer::instance()->setViewProjectionMatrix(&_viewMatrix[0][0],
                                                          &_projectionMatrix[0][0]);
+}
+
+bool Camera::_moveFlat(int dt) {
+    glm::vec3 direction = glm::vec3(0.0f, 0.0f, 0.0f);
+
+    if (_wPressed) {
+        direction += glm::vec3(0.0f, 1.0f, 0.0f);
+    }
+    if (_aPressed) {
+        direction += glm::vec3(-1.0f, 0.0f, 0.0f);
+    }
+    if (_sPressed) {
+        direction += glm::vec3(0.0f, -1.0f, 0.0f);
+    }
+    if (_dPressed) {
+        direction += glm::vec3(1.0f, 0.0f, 0.0f);
+    }
+    if (_qPressed) {
+        direction += glm::vec3(0.0f, 0.0f, 1.0f);
+    }
+    if (_ePressed) {
+        direction += glm::vec3(0.0f, 0.0f, -1.0f);
+    }
+
+    // Only update camera if direction is not zero
+    if (glm::length(direction) > 0.0f) {
+        _cameraPosition += glm::normalize(direction) * _speed * ((float)dt);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Camera::_moveSpherical(int dt) {
+    // TODO to be implemented in US-16
+    return false;
 }
