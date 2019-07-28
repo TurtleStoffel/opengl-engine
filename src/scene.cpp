@@ -6,18 +6,14 @@
 #include "camera.hpp"
 #include "objects/collider.hpp"
 
-Scene* Scene::_pScene = nullptr;
+Scene::Scene() {
+    // Empty Constructor
+}
 
 Scene::~Scene() {
     for (Object* pObject : _objects) {
         delete pObject;
     }
-}
-
-Scene* Scene::instance() {
-    assert(_pScene);
-
-    return _pScene;
 }
 
 bool Scene::handleInput(SDL_Event event) {
@@ -48,16 +44,17 @@ void Scene::addCollider(Collider* pCollider) {
     _colliders.push_back(pCollider);
 }
 
+Camera* Scene::getCamera() {
+    // Get Raw Pointer from Unique Pointer
+    return _pCamera.get();
+}
+
 void Scene::update(int t) {
     _pCamera->update(t);
 
     for (Object* pObject : _objects) {
         pObject->update(t);
     }
-}
-
-Scene::Scene() {
-    // Empty constructor
 }
 
 void Scene::_mousePick(SDL_Event event) {

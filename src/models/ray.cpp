@@ -1,7 +1,7 @@
 #include "models/ray.hpp"
 
+#include "application.hpp"
 #include "color.hpp"
-#include "scene.hpp"
 
 Ray::Ray(glm::vec3 p1, glm::vec3 p2) {
     // Set rendering mode to lines for ray, default rendering mode is triangles
@@ -16,7 +16,7 @@ Ray::Ray(glm::vec3 p1, glm::vec3 p2) {
 
     _setupBuffers();
 
-    Scene::instance()->addRenderable(this);
+    Application::instance()->getScene()->addRenderable(this);
 }
 
 Ray::~Ray() {

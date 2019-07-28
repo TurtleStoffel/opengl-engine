@@ -5,34 +5,19 @@
 #include "const.hpp"
 #include "shadercontainer.hpp"
 
-Camera* Camera::_pCamera = nullptr;
-
-Camera* Camera::instance() {
-    // Create new instance of the camera if there is none
-    if (!_pCamera) {
-        _pCamera = new Camera();
-    }
-
-    // Return current instance
-    return _pCamera;
-}
-
-Camera::Camera() {
+Camera::Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode) {
     // Set initial window size
     _windowWidth  = constant::initialWindowWidth;
     _windowHeight = constant::initialWindowHeight;
 
-    // Set initial values in shader
-    _configureShader();
-}
+    _movementMode = movementMode;
 
-void Camera::set(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode) {
     // TODO update this to 'position', 'target' and calculate 'up' from that in US-21
     _cameraPosition  = position;
     _cameraDirection = direction;
     _cameraUp        = up;
-    _movementMode    = movementMode;
 
+    // Set initial values in shader
     _configureShader();
 }
 

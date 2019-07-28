@@ -47,7 +47,7 @@ void Application::run() {
                 // Check if GUI handled input
 
                 // GUI has precedence over Scene
-                Scene::instance()->handleInput(event);
+                _pScene->handleInput(event);
             }
         }
 
@@ -57,7 +57,7 @@ void Application::run() {
         int passedTicks        = currentUpdateTicks - lastUpdateTicks;
         lastUpdateTicks        = currentUpdateTicks;
         // Update scene
-        Scene::instance()->update(passedTicks);
+        _pScene->update(passedTicks);
 
         // ---Rendering---
         _render();
@@ -75,13 +75,28 @@ gui::Gui* Application::getGui() {
     return _pGui;
 }
 
+Camera* Application::getCamera() {
+    return getScene()->getCamera();
+}
+
+Scene* Application::getScene() {
+    // Check if this Application has a Scene, otherwise throw exception
+    if (_pScene) {
+        return _pScene.get();
+    } else {
+        throw ApplicationHasNoSceneInstance();
+    }
+}
+
 void Application::_setup() {
     _pGui = new gui::Gui();
 
     // Initialize all shaders
     ShaderContainer::init();
 
-    SystemScene::setInitialScene();
+    // Create the Scene
+    _pScene = std::make_unique<SystemScene>();
+    _pScene->initialize();
 }
 
 bool Application::_handleInput(SDL_Event event) {
@@ -91,7 +106,7 @@ bool Application::_handleInput(SDL_Event event) {
                 int windowWidth  = event.window.data1;
                 int windowHeight = event.window.data2;
                 // Set window size in Camera
-                Camera::instance()->setWindowSize(windowWidth, windowHeight);
+                getCamera()->setWindowSize(windowWidth, windowHeight);
 
                 // Set values in GUI
                 _pGui->setWindowParameters(windowWidth, windowHeight);
@@ -121,7 +136,7 @@ void Application::_render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     // Render scene
-    Scene::instance()->render();
+    _pScene->render();
 
     // Render GUI on top of scene
     _pGui->render();

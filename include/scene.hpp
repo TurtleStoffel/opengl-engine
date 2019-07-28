@@ -12,12 +12,8 @@
 
 class Scene : public Updateable {
    public:
+    Scene();
     virtual ~Scene();
-
-    /**
-     * Request current singleton instance
-     */
-    static Scene* instance();
 
     bool handleInput(SDL_Event event);
     void render();
@@ -25,27 +21,21 @@ class Scene : public Updateable {
     void addRenderable(Model* pModel);
     void addCollider(Collider* pCollider);
 
+    /**
+     * Get raw pointer to Camera Instance. DO NOT CALL DELETE or keep a reference to this Pointer!
+     */
+    Camera* getCamera();
+
     // Updateable Interface
     virtual void update(int t);
 
+    virtual void initialize() = 0;
+
    protected:
-    /**
-     * Protected constructer because Singleton class
-     */
-    Scene();
-
-    virtual void _initialize() = 0;
-
-    /**
-     * Singleton instance
-     */
-    static Scene* _pScene;
-
     std::vector<Object*> _objects;
-    Camera* _pCamera;
+    std::unique_ptr<Camera> _pCamera;
 
    private:
-    virtual void _changeScene() = 0;
     void _mousePick(SDL_Event event);
 
     std::vector<Model*> _models;

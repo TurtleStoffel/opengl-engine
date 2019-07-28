@@ -1,10 +1,18 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 
+#include <exception>
+
 #include <glm/glm.hpp>
 
 #include "gui/gui.hpp"
 #include "scene.hpp"
+
+struct ApplicationHasNoSceneInstance : public std::exception {
+    const char* what() const throw() {
+        return "The current Application Instance does not have a Scene";
+    }
+};
 
 class Application {
    public:
@@ -21,7 +29,15 @@ class Application {
 
     void run();
 
+    /**
+     * The following methods return raw Pointers to some objects that have to be maintained in the
+     * Program state
+     * DO NOT CALL DELETE or store this Pointer! always request it again from the Application
+     * instance
+     */
     gui::Gui* getGui();
+    Camera* getCamera();
+    Scene* getScene();
 
    private:
     static Application* _pApplication;
@@ -41,6 +57,7 @@ class Application {
 
     SDL_Window* _pWindow;
     gui::Gui* _pGui;
+    std::unique_ptr<Scene> _pScene;
 };
 
 #endif
