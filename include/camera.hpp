@@ -10,7 +10,14 @@ class Camera : public Updateable {
    public:
     enum MovementMode { FLAT, SPHERICAL };
 
-    Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode);
+    /**
+     * Camera is first initialized in the Application where the Scene is not known yet. The Scene
+     * is repsonsible to actually set the values in the Camera according to what is needed (using
+     * the set-method)
+     */
+    Camera();
+
+    void set(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode);
 
     void setWindowSize(int windowWidth, int windowHeight);
     void getWindowSize(int& windowWidth, int& windowHeight);
