@@ -108,7 +108,13 @@ void Application::_setup() {
     _pCamera = std::make_unique<Camera>();
 
     // Create the Scene
+    // System Scene
+    /*
     _pScene = std::make_unique<SystemScene>();
+    _pScene->initialize();
+    */
+    // Planet Scene
+    _pScene = std::make_unique<PlanetScene>();
     _pScene->initialize();
 }
 
