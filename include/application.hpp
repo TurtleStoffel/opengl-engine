@@ -8,12 +8,6 @@
 #include "gui/gui.hpp"
 #include "scene.hpp"
 
-struct ApplicationHasNoSceneInstance : public std::exception {
-    const char* what() const throw() {
-        return "The current Application Instance does not have a Scene";
-    }
-};
-
 class Application {
    public:
     /**
@@ -58,6 +52,19 @@ class Application {
     SDL_Window* _pWindow;
     gui::Gui* _pGui;
     std::unique_ptr<Scene> _pScene;
+    std::unique_ptr<Camera> _pCamera;
+};
+
+struct ApplicationHasNoSceneInstance : public std::exception {
+    const char* what() const throw() {
+        return "The current Application Instance does not have a Scene";
+    }
+};
+
+struct ApplicationHasNoCameraInstance : public std::exception {
+    const char* what() const throw() {
+        return "The current Application Instance does not have a Camera";
+    }
 };
 
 #endif

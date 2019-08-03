@@ -21,11 +21,6 @@ class Scene : public Updateable {
     void addRenderable(Model* pModel);
     void addCollider(Collider* pCollider);
 
-    /**
-     * Get raw pointer to Camera Instance. DO NOT CALL DELETE or keep a reference to this Pointer!
-     */
-    Camera* getCamera();
-
     // Updateable Interface
     virtual void update(int t);
 
@@ -33,7 +28,6 @@ class Scene : public Updateable {
 
    protected:
     std::vector<Object*> _objects;
-    std::unique_ptr<Camera> _pCamera;
 
    private:
     void _mousePick(SDL_Event event);

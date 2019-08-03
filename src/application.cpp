@@ -43,11 +43,15 @@ void Application::run() {
         // ---Input handling---
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
-            if (!_handleInput(event)) {
-                // Check if GUI handled input
-
-                // GUI has precedence over Scene
-                _pScene->handleInput(event);
+            if (_handleInput(event)) {  // Application has handled the event
+                continue;
+            }
+            // TODO add check if GUI has handled any of the input
+            if (_pCamera->handleInput(event)) {  // Camera has handled the event
+                continue;
+            }
+            if (_pScene->handleInput(event)) {  // Scene is last thing to handle events
+                continue;
             }
         }
 
@@ -56,6 +60,8 @@ void Application::run() {
         int currentUpdateTicks = SDL_GetTicks();
         int passedTicks        = currentUpdateTicks - lastUpdateTicks;
         lastUpdateTicks        = currentUpdateTicks;
+        // Update Camera
+        _pCamera->update(passedTicks);
         // Update scene
         _pScene->update(passedTicks);
 
@@ -76,7 +82,12 @@ gui::Gui* Application::getGui() {
 }
 
 Camera* Application::getCamera() {
-    return getScene()->getCamera();
+    // Check if this Application has a Camera, otherwise throw exception
+    if (_pCamera) {
+        return _pCamera.get();
+    } else {
+        throw ApplicationHasNoCameraInstance();
+    }
 }
 
 Scene* Application::getScene() {
@@ -89,10 +100,12 @@ Scene* Application::getScene() {
 }
 
 void Application::_setup() {
-    _pGui = new gui::Gui();
-
     // Initialize all shaders
     ShaderContainer::init();
+
+    _pGui = new gui::Gui();
+
+    _pCamera = std::make_unique<Camera>();
 
     // Create the Scene
     _pScene = std::make_unique<SystemScene>();
