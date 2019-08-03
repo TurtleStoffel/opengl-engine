@@ -12,7 +12,6 @@ Camera::Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMo
 
     _movementMode = movementMode;
 
-    // TODO update this to 'position', 'target' and calculate 'up' from that in US-21
     _cameraPosition  = position;
     _cameraDirection = direction;
     _cameraUp        = up;
