@@ -5,18 +5,20 @@
 #include "const.hpp"
 #include "shadercontainer.hpp"
 
-Camera::Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode) {
-    // Set initial window size
+Camera::Camera() {
     _windowWidth  = constant::initialWindowWidth;
     _windowHeight = constant::initialWindowHeight;
 
+    _configureShader();
+}
+
+void Camera::set(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode) {
     _movementMode = movementMode;
 
     _cameraPosition  = position;
     _cameraDirection = direction;
     _cameraUp        = up;
 
-    // Set initial values in shader
     _configureShader();
 }
 

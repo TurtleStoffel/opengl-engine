@@ -17,15 +17,11 @@ Scene::~Scene() {
 }
 
 bool Scene::handleInput(SDL_Event event) {
-    // ---Camera Update---
-    if (_pCamera->handleInput(event)) {
-        return true;
-    }
-    // Camera has precedence over Mouse Picking and Mousepicking has no impact on return value
-    else {
-        // ---Mouse Picking Objects---
-        _mousePick(event);
-    }
+    // ---Mouse Picking Objects---
+    // Mousepicking has no impact on return value
+    _mousePick(event);
+
+    // TODO handle other events in the scene
 
     return false;
 }
@@ -44,14 +40,7 @@ void Scene::addCollider(Collider* pCollider) {
     _colliders.push_back(pCollider);
 }
 
-Camera* Scene::getCamera() {
-    // Get Raw Pointer from Unique Pointer
-    return _pCamera.get();
-}
-
 void Scene::update(int t) {
-    _pCamera->update(t);
-
     for (Object* pObject : _objects) {
         pObject->update(t);
     }
@@ -63,7 +52,10 @@ void Scene::_mousePick(SDL_Event event) {
         // Transform point to ray in world space
         glm::vec3 point;
         glm::vec3 direction;
-        _pCamera->calculateClickRay(event.motion.x, event.motion.y, point, direction);
+        Application::instance()->getCamera()->calculateClickRay(event.motion.x,
+                                                                event.motion.y,
+                                                                point,
+                                                                direction);
 
         // Check for each object in scene if there was an intersection
         for (Collider* collider : _colliders) {

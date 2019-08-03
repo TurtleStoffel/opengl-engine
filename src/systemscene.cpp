@@ -1,17 +1,16 @@
 #include "systemscene.hpp"
 
-#include "camera.hpp"
+#include "application.hpp"
 #include "objects/planet.hpp"
 #include "objects/sun.hpp"
-#include "planetscene.hpp"
 #include "util.hpp"
 
 void SystemScene::initialize() {
-    // Create camera
-    _pCamera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 15.0f),
-                                        glm::vec3(0.0f, 0.0f, -1.0f),
-                                        glm::vec3(0.0f, 1.0f, 0.0f),
-                                        Camera::MovementMode::FLAT);
+    // Set Camera values according to what is needed in the System Scene
+    Application::instance()->getCamera()->set(glm::vec3(0.0f, 0.0f, 15.0f),
+                                              glm::vec3(0.0f, 0.0f, -1.0f),
+                                              glm::vec3(0.0f, 1.0f, 0.0f),
+                                              Camera::MovementMode::FLAT);
 
     // Create objects
     _objects.push_back(new Sun());
