@@ -7,10 +7,10 @@
 
 void SystemScene::initialize() {
     // Set Camera values according to what is needed in the System Scene
-    Application::instance()->getCamera()->set(glm::vec3(0.0f, 0.0f, 15.0f),
-                                              glm::vec3(0.0f, 0.0f, -1.0f),
-                                              glm::vec3(0.0f, 1.0f, 0.0f),
-                                              Camera::MovementMode::FLAT);
+    Application::instance()->getCamera()->setOrientation(glm::vec3(0.0f, 0.0f, 15.0f),
+                                                         glm::vec3(0.0f, 0.0f, 0.0f),
+                                                         glm::vec3(0.0f, 1.0f, 0.0f));
+    Application::instance()->getCamera()->setFlatMovement();
 
     // Create objects
     _objects.push_back(new Sun());

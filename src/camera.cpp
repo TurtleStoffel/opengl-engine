@@ -1,6 +1,10 @@
 #include "camera.hpp"
 
+#include <math.h>
+
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 
 #include "const.hpp"
 #include "shadercontainer.hpp"
@@ -12,14 +16,25 @@ Camera::Camera() {
     _configureShader();
 }
 
-void Camera::set(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode) {
-    _movementMode = movementMode;
-
+void Camera::setOrientation(glm::vec3 position, glm::vec3 target, glm::vec3 up) {
     _cameraPosition  = position;
-    _cameraDirection = direction;
-    _cameraUp        = up;
+    _cameraDirection = glm::normalize(target - position);
+    _cameraUp        = glm::normalize(up);
+
+    // For Spherical Movement
+    _target = target;
 
     _configureShader();
+}
+
+void Camera::setFlatMovement() {
+    _movementMode = FLAT;
+}
+
+void Camera::setSphericalMovement(float distance) {
+    _movementMode = SPHERICAL;
+
+    _distance = distance;
 }
 
 void Camera::setWindowSize(int windowWidth, int windowHeight) {
@@ -190,6 +205,56 @@ bool Camera::_moveFlat(int dt) {
 }
 
 bool Camera::_moveSpherical(int dt) {
-    // TODO to be implemented in US-16
-    return false;
+    glm::vec3 direction = glm::vec3(0.0f, 0.0f, 0.0f);
+
+    // Cross Product of normalized Vectors is generally not a normalized vector
+    glm::vec3 right = glm::normalize(glm::cross(_cameraDirection, _cameraUp));
+
+    glm::vec3 originalCameraDirection = _cameraDirection;
+
+    if (_wPressed) {
+        direction += _cameraUp;
+    }
+    if (_aPressed) {
+        direction += -right;
+    }
+    if (_sPressed) {
+        direction += -_cameraUp;
+    }
+    if (_dPressed) {
+        direction += right;
+    }
+
+    if (glm::length(direction) > 0.0f) {
+        // Camera has moved, calculate new position
+        _cameraPosition += glm::normalize(direction) * _speed * ((float)dt);
+        // Update orientation so it points towards target and is at correct distance
+        // Unit Vector from updated Position to target
+        glm::vec3 v = glm::normalize(_cameraPosition - _target);
+        // Move Camera Position to correct distance from the target
+        _cameraPosition  = _target + v * _distance;
+        _cameraDirection = -v;
+
+        // TODO Bugfix this implementation in US-29
+        // Get Vector Perpendicular to the Vector Rotation
+        glm::vec3 rotationAxis = glm::normalize(
+            glm::cross(_cameraDirection, originalCameraDirection));
+        // Get angle that Vector rotated from original to new direction
+        float rotationAngle = acos(glm::dot(_cameraDirection, originalCameraDirection));
+        // Check if rotation axis and angle is valid
+        if (!glm::isnan(rotationAngle) && !glm::all(glm::isnan(rotationAxis))) {
+            // Calculate Rotation Matrix
+            glm::mat4 rotationMatrix = glm::rotate(rotationAngle, rotationAxis);
+
+            // Transform Camera Up Vector
+            glm::vec4 transformedUp = rotationMatrix *
+                                      glm::vec4(_cameraUp.x, _cameraUp.y, _cameraUp.z, 0.0f);
+            _cameraUp = glm::normalize(
+                glm::vec3(transformedUp.x, transformedUp.y, transformedUp.z));
+        }
+
+        return true;
+    } else {
+        return false;
+    }
 }
