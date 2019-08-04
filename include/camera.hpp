@@ -17,7 +17,10 @@ class Camera : public Updateable {
      */
     Camera();
 
-    void set(glm::vec3 position, glm::vec3 direction, glm::vec3 up, MovementMode movementMode);
+    void setOrientation(glm::vec3 position, glm::vec3 target, glm::vec3 up);
+
+    void setFlatMovement();
+    void setSphericalMovement(float distance);
 
     void setWindowSize(int windowWidth, int windowHeight);
     void getWindowSize(int& windowWidth, int& windowHeight);
@@ -53,6 +56,7 @@ class Camera : public Updateable {
 
     /**
      * Camera parameters
+     * Vectors are normalized
      */
     glm::vec3 _cameraPosition  = glm::vec3(0.0f, 0.0f, 5.0f);
     glm::vec3 _cameraDirection = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -73,6 +77,12 @@ class Camera : public Updateable {
      */
     MovementMode _movementMode;
     const float _speed = 0.001f;
+
+    /**
+     * Parameters required for Spherical Movement (around a target from a specific distance)
+     */
+    glm::vec3 _target;
+    float _distance;
 
     /**
      * Window Size
