@@ -8,6 +8,7 @@
 /**
  * Debug Model implementation for Ray, which is not linked to a Game Object
  */
+// TODO Broken because of Indexed Rendering
 class Ray : public Model {
    public:
     /**

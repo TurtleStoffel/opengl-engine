@@ -47,10 +47,15 @@ class Model {
     GLenum _renderingMode = GL_TRIANGLES;
 
     std::vector<Vertex> _vertices;
+    std::vector<unsigned int> _indices;
 
    private:
+    // Vertex Array Object
     GLuint _vao;
+    // Vertex Buffer Object (Vertex Information)
     GLuint _vbo;
+    // Element Buffer Object (Vertex Indices)
+    GLuint _ebo;
 
     Property<bool>* _selected;
 };

@@ -1,13 +1,15 @@
 #ifndef SPHERE_HPP
 #define SPHERE_HPP
 
+#include <map>
+
 #include "models/model.hpp"
 #include "property.hpp"
 
 struct Face {
-    Vertex v1;
-    Vertex v2;
-    Vertex v3;
+    unsigned int v1;
+    unsigned int v2;
+    unsigned int v3;
 };
 
 class Sphere : public Model {
@@ -19,8 +21,19 @@ class Sphere : public Model {
            glm::vec3 (*colorGenerator)());
 
    private:
-    Vertex _getMidpoint(Vertex p1, Vertex p2, glm::vec3 color);
-    Vertex _createVertex(glm::vec3 point, glm::vec3 color);
+    unsigned int _getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 color);
+    unsigned int _createVertex(glm::vec3 point, glm::vec3 color);
+
+    // Index + 1 of the last created Vertex
+    int _vertexIndex = 0;
+
+    /**
+     * unsigned int can define 4.294.967.295 unique points
+     * Key formula: (smallIndex << 32) + bigIndex
+     * Original Vertices are not added to _midPointCache, so keys are unique
+     *      (otherwise smallIndex 0 would lead to existing indices)
+     */
+    std::map<unsigned long, unsigned int> _midPointCache;
 };
 
 #endif
