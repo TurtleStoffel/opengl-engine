@@ -4,9 +4,10 @@
 
 #include "application.hpp"
 #include "color.hpp"
+#include "noise/simplex_noise.hpp"
 #include "util.hpp"
 
-Sphere::Sphere(Transform* pTransform, Property<bool>* selected) : Sphere(pTransform, selected, 4) {
+Sphere::Sphere(Transform* pTransform, Property<bool>* selected) : Sphere(pTransform, selected, 6) {
 }
 
 Sphere::Sphere(Transform* pTransform, Property<bool>* selected, int depth)
@@ -22,20 +23,20 @@ Sphere::Sphere(Transform* pTransform, Property<bool>* selected, int depth,
     : Model(pTransform, selected) {
     float d = (1.0f + sqrt(5.0f)) / 2.0f;
     // clang-format off
-    _createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f))*util::randf(0.98f, 1.03f), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3( 1.0f,  d, 0.0f))*util::randf(0.98f, 1.03f), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(-1.0f, -d, 0.0f))*util::randf(0.98f, 1.03f), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3( 1.0f, -d, 0.0f))*util::randf(0.98f, 1.03f), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3( 1.0f,  d, 0.0f)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(-1.0f, -d, 0.0f)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3( 1.0f, -d, 0.0f)), colorGenerator());
 
-    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f,  d))*util::randf(0.98f, 1.03f), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f,  d))*util::randf(0.98f, 1.03f), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f, -d))*util::randf(0.98f, 1.03f), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f, -d))*util::randf(0.98f, 1.03f), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f,  d)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f,  d)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f, -d)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f, -d)), colorGenerator());
 
-    _createVertex(glm::normalize(glm::vec3( d, 0.0f, -1.0f))*util::randf(0.98f, 1.03f), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3( d, 0.0f,  1.0f))*util::randf(0.98f, 1.03f), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(-d, 0.0f, -1.0f))*util::randf(0.98f, 1.03f), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(-d, 0.0f,  1.0f))*util::randf(0.98f, 1.03f), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3( d, 0.0f, -1.0f)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3( d, 0.0f,  1.0f)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(-d, 0.0f, -1.0f)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(-d, 0.0f,  1.0f)), colorGenerator());
 
     std::vector<Face> faces;
     faces.push_back(Face{ 0, 11,  5});
@@ -118,9 +119,6 @@ unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 co
                                                       (v1.position.y + v2.position.y) / 2.0f,
                                                       (v1.position.z + v2.position.z) / 2.0f));
 
-        // Add random noise
-        midpoint *= util::randf(0.98f, 1.03f);
-
         // Create Midpoint Vertex
         unsigned int vertexIndex = _createVertex(midpoint, color);
 
@@ -132,6 +130,20 @@ unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 co
 }
 
 unsigned int Sphere::_createVertex(glm::vec3 point, glm::vec3 color) {
+    float noise = SimplexNoise::noise(point.x * 2.0f, point.y * 2.0f, point.z * 2.0f);
+
+    if (noise > 0.5f) {
+        color = glm::vec3(0.9f, 0.9f, 0.9f);
+    } else if (noise > -0.4f) {
+        color = color::green();
+    } else {
+        color = color::blue();
+        noise = -0.4f;
+    }
+    // Apply noise to the point
+    // TODO move offset to variable
+    point += 0.05f * noise;
+
     // Create Vertex at _vertexIndex
     _vertices.push_back(Vertex{
         point,  // Position
