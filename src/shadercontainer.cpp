@@ -51,11 +51,11 @@ void ShaderContainer::setModelMatrix(void* model) {
 
 ShaderContainer::ShaderContainer() {
     // Create shader programs
-    _lowPolyShader = new Shader("../shaders/low-poly/vertex.glsl",
-                                "../shaders/low-poly/fragment.glsl");
+    _lowPolyShader = new Shader("shaders/low-poly/vertex.glsl",
+                                "shaders/low-poly/fragment.glsl");
 
-    _silhouetteShader = new Shader("../shaders/silhouette/vertex.glsl",
-                                   "../shaders/silhouette/fragment.glsl");
+    _silhouetteShader = new Shader("shaders/silhouette/vertex.glsl",
+                                   "shaders/silhouette/fragment.glsl");
 
     // Create uniform buffer object to store Model/View/Projection matrix
     glGenBuffers(1, &_matrixUBO);

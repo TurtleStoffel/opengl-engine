@@ -2,8 +2,11 @@
 build/
 debug/
 
-# ignore vim swap files
+# vim swap files
 *.swp
+
+# vscode plugin configuration files
+.vscode/
 
 # Ignore files used by Vim Plugins
 .ycm_extra_conf.py
