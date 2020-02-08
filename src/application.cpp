@@ -12,8 +12,7 @@
 Application* Application::_pApplication = nullptr;
 
 Application::Application(SDL_Window* pWindow) {
-    // Set data members from constuctor input
-    // Remainder of setup is automatically performed in _setup method before Program Loop
+    // Remainder of setup is automatically performed in _setupApplication method before Program Loop
     _pWindow = pWindow;
 }
 
@@ -33,47 +32,13 @@ Application* Application::instance() {
 }
 
 void Application::run() {
-    // Initial setup to make Application functional has to be done before program loop starts
-    _setup();
-
-    int lastFPSTick     = SDL_GetTicks();
-    int lastUpdateTicks = SDL_GetTicks();
+    _setupApplication();
 
     while (_running) {
-        // ---Input handling---
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            if (_handleInput(event)) {  // Application has handled the event
-                continue;
-            }
-            // TODO add check if GUI has handled any of the input
-            if (_pCamera->handleInput(event)) {  // Camera has handled the event
-                continue;
-            }
-            if (_pScene->handleInput(event)) {  // Scene is last thing to handle events
-                continue;
-            }
-        }
-
-        // ---Scene Update---
-        // Get number of ms since previous update
-        int currentUpdateTicks = SDL_GetTicks();
-        int passedTicks        = currentUpdateTicks - lastUpdateTicks;
-        lastUpdateTicks        = currentUpdateTicks;
-        // Update Camera
-        _pCamera->update(passedTicks);
-        // Update scene
-        _pScene->update(passedTicks);
-
-        // ---Rendering---
-        _render();
-
-        // Limit number of frames per second
-        int currentFPSTick = SDL_GetTicks();
-        if (currentFPSTick - lastFPSTick < (1000 / constant::FPS)) {
-            SDL_Delay(1000 / constant::FPS - currentFPSTick + lastFPSTick);
-        }
-        lastFPSTick = currentFPSTick;
+        _handleInput();
+        _updateScene();
+        _renderScene();
+        _throttleFps();
     }
 }
 
@@ -99,7 +64,7 @@ Scene* Application::getScene() {
     }
 }
 
-void Application::_setup() {
+void Application::_setupApplication() {
     // Initialize all shaders
     ShaderContainer::init();
 
@@ -116,9 +81,28 @@ void Application::_setup() {
     // Planet Scene
     _pScene = std::make_unique<PlanetScene>();
     _pScene->initialize();
+
+    _lastFpsTicks    = SDL_GetTicks();
+    _lastUpdateTicks = SDL_GetTicks();
 }
 
-bool Application::_handleInput(SDL_Event event) {
+void Application::_handleInput() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (_handleApplicationInput(event)) { // Application has handled the event
+            continue;
+        }
+        // TODO add check if GUI has handled any of the input
+        if (_pCamera->handleInput(event)) { // Camera has handled the event
+            continue;
+        }
+        if (_pScene->handleInput(event)) { // Scene is last thing to handle events
+            continue;
+        }
+    }
+}
+
+bool Application::_handleApplicationInput(SDL_Event event) {
     switch (event.type) {
         case SDL_WINDOWEVENT:
             if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
@@ -150,16 +134,37 @@ bool Application::_handleInput(SDL_Event event) {
     return false;
 }
 
-void Application::_render() {
+void Application::_updateScene() {
+    int passedTicks = _getTicksSinceLastUpdate();
+
+    _pCamera->update(passedTicks);
+    _pScene->update(passedTicks);
+}
+
+void Application::_renderScene() {
     // Cleanup rendering buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-    // Render scene
     _pScene->render();
 
     // Render GUI on top of scene
     _pGui->render();
 
-    // Swap window buffers
     SDL_GL_SwapWindow(_pWindow);
+}
+
+void Application::_throttleFps() {
+    int currentFPSTick = SDL_GetTicks();
+    if (currentFPSTick - _lastFpsTicks < (1000 / constant::FPS)) {
+        SDL_Delay(1000 / constant::FPS - currentFPSTick + _lastFpsTicks);
+    }
+    _lastFpsTicks = currentFPSTick;
+}
+
+int Application::_getTicksSinceLastUpdate() {
+    int currentUpdateTicks = SDL_GetTicks();
+    int passedTicks        = currentUpdateTicks - _lastUpdateTicks;
+    _lastUpdateTicks       = currentUpdateTicks;
+
+    return passedTicks;
 }

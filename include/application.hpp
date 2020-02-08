@@ -9,7 +9,7 @@
 #include "scene.hpp"
 
 class Application {
-   public:
+  public:
     /**
      * Create new Application instance with a window, this method can only be called once in the
      * entire program, otherwise will throw error
@@ -33,21 +33,27 @@ class Application {
     Camera* getCamera();
     Scene* getScene();
 
-   private:
+  private:
     static Application* _pApplication;
     Application(SDL_Window* pWindow);
 
     /**
-     * Initialize everything in the application to make it functional. Automatically called at the
-     * start of the run method. If this is not used there might be issues if data in the setup
-     * already requires the Application instance itself.
+     * Called at the start of the run method, because it requires the Application instance to
+     * already exist.
      */
-    void _setup();
+    void _setupApplication();
 
-    bool _handleInput(SDL_Event event);
-    void _render();
+    void _handleInput();
+    void _updateScene();
+    void _renderScene();
+    void _throttleFps();
+
+    int _getTicksSinceLastUpdate();
+    bool _handleApplicationInput(SDL_Event event);
 
     bool _running = true;
+    int _lastFpsTicks;
+    int _lastUpdateTicks;
 
     SDL_Window* _pWindow;
     gui::Gui* _pGui;
