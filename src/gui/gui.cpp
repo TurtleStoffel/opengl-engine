@@ -63,4 +63,4 @@ void Gui::setSelectedPanel(std::shared_ptr<Panel> pPanel) {
     }
 }
 
-}  // namespace gui
+} // namespace gui
