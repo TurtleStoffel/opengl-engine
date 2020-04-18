@@ -132,23 +132,17 @@ unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 co
 unsigned int Sphere::_createVertex(glm::vec3 point, glm::vec3 color) {
     float noise = SimplexNoise::noise(point.x * 2.0f, point.y * 2.0f, point.z * 2.0f);
 
-    if (noise > 0.5f) {
-        color = glm::vec3(0.9f, 0.9f, 0.9f);
-    } else if (noise > -0.4f) {
-        color = color::green();
-    } else {
-        color = color::blue();
-        noise = -0.4f;
-    }
+    color = glm::vec3(0.5f + 0.1f * noise, 0.5f + 0.1f * noise, 0.5f + 0.1f * noise);
+
     // Apply noise to the point
     // TODO move offset to variable
     point += 0.05f * noise;
 
     // Create Vertex at _vertexIndex
     _vertices.push_back(Vertex{
-        point,  // Position
-        point,  // Normal is equal to Position on a Sphere
-        color   // Color
+        point, // Position
+        point, // Normal is equal to Position on a Sphere
+        color  // Color
     });
 
     // Add 1 to _vertexIndex but return pre-incremented value (Value of vertex created in this
