@@ -23,5 +23,20 @@ SDL_Window* SDL::createWindow(const std::string name) {
 
     SDL_GL_CreateContext(pWindow);
 
+#ifndef __APPLE__
+    glewExperimental = GL_TRUE;
+    glewInit();
+#endif
+
+    // Set clear color to dark blue
+    glClearColor(0.0, 0.0, 0.2, 1.0);
+    // Make sure depth is correctly rendered
+    glEnable(GL_DEPTH_TEST);
+
     return pWindow;
+}
+
+void SDL::destroy(SDL_Window* pWindow) {
+    SDL_DestroyWindow(pWindow);
+    SDL_Quit();
 }

@@ -12,16 +12,14 @@
 Application* Application::_pApplication = nullptr;
 
 Application::Application(SDL_Window* pWindow) {
-    // Remainder of setup is automatically performed in _setupApplication method before Program Loop
-    _pWindow = pWindow;
-}
-
-Application* Application::createInstance(SDL_Window* pWindow) {
     // Only one instance of this class should ever be created, otherwise throw error
     assert(!_pApplication);
 
-    _pApplication = new Application(pWindow);
-    return _pApplication;
+    _pApplication = this;
+    _pWindow      = pWindow;
+}
+
+Application::~Application() {
 }
 
 Application* Application::instance() {
@@ -47,21 +45,15 @@ gui::Gui* Application::getGui() {
 }
 
 Camera* Application::getCamera() {
-    // Check if this Application has a Camera, otherwise throw exception
-    if (_pCamera) {
-        return _pCamera.get();
-    } else {
-        throw ApplicationHasNoCameraInstance();
-    }
+    assert(_pCamera);
+
+    return _pCamera.get();
 }
 
 Scene* Application::getScene() {
-    // Check if this Application has a Scene, otherwise throw exception
-    if (_pScene) {
-        return _pScene.get();
-    } else {
-        throw ApplicationHasNoSceneInstance();
-    }
+    assert(_pScene);
+
+    return _pScene.get();
 }
 
 void Application::_setupApplication() {
@@ -72,15 +64,7 @@ void Application::_setupApplication() {
 
     _pCamera = std::make_unique<Camera>();
 
-    // Create the Scene
-    // System Scene
-    /*
-    _pScene = std::make_unique<SystemScene>();
-    _pScene->initialize();
-    */
-    // Planet Scene
-    _pScene = std::make_unique<PlanetScene>();
-    _pScene->initialize();
+    _createScene();
 
     _lastFpsTicks    = SDL_GetTicks();
     _lastUpdateTicks = SDL_GetTicks();
