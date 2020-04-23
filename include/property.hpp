@@ -11,7 +11,7 @@
  * the internal type of the property.
  */
 class AbstractProperty {
-   public:
+  public:
     AbstractProperty(){};
     virtual ~AbstractProperty(){};
     virtual std::string getString() const = 0;
@@ -23,13 +23,12 @@ class AbstractProperty {
 
 template <typename T>
 class Property : public AbstractProperty {
-   public:
+  public:
     /**
      * Add new callback to Property
      *
      * Example usage:
-     *   fooProperty.addCallback(std::bind(&Object::method, this,
-     * std::placeholders::_1));
+     *   fooProperty.addCallback(std::bind(&Object::method, this, std::placeholders::_1));
      */
     void addCallback(std::function<void(T)> callback) {
         _callbacks.push_back(callback);
@@ -46,9 +45,6 @@ class Property : public AbstractProperty {
         _genericCallbacks.push_back(callback);
     }
 
-    /**
-     * Return value stored in Property
-     */
     T value() {
         return _value;
     }
@@ -71,14 +67,11 @@ class Property : public AbstractProperty {
         }
     }
 
-    /**
-     * Returns the string representation of the property content
-     */
     virtual std::string getString() const {
         return std::to_string(_value);
     }
 
-   private:
+  private:
     T _value;
 
     // List of callbacks that automatically get the new value

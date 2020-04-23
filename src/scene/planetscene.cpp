@@ -1,4 +1,4 @@
-#include "planetscene.hpp"
+#include "scene/planetscene.hpp"
 
 #include "application.hpp"
 #include "objects/planet.hpp"

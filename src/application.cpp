@@ -4,10 +4,8 @@
 
 #include "camera.hpp"
 #include "const.hpp"
-#include "planetscene.hpp"
 #include "shader.hpp"
 #include "shadercontainer.hpp"
-#include "systemscene.hpp"
 
 Application* Application::_pApplication = nullptr;
 

@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 
 #include "gui/gui.hpp"
-#include "scene.hpp"
+#include "scene/scene.hpp"
 
 class Application {
   public:

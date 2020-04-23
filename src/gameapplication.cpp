@@ -1,6 +1,6 @@
 #include "gameapplication.hpp"
 
-#include "systemscene.hpp"
+#include "scene/systemscene.hpp"
 
 GameApplication::GameApplication(SDL_Window* pWindow) : Application(pWindow) {
 }

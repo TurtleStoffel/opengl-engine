@@ -1,6 +1,6 @@
 #include "modelviewerapplication.hpp"
 
-#include "planetscene.hpp"
+#include "scene/planetscene.hpp"
 
 ModelViewerApplication::ModelViewerApplication(SDL_Window* pWindow) : Application(pWindow) {
 }

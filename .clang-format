@@ -13,3 +13,4 @@ AlignConsecutiveAssignments: true
 PenaltyBreakAssignment: 500
 PenaltyBreakBeforeFirstCallParameter: 500
 AlignAfterOpenBracket: true
+AlwaysBreakTemplateDeclarations: true
