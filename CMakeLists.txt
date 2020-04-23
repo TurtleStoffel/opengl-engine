@@ -1,13 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 
-IF(NOT CMAKE_BUILD_TYPE)
-    MESSAGE(STATUS "Building in Release mode")
-    SET(CMAKE_BUILD_TYPE Release)
-    SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
-ELSE()
-    MESSAGE(STATUS "Building in Debug mode")
-ENDIF()
-
 FIND_PACKAGE(SDL2 REQUIRED)
 FIND_PACKAGE(OpenGL REQUIRED)
 FIND_PACKAGE(GLEW REQUIRED)
@@ -28,15 +20,26 @@ ADD_COMPILE_OPTIONS(
     -std=c++14
     -Wall
     -Wextra
+    -D_GLIBCXX_DEBUG
 )
 
 FILE(GLOB_RECURSE sources "src/*.cpp")
 
-ADD_EXECUTABLE(GodWorld ${sources})
+ADD_EXECUTABLE(GodWorld ${sources} apps/godworld.cpp)
+ADD_EXECUTABLE(ModelViewer ${sources} apps/modelviewer.cpp)
 
 TARGET_INCLUDE_DIRECTORIES(GodWorld PRIVATE include)
+TARGET_INCLUDE_DIRECTORIES(ModelViewer PRIVATE include)
 
 TARGET_LINK_LIBRARIES(GodWorld
+    ${SDL2_LIBRARIES}
+    ${OPENGL_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    ${GLM_LIBRARIES}
+    nanovg
+)
+
+TARGET_LINK_LIBRARIES(ModelViewer
     ${SDL2_LIBRARIES}
     ${OPENGL_LIBRARIES}
     ${GLEW_LIBRARIES}

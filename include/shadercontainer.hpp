@@ -7,7 +7,7 @@
  * Singleton class responsible for maintaining all shaders and data shared between the shaders
  */
 class ShaderContainer {
-   public:
+  public:
     static ShaderContainer* instance();
     static void init();
 
@@ -22,7 +22,7 @@ class ShaderContainer {
     static Shader* lowPolyShader();
     static Shader* silhouetteShader();
 
-   private:
+  private:
     ShaderContainer();
     ~ShaderContainer();
 

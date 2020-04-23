@@ -6,15 +6,15 @@
 #include <glm/glm.hpp>
 
 #include "gui/gui.hpp"
-#include "scene.hpp"
+#include "scene/scene.hpp"
 
 class Application {
-   public:
+  public:
     /**
-     * Create new Application instance with a window, this method can only be called once in the
-     * entire program, otherwise will throw error
+     * Constructor can only be called once in the entire program, otherwise will throw error
      */
-    static Application* createInstance(SDL_Window* pWindow);
+    Application(SDL_Window* pWindow);
+    virtual ~Application();
     /**
      * Requests the current instance of the application, assumes one has been created before using
      * Application::createInstance(SDL_Window* pWindow)
@@ -33,38 +33,35 @@ class Application {
     Camera* getCamera();
     Scene* getScene();
 
-   private:
+  protected:
+    std::unique_ptr<Scene> _pScene;
+
+    virtual void _createScene() = 0;
+
+  private:
     static Application* _pApplication;
-    Application(SDL_Window* pWindow);
 
     /**
-     * Initialize everything in the application to make it functional. Automatically called at the
-     * start of the run method. If this is not used there might be issues if data in the setup
-     * already requires the Application instance itself.
+     * Called at the start of the run method, because it requires the Application instance to
+     * already exist.
      */
-    void _setup();
+    void _setupApplication();
 
-    bool _handleInput(SDL_Event event);
-    void _render();
+    void _handleInput();
+    void _updateScene();
+    void _renderScene();
+    void _throttleFps();
+
+    int _getTicksSinceLastUpdate();
+    bool _handleApplicationInput(SDL_Event event);
 
     bool _running = true;
+    int _lastFpsTicks;
+    int _lastUpdateTicks;
 
     SDL_Window* _pWindow;
     gui::Gui* _pGui;
-    std::unique_ptr<Scene> _pScene;
     std::unique_ptr<Camera> _pCamera;
-};
-
-struct ApplicationHasNoSceneInstance : public std::exception {
-    const char* what() const throw() {
-        return "The current Application Instance does not have a Scene";
-    }
-};
-
-struct ApplicationHasNoCameraInstance : public std::exception {
-    const char* what() const throw() {
-        return "The current Application Instance does not have a Camera";
-    }
 };
 
 #endif

@@ -16,6 +16,10 @@ Camera::Camera() {
     _configureShader();
 }
 
+Camera::~Camera() {
+    // Empty Virtual Destructor
+}
+
 void Camera::setOrientation(glm::vec3 position, glm::vec3 target, glm::vec3 up) {
     _cameraPosition  = position;
     _cameraDirection = glm::normalize(target - position);

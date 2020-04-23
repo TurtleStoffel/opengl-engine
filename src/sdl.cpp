@@ -1,14 +1,12 @@
-#include <time.h>
+#include "sdl.hpp"
 
-#include "application.hpp"
 #include "const.hpp"
 
-// Set argc and argv as unused to remove compiler warnings
-int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused))) {
-    // Init SDL and create window
+SDL_Window* SDL::createWindow(const std::string name) {
     SDL_Init(SDL_INIT_VIDEO);
+
     // Add SDL_WINDOW_FULLSCREEN_DESKTOP flag for Fullscreen at desktop resolution
-    SDL_Window* pWindow = SDL_CreateWindow("GodWorld",
+    SDL_Window* pWindow = SDL_CreateWindow(name.c_str(),
                                            SDL_WINDOWPOS_CENTERED,
                                            SDL_WINDOWPOS_CENTERED,
                                            constant::initialWindowWidth,
@@ -23,7 +21,7 @@ int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused)))
     // Enable Stencil Buffer for NanoVG
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 1);
 
-    SDL_GLContext context __attribute__((unused)) = SDL_GL_CreateContext(pWindow);
+    SDL_GL_CreateContext(pWindow);
 
 #ifndef __APPLE__
     glewExperimental = GL_TRUE;
@@ -35,16 +33,10 @@ int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused)))
     // Make sure depth is correctly rendered
     glEnable(GL_DEPTH_TEST);
 
-    // set random seed
-    srand(time(NULL));
+    return pWindow;
+}
 
-    // Startup Application
-    Application* pApplication = Application::createInstance(pWindow);
-    pApplication->run();
-
-    // Destroy Application
+void SDL::destroy(SDL_Window* pWindow) {
     SDL_DestroyWindow(pWindow);
     SDL_Quit();
-
-    return 0;
 }

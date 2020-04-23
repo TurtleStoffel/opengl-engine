@@ -7,7 +7,7 @@
 #include "opengl.hpp"
 
 class Camera : public Updateable {
-   public:
+  public:
     enum MovementMode { FLAT, SPHERICAL };
 
     /**
@@ -16,6 +16,7 @@ class Camera : public Updateable {
      * the set-method)
      */
     Camera();
+    virtual ~Camera();
 
     void setOrientation(glm::vec3 position, glm::vec3 target, glm::vec3 up);
 
@@ -42,7 +43,7 @@ class Camera : public Updateable {
      */
     virtual void update(int dt);
 
-   private:
+  private:
     /**
      * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
      */

@@ -1,0 +1,16 @@
+Language: Cpp
+
+ColumnLimit: 100
+IndentWidth: 4
+
+PointerAlignment: Left
+
+IndentCaseLabels: true
+
+AllowShortFunctionsOnASingleLine: None
+BinPackArguments: false
+AlignConsecutiveAssignments: true
+PenaltyBreakAssignment: 500
+PenaltyBreakBeforeFirstCallParameter: 500
+AlignAfterOpenBracket: true
+AlwaysBreakTemplateDeclarations: true

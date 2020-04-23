@@ -5,17 +5,16 @@
 
 #include "guibinding/guibinding.hpp"
 #include "property.hpp"
-#include "scene.hpp"
 
 class Sun : public Object {
-   public:
+  public:
     Sun();
     ~Sun();
 
     // Updateable interface
     virtual void update(int t);
 
-   private:
+  private:
     // Temperature in Kelvin
     Property<int>* _pTemperature;
 };

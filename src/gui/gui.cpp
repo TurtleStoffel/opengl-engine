@@ -18,7 +18,7 @@ Gui::Gui() {
     _windowHeight = constant::initialWindowHeight;
 
     // Initialise font
-    if (nvgCreateFont(_vg, "sans", "../res/Roboto-Regular.ttf") == -1) {
+    if (nvgCreateFont(_vg, "sans", "res/Roboto-Regular.ttf") == -1) {
         SDL_Log("Could not open font");
     }
 }
@@ -63,4 +63,4 @@ void Gui::setSelectedPanel(std::shared_ptr<Panel> pPanel) {
     }
 }
 
-}  // namespace gui
+} // namespace gui
