@@ -1,50 +1,28 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
+cmake_minimum_required(VERSION 3.5)
 
-FIND_PACKAGE(SDL2 REQUIRED)
-FIND_PACKAGE(OpenGL REQUIRED)
-FIND_PACKAGE(GLEW REQUIRED)
-FIND_PACKAGE(glm REQUIRED)
+project(GodWorld)
 
-SET(nanovg_src
-    ${CMAKE_CURRENT_SOURCE_DIR}/ext/nanovg/src/nanovg.c
-)
-ADD_LIBRARY(nanovg STATIC ${nanovg_src})
+find_package(SDL2 REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(glm REQUIRED)
 
-INCLUDE_DIRECTORIES(
+add_library(nanovg STATIC ${CMAKE_CURRENT_SOURCE_DIR}/ext/nanovg/src/nanovg.c)
+
+include_directories(
     ${GLEW_INCLUDE_DIRS}
     ${GLM_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/ext/nanovg/src
 )
 
-ADD_COMPILE_OPTIONS(
+add_compile_options(
     -std=c++14
     -Wall
     -Wextra
     -D_GLIBCXX_DEBUG
 )
 
-FILE(GLOB_RECURSE sources "src/*.cpp")
+add_subdirectory(lib)
+add_subdirectory(apps)
 
-ADD_EXECUTABLE(GodWorld ${sources} apps/godworld.cpp)
-ADD_EXECUTABLE(ModelViewer ${sources} apps/modelviewer.cpp)
-
-TARGET_INCLUDE_DIRECTORIES(GodWorld PRIVATE include)
-TARGET_INCLUDE_DIRECTORIES(ModelViewer PRIVATE include)
-
-TARGET_LINK_LIBRARIES(GodWorld
-    ${SDL2_LIBRARIES}
-    ${OPENGL_LIBRARIES}
-    ${GLEW_LIBRARIES}
-    ${GLM_LIBRARIES}
-    nanovg
-)
-
-TARGET_LINK_LIBRARIES(ModelViewer
-    ${SDL2_LIBRARIES}
-    ${OPENGL_LIBRARIES}
-    ${GLEW_LIBRARIES}
-    ${GLM_LIBRARIES}
-    nanovg
-)
-
-SET(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
