@@ -7,8 +7,10 @@ set_target_properties(util PROPERTIES LINKER_LANGUAGE CXX)
 
 ### GUI LIBRARY ###
 set(GUI_SOURCES
+    "libgui/gui/bounds.cpp"
     "libgui/gui/gui.cpp"
     "libgui/gui/guiobject.cpp"
+    "libgui/gui/listview.cpp"
     "libgui/gui/panel.cpp"
     "libgui/gui/propertytextfield.cpp"
     "libgui/gui/textfield.cpp"

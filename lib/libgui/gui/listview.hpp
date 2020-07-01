@@ -1,24 +1,22 @@
 #pragma once
 
-#include <vector>
+#include <string>
 
 #include "guiobject.hpp"
 
 namespace gui {
 
-class Panel : public GuiObject {
-    // TODO use this in implementation
-    enum StackingMethod { HORIZONTAL, VERTICAL };
-
+class ListView : public GuiObject {
   public:
+    void setContent(std::vector<std::string> content);
+
     virtual Bounds loadBounds(NVGcontext* vg);
-    void recalculateSize();
 
   protected:
     virtual void _renderImplementation(NVGcontext* vg);
 
   private:
-    StackingMethod _stackingMethod;
+    std::vector<std::string> _content;
 };
 
 } // namespace gui
