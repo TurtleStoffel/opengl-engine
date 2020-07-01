@@ -15,8 +15,9 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/ext/nanovg/src
 )
 
+set(CMAKE_CXX_STANDARD 14)
+
 add_compile_options(
-    -std=c++14
     -Wall
     -Wextra
     -D_GLIBCXX_DEBUG

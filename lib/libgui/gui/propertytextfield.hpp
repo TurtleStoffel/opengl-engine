@@ -7,7 +7,7 @@ namespace gui {
 
 class PropertyTextField : public TextField {
   public:
-    PropertyTextField(GuiObject* pParent, AbstractProperty* pProperty, const std::string name);
+    PropertyTextField(AbstractProperty* pProperty, const std::string name);
 
   private:
     void retrieveContentFromProperty();

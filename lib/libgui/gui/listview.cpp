@@ -1,10 +1,8 @@
-#include "panel.hpp"
-
-#include "nanovg.h"
+#include "listview.hpp"
 
 namespace gui {
 
-Bounds Panel::loadBounds(NVGcontext* vg) {
+Bounds ListView::loadBounds(NVGcontext* vg) {
     nvgSave(vg);
     nvgTranslate(vg, _relX, _relY);
 
@@ -18,18 +16,16 @@ Bounds Panel::loadBounds(NVGcontext* vg) {
     return _bounds;
 }
 
-void Panel::_renderImplementation(NVGcontext* vg) {
-    // Draw Rectangle
+void ListView::_renderImplementation(NVGcontext* vg) {
+    nvgFontSize(vg, 17.0f);
+    nvgFontFace(vg, "sans");
+
+    loadBounds(vg);
+
     nvgBeginPath(vg);
     nvgRect(vg, 0, 0, _bounds.getWidth() + 2 * _relX, _bounds.getHeight() + 2 * _relY);
     nvgFillColor(vg, nvgRGBA(43, 45, 52, 200));
     nvgFill(vg);
-
-    // Draw Black Border
-    nvgBeginPath(vg);
-    nvgRect(vg, 0, 0, _bounds.getWidth() + 2 * _relX, _bounds.getHeight() + 2 * _relY);
-    nvgStrokeColor(vg, nvgRGBA(0, 0, 0, 255));
-    nvgStroke(vg);
 }
 
 } // namespace gui
