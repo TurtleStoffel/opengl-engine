@@ -11,3 +11,6 @@ debug/
 # Ignore files used by Vim Plugins
 .ycm_extra_conf.py
 .color_coded
+
+# ImGui
+imgui.ini
