@@ -1,5 +1,9 @@
 #include "application.hpp"
 
+#include "examples/imgui_impl_opengl3.h"
+#include "examples/imgui_impl_sdl.h"
+#include "imgui.h"
+
 #include "camera.hpp"
 #include "const.hpp"
 #include "shader.hpp"
@@ -29,15 +33,15 @@ void Application::run() {
     _setupApplication();
 
     while (_running) {
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplSDL2_NewFrame(_pWindow);
+        ImGui::NewFrame();
+
         _handleInput();
         _updateScene();
         _renderScene();
         _throttleFps();
     }
-}
-
-gui::Gui* Application::getGui() {
-    return _pGui;
 }
 
 Camera* Application::getCamera() {
@@ -55,8 +59,6 @@ Scene* Application::getScene() {
 void Application::_setupApplication() {
     // Initialize all shaders
     ShaderContainer::init();
-
-    _pGui = new gui::Gui(constant::initialWindowWidth, constant::initialWindowHeight);
 
     _pCamera = std::make_unique<Camera>();
 
@@ -90,9 +92,6 @@ bool Application::_handleApplicationInput(SDL_Event event) {
                 int windowHeight = event.window.data2;
                 // Set window size in Camera
                 getCamera()->setWindowSize(windowWidth, windowHeight);
-
-                // Set values in GUI
-                _pGui->setWindowParameters(windowWidth, windowHeight);
             }
             return true;
         case SDL_QUIT:
@@ -127,8 +126,8 @@ void Application::_renderScene() {
 
     _pScene->render();
 
-    // Render GUI on top of scene
-    _pGui->render();
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     SDL_GL_SwapWindow(_pWindow);
 }

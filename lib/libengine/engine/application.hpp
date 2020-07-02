@@ -4,7 +4,6 @@
 
 #include <glm/glm.hpp>
 
-#include "gui/gui.hpp"
 #include "scene/scene.hpp"
 
 class Application {
@@ -22,13 +21,6 @@ class Application {
 
     void run();
 
-    /**
-     * The following methods return raw Pointers to some objects that have to be maintained in the
-     * Program state
-     * DO NOT CALL DELETE or store this Pointer! always request it again from the Application
-     * instance
-     */
-    gui::Gui* getGui();
     Camera* getCamera();
     Scene* getScene();
 
@@ -59,6 +51,5 @@ class Application {
     int _lastUpdateTicks;
 
     SDL_Window* _pWindow;
-    gui::Gui* _pGui;
     std::unique_ptr<Camera> _pCamera;
 };

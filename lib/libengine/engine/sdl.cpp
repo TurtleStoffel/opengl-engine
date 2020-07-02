@@ -1,5 +1,9 @@
 #include "sdl.hpp"
 
+#include "examples/imgui_impl_opengl3.h"
+#include "examples/imgui_impl_sdl.h"
+#include "imgui.h"
+
 #include "const.hpp"
 
 SDL_Window* SDL::createWindow(const std::string name) {
@@ -21,7 +25,14 @@ SDL_Window* SDL::createWindow(const std::string name) {
     // Enable Stencil Buffer for NanoVG
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 1);
 
-    SDL_GL_CreateContext(pWindow);
+    SDL_GLContext glContext = SDL_GL_CreateContext(pWindow);
+
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGui::StyleColorsDark();
+
+    ImGui_ImplSDL2_InitForOpenGL(pWindow, glContext);
+    ImGui_ImplOpenGL3_Init("#version 330");
 
 #ifndef __APPLE__
     glewExperimental = GL_TRUE;
