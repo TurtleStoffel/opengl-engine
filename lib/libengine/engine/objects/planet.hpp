@@ -5,7 +5,6 @@
 class Planet : public Object {
   public:
     Planet(float distance, float radius);
-    ~Planet();
 
     // Updateable interface
     virtual void update(int t);

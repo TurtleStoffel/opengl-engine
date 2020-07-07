@@ -89,8 +89,6 @@ Sphere::Sphere(Transform* pTransform, Property<bool>* selected, int depth,
     }
 
     _setupBuffers();
-
-    Application::instance()->getScene()->addRenderable(this);
 }
 
 unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 color) {

@@ -50,12 +50,6 @@ Camera* Application::getCamera() {
     return _pCamera.get();
 }
 
-Scene* Application::getScene() {
-    assert(_pScene);
-
-    return _pScene.get();
-}
-
 void Application::_setupApplication() {
     // Initialize all shaders
     ShaderContainer::init();

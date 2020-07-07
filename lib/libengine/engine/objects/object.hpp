@@ -8,18 +8,19 @@
 #include "interfaces/updateable.hpp"
 #include "models/model.hpp"
 #include "objects/transform.hpp"
+#include "objects/collider.hpp"
 
 #include "util/property.hpp"
-
-// Forward Declaration to prevent Circular Imports
-class Collider;
 
 class Object : public Updateable {
   public:
     Object();
-    virtual ~Object();
+    virtual ~Object() {};
 
     virtual void update(int t) = 0;
+
+    void render() const;
+    bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) const;
 
     const std::map<std::string, AbstractProperty*> getPropertyMap() const;
 
@@ -33,14 +34,14 @@ class Object : public Updateable {
      * Object is responsible to add its own model to the scene
      * (game objects without models are possible)
      */
-    Model* _pModel;
+    std::unique_ptr<Model> _pModel;
 
     /**
      * Object has the local transform (even though it is used by the Model) because an object needs
      * a notion of where it is even when it has no model (e.g. only load model when objects will be
      * visible)
      */
-    Transform* _pTransform;
+    std::unique_ptr<Transform> _pTransform;
 
     /**
      * Collider is responsible to check if an object has been selected
@@ -53,7 +54,7 @@ class Object : public Updateable {
     std::map<std::string, AbstractProperty*> _propertyMap;
 
     /**
-     * GUI Representation of the object, belongs uniquely to the instance of this Object
+     * GUI Representation of the object
      */
     std::unique_ptr<GuiBinding> _pGuiBinding;
 };
