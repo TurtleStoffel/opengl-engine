@@ -6,42 +6,21 @@
 #include "camera.hpp"
 #include "objects/collider.hpp"
 
-Scene::Scene() {
-    // Empty Constructor
-}
-
-Scene::~Scene() {
-    for (Object* pObject : _objects) {
-        delete pObject;
-    }
-}
-
 bool Scene::handleInput(SDL_Event event) {
-    // ---Mouse Picking Objects---
     // Mousepicking has no impact on return value
     _mousePick(event);
-
-    // TODO handle other events in the scene
 
     return false;
 }
 
 void Scene::render() {
-    for (Model* model : _models) {
-        model->render();
+    for(std::unique_ptr<Object>& pObject : _objects) {
+        pObject->render();
     }
 }
 
-void Scene::addRenderable(Model* pModel) {
-    _models.push_back(pModel);
-}
-
-void Scene::addCollider(Collider* pCollider) {
-    _colliders.push_back(pCollider);
-}
-
 void Scene::update(int t) {
-    for (Object* pObject : _objects) {
+    for(std::unique_ptr<Object>& pObject : _objects) {
         pObject->update(t);
     }
 }
@@ -58,13 +37,8 @@ void Scene::_mousePick(SDL_Event event) {
                                                                 direction);
 
         // Check for each object in scene if there was an intersection
-        for (Collider* collider : _colliders) {
-            // Implemented like this to make selection of closest object in the future easier
-            if (collider->intersect(point, direction)) {
-                collider->setSelected(true);
-            } else {
-                collider->setSelected(false);
-            }
+        for(std::unique_ptr<Object>& pObject : _objects) {
+            pObject->intersect(point, direction);
         }
     }
 }

@@ -7,7 +7,7 @@
 #include "util.hpp"
 
 Planet::Planet(float distance, float radius) {
-    _pModel = new Sphere(_pTransform, _pSelectionCollider->getCollidedProperty());
+    _pModel = std::make_unique<Sphere>(_pTransform.get(), _pSelectionCollider->getCollidedProperty());
 
     _pOwnership               = new Property<float>();
     _propertyMap["Ownership"] = _pOwnership;
@@ -27,10 +27,6 @@ Planet::Planet(float distance, float radius) {
     _pTransform->translate(
         glm::vec3(distance * sin(rotationAngle), distance * cos(rotationAngle), 0.0f));
     _pTransform->scale(glm::vec3(radius, radius, radius));
-}
-
-Planet::~Planet() {
-    delete _pModel;
 }
 
 void Planet::update(int t) {

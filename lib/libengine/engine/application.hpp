@@ -22,7 +22,6 @@ class Application {
     void run();
 
     Camera* getCamera();
-    Scene* getScene();
 
   protected:
     std::unique_ptr<Scene> _pScene;

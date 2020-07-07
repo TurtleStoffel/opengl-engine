@@ -7,7 +7,7 @@
 #include "objects/collider.hpp"
 
 Sun::Sun() {
-    _pModel = new Sphere(_pTransform, _pSelectionCollider->getCollidedProperty(), color::yellow);
+    _pModel = std::make_unique<Sphere>(_pTransform.get(), _pSelectionCollider->getCollidedProperty(), color::yellow);
 
     // Initialize Temperature Property
     _pTemperature               = new Property<int>();
@@ -20,7 +20,6 @@ Sun::Sun() {
 }
 
 Sun::~Sun() {
-    delete _pModel;
     // _propertyMap contains reference to this pointer, but will go out of scope when this
     // destructor is called so it can be safely deleted
     delete _pTemperature;

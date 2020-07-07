@@ -10,5 +10,5 @@ void PlanetScene::initialize() {
                                                          glm::vec3(0.0f, 1.0f, 0.0f));
     Application::instance()->getCamera()->setSphericalMovement(7.0f);
 
-    _objects.push_back(new Planet(0.0f, 3.0f));
+    _objects.push_back(std::make_unique<Planet>(0.0f, 3.0f));
 }

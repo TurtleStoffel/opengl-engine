@@ -15,8 +15,6 @@ Ray::Ray(glm::vec3 p1, glm::vec3 p2) {
     _vertices.push_back(Vertex{p2, p2, color::blue()});
 
     _setupBuffers();
-
-    Application::instance()->getScene()->addRenderable(this);
 }
 
 Ray::~Ray() {

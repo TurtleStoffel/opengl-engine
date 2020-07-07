@@ -1,6 +1,10 @@
 #pragma once
 
-#include "object.hpp"
+#include <memory>
+
+#include "transform.hpp"
+
+#include "util/property.hpp"
 
 class Collider {
   public:
@@ -10,13 +14,6 @@ class Collider {
      * Intermediate implementation where Collider is always equal to a sphere
      */
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
-
-    // TODO
-    // In the future change this to:
-    //      virtual bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) = 0;
-    // so different implementation types of colliders are possible
-
-    void setSelected(bool value);
 
     Property<bool>* getCollidedProperty();
 

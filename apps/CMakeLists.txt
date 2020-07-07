@@ -21,6 +21,3 @@ target_link_libraries(GodWorld
 target_link_libraries(ModelViewer
     engine
 )
-
-target_include_directories(GodWorld PRIVATE "${GodWorld_SOURCE_DIR}/src")
-target_include_directories(ModelViewer PRIVATE "${GodWorld_SOURCE_DIR}/src")
