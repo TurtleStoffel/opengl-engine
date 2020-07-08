@@ -9,9 +9,8 @@ class Object;
 class GuiBinding {
   public:
     GuiBinding(const Object* pObject);
-    virtual ~GuiBinding();
 
-    void changeSelected(bool selected);
+    void render() const;
 
   protected:
     const Object* _pObject;
