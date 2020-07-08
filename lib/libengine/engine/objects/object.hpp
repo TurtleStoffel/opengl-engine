@@ -26,11 +26,6 @@ class Object : public Updateable {
 
   protected:
     /**
-     * This method is automatically executed when the selected state of the object has changed.
-     */
-    virtual void _changeSelected(bool selected);
-
-    /**
      * Object is responsible to add its own model to the scene
      * (game objects without models are possible)
      */
