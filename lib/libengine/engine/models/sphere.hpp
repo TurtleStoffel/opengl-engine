@@ -3,7 +3,6 @@
 #include <map>
 
 #include "model.hpp"
-#include "util/property.hpp"
 
 struct Face {
     unsigned int v1;
@@ -13,11 +12,10 @@ struct Face {
 
 class Sphere : public Model {
   public:
-    Sphere(Transform* pTransform, Property<bool>* selected);
-    Sphere(Transform* pTransform, Property<bool>* selected, int depth);
-    Sphere(Transform* pTransform, Property<bool>* selected, glm::vec3 (*colorGenerator)());
-    Sphere(Transform* pTransform, Property<bool>* selected, int depth,
-           glm::vec3 (*colorGenerator)());
+    Sphere(Transform* pTransform);
+    Sphere(Transform* pTransform, int depth);
+    Sphere(Transform* pTransform, glm::vec3 (*colorGenerator)());
+    Sphere(Transform* pTransform, int depth, glm::vec3 (*colorGenerator)());
 
   private:
     unsigned int _getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 color);

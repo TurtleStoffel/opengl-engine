@@ -4,8 +4,6 @@
 
 #include "transform.hpp"
 
-#include "util/property.hpp"
-
 class Collider {
   public:
     Collider(const Transform* pTransform);
@@ -15,10 +13,6 @@ class Collider {
      */
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
-    Property<bool>* getCollidedProperty();
-
   private:
     const Transform* _pTransform;
-
-    std::unique_ptr<Property<bool>> _collided;
 };

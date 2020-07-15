@@ -1,12 +1,6 @@
-### UTIL LIBRARY ###
-add_library(util "libutil/util/property.hpp")
-target_include_directories(util PUBLIC libutil)
-set_target_properties(util PROPERTIES LINKER_LANGUAGE CXX)
-
-
-### GAME LIBRARY ###
 set(ENGINE_SOURCES 
-    "libengine/engine/guibinding/guibinding.cpp"
+    "libengine/engine/guibinding/planetguibinding.cpp"
+    "libengine/engine/guibinding/sunguibinding.cpp"
     "libengine/engine/models/ground.cpp"
     "libengine/engine/models/model.cpp"
     "libengine/engine/models/ray.cpp"
@@ -40,5 +34,4 @@ target_link_libraries(engine
     ${GLEW_LIBRARIES}
     ${GLM_LIBRARIES}
     imgui
-    util
 )

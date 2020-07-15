@@ -6,8 +6,6 @@
 #include "objects/transform.hpp"
 #include "opengl.hpp"
 
-#include "util/property.hpp"
-
 struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;
@@ -17,26 +15,17 @@ struct Vertex {
 class Model {
   public:
     /**
-     * Create Model with Transform pointer and selected Boolean Property from parent Object because
-     * this is state that always has to be shared between GameObject and Model (parent
-     * is responsible to destroy the Transform)
-     */
-    Model(Transform* pTransform, Property<bool>* selected);
-    /**
-     * Overloading when the Parent Object is not selectable
+     * @param pTransform Pointer to Transform of Game Object
      */
     Model(Transform* pTransform);
     /**
-     * Overloading when the Model is not linked to a Game Object (for debug purposes)
-     *
-     * IMPORTANT!: When using this constructor, the Model implementation is responsible to Set and
-     * Destroy the Model Transform
+     * Default Constructor for debugging objects (that are not attached to a Game Object)
      */
     Model();
 
-    virtual ~Model();
+    virtual ~Model(){};
 
-    void render();
+    void render(bool selected) const;
 
   protected:
     void _setupBuffers();
@@ -50,14 +39,12 @@ class Model {
 
   private:
     void _generateOpenGLBuffers();
-    void _renderSilhouette();
-    void _renderModel();
+    void _renderSilhouette() const;
+    void _renderModel() const;
 
     GLuint _vertexArrayObject;
     // Vertex Information
     GLuint _vertexBufferObject;
     // Vertex Indices
     GLuint _elementBufferObject;
-
-    Property<bool>* _selected;
 };

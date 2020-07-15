@@ -3,6 +3,8 @@
 #include "object.hpp"
 
 class Planet : public Object {
+    friend class PlanetGuiBinding;
+
   public:
     Planet(float distance, float radius);
 
@@ -12,6 +14,6 @@ class Planet : public Object {
   private:
     float _rotationalSpeed;
 
-    Property<int>* _pInhabitants;
-    Property<float>* _pOwnership;
+    int _inhabitants = 5000;
+    float _ownership = 0.0f;
 };

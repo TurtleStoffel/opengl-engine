@@ -8,16 +8,13 @@ Object::Object() {
 }
 
 void Object::render() const {
-    _pModel->render();
-    if(_pSelectionCollider->getCollidedProperty()->value()) {
+    _pModel->render(_selected);
+    if (_selected) {
         _pGuiBinding->render();
     }
 }
 
-bool Object::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) const {
-    return _pSelectionCollider->intersect(rayPosition, rayDirection);
-}
-
-const std::map<std::string, AbstractProperty*> Object::getPropertyMap() const {
-    return _propertyMap;
+bool Object::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
+    _selected = _pSelectionCollider->intersect(rayPosition, rayDirection);
+    return _selected;
 }
