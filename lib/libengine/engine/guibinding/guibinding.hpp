@@ -1,17 +1,8 @@
 #pragma once
 
-#include <map>
-#include <memory>
-
-// Forward declaration to prevent circular imports
-class Object;
-
 class GuiBinding {
   public:
-    GuiBinding(const Object* pObject);
+    virtual ~GuiBinding(){};
 
-    void render() const;
-
-  protected:
-    const Object* _pObject;
+    virtual void render() const = 0;
 };

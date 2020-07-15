@@ -2,23 +2,15 @@
 
 #include <math.h>
 
+#include "guibinding/planetguibinding.hpp"
 #include "models/sphere.hpp"
 #include "objects/collider.hpp"
 #include "util.hpp"
 
 Planet::Planet(float distance, float radius) {
-    _pModel = std::make_unique<Sphere>(_pTransform.get(), _pSelectionCollider->getCollidedProperty());
+    _pModel = std::make_unique<Sphere>(_pTransform.get());
 
-    _pOwnership               = new Property<float>();
-    _propertyMap["Ownership"] = _pOwnership;
-
-    _pInhabitants               = new Property<int>();
-    _propertyMap["Inhabitants"] = _pInhabitants;
-
-    _pGuiBinding = std::make_unique<GuiBinding>(this);
-
-    _pOwnership->set(0.0f);
-    _pInhabitants->set(5000);
+    _pGuiBinding = std::make_unique<PlanetGuiBinding>(this);
 
     _rotationalSpeed = util::randf(0.00003f, 0.0001f);
 

@@ -7,22 +7,18 @@
 #include "guibinding/guibinding.hpp"
 #include "interfaces/updateable.hpp"
 #include "models/model.hpp"
-#include "objects/transform.hpp"
 #include "objects/collider.hpp"
-
-#include "util/property.hpp"
+#include "objects/transform.hpp"
 
 class Object : public Updateable {
   public:
     Object();
-    virtual ~Object() {};
+    virtual ~Object(){};
 
     virtual void update(int t) = 0;
 
     void render() const;
-    bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) const;
-
-    const std::map<std::string, AbstractProperty*> getPropertyMap() const;
+    bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
   protected:
     /**
@@ -42,11 +38,7 @@ class Object : public Updateable {
      * Collider is responsible to check if an object has been selected
      */
     std::unique_ptr<Collider> _pSelectionCollider;
-
-    /**
-     * Every Property on an object that can be rendered in the GUI should be registered in this map.
-     */
-    std::map<std::string, AbstractProperty*> _propertyMap;
+    bool _selected = false;
 
     /**
      * GUI Representation of the object

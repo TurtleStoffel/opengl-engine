@@ -5,7 +5,7 @@
 // TODO Broken because of Indexed Rendering
 class Ground : public Model {
   public:
-    Ground(Transform* pTransform, Property<bool>* selected);
+    Ground(Transform* pTransform);
 
   private:
     const unsigned int _tiles = 32;

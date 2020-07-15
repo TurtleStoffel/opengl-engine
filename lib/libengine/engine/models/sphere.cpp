@@ -7,20 +7,18 @@
 #include "noise/simplex_noise.hpp"
 #include "util.hpp"
 
-Sphere::Sphere(Transform* pTransform, Property<bool>* selected) : Sphere(pTransform, selected, 6) {
+Sphere::Sphere(Transform* pTransform) : Sphere(pTransform, 6) {
 }
 
-Sphere::Sphere(Transform* pTransform, Property<bool>* selected, int depth)
-    : Sphere(pTransform, selected, depth, color::brown) {
+Sphere::Sphere(Transform* pTransform, int depth) : Sphere(pTransform, depth, color::brown) {
 }
 
-Sphere::Sphere(Transform* pTransform, Property<bool>* selected, glm::vec3 (*colorGenerator)())
-    : Sphere(pTransform, selected, 4, colorGenerator) {
+Sphere::Sphere(Transform* pTransform, glm::vec3 (*colorGenerator)())
+    : Sphere(pTransform, 4, colorGenerator) {
 }
 
-Sphere::Sphere(Transform* pTransform, Property<bool>* selected, int depth,
-               glm::vec3 (*colorGenerator)())
-    : Model(pTransform, selected) {
+Sphere::Sphere(Transform* pTransform, int depth, glm::vec3 (*colorGenerator)())
+    : Model(pTransform) {
     float d = (1.0f + sqrt(5.0f)) / 2.0f;
     // clang-format off
     _createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f)), colorGenerator());
