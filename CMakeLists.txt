@@ -12,7 +12,7 @@ include_directories(
     ${GLM_INCLUDE_DIRS}
 )
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 add_compile_options(
     -Wall
@@ -43,5 +43,7 @@ target_link_libraries(imgui
 
 add_subdirectory(lib)
 add_subdirectory(apps)
+add_subdirectory(ext/googletest)
+add_subdirectory(test)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
