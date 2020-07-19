@@ -9,9 +9,7 @@ Object::Object() {
 
 void Object::render() const {
     _pModel->render(_selected);
-    if (_selected) {
-        _pGuiBinding->render();
-    }
+    _pGuiBinding->render(_selected);
 }
 
 bool Object::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {

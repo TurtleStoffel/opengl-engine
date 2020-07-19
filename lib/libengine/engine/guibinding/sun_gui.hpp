@@ -3,11 +3,11 @@
 #include "guibinding/guibinding.hpp"
 #include "objects/sun.hpp"
 
-class SunGuiBinding : public GuiBinding {
+class SunGui : public GuiBinding {
   public:
-    SunGuiBinding(const Sun* pSun);
+    SunGui(const Sun* pSun);
 
-    virtual void render() const;
+    virtual void render(bool selected) const;
 
   private:
     const Sun* _pSun;

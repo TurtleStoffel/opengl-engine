@@ -3,11 +3,11 @@
 #include "guibinding/guibinding.hpp"
 #include "objects/planet.hpp"
 
-class PlanetGuiBinding : public GuiBinding {
+class PlanetGui : public GuiBinding {
   public:
-    PlanetGuiBinding(const Planet* pPlanet);
+    PlanetGui(const Planet* pPlanet);
 
-    virtual void render() const;
+    virtual void render(bool selected) const;
 
   private:
     const Planet* _pPlanet;

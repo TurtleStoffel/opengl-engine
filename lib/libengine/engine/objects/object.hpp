@@ -5,17 +5,16 @@
 #include <memory>
 
 #include "guibinding/guibinding.hpp"
-#include "interfaces/updateable.hpp"
 #include "models/model.hpp"
 #include "objects/collider.hpp"
 #include "objects/transform.hpp"
 
-class Object : public Updateable {
+class Object {
   public:
     Object();
     virtual ~Object(){};
 
-    virtual void update(int t) = 0;
+    virtual void update(int t __attribute__((unused))){};
 
     void render() const;
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);

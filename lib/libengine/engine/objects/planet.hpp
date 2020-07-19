@@ -3,7 +3,7 @@
 #include "object.hpp"
 
 class Planet : public Object {
-    friend class PlanetGuiBinding;
+    friend class PlanetGui;
 
   public:
     Planet(float distance, float radius);

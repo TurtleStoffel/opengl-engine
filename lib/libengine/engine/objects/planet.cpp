@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-#include "guibinding/planetguibinding.hpp"
+#include "guibinding/planet_gui.hpp"
 #include "models/sphere.hpp"
 #include "objects/collider.hpp"
 #include "util.hpp"
@@ -10,7 +10,7 @@
 Planet::Planet(float distance, float radius) {
     _pModel = std::make_unique<Sphere>(_pTransform.get());
 
-    _pGuiBinding = std::make_unique<PlanetGuiBinding>(this);
+    _pGuiBinding = std::make_unique<PlanetGui>(this);
 
     _rotationalSpeed = util::randf(0.00003f, 0.0001f);
 
