@@ -6,7 +6,7 @@
 #include "objects/planet.hpp"
 #include "objects/sun.hpp"
 
-void ModelScene::initialize() {
+ModelScene::ModelScene() {
     camera->setOrientation(glm::vec3(0.0f, 0.0f, 5.0f),
                            glm::vec3(0.0f, 0.0f, 0.0f),
                            glm::vec3(0.0f, 1.0f, 0.0f));

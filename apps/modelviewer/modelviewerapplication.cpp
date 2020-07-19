@@ -9,6 +9,5 @@ ModelViewerApplication::~ModelViewerApplication() {
 }
 
 void ModelViewerApplication::_createScene() {
-    _pScene = std::make_unique<ModelScene>();
-    _pScene->initialize();
+    scene = std::make_unique<ModelScene>();
 }

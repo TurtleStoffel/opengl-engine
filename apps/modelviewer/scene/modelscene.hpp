@@ -4,7 +4,7 @@
 
 class ModelScene : public Scene {
   public:
-    void initialize();
+    ModelScene();
 
   protected:
     virtual void _renderGui();

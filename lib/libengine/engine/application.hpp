@@ -1,9 +1,5 @@
 #pragma once
 
-#include <exception>
-
-#include <glm/glm.hpp>
-
 #include "scene/scene.hpp"
 
 class Application {
@@ -17,7 +13,7 @@ class Application {
     void run();
 
   protected:
-    std::unique_ptr<Scene> _pScene;
+    std::unique_ptr<Scene> scene;
 
     virtual void _createScene() = 0;
 
@@ -34,5 +30,5 @@ class Application {
     int _lastFpsTicks;
     int _lastUpdateTicks;
 
-    SDL_Window* _pWindow;
+    SDL_Window* window;
 };

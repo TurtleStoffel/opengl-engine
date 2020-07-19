@@ -19,7 +19,6 @@ class Scene {
     void setWindowSize(int windowWidth, int windowHeight);
 
     virtual void update(int t);
-    virtual void initialize() = 0;
 
   protected:
     virtual void _renderGui(){};

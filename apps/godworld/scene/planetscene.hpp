@@ -4,5 +4,5 @@
 
 class PlanetScene : public Scene {
   public:
-    void initialize();
+    PlanetScene();
 };

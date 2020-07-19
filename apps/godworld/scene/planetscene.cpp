@@ -3,7 +3,7 @@
 #include "application.hpp"
 #include "objects/planet.hpp"
 
-void PlanetScene::initialize() {
+PlanetScene::PlanetScene() {
     camera->setOrientation(glm::vec3(0.0f, 0.0f, 7.0f),
                            glm::vec3(0.0f, 0.0f, 0.0f),
                            glm::vec3(0.0f, 1.0f, 0.0f));
