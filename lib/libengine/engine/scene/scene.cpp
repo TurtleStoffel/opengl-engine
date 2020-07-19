@@ -14,13 +14,15 @@ bool Scene::handleInput(SDL_Event event) {
 }
 
 void Scene::render() {
-    for(std::unique_ptr<Object>& pObject : _objects) {
+    for (const std::unique_ptr<Object>& pObject : _objects) {
         pObject->render();
     }
+
+    _renderGui();
 }
 
 void Scene::update(int t) {
-    for(std::unique_ptr<Object>& pObject : _objects) {
+    for (std::unique_ptr<Object>& pObject : _objects) {
         pObject->update(t);
     }
 }
@@ -37,7 +39,7 @@ void Scene::_mousePick(SDL_Event event) {
                                                                 direction);
 
         // Check for each object in scene if there was an intersection
-        for(std::unique_ptr<Object>& pObject : _objects) {
+        for (std::unique_ptr<Object>& pObject : _objects) {
             pObject->intersect(point, direction);
         }
     }

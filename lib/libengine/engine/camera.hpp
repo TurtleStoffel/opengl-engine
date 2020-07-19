@@ -2,10 +2,9 @@
 
 #include <glm/glm.hpp>
 
-#include "interfaces/updateable.hpp"
 #include "opengl.hpp"
 
-class Camera : public Updateable {
+class Camera {
   public:
     enum MovementMode { FLAT, SPHERICAL };
 
@@ -37,10 +36,7 @@ class Camera : public Updateable {
      */
     bool handleInput(SDL_Event event);
 
-    /**
-     * Updateable Interface methods
-     */
-    virtual void update(int dt);
+    void update(int dt);
 
   private:
     /**

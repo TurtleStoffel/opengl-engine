@@ -2,16 +2,16 @@
 
 #include <memory>
 
-#include "guibinding/sunguibinding.hpp"
-
 #include "color.hpp"
+#include "guibinding/gui_factory.hpp"
 #include "models/sphere.hpp"
 
-Sun::Sun() {
-    _pModel = std::make_unique<Sphere>(_pTransform.get(), color::yellow);
+Sun::Sun(GuiFactory guiFactory) {
+    _generateModel();
 
-    _pGuiBinding = std::make_unique<SunGuiBinding>(this);
+    _pGuiBinding = guiFactory.createSunGui(this);
 }
 
-void Sun::update(int t) {
+void Sun::_generateModel() {
+    _pModel = std::make_unique<Sphere>(_pTransform.get(), color::starColor(_temperature));
 }

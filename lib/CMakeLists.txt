@@ -1,6 +1,8 @@
 set(ENGINE_SOURCES 
-    "libengine/engine/guibinding/planetguibinding.cpp"
-    "libengine/engine/guibinding/sunguibinding.cpp"
+    "libengine/engine/guibinding/gui_factory.cpp"
+    "libengine/engine/guibinding/planet_gui.cpp"
+    "libengine/engine/guibinding/sun_configuration_gui.cpp"
+    "libengine/engine/guibinding/sun_gui.cpp"
     "libengine/engine/models/ground.cpp"
     "libengine/engine/models/model.cpp"
     "libengine/engine/models/ray.cpp"
@@ -26,7 +28,7 @@ set(ENGINE_SOURCES
 add_library(engine ${ENGINE_SOURCES})
 
 target_include_directories(engine PUBLIC libengine/engine)
-target_include_directories(engine PRIVATE "${GodWorld_SOURCE_DIR}/ext/imgui")
+target_include_directories(engine PUBLIC "${GodWorld_SOURCE_DIR}/ext/imgui")
 
 target_link_libraries(engine
     ${SDL2_LIBRARIES}

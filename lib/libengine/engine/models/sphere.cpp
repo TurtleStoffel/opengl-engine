@@ -3,38 +3,26 @@
 #include <math.h>
 
 #include "application.hpp"
-#include "color.hpp"
 #include "noise/simplex_noise.hpp"
 #include "util.hpp"
 
-Sphere::Sphere(Transform* pTransform) : Sphere(pTransform, 6) {
-}
-
-Sphere::Sphere(Transform* pTransform, int depth) : Sphere(pTransform, depth, color::brown) {
-}
-
-Sphere::Sphere(Transform* pTransform, glm::vec3 (*colorGenerator)())
-    : Sphere(pTransform, 4, colorGenerator) {
-}
-
-Sphere::Sphere(Transform* pTransform, int depth, glm::vec3 (*colorGenerator)())
-    : Model(pTransform) {
+Sphere::Sphere(Transform* pTransform, glm::vec3 color, int depth) : Model(pTransform) {
     float d = (1.0f + sqrt(5.0f)) / 2.0f;
     // clang-format off
-    _createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f)), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3( 1.0f,  d, 0.0f)), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(-1.0f, -d, 0.0f)), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3( 1.0f, -d, 0.0f)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f)), color);
+    _createVertex(glm::normalize(glm::vec3( 1.0f,  d, 0.0f)), color);
+    _createVertex(glm::normalize(glm::vec3(-1.0f, -d, 0.0f)), color);
+    _createVertex(glm::normalize(glm::vec3( 1.0f, -d, 0.0f)), color);
 
-    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f,  d)), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f,  d)), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f, -d)), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f, -d)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f,  d)), color);
+    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f,  d)), color);
+    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f, -d)), color);
+    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f, -d)), color);
 
-    _createVertex(glm::normalize(glm::vec3( d, 0.0f, -1.0f)), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3( d, 0.0f,  1.0f)), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(-d, 0.0f, -1.0f)), colorGenerator());
-    _createVertex(glm::normalize(glm::vec3(-d, 0.0f,  1.0f)), colorGenerator());
+    _createVertex(glm::normalize(glm::vec3( d, 0.0f, -1.0f)), color);
+    _createVertex(glm::normalize(glm::vec3( d, 0.0f,  1.0f)), color);
+    _createVertex(glm::normalize(glm::vec3(-d, 0.0f, -1.0f)), color);
+    _createVertex(glm::normalize(glm::vec3(-d, 0.0f,  1.0f)), color);
 
     std::vector<Face> faces;
     faces.push_back(Face{ 0, 11,  5});
@@ -65,9 +53,9 @@ Sphere::Sphere(Transform* pTransform, int depth, glm::vec3 (*colorGenerator)())
     for (int i = 0; i < depth; i++) {
         std::vector<Face> newFaces;
         for (Face face : faces) {
-            unsigned int a = _getMidpoint(face.v1, face.v2, colorGenerator());
-            unsigned int b = _getMidpoint(face.v2, face.v3, colorGenerator());
-            unsigned int c = _getMidpoint(face.v3, face.v1, colorGenerator());
+            unsigned int a = _getMidpoint(face.v1, face.v2, color);
+            unsigned int b = _getMidpoint(face.v2, face.v3, color);
+            unsigned int c = _getMidpoint(face.v3, face.v1, color);
 
             // clang-format off
             newFaces.push_back(Face{face.v1, a, c});
@@ -127,8 +115,6 @@ unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 co
 
 unsigned int Sphere::_createVertex(glm::vec3 point, glm::vec3 color) {
     float noise = SimplexNoise::noise(point.x * 2.0f, point.y * 2.0f, point.z * 2.0f);
-
-    color = glm::vec3(0.5f + 0.1f * noise, 0.5f + 0.1f * noise, 0.5f + 0.1f * noise);
 
     // Apply noise to the point
     // TODO move offset to variable

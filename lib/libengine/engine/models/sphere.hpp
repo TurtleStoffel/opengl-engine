@@ -2,6 +2,7 @@
 
 #include <map>
 
+#include "color.hpp"
 #include "model.hpp"
 
 struct Face {
@@ -12,10 +13,7 @@ struct Face {
 
 class Sphere : public Model {
   public:
-    Sphere(Transform* pTransform);
-    Sphere(Transform* pTransform, int depth);
-    Sphere(Transform* pTransform, glm::vec3 (*colorGenerator)());
-    Sphere(Transform* pTransform, int depth, glm::vec3 (*colorGenerator)());
+    Sphere(Transform* pTransform, glm::vec3 color = color::brown(), int depth = 4);
 
   private:
     unsigned int _getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 color);
