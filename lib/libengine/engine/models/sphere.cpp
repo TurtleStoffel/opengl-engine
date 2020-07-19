@@ -7,22 +7,24 @@
 #include "util.hpp"
 
 Sphere::Sphere(Transform* pTransform, glm::vec3 color, int depth) : Model(pTransform) {
+    this->color = color;
+
     float d = (1.0f + sqrt(5.0f)) / 2.0f;
     // clang-format off
-    _createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f)), color);
-    _createVertex(glm::normalize(glm::vec3( 1.0f,  d, 0.0f)), color);
-    _createVertex(glm::normalize(glm::vec3(-1.0f, -d, 0.0f)), color);
-    _createVertex(glm::normalize(glm::vec3( 1.0f, -d, 0.0f)), color);
+    _createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f)));
+    _createVertex(glm::normalize(glm::vec3( 1.0f,  d, 0.0f)));
+    _createVertex(glm::normalize(glm::vec3(-1.0f, -d, 0.0f)));
+    _createVertex(glm::normalize(glm::vec3( 1.0f, -d, 0.0f)));
 
-    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f,  d)), color);
-    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f,  d)), color);
-    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f, -d)), color);
-    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f, -d)), color);
+    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f,  d)));
+    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f,  d)));
+    _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f, -d)));
+    _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f, -d)));
 
-    _createVertex(glm::normalize(glm::vec3( d, 0.0f, -1.0f)), color);
-    _createVertex(glm::normalize(glm::vec3( d, 0.0f,  1.0f)), color);
-    _createVertex(glm::normalize(glm::vec3(-d, 0.0f, -1.0f)), color);
-    _createVertex(glm::normalize(glm::vec3(-d, 0.0f,  1.0f)), color);
+    _createVertex(glm::normalize(glm::vec3( d, 0.0f, -1.0f)));
+    _createVertex(glm::normalize(glm::vec3( d, 0.0f,  1.0f)));
+    _createVertex(glm::normalize(glm::vec3(-d, 0.0f, -1.0f)));
+    _createVertex(glm::normalize(glm::vec3(-d, 0.0f,  1.0f)));
 
     std::vector<Face> faces;
     faces.push_back(Face{ 0, 11,  5});
@@ -53,9 +55,9 @@ Sphere::Sphere(Transform* pTransform, glm::vec3 color, int depth) : Model(pTrans
     for (int i = 0; i < depth; i++) {
         std::vector<Face> newFaces;
         for (Face face : faces) {
-            unsigned int a = _getMidpoint(face.v1, face.v2, color);
-            unsigned int b = _getMidpoint(face.v2, face.v3, color);
-            unsigned int c = _getMidpoint(face.v3, face.v1, color);
+            unsigned int a = _getMidpoint(face.v1, face.v2);
+            unsigned int b = _getMidpoint(face.v2, face.v3);
+            unsigned int c = _getMidpoint(face.v3, face.v1);
 
             // clang-format off
             newFaces.push_back(Face{face.v1, a, c});
@@ -77,7 +79,7 @@ Sphere::Sphere(Transform* pTransform, glm::vec3 color, int depth) : Model(pTrans
     _setupBuffers();
 }
 
-unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 color) {
+unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2) {
     // Determine smallest and biggest index
     unsigned long smallIndex, bigIndex;
     if (p1 < p2) {
@@ -104,7 +106,7 @@ unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 co
                                                       (v1.position.z + v2.position.z) / 2.0f));
 
         // Create Midpoint Vertex
-        unsigned int vertexIndex = _createVertex(midpoint, color);
+        unsigned int vertexIndex = _createVertex(midpoint);
 
         // Add Vertex to cache
         _midPointCache[key] = vertexIndex;
@@ -113,19 +115,15 @@ unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 co
     }
 }
 
-unsigned int Sphere::_createVertex(glm::vec3 point, glm::vec3 color) {
+unsigned int Sphere::_createVertex(glm::vec3 point) {
     float noise = SimplexNoise::noise(point.x * 2.0f, point.y * 2.0f, point.z * 2.0f);
 
-    // Apply noise to the point
-    // TODO move offset to variable
     point += 0.05f * noise;
 
     // Create Vertex at _vertexIndex
-    _vertices.push_back(Vertex{
-        point, // Position
-        point, // Normal is equal to Position on a Sphere
-        color  // Color
-    });
+    _vertices.push_back(Vertex{point, // Position
+                               point, // Normal is equal to Position on a Sphere
+                               color});
 
     // Add 1 to _vertexIndex but return pre-incremented value (Value of vertex created in this
     // method)

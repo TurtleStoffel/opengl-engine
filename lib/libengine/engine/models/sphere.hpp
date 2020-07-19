@@ -16,8 +16,10 @@ class Sphere : public Model {
     Sphere(Transform* pTransform, glm::vec3 color = color::brown(), int depth = 4);
 
   private:
-    unsigned int _getMidpoint(unsigned int p1, unsigned int p2, glm::vec3 color);
-    unsigned int _createVertex(glm::vec3 point, glm::vec3 color);
+    unsigned int _getMidpoint(unsigned int p1, unsigned int p2);
+    unsigned int _createVertex(glm::vec3 point);
+
+    glm::vec3 color;
 
     // Index + 1 of the last created Vertex
     int _vertexIndex = 0;
