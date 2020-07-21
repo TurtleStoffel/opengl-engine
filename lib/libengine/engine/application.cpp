@@ -4,37 +4,25 @@
 #include "examples/imgui_impl_sdl.h"
 #include "imgui.h"
 
-#include "camera.hpp"
 #include "const.hpp"
-#include "shader.hpp"
 #include "shadercontainer.hpp"
 
-Application* Application::_pApplication = nullptr;
+Application::Application(SDL_Window* window) {
+    this->window = window;
 
-Application::Application(SDL_Window* pWindow) {
-    // Only one instance of this class should ever be created, otherwise throw error
-    assert(!_pApplication);
+    // Initialize all shaders
+    ShaderContainer::init();
 
-    _pApplication = this;
-    _pWindow      = pWindow;
-}
-
-Application::~Application() {
-}
-
-Application* Application::instance() {
-    // Check that an instance of the Application already exists
-    assert(_pApplication);
-
-    return _pApplication;
+    _lastFpsTicks    = SDL_GetTicks();
+    _lastUpdateTicks = SDL_GetTicks();
 }
 
 void Application::run() {
-    _setupApplication();
+    _createScene();
 
     while (_running) {
         ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplSDL2_NewFrame(_pWindow);
+        ImGui_ImplSDL2_NewFrame(window);
         ImGui::NewFrame();
 
         _handleInput();
@@ -44,35 +32,13 @@ void Application::run() {
     }
 }
 
-Camera* Application::getCamera() {
-    assert(_pCamera);
-
-    return _pCamera.get();
-}
-
-void Application::_setupApplication() {
-    // Initialize all shaders
-    ShaderContainer::init();
-
-    _pCamera = std::make_unique<Camera>();
-
-    _createScene();
-
-    _lastFpsTicks    = SDL_GetTicks();
-    _lastUpdateTicks = SDL_GetTicks();
-}
-
 void Application::_handleInput() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (_handleApplicationInput(event)) { // Application has handled the event
             continue;
         }
-        // TODO add check if GUI has handled any of the input
-        if (_pCamera->handleInput(event)) { // Camera has handled the event
-            continue;
-        }
-        if (_pScene->handleInput(event)) { // Scene is last thing to handle events
+        if (scene->handleInput(event)) { // Scene is last thing to handle events
             continue;
         }
     }
@@ -84,8 +50,7 @@ bool Application::_handleApplicationInput(SDL_Event event) {
             if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
                 int windowWidth  = event.window.data1;
                 int windowHeight = event.window.data2;
-                // Set window size in Camera
-                getCamera()->setWindowSize(windowWidth, windowHeight);
+                scene->setWindowSize(windowWidth, windowHeight);
             }
             return true;
         case SDL_QUIT:
@@ -110,20 +75,19 @@ bool Application::_handleApplicationInput(SDL_Event event) {
 void Application::_updateScene() {
     int passedTicks = _getTicksSinceLastUpdate();
 
-    _pCamera->update(passedTicks);
-    _pScene->update(passedTicks);
+    scene->update(passedTicks);
 }
 
 void Application::_renderScene() {
     // Cleanup rendering buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-    _pScene->render();
+    scene->render();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-    SDL_GL_SwapWindow(_pWindow);
+    SDL_GL_SwapWindow(window);
 }
 
 void Application::_throttleFps() {

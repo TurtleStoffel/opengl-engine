@@ -6,7 +6,15 @@
 #include "camera.hpp"
 #include "objects/collider.hpp"
 
+Scene::Scene() {
+    camera = std::make_unique<Camera>();
+}
+
 bool Scene::handleInput(SDL_Event event) {
+    if (camera->handleInput(event)) {
+        return true;
+    }
+
     // Mousepicking has no impact on return value
     _mousePick(event);
 
@@ -21,9 +29,15 @@ void Scene::render() {
     _renderGui();
 }
 
-void Scene::update(int t) {
+void Scene::setWindowSize(int windowWidth, int windowHeight) {
+    camera->setWindowSize(windowWidth, windowHeight);
+}
+
+void Scene::update(int dt) {
+    camera->update(dt);
+
     for (std::unique_ptr<Object>& pObject : _objects) {
-        pObject->update(t);
+        pObject->update(dt);
     }
 }
 
@@ -33,10 +47,7 @@ void Scene::_mousePick(SDL_Event event) {
         // Transform point to ray in world space
         glm::vec3 point;
         glm::vec3 direction;
-        Application::instance()->getCamera()->calculateClickRay(event.motion.x,
-                                                                event.motion.y,
-                                                                point,
-                                                                direction);
+        camera->calculateClickRay(event.motion.x, event.motion.y, point, direction);
 
         // Check for each object in scene if there was an intersection
         for (std::unique_ptr<Object>& pObject : _objects) {

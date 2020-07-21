@@ -9,12 +9,5 @@ GameApplication::~GameApplication() {
 }
 
 void GameApplication::_createScene() {
-    // System Scene
-    _pScene = std::make_unique<SystemScene>();
-    _pScene->initialize();
-    // Planet Scene
-    /*
-    _pScene = std::make_unique<PlanetScene>();
-    _pScene->initialize();
-    */
+    scene = std::make_unique<SystemScene>();
 }

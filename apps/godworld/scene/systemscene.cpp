@@ -5,12 +5,11 @@
 #include "objects/sun.hpp"
 #include "util.hpp"
 
-void SystemScene::initialize() {
-    // Set Camera values according to what is needed in the System Scene
-    Application::instance()->getCamera()->setOrientation(glm::vec3(0.0f, 0.0f, 15.0f),
-                                                         glm::vec3(0.0f, 0.0f, 0.0f),
-                                                         glm::vec3(0.0f, 1.0f, 0.0f));
-    Application::instance()->getCamera()->setFlatMovement();
+SystemScene::SystemScene() {
+    camera->setOrientation(glm::vec3(0.0f, 0.0f, 15.0f),
+                           glm::vec3(0.0f, 0.0f, 0.0f),
+                           glm::vec3(0.0f, 1.0f, 0.0f));
+    camera->setFlatMovement();
 
     // Create objects
     _objects.push_back(std::make_unique<Sun>(guiFactory));

@@ -11,18 +11,20 @@
 
 class Scene {
   public:
+    Scene();
     virtual ~Scene(){};
 
     bool handleInput(SDL_Event event);
     void render();
+    void setWindowSize(int windowWidth, int windowHeight);
 
     virtual void update(int t);
-    virtual void initialize() = 0;
 
   protected:
     virtual void _renderGui(){};
 
     std::vector<std::unique_ptr<Object>> _objects;
+    std::unique_ptr<Camera> camera;
     GuiFactory guiFactory = GuiFactory();
 
   private:
