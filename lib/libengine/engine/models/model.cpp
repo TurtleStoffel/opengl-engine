@@ -35,14 +35,14 @@ void Model::_renderSilhouette() const {
     glDisable(GL_DEPTH_TEST);
     // Render using Silhouette Shader
     ShaderContainer::silhouetteShader()->use();
-    glDrawElements(_renderingMode, _indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
 
     glEnable(GL_DEPTH_TEST);
 }
 
 void Model::_renderModel() const {
     ShaderContainer::lowPolyShader()->use();
-    glDrawElements(_renderingMode, _indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
 void Model::_setupBuffers() {
@@ -53,7 +53,7 @@ void Model::_setupBuffers() {
     // Enable VBO
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferObject);
     // Upload Vertex Data
-    glBufferData(GL_ARRAY_BUFFER, _vertices.size() * sizeof(Vertex), &_vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
     // Get attribute information from vertices
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -70,7 +70,7 @@ void Model::_setupBuffers() {
     // Enable EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _elementBufferObject);
     // Upload Index Data
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(unsigned int), &_indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
     /********** EBO **********/
 
     // clang-format on

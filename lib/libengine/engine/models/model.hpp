@@ -34,8 +34,8 @@ class Model {
 
     GLenum _renderingMode = GL_TRIANGLES;
 
-    std::vector<Vertex> _vertices;
-    std::vector<unsigned int> _indices;
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
 
   private:
     void _generateOpenGLBuffers();

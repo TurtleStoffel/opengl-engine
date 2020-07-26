@@ -1,4 +1,5 @@
 set(TEST_SOURCES
+    "libengine/engine/objects/transform_test.cpp"
     "libengine/engine/color_test.cpp"
     "libengine/engine/main.cpp"
 )

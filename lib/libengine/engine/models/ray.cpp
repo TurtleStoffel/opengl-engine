@@ -11,8 +11,8 @@ Ray::Ray(glm::vec3 p1, glm::vec3 p2) {
     _pTransform = new Transform();
 
     // Create two vertices for the start and end point
-    _vertices.push_back(Vertex{p1, p1, color::blue()});
-    _vertices.push_back(Vertex{p2, p2, color::blue()});
+    vertices.push_back(Vertex{p1, p1, color::blue()});
+    vertices.push_back(Vertex{p2, p2, color::blue()});
 
     _setupBuffers();
 }

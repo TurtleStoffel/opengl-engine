@@ -4,14 +4,15 @@
 
 #include "color.hpp"
 #include "guibinding/gui_factory.hpp"
+#include "models/settlement_model.hpp"
 #include "models/sphere.hpp"
 
 Sun::Sun(GuiFactory guiFactory) {
     _generateModel();
 
-    _pGuiBinding = guiFactory.createSunGui(this);
+    guiBinding = guiFactory.createSunGui(this);
 }
 
 void Sun::_generateModel() {
-    _pModel = std::make_unique<Sphere>(_pTransform.get(), color::starColor(_temperature));
+    model = std::make_unique<Sphere>(transform.get(), color::starColor(_temperature));
 }
