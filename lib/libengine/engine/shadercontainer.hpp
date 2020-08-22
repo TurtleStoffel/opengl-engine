@@ -20,6 +20,7 @@ class ShaderContainer {
     void setModelMatrix(void* model);
     static Shader* lowPolyShader();
     static Shader* silhouetteShader();
+    static Shader* glowShader();
 
   private:
     ShaderContainer();
@@ -31,4 +32,5 @@ class ShaderContainer {
 
     Shader* _lowPolyShader;
     Shader* _silhouetteShader;
+    Shader* _glowShader;
 };
