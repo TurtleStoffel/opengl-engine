@@ -33,7 +33,6 @@ void Model::render(bool selected) const {
 void Model::_renderSilhouette() const {
     // Disable depth test to render to background
     glDisable(GL_DEPTH_TEST);
-    // Render using Silhouette Shader
     ShaderContainer::silhouetteShader()->use();
     glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
 
@@ -41,6 +40,11 @@ void Model::_renderSilhouette() const {
 }
 
 void Model::_renderModel() const {
+    glDisable(GL_DEPTH_TEST);
+    ShaderContainer::glowShader()->use();
+    glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
+    glEnable(GL_DEPTH_TEST);
+
     ShaderContainer::lowPolyShader()->use();
     glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
 }

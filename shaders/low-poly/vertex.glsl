@@ -28,5 +28,5 @@ void main() {
     // Brightness is factor in [0, 1] (dotproduct of normalized vectors)
     float brightness = max(dot(-lightDirection, worldNormal.xyz), ambientLighting);
     vec3 color = vColor * brightness;
-    vertexColor = vec4(color, 0.0f);
+    vertexColor = vec4(color, 1.0f);
 }

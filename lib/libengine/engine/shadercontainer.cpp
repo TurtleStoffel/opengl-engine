@@ -26,6 +26,12 @@ Shader* ShaderContainer::silhouetteShader() {
     return _instance->_silhouetteShader;
 }
 
+Shader* ShaderContainer::glowShader() {
+    assert(_instance);
+
+    return _instance->_glowShader;
+}
+
 void ShaderContainer::setViewProjectionMatrix(void* view, void* projection) {
     glBindBuffer(GL_UNIFORM_BUFFER, _matrixUBO);
 
@@ -51,11 +57,12 @@ void ShaderContainer::setModelMatrix(void* model) {
 
 ShaderContainer::ShaderContainer() {
     // Create shader programs
-    _lowPolyShader = new Shader("shaders/low-poly/vertex.glsl",
-                                "shaders/low-poly/fragment.glsl");
+    _lowPolyShader = new Shader("shaders/low-poly/vertex.glsl", "shaders/low-poly/fragment.glsl");
 
     _silhouetteShader = new Shader("shaders/silhouette/vertex.glsl",
                                    "shaders/silhouette/fragment.glsl");
+
+    _glowShader = new Shader("shaders/glow/vertex.glsl", "shaders/glow/fragment.glsl");
 
     // Create uniform buffer object to store Model/View/Projection matrix
     glGenBuffers(1, &_matrixUBO);
@@ -69,6 +76,7 @@ ShaderContainer::ShaderContainer() {
     // Bind shader block to index
     _lowPolyShader->uniformBlockBinding(matrixBlockIndex, bindingIndex);
     _silhouetteShader->uniformBlockBinding(matrixBlockIndex, bindingIndex);
+    _glowShader->uniformBlockBinding(matrixBlockIndex, bindingIndex);
     // Bind buffer to index
     glBindBufferRange(GL_UNIFORM_BUFFER, bindingIndex, _matrixUBO, 0, sizeof(glm::mat4) * 3);
 }
@@ -76,4 +84,5 @@ ShaderContainer::ShaderContainer() {
 ShaderContainer::~ShaderContainer() {
     delete _lowPolyShader;
     delete _silhouetteShader;
+    delete _glowShader;
 }

@@ -41,8 +41,15 @@ SDL_Window* SDL::createWindow(const std::string name) {
 
     // Set clear color to dark blue
     glClearColor(0.0, 0.0, 0.2, 1.0);
-    // Make sure depth is correctly rendered
+
     glEnable(GL_DEPTH_TEST);
+
+    // Enable transparent objects
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    // Only render triangles that are facing towards the camera
+    glEnable(GL_CULL_FACE);
 
     return pWindow;
 }

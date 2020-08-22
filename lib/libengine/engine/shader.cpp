@@ -53,6 +53,7 @@ void Shader::use() {
 }
 
 GLuint Shader::_compileShader(const char* path, GLenum type) {
+    SDL_Log("Compiling %s", path);
     std::string code;
     std::ifstream shaderFile;
 
@@ -98,6 +99,7 @@ void Shader::_checkCompileErrors(GLuint shader, std::string type) {
         if (!success) {
             glGetShaderInfoLog(shader, 1024, NULL, infoLog);
             SDL_Log("Error shader compilation");
+            SDL_Log(infoLog);
         }
     } else {
         glGetProgramiv(shader, GL_LINK_STATUS, &success);
