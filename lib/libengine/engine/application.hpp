@@ -1,6 +1,12 @@
 #pragma once
 
-#include "scene/scene.hpp"
+#include <SDL2/SDL.h>
+#include <memory>
+
+#include "shadercontainer.hpp"
+
+class Scene;
+struct SDL_Window;
 
 class Application {
   public:
@@ -8,12 +14,13 @@ class Application {
      * Constructor can only be called once in the entire program, otherwise will throw error
      */
     Application(SDL_Window* pWindow);
-    virtual ~Application(){};
+    virtual ~Application() = default;
 
     void run();
 
   protected:
     std::unique_ptr<Scene> scene;
+    std::unique_ptr<ShaderContainer> shaderContainer;
 
     virtual void _createScene() = 0;
 

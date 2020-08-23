@@ -6,19 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
-#include "const.hpp"
 #include "shadercontainer.hpp"
-
-Camera::Camera() {
-    _windowWidth  = constant::initialWindowWidth;
-    _windowHeight = constant::initialWindowHeight;
-
-    _configureShader();
-}
-
-Camera::~Camera() {
-    // Empty Virtual Destructor
-}
 
 void Camera::setOrientation(glm::vec3 position, glm::vec3 target, glm::vec3 up) {
     _cameraPosition  = position;
@@ -28,7 +16,7 @@ void Camera::setOrientation(glm::vec3 position, glm::vec3 target, glm::vec3 up) 
     // For Spherical Movement
     _target = target;
 
-    _configureShader();
+    dirty = true;
 }
 
 void Camera::setFlatMovement() {
@@ -42,34 +30,34 @@ void Camera::setSphericalMovement(float distance) {
 }
 
 void Camera::setWindowSize(int windowWidth, int windowHeight) {
-    _windowWidth  = windowWidth;
-    _windowHeight = windowHeight;
+    this->windowWidth  = windowWidth;
+    this->windowHeight = windowHeight;
 
-    glViewport(0, 0, _windowWidth, _windowHeight);
+    glViewport(0, 0, windowWidth, windowHeight);
 
-    _configureShader();
+    dirty = true;
 }
 
 void Camera::getWindowSize(int& windowWidth, int& windowHeight) {
-    windowWidth  = _windowWidth;
-    windowHeight = _windowHeight;
+    windowWidth  = this->windowWidth;
+    windowHeight = this->windowHeight;
 }
 
 void Camera::calculateClickRay(int x, int y, glm::vec3& point, glm::vec3& direction) {
     // Y coord is inverted in OpenGL
-    int transformedY = _windowHeight - y;
+    int transformedY = windowHeight - y;
 
     // Transform coordinates to world space
     glm::vec3 nearPoint = glm::unProject(glm::vec3(x, transformedY, 0.0f),
                                          _viewMatrix,
                                          _projectionMatrix,
-                                         glm::vec4(0.0, 0.0, _windowWidth, _windowHeight));
+                                         glm::vec4(0.0, 0.0, windowWidth, windowHeight));
 
     // Transform coordinates of far off point to calculate direction
     glm::vec3 farPoint = glm::unProject(glm::vec3(x, transformedY, 1.0f),
                                         _viewMatrix,
                                         _projectionMatrix,
-                                        glm::vec4(0.0, 0.0, _windowWidth, _windowHeight));
+                                        glm::vec4(0.0, 0.0, windowWidth, windowHeight));
 
     point     = nearPoint;
     direction = farPoint - nearPoint;
@@ -140,44 +128,43 @@ bool Camera::handleInput(SDL_Event event) {
     return handled;
 }
 
-void Camera::update(int dt) {
-    bool updated = false;
+void Camera::update(int dt, ShaderContainer* shaderContainer) {
     // Call the correct update method according to MovementMode
     switch (_movementMode) {
         case FLAT:
-            updated = _moveFlat(dt);
+            moveFlat(dt);
             break;
         case SPHERICAL:
-            updated = _moveSpherical(dt);
+            moveSpherical(dt);
             break;
     }
 
     // If camera has been changed this frame, update the shaders
-    if (updated) {
+    if (dirty) {
         // Set values in shader
-        _configureShader();
+        configureShader(shaderContainer);
     }
 }
 
-void Camera::_configureShader() {
+void Camera::configureShader(ShaderContainer* shaderContainer) {
     // Set camera position
-    ShaderContainer::instance()->lowPolyShader()->setUniform3fv("cameraPosition",
-                                                                &_cameraPosition[0]);
+    shaderContainer->getLowPolyShader()->setUniform3fv("cameraPosition", &_cameraPosition[0]);
 
     // calculate projection and view matrix
     _projectionMatrix = glm::perspective(glm::radians(45.0f),
-                                         (float)_windowWidth / _windowHeight,
+                                         (float)windowWidth / windowHeight,
                                          0.1f,
                                          100.0f);
 
     _viewMatrix = glm::lookAt(_cameraPosition, _cameraPosition + _cameraDirection, _cameraUp);
 
     // Set matrix values in shaders
-    ShaderContainer::instance()->setViewProjectionMatrix(&_viewMatrix[0][0],
-                                                         &_projectionMatrix[0][0]);
+    shaderContainer->setViewProjectionMatrix(&_viewMatrix[0][0], &_projectionMatrix[0][0]);
+
+    dirty = false;
 }
 
-bool Camera::_moveFlat(int dt) {
+void Camera::moveFlat(int dt) {
     glm::vec3 direction = glm::vec3(0.0f, 0.0f, 0.0f);
 
     if (_wPressed) {
@@ -202,13 +189,11 @@ bool Camera::_moveFlat(int dt) {
     // Only update camera if direction is not zero
     if (glm::length(direction) > 0.0f) {
         _cameraPosition += glm::normalize(direction) * _speed * ((float)dt);
-        return true;
-    } else {
-        return false;
+        dirty = true;
     }
 }
 
-bool Camera::_moveSpherical(int dt) {
+void Camera::moveSpherical(int dt) {
     glm::vec3 direction = glm::vec3(0.0f, 0.0f, 0.0f);
 
     // Cross Product of normalized Vectors is generally not a normalized vector
@@ -257,8 +242,6 @@ bool Camera::_moveSpherical(int dt) {
                 glm::vec3(transformedUp.x, transformedUp.y, transformedUp.z));
         }
 
-        return true;
-    } else {
-        return false;
+        dirty = true;
     }
 }

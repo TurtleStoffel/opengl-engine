@@ -6,6 +6,8 @@
 #include "objects/transform.hpp"
 #include "opengl.hpp"
 
+class ShaderContainer;
+
 struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;
@@ -23,9 +25,9 @@ class Model {
      */
     Model();
 
-    virtual ~Model(){};
+    virtual ~Model() = default;
 
-    void render(bool selected) const;
+    void render(bool selected, ShaderContainer* shaderContainer) const;
 
   protected:
     void _setupBuffers();
@@ -39,8 +41,8 @@ class Model {
 
   private:
     void _generateOpenGLBuffers();
-    void _renderSilhouette() const;
-    void _renderModel() const;
+    void _renderSilhouette(ShaderContainer* shaderContainer) const;
+    void _renderModel(ShaderContainer* shaderContainer) const;
 
     GLuint _vertexArrayObject;
     // Vertex Information

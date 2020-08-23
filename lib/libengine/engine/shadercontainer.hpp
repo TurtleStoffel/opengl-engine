@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "shader.hpp"
 
 /**
@@ -7,30 +9,25 @@
  */
 class ShaderContainer {
   public:
-    static ShaderContainer* instance();
-    static void init();
+    ShaderContainer();
 
     /**
      * View and Projection matrix are always set simultaneously by the Camera
      */
-    void setViewProjectionMatrix(void* view, void* projection);
+    void setViewProjectionMatrix(void* view, void* projection) const;
     /**
      * Model matrix is set separately by the Transform of the Object
      */
-    void setModelMatrix(void* model);
-    static Shader* lowPolyShader();
-    static Shader* silhouetteShader();
-    static Shader* glowShader();
+    void setModelMatrix(void* model) const;
+
+    const Shader* getLowPolyShader() const;
+    const Shader* getSilhouetteShader() const;
+    const Shader* getGlowShader() const;
 
   private:
-    ShaderContainer();
-    ~ShaderContainer();
-
-    static ShaderContainer* _instance;
-
     GLuint _matrixUBO;
 
-    Shader* _lowPolyShader;
-    Shader* _silhouetteShader;
-    Shader* _glowShader;
+    std::unique_ptr<Shader> lowPolyShader;
+    std::unique_ptr<Shader> silhouetteShader;
+    std::unique_ptr<Shader> glowShader;
 };

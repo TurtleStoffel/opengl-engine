@@ -15,12 +15,12 @@ Object::Object(Object* parent) {
     _pSelectionCollider = std::make_unique<Collider>(transform.get());
 }
 
-void Object::render() const {
+void Object::render(ShaderContainer* shaderContainer) const {
     if (model) {
-        model->render(_selected);
+        model->render(_selected, shaderContainer);
     }
     for (const std::unique_ptr<Object>& child : children) {
-        child->render();
+        child->render(shaderContainer);
     }
 
     if (guiBinding) {

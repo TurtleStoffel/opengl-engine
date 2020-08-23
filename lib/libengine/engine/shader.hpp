@@ -19,14 +19,14 @@ class Shader {
     // getters
     GLuint getUniformBlockIndex(const char* name);
     // setters
-    void setUniform3fv(const char* name, GLfloat* value);
+    void setUniform3fv(const char* name, GLfloat* value) const;
     // other
     void uniformBlockBinding(GLuint blockIndex, GLuint bindingIndex);
 
     /**
      * Set current shader as active program in OpenGL
      */
-    void use();
+    void use() const;
 
   private:
     GLuint _compileShader(const char* path, GLenum type);
