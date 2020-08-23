@@ -1,7 +1,9 @@
 #pragma once
 
 namespace constant {
-const int initialWindowWidth  = 1024;
-const int initialWindowHeight = 768;
-const int FPS                 = 60;
+
+constexpr int initialWindowWidth  = 1024;
+constexpr int initialWindowHeight = 768;
+constexpr int FPS                 = 60;
+
 } // namespace constant

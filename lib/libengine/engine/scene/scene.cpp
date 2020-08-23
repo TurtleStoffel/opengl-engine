@@ -10,6 +10,22 @@ Scene::Scene() {
     camera = std::make_unique<Camera>();
 }
 
+void Scene::update(int dt, ShaderContainer* shaderContainer) {
+    camera->update(dt, shaderContainer);
+
+    for (std::unique_ptr<Object>& pObject : _objects) {
+        pObject->update(dt);
+    }
+}
+
+void Scene::render(ShaderContainer* shaderContainer) {
+    for (const std::unique_ptr<Object>& pObject : _objects) {
+        pObject->render(shaderContainer);
+    }
+
+    _renderGui();
+}
+
 bool Scene::handleInput(SDL_Event event) {
     if (camera->handleInput(event)) {
         return true;
@@ -21,24 +37,8 @@ bool Scene::handleInput(SDL_Event event) {
     return false;
 }
 
-void Scene::render() {
-    for (const std::unique_ptr<Object>& pObject : _objects) {
-        pObject->render();
-    }
-
-    _renderGui();
-}
-
 void Scene::setWindowSize(int windowWidth, int windowHeight) {
     camera->setWindowSize(windowWidth, windowHeight);
-}
-
-void Scene::update(int dt) {
-    camera->update(dt);
-
-    for (std::unique_ptr<Object>& pObject : _objects) {
-        pObject->update(dt);
-    }
 }
 
 void Scene::_mousePick(SDL_Event event) {

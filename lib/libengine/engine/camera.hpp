@@ -2,19 +2,19 @@
 
 #include <glm/glm.hpp>
 
+#include "const.hpp"
 #include "opengl.hpp"
 
+class ShaderContainer;
+
+/**
+ * Camera is first initialized in the Application where the Scene is not known yet. The Scene
+ * is repsonsible to actually set the values in the Camera according to what is needed (using
+ * the set-method)
+ */
 class Camera {
   public:
     enum MovementMode { FLAT, SPHERICAL };
-
-    /**
-     * Camera is first initialized in the Application where the Scene is not known yet. The Scene
-     * is repsonsible to actually set the values in the Camera according to what is needed (using
-     * the set-method)
-     */
-    Camera();
-    virtual ~Camera();
 
     void setOrientation(glm::vec3 position, glm::vec3 target, glm::vec3 up);
 
@@ -36,19 +36,19 @@ class Camera {
      */
     bool handleInput(SDL_Event event);
 
-    void update(int dt);
+    void update(int dt, ShaderContainer* shaderContainer);
 
   private:
     /**
      * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
      */
-    void _configureShader();
+    void configureShader(ShaderContainer* shaderContainer);
 
     /**
      * Movement methods that will be called depending on _movementMode
      */
-    bool _moveFlat(int dt);
-    bool _moveSpherical(int dt);
+    void moveFlat(int dt);
+    void moveSpherical(int dt);
 
     /**
      * Camera parameters
@@ -83,12 +83,14 @@ class Camera {
     /**
      * Window Size
      */
-    int _windowWidth;
-    int _windowHeight;
+    int windowWidth  = constant::initialWindowWidth;
+    int windowHeight = constant::initialWindowHeight;
 
     /**
      * OpenGL matrices
      */
     glm::mat4 _viewMatrix;
     glm::mat4 _projectionMatrix;
+
+    bool dirty = true;
 };

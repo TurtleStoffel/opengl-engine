@@ -5,13 +5,11 @@
 #include "imgui.h"
 
 #include "const.hpp"
+#include "scene/scene.hpp"
 #include "shadercontainer.hpp"
 
-Application::Application(SDL_Window* window) {
-    this->window = window;
-
-    // Initialize all shaders
-    ShaderContainer::init();
+Application::Application(SDL_Window* window) : window(window) {
+    shaderContainer = std::make_unique<ShaderContainer>();
 
     _lastFpsTicks    = SDL_GetTicks();
     _lastUpdateTicks = SDL_GetTicks();
@@ -75,14 +73,14 @@ bool Application::_handleApplicationInput(SDL_Event event) {
 void Application::_updateScene() {
     int passedTicks = _getTicksSinceLastUpdate();
 
-    scene->update(passedTicks);
+    scene->update(passedTicks, shaderContainer.get());
 }
 
 void Application::_renderScene() {
     // Cleanup rendering buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-    scene->render();
+    scene->render(shaderContainer.get());
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -6,19 +6,20 @@
 
 #include "camera.hpp"
 #include "guibinding/gui_factory.hpp"
-#include "models/model.hpp"
 #include "objects/object.hpp"
+
+class ShaderContainer;
 
 class Scene {
   public:
     Scene();
-    virtual ~Scene(){};
+    virtual ~Scene() = default;
+
+    void update(int dt, ShaderContainer* shaderContainer);
+    void render(ShaderContainer* shaderContainer);
 
     bool handleInput(SDL_Event event);
-    void render();
     void setWindowSize(int windowWidth, int windowHeight);
-
-    virtual void update(int t);
 
   protected:
     virtual void _renderGui(){};

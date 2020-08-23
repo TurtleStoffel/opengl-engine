@@ -9,6 +9,8 @@
 #include "objects/collider.hpp"
 #include "objects/transform.hpp"
 
+class ShaderContainer;
+
 class Object {
   public:
     Object();
@@ -18,7 +20,7 @@ class Object {
 
     virtual void update(int t __attribute__((unused))){};
 
-    virtual void render() const;
+    virtual void render(ShaderContainer* shaderContainer) const;
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
   protected:

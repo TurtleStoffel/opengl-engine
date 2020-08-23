@@ -39,7 +39,7 @@ GLuint Shader::getUniformBlockIndex(const char* name) {
     return glGetUniformBlockIndex(_ID, name);
 }
 
-void Shader::setUniform3fv(const char* name, GLfloat* value) {
+void Shader::setUniform3fv(const char* name, GLfloat* value) const {
     GLuint location = glGetUniformLocation(_ID, name);
     glUniform3fv(location, 1, value);
 }
@@ -48,7 +48,7 @@ void Shader::uniformBlockBinding(GLuint blockIndex, GLuint bindingIndex) {
     glUniformBlockBinding(_ID, blockIndex, bindingIndex);
 }
 
-void Shader::use() {
+void Shader::use() const {
     glUseProgram(_ID);
 }
 

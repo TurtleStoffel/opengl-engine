@@ -18,34 +18,34 @@ void Model::_generateOpenGLBuffers() {
     glGenBuffers(1, &_elementBufferObject);
 }
 
-void Model::render(bool selected) const {
-    _pTransform->passModelMatrixToShader();
+void Model::render(bool selected, ShaderContainer* shaderContainer) const {
+    _pTransform->passModelMatrixToShader(shaderContainer);
 
     // Enable rendering data of current Model
     glBindVertexArray(_vertexArrayObject);
 
     if (selected) {
-        _renderSilhouette();
+        _renderSilhouette(shaderContainer);
     }
-    _renderModel();
+    _renderModel(shaderContainer);
 }
 
-void Model::_renderSilhouette() const {
+void Model::_renderSilhouette(ShaderContainer* shaderContainer) const {
     // Disable depth test to render to background
     glDisable(GL_DEPTH_TEST);
-    ShaderContainer::silhouetteShader()->use();
+    shaderContainer->getSilhouetteShader()->use();
     glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
 
     glEnable(GL_DEPTH_TEST);
 }
 
-void Model::_renderModel() const {
+void Model::_renderModel(ShaderContainer* shaderContainer) const {
     glDisable(GL_DEPTH_TEST);
-    ShaderContainer::glowShader()->use();
+    shaderContainer->getGlowShader()->use();
     glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
     glEnable(GL_DEPTH_TEST);
 
-    ShaderContainer::lowPolyShader()->use();
+    shaderContainer->getLowPolyShader()->use();
     glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
