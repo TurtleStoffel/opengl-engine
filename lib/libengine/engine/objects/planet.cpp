@@ -3,12 +3,14 @@
 #include <math.h>
 
 #include "guibinding/planet_gui.hpp"
+#include "models/effects/outline.hpp"
 #include "models/sphere.hpp"
 #include "objects/collider.hpp"
 #include "util.hpp"
 
 Planet::Planet(float distance, float radius) {
     model = std::make_unique<Sphere>(transform.get());
+    model->addEffect(std::make_unique<Outline>(*model.get()));
 
     guiBinding = std::make_unique<PlanetGui>(this);
 

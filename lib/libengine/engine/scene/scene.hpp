@@ -15,8 +15,8 @@ class Scene {
     Scene();
     virtual ~Scene() = default;
 
-    void update(int dt, ShaderContainer* shaderContainer);
-    void render(ShaderContainer* shaderContainer);
+    void update(int dt, const ShaderContainer& shaderContainer);
+    void render(const ShaderContainer& shaderContainer);
 
     bool handleInput(SDL_Event event);
     void setWindowSize(int windowWidth, int windowHeight);

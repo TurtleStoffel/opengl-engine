@@ -1,12 +1,14 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <memory>
 #include <vector>
 
 #include "objects/transform.hpp"
 #include "opengl.hpp"
 
 class ShaderContainer;
+class Effect;
 
 struct Vertex {
     glm::vec3 position;
@@ -25,9 +27,13 @@ class Model {
      */
     Model();
 
-    virtual ~Model() = default;
+    // Not default because otherwise build error for Effect class
+    virtual ~Model();
 
-    void render(bool selected, ShaderContainer* shaderContainer) const;
+    void render(bool selected, const ShaderContainer& shaderContainer) const;
+    void glDraw() const;
+
+    void addEffect(std::unique_ptr<Effect> effect);
 
   protected:
     void _setupBuffers();
@@ -41,8 +47,9 @@ class Model {
 
   private:
     void _generateOpenGLBuffers();
-    void _renderSilhouette(ShaderContainer* shaderContainer) const;
-    void _renderModel(ShaderContainer* shaderContainer) const;
+    void _renderSilhouette(const ShaderContainer& shaderContainer) const;
+
+    std::vector<std::unique_ptr<Effect>> preRenderEffects;
 
     GLuint _vertexArrayObject;
     // Vertex Information

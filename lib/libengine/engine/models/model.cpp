@@ -1,5 +1,6 @@
 #include "model.hpp"
 
+#include "models/effects/effect.hpp"
 #include "opengl.hpp"
 #include "shadercontainer.hpp"
 
@@ -12,41 +13,35 @@ Model::Model(Transform* pTransform) {
 Model::Model() : Model(nullptr) {
 }
 
+Model::~Model() {
+}
+
 void Model::_generateOpenGLBuffers() {
     glGenVertexArrays(1, &_vertexArrayObject);
     glGenBuffers(1, &_vertexBufferObject);
     glGenBuffers(1, &_elementBufferObject);
 }
 
-void Model::render(bool selected, ShaderContainer* shaderContainer) const {
+void Model::render(bool selected, const ShaderContainer& shaderContainer) const {
     _pTransform->passModelMatrixToShader(shaderContainer);
-
-    // Enable rendering data of current Model
     glBindVertexArray(_vertexArrayObject);
 
-    if (selected) {
-        _renderSilhouette(shaderContainer);
+    for (const std::unique_ptr<Effect>& effect : preRenderEffects) {
+        effect->render(selected, shaderContainer);
     }
-    _renderModel(shaderContainer);
+
+    shaderContainer.getLowPolyShader()->use();
+    glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
+
+    glBindVertexArray(0);
 }
 
-void Model::_renderSilhouette(ShaderContainer* shaderContainer) const {
-    // Disable depth test to render to background
-    glDisable(GL_DEPTH_TEST);
-    shaderContainer->getSilhouetteShader()->use();
+void Model::glDraw() const {
     glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
-
-    glEnable(GL_DEPTH_TEST);
 }
 
-void Model::_renderModel(ShaderContainer* shaderContainer) const {
-    glDisable(GL_DEPTH_TEST);
-    shaderContainer->getGlowShader()->use();
-    glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
-    glEnable(GL_DEPTH_TEST);
-
-    shaderContainer->getLowPolyShader()->use();
-    glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
+void Model::addEffect(std::unique_ptr<Effect> effect) {
+    preRenderEffects.push_back(std::move(effect));
 }
 
 void Model::_setupBuffers() {

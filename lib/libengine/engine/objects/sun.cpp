@@ -4,7 +4,7 @@
 
 #include "color.hpp"
 #include "guibinding/gui_factory.hpp"
-#include "models/settlement_model.hpp"
+#include "models/effects/glow.hpp"
 #include "models/sphere.hpp"
 
 Sun::Sun(GuiFactory guiFactory) {
@@ -15,4 +15,5 @@ Sun::Sun(GuiFactory guiFactory) {
 
 void Sun::_generateModel() {
     model = std::make_unique<Sphere>(transform.get(), color::starColor(_temperature));
+    model->addEffect(std::make_unique<Glow>(*model.get()));
 }

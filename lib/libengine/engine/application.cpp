@@ -9,8 +9,6 @@
 #include "shadercontainer.hpp"
 
 Application::Application(SDL_Window* window) : window(window) {
-    shaderContainer = std::make_unique<ShaderContainer>();
-
     _lastFpsTicks    = SDL_GetTicks();
     _lastUpdateTicks = SDL_GetTicks();
 }
@@ -73,14 +71,14 @@ bool Application::_handleApplicationInput(SDL_Event event) {
 void Application::_updateScene() {
     int passedTicks = _getTicksSinceLastUpdate();
 
-    scene->update(passedTicks, shaderContainer.get());
+    scene->update(passedTicks, shaderContainer);
 }
 
 void Application::_renderScene() {
     // Cleanup rendering buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-    scene->render(shaderContainer.get());
+    scene->render(shaderContainer);
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

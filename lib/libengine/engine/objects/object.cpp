@@ -2,10 +2,7 @@
 
 #include "collider.hpp"
 
-Object::Object() : Object(nullptr) {
-}
-
-Object::Object(Object* parent) {
+Object::Object(const Object* parent) {
     if (parent) {
         transform = std::make_unique<Transform>(parent->transform.get());
     } else {
@@ -15,7 +12,7 @@ Object::Object(Object* parent) {
     _pSelectionCollider = std::make_unique<Collider>(transform.get());
 }
 
-void Object::render(ShaderContainer* shaderContainer) const {
+void Object::render(const ShaderContainer& shaderContainer) const {
     if (model) {
         model->render(_selected, shaderContainer);
     }
