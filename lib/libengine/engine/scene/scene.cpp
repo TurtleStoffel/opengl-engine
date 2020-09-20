@@ -10,7 +10,7 @@ Scene::Scene() {
     camera = std::make_unique<Camera>();
 }
 
-void Scene::update(int dt, ShaderContainer* shaderContainer) {
+void Scene::update(int dt, const ShaderContainer& shaderContainer) {
     camera->update(dt, shaderContainer);
 
     for (std::unique_ptr<Object>& pObject : _objects) {
@@ -18,7 +18,7 @@ void Scene::update(int dt, ShaderContainer* shaderContainer) {
     }
 }
 
-void Scene::render(ShaderContainer* shaderContainer) {
+void Scene::render(const ShaderContainer& shaderContainer) {
     for (const std::unique_ptr<Object>& pObject : _objects) {
         pObject->render(shaderContainer);
     }

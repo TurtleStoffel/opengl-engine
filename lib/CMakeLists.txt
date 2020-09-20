@@ -3,6 +3,8 @@ set(ENGINE_SOURCES
     "libengine/engine/guibinding/planet_gui.cpp"
     "libengine/engine/guibinding/sun_configuration_gui.cpp"
     "libengine/engine/guibinding/sun_gui.cpp"
+    "libengine/engine/models/effects/glow.cpp"
+    "libengine/engine/models/effects/outline.cpp"
     "libengine/engine/models/model.cpp"
     "libengine/engine/models/ray.cpp"
     "libengine/engine/models/settlement_model.cpp"

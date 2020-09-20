@@ -12,7 +12,9 @@ class Sun : public Object {
     Sun(GuiFactory guiFactory);
 
   private:
+    // Used by SunConfigurationGui
     void _generateModel();
+
     // Temperature in Kelvin
     int _temperature = 6000;
 };

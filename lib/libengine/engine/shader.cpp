@@ -99,7 +99,7 @@ void Shader::_checkCompileErrors(GLuint shader, std::string type) {
         if (!success) {
             glGetShaderInfoLog(shader, 1024, NULL, infoLog);
             SDL_Log("Error shader compilation");
-            SDL_Log(infoLog);
+            SDL_Log("%s", infoLog);
         }
     } else {
         glGetProgramiv(shader, GL_LINK_STATUS, &success);

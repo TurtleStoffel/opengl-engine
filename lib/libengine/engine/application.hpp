@@ -19,8 +19,9 @@ class Application {
     void run();
 
   protected:
+    ShaderContainer shaderContainer;
+
     std::unique_ptr<Scene> scene;
-    std::unique_ptr<ShaderContainer> shaderContainer;
 
     virtual void _createScene() = 0;
 

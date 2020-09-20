@@ -36,13 +36,13 @@ class Camera {
      */
     bool handleInput(SDL_Event event);
 
-    void update(int dt, ShaderContainer* shaderContainer);
+    void update(int dt, const ShaderContainer& shaderContainer);
 
   private:
     /**
      * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
      */
-    void configureShader(ShaderContainer* shaderContainer);
+    void configureShader(const ShaderContainer& shaderContainer);
 
     /**
      * Movement methods that will be called depending on _movementMode

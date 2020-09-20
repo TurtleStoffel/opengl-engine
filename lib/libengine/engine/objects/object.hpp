@@ -13,14 +13,14 @@ class ShaderContainer;
 
 class Object {
   public:
-    Object();
-    Object(Object* parent);
+    Object() : Object(nullptr){};
+    Object(const Object* parent);
 
-    virtual ~Object(){};
+    virtual ~Object() = default;
 
-    virtual void update(int t __attribute__((unused))){};
+    virtual void update([[maybe_unused]] int t){};
 
-    virtual void render(ShaderContainer* shaderContainer) const;
+    virtual void render(const ShaderContainer& shaderContainer) const;
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
   protected:

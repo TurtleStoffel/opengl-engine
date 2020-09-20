@@ -128,7 +128,7 @@ bool Camera::handleInput(SDL_Event event) {
     return handled;
 }
 
-void Camera::update(int dt, ShaderContainer* shaderContainer) {
+void Camera::update(int dt, const ShaderContainer& shaderContainer) {
     // Call the correct update method according to MovementMode
     switch (_movementMode) {
         case FLAT:
@@ -146,9 +146,9 @@ void Camera::update(int dt, ShaderContainer* shaderContainer) {
     }
 }
 
-void Camera::configureShader(ShaderContainer* shaderContainer) {
+void Camera::configureShader(const ShaderContainer& shaderContainer) {
     // Set camera position
-    shaderContainer->getLowPolyShader()->setUniform3fv("cameraPosition", &_cameraPosition[0]);
+    shaderContainer.getLowPolyShader()->setUniform3fv("cameraPosition", &_cameraPosition[0]);
 
     // calculate projection and view matrix
     _projectionMatrix = glm::perspective(glm::radians(45.0f),
@@ -159,7 +159,7 @@ void Camera::configureShader(ShaderContainer* shaderContainer) {
     _viewMatrix = glm::lookAt(_cameraPosition, _cameraPosition + _cameraDirection, _cameraUp);
 
     // Set matrix values in shaders
-    shaderContainer->setViewProjectionMatrix(&_viewMatrix[0][0], &_projectionMatrix[0][0]);
+    shaderContainer.setViewProjectionMatrix(&_viewMatrix[0][0], &_projectionMatrix[0][0]);
 
     dirty = false;
 }
