@@ -1,12 +1,7 @@
 #pragma once
 
-#include <memory>
-
 #include "shader.hpp"
 
-/**
- * Singleton class responsible for maintaining all shaders and data shared between the shaders
- */
 class ShaderContainer {
   public:
     ShaderContainer();
@@ -20,14 +15,16 @@ class ShaderContainer {
      */
     void setModelMatrix(void* model) const;
 
-    const Shader* getLowPolyShader() const;
-    const Shader* getSilhouetteShader() const;
-    const Shader* getGlowShader() const;
+    void useLowPolyShader() const;
+    void useSilhouetteShader() const;
+    void useGlowShader() const;
+
+    void setCameraPosition(GLfloat* position) const;
 
   private:
     GLuint _matrixUBO;
 
-    std::unique_ptr<Shader> lowPolyShader;
-    std::unique_ptr<Shader> silhouetteShader;
-    std::unique_ptr<Shader> glowShader;
+    Shader lowPolyShader{"shaders/low-poly/vertex.glsl", "shaders/low-poly/fragment.glsl"};
+    Shader silhouetteShader{"shaders/silhouette/vertex.glsl", "shaders/silhouette/fragment.glsl"};
+    Shader glowShader{"shaders/glow/vertex.glsl", "shaders/glow/fragment.glsl"};
 };

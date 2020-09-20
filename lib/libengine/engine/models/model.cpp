@@ -30,7 +30,7 @@ void Model::render(bool selected, const ShaderContainer& shaderContainer) const 
         effect->render(selected, shaderContainer);
     }
 
-    shaderContainer.getLowPolyShader()->use();
+    shaderContainer.useLowPolyShader();
     glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
