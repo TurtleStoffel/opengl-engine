@@ -148,7 +148,7 @@ void Camera::update(int dt, const ShaderContainer& shaderContainer) {
 
 void Camera::configureShader(const ShaderContainer& shaderContainer) {
     // Set camera position
-    shaderContainer.getLowPolyShader()->setUniform3fv("cameraPosition", &_cameraPosition[0]);
+    shaderContainer.setCameraPosition(&_cameraPosition[0]);
 
     // calculate projection and view matrix
     _projectionMatrix = glm::perspective(glm::radians(45.0f),
