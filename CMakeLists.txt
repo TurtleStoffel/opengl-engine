@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.5)
 
 project(GodWorld)
 
+# Fix Compiler Warning after updating Ubuntu (Probably due to updating CMake version)
+if(POLICY CMP0072)
+    cmake_policy(SET CMP0072 NEW)
+endif()
+
 find_package(SDL2 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
@@ -18,6 +23,8 @@ add_compile_options(
     -Wall
     -Wextra
     -D_GLIBCXX_DEBUG
+    # Fix Build error after updating Ubuntu
+    -I/usr/include/SDL2
 )
 
 set(IMGUI_DEMO_SOURCES
