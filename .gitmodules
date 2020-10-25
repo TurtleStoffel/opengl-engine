@@ -1,6 +1,6 @@
-[submodule "ext/imgui"]
-	path = ext/imgui
-	url = https://gitlab.com/stwauters/imgui.git
 [submodule "ext/googletest"]
 	path = ext/googletest
 	url = https://github.com/google/googletest
+[submodule "ext/imgui"]
+	path = ext/imgui
+	url = https://github.com/ocornut/imgui
