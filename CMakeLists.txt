@@ -29,8 +29,8 @@ add_compile_options(
 
 set(IMGUI_DEMO_SOURCES
     "ext/imgui/examples/example_sdl_opengl3/main.cpp"
-    "ext/imgui/examples/imgui_impl_opengl3.cpp"
-    "ext/imgui/examples/imgui_impl_sdl.cpp"
+    "ext/imgui/backends/imgui_impl_opengl3.cpp"
+    "ext/imgui/backends/imgui_impl_sdl.cpp"
     "ext/imgui/imgui_demo.cpp"
     "ext/imgui/imgui_draw.cpp"
     "ext/imgui/imgui_widgets.cpp"
@@ -40,7 +40,7 @@ set(IMGUI_DEMO_SOURCES
 add_library(imgui ${IMGUI_DEMO_SOURCES})
 
 target_include_directories(imgui PRIVATE "ext/imgui")
-target_include_directories(imgui PRIVATE "ext/imgui/examples")
+target_include_directories(imgui PRIVATE "ext/imgui/backends")
 
 target_link_libraries(imgui
     ${SDL2_LIBRARIES}
