@@ -20,8 +20,8 @@ SettlementModel::SettlementModel(Transform* transform) : Model(transform) {
     vertices.push_back(vertex);
 
     indices.push_back(0);
-    indices.push_back(1);
     indices.push_back(3);
+    indices.push_back(1);
     indices.push_back(0);
     indices.push_back(2);
     indices.push_back(3);

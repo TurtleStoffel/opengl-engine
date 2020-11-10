@@ -1,96 +1,56 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "const.hpp"
 #include "opengl.hpp"
 
+#include <glm/glm.hpp>
+
 class ShaderContainer;
 
-/**
- * Camera is first initialized in the Application where the Scene is not known yet. The Scene
- * is repsonsible to actually set the values in the Camera according to what is needed (using
- * the set-method)
- */
 class Camera {
   public:
-    enum MovementMode { FLAT, SPHERICAL };
-
-    void setOrientation(glm::vec3 position, glm::vec3 target, glm::vec3 up);
-
-    void setFlatMovement();
-    void setSphericalMovement(float distance);
-
-    void setWindowSize(int windowWidth, int windowHeight);
-    void getWindowSize(int& windowWidth, int& windowHeight);
+    auto setWindowSize(int windowWidth, int windowHeight) -> void;
 
     /**
      * Calculate ray when clicking on point (x,y) on the screen
      * return output in point and direction parameters
      */
-    void calculateClickRay(int x, int y, glm::vec3& point, glm::vec3& direction);
+    auto calculateClickRay(int x, int y, glm::vec3& point, glm::vec3& direction) -> void;
 
     /**
      * Checks if any of the relevant keys for the Camera have been pressed. Returns True if input
      * has been handled
      */
-    bool handleInput(SDL_Event event);
+    auto handleInput(SDL_Event event) -> bool;
 
-    void update(int dt, const ShaderContainer& shaderContainer);
+    auto update(int dt, const ShaderContainer& shaderContainer) -> void;
 
   private:
     /**
      * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
      */
-    void configureShader(const ShaderContainer& shaderContainer);
+    auto configureShader(const ShaderContainer& shaderContainer) -> void;
 
-    /**
-     * Movement methods that will be called depending on _movementMode
-     */
-    void moveFlat(int dt);
-    void moveSpherical(int dt);
+    auto moveFlat(int dt) -> void;
 
-    /**
-     * Camera parameters
-     * Vectors are normalized
-     */
-    glm::vec3 _cameraPosition  = glm::vec3(0.0f, 0.0f, 5.0f);
-    glm::vec3 _cameraDirection = glm::vec3(0.0f, 0.0f, -1.0f);
-    glm::vec3 _cameraUp        = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 m_cameraPosition = glm::vec3(0.0f, 0.0f, 5.0f);
 
-    /**
-     * Variables to track key presses
-     */
-    bool _wPressed = false;
-    bool _aPressed = false;
-    bool _sPressed = false;
-    bool _dPressed = false;
-    bool _qPressed = false;
-    bool _ePressed = false;
+    static constexpr glm::vec3 CAMERA_DIRECTION = glm::vec3(0.0f, 0.0f, -1.0f);
+    static constexpr glm::vec3 CAMERA_UP        = glm::vec3(0.0f, 1.0f, 0.0f);
 
-    /**
-     * Determines how the camera moves in the _update call
-     */
-    MovementMode _movementMode;
-    const float _speed = 0.001f;
+    bool m_wPressed = false;
+    bool m_aPressed = false;
+    bool m_sPressed = false;
+    bool m_dPressed = false;
 
-    /**
-     * Parameters required for Spherical Movement (around a target from a specific distance)
-     */
-    glm::vec3 _target;
-    float _distance;
+    // Camera speed in the update call
+    static constexpr float SPEED = 0.001f;
 
-    /**
-     * Window Size
-     */
-    int windowWidth  = constant::initialWindowWidth;
-    int windowHeight = constant::initialWindowHeight;
+    int m_windowWidth  = constant::initialWindowWidth;
+    int m_windowHeight = constant::initialWindowHeight;
 
-    /**
-     * OpenGL matrices
-     */
-    glm::mat4 _viewMatrix;
-    glm::mat4 _projectionMatrix;
+    glm::mat4 m_viewMatrix;
+    glm::mat4 m_projectionMatrix;
 
-    bool dirty = true;
+    bool m_dirty = true;
 };
