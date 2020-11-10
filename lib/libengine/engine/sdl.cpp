@@ -1,12 +1,12 @@
 #include "sdl.hpp"
 
-#include "examples/imgui_impl_opengl3.h"
-#include "examples/imgui_impl_sdl.h"
+#include "backends/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_sdl.h"
 #include "imgui.h"
 
 #include "const.hpp"
 
-SDL_Window* SDL::createWindow(const std::string name) {
+auto SDL::createWindow(const std::string name) -> SDL_Window* {
     SDL_Init(SDL_INIT_VIDEO);
 
     // Add SDL_WINDOW_FULLSCREEN_DESKTOP flag for Fullscreen at desktop resolution
@@ -54,7 +54,7 @@ SDL_Window* SDL::createWindow(const std::string name) {
     return pWindow;
 }
 
-void SDL::destroy(SDL_Window* pWindow) {
+auto SDL::destroy(SDL_Window* pWindow) -> void {
     SDL_DestroyWindow(pWindow);
     SDL_Quit();
 }
