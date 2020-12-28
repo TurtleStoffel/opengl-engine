@@ -1,9 +1,9 @@
 #include "systemscene.hpp"
 
-#include "application.hpp"
-#include "objects/planet.hpp"
-#include "objects/sun.hpp"
-#include "util.hpp"
+#include "engine/application.hpp"
+#include "engine/objects/planet.hpp"
+#include "engine/objects/sun.hpp"
+#include "engine/util.hpp"
 
 SystemScene::SystemScene() {
     // Create objects

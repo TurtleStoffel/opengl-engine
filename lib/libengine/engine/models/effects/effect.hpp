@@ -1,6 +1,6 @@
 #pragma once
 
-#include "opengl.hpp"
+#include "engine/opengl.hpp"
 
 class ShaderContainer;
 

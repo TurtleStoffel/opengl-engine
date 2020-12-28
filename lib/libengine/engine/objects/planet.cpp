@@ -1,12 +1,12 @@
-#include "planet.hpp"
+#include "engine/objects/planet.hpp"
+
+#include "engine/guibinding/planet_gui.hpp"
+#include "engine/models/effects/outline.hpp"
+#include "engine/models/sphere.hpp"
+#include "engine/objects/collider.hpp"
+#include "engine/util.hpp"
 
 #include <math.h>
-
-#include "guibinding/planet_gui.hpp"
-#include "models/effects/outline.hpp"
-#include "models/sphere.hpp"
-#include "objects/collider.hpp"
-#include "util.hpp"
 
 Planet::Planet(float distance, float radius) {
     model = std::make_unique<Sphere>(*transform.get());

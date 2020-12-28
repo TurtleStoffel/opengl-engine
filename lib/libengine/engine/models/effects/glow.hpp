@@ -1,6 +1,6 @@
 #pragma once
 
-#include "models/model.hpp"
+#include "engine/models/model.hpp"
 
 class Model;
 

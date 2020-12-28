@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene/scene.hpp"
+#include "engine/scene/scene.hpp"
 
 class ModelScene : public Scene {
   public:

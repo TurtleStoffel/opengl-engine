@@ -1,6 +1,6 @@
 #pragma once
 
-#include "models/effects/effect.hpp"
+#include "engine/models/effects/effect.hpp"
 
 class Model;
 

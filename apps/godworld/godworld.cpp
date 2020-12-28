@@ -1,7 +1,7 @@
-#include <time.h>
-
+#include "engine/sdl.hpp"
 #include "gameapplication.hpp"
-#include "sdl.hpp"
+
+#include <time.h>
 
 // Set argc and argv as unused to remove compiler warnings
 int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused))) {

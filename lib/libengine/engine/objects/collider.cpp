@@ -1,9 +1,9 @@
-#include "collider.hpp"
+#include "engine/objects/collider.hpp"
+
+#include "engine/application.hpp"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/intersect.hpp>
-
-#include "application.hpp"
 
 Collider::Collider(const Transform* pTransform) {
     _pTransform = pTransform;

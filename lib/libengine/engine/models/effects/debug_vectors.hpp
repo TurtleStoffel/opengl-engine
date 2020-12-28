@@ -1,7 +1,7 @@
 #pragma once
 
-#include "effect.hpp"
-#include "models/vector.hpp"
+#include "engine/models/effects/effect.hpp"
+#include "engine/models/vector.hpp"
 
 #include <list>
 

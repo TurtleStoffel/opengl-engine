@@ -1,10 +1,10 @@
-#include "scene/scene.hpp"
+#include "engine/scene/scene.hpp"
+
+#include "engine/application.hpp"
+#include "engine/camera.hpp"
+#include "engine/objects/collider.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
-
-#include "application.hpp"
-#include "camera.hpp"
-#include "objects/collider.hpp"
 
 Scene::Scene() {
     camera = std::make_unique<Camera>();

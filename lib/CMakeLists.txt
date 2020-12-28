@@ -29,7 +29,7 @@ set(ENGINE_SOURCES
 
 add_library(engine ${ENGINE_SOURCES})
 
-target_include_directories(engine PUBLIC libengine/engine)
+target_include_directories(engine PUBLIC libengine)
 target_include_directories(engine PUBLIC "${GodWorld_SOURCE_DIR}/ext/imgui")
 
 target_link_libraries(engine

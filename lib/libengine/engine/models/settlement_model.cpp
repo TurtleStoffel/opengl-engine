@@ -1,8 +1,8 @@
-#include "settlement_model.hpp"
+#include "engine/models/settlement_model.hpp"
+
+#include "engine/color.hpp"
 
 #include <math.h>
-
-#include "color.hpp"
 
 SettlementModel::SettlementModel(Transform* transform) : Model(*transform) {
     Vertex vertex;

@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "guibinding.hpp"
-#include "objects/planet.hpp"
-#include "objects/sun.hpp"
+#include "engine/guibinding/guibinding.hpp"
+#include "engine/objects/planet.hpp"
+#include "engine/objects/sun.hpp"
 
 class GuiFactory {
   public:

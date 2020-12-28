@@ -1,11 +1,11 @@
-#include "sun.hpp"
+#include "engine/objects/sun.hpp"
+
+#include "engine/color.hpp"
+#include "engine/guibinding/gui_factory.hpp"
+#include "engine/models/effects/glow.hpp"
+#include "engine/models/sphere.hpp"
 
 #include <memory>
-
-#include "color.hpp"
-#include "guibinding/gui_factory.hpp"
-#include "models/effects/glow.hpp"
-#include "models/sphere.hpp"
 
 Sun::Sun(GuiFactory guiFactory) {
     _generateModel();

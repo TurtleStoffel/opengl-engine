@@ -1,6 +1,6 @@
 #pragma once
 
-#include "application.hpp"
+#include "engine/application.hpp"
 
 class ModelViewerApplication : public Application {
   public:

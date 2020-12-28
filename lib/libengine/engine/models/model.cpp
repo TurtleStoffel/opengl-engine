@@ -1,10 +1,10 @@
 #include "model.hpp"
 
-#include "models/effects/debug_vectors.hpp"
-#include "models/effects/effect.hpp"
-#include "models/vector.hpp"
-#include "opengl.hpp"
-#include "shadercontainer.hpp"
+#include "engine/models/effects/debug_vectors.hpp"
+#include "engine/models/effects/effect.hpp"
+#include "engine/models/vector.hpp"
+#include "engine/opengl.hpp"
+#include "engine/shadercontainer.hpp"
 
 Model::Model(const Transform& transform, bool debug) : Model{transform} {
     if (debug) {

@@ -1,7 +1,8 @@
-#include <time.h>
-
 #include "modelviewerapplication.hpp"
-#include "sdl.hpp"
+
+#include "engine/sdl.hpp"
+
+#include <time.h>
 
 int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused))) {
     SDL_Window* pWindow = SDL::createWindow("ModelViewer");

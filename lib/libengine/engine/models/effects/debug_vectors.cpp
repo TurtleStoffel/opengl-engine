@@ -1,6 +1,6 @@
 #include "debug_vectors.hpp"
 
-#include "shadercontainer.hpp"
+#include "engine/shadercontainer.hpp"
 
 DebugVectors::DebugVectors(const Model& model) {
     m_vectors.emplace_back(model.getTransform(), glm::vec3(1.0f, 0.0f, 0.0f));

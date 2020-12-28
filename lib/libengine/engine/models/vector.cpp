@@ -1,7 +1,7 @@
 #include "vector.hpp"
 
-#include "color.hpp"
-#include "objects/object.hpp"
+#include "engine/color.hpp"
+#include "engine/objects/object.hpp"
 
 Vector::Vector(const Transform& transform, glm::vec3 direction) : Model{transform} {
     m_renderingMode = GL_LINES;

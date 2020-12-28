@@ -1,9 +1,9 @@
 #pragma once
 
-#include <map>
+#include "engine/color.hpp"
+#include "engine/models/model.hpp"
 
-#include "color.hpp"
-#include "model.hpp"
+#include <map>
 
 struct Face {
     unsigned int v1;

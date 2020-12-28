@@ -1,10 +1,10 @@
-#include "sphere.hpp"
+#include "engine/models/sphere.hpp"
+
+#include "engine/application.hpp"
+#include "engine/noise/simplex_noise.hpp"
+#include "engine/util.hpp"
 
 #include <math.h>
-
-#include "application.hpp"
-#include "noise/simplex_noise.hpp"
-#include "util.hpp"
 
 Sphere::Sphere(Transform& transform, glm::vec3 color, int depth) : Model(transform, true) {
     this->color = color;

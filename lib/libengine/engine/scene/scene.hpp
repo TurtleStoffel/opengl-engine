@@ -1,12 +1,11 @@
 #pragma once
 
+#include "engine/camera.hpp"
+#include "engine/guibinding/gui_factory.hpp"
+#include "engine/objects/object.hpp"
+#include "engine/opengl.hpp"
+
 #include <vector>
-
-#include "opengl.hpp"
-
-#include "camera.hpp"
-#include "guibinding/gui_factory.hpp"
-#include "objects/object.hpp"
 
 class ShaderContainer;
 

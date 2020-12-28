@@ -1,8 +1,8 @@
 #pragma once
 
-#include "effects/effect.hpp"
-#include "objects/transform.hpp"
-#include "opengl.hpp"
+#include "engine/models/effects/effect.hpp"
+#include "engine/objects/transform.hpp"
+#include "engine/opengl.hpp"
 
 #include <glm/glm.hpp>
 #include <memory>

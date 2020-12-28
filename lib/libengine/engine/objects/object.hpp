@@ -1,13 +1,13 @@
 #pragma once
 
+#include "engine/guibinding/guibinding.hpp"
+#include "engine/models/model.hpp"
+#include "engine/objects/collider.hpp"
+#include "engine/objects/transform.hpp"
+
 #include <glm/glm.hpp>
 #include <map>
 #include <memory>
-
-#include "guibinding/guibinding.hpp"
-#include "models/model.hpp"
-#include "objects/collider.hpp"
-#include "objects/transform.hpp"
 
 class ShaderContainer;
 

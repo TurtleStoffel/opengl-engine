@@ -1,6 +1,6 @@
 #include "glow.hpp"
 
-#include "shadercontainer.hpp"
+#include "engine/shadercontainer.hpp"
 
 Glow::Glow(const Model& model) : m_model{model} {
 }

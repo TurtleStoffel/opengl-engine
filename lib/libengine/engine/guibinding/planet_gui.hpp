@@ -1,7 +1,7 @@
 #pragma once
 
-#include "guibinding/guibinding.hpp"
-#include "objects/planet.hpp"
+#include "engine/guibinding/guibinding.hpp"
+#include "engine/objects/planet.hpp"
 
 class PlanetGui : public GuiBinding {
   public:

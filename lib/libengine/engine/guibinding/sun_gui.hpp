@@ -1,7 +1,7 @@
 #pragma once
 
-#include "guibinding/guibinding.hpp"
-#include "objects/sun.hpp"
+#include "engine/guibinding/guibinding.hpp"
+#include "engine/objects/sun.hpp"
 
 class SunGui : public GuiBinding {
   public:

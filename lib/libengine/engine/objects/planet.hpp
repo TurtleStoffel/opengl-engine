@@ -1,8 +1,7 @@
 #pragma once
 
-#include "object.hpp"
-
-#include "settlement.hpp"
+#include "engine/objects/object.hpp"
+#include "engine/objects/settlement.hpp"
 
 class Planet : public Object {
     friend class PlanetGui;

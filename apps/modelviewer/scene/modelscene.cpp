@@ -1,10 +1,9 @@
 #include "modelscene.hpp"
 
+#include "engine/application.hpp"
+#include "engine/objects/planet.hpp"
+#include "engine/objects/sun.hpp"
 #include "imgui.h"
-
-#include "application.hpp"
-#include "objects/planet.hpp"
-#include "objects/sun.hpp"
 
 ModelScene::ModelScene() {
     camera->setOrientation(glm::vec3(0.0f, 0.0f, 5.0f),
