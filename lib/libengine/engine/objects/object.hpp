@@ -13,7 +13,7 @@ class ShaderContainer;
 
 class Object {
   public:
-    Object() : Object(nullptr){};
+    Object() : Object{nullptr} {};
     Object(const Object* parent);
 
     virtual ~Object() = default;

@@ -1,19 +1,19 @@
 #include "model.hpp"
 
+#include "models/effects/debug_vectors.hpp"
 #include "models/effects/effect.hpp"
+#include "models/vector.hpp"
 #include "opengl.hpp"
 #include "shadercontainer.hpp"
 
-Model::Model(Transform* pTransform) {
-    _pTransform = pTransform;
+Model::Model(const Transform& transform, bool debug) : Model{transform} {
+    if (debug) {
+        m_postRenderEffects.push_back(std::make_unique<DebugVectors>(*this));
+    }
+}
 
+Model::Model(const Transform& transform) : m_transform{transform} {
     _generateOpenGLBuffers();
-}
-
-Model::Model() : Model(nullptr) {
-}
-
-Model::~Model() {
 }
 
 void Model::_generateOpenGLBuffers() {
@@ -23,25 +23,33 @@ void Model::_generateOpenGLBuffers() {
 }
 
 void Model::render(bool selected, const ShaderContainer& shaderContainer) const {
-    _pTransform->passModelMatrixToShader(shaderContainer);
+    m_transform.passModelMatrixToShader(shaderContainer);
     glBindVertexArray(_vertexArrayObject);
 
-    for (const std::unique_ptr<Effect>& effect : preRenderEffects) {
+    for (const auto& effect : preRenderEffects) {
         effect->render(selected, shaderContainer);
     }
 
     shaderContainer.useLowPolyShader();
-    glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
+
+    for (const auto& effect : m_postRenderEffects) {
+        effect->render(selected, shaderContainer);
+    }
 
     glBindVertexArray(0);
 }
 
 void Model::glDraw() const {
-    glDrawElements(_renderingMode, indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
 }
 
 void Model::addEffect(std::unique_ptr<Effect> effect) {
     preRenderEffects.push_back(std::move(effect));
+}
+
+auto Model::getTransform() const -> const Transform& {
+    return m_transform;
 }
 
 void Model::_setupBuffers() {
@@ -52,7 +60,7 @@ void Model::_setupBuffers() {
     // Enable VBO
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferObject);
     // Upload Vertex Data
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(Vertex), &m_vertices[0], GL_STATIC_DRAW);
 
     // Get attribute information from vertices
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -69,7 +77,7 @@ void Model::_setupBuffers() {
     // Enable EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _elementBufferObject);
     // Upload Index Data
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned int), &m_indices[0], GL_STATIC_DRAW);
     /********** EBO **********/
 
     // clang-format on

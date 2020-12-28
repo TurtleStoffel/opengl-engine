@@ -1,12 +1,16 @@
 #pragma once
 
-#include "models/effects/effect.hpp"
+#include "models/model.hpp"
+
+class Model;
 
 class Glow final : public Effect {
   public:
-    using Effect::Effect;
-
-    ~Glow() = default;
+    Glow(const Model& model);
+    ~Glow() override = default;
 
     void render(bool selected, const ShaderContainer& shaderContainer) const override;
+
+  private:
+    const Model& m_model;
 };

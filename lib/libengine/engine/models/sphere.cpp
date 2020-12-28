@@ -6,7 +6,7 @@
 #include "noise/simplex_noise.hpp"
 #include "util.hpp"
 
-Sphere::Sphere(Transform* pTransform, glm::vec3 color, int depth) : Model(pTransform) {
+Sphere::Sphere(Transform& transform, glm::vec3 color, int depth) : Model(transform, true) {
     this->color = color;
 
     float d = (1.0f + sqrt(5.0f)) / 2.0f;
@@ -71,9 +71,9 @@ Sphere::Sphere(Transform* pTransform, glm::vec3 color, int depth) : Model(pTrans
     }
 
     for (Face face : faces) {
-        indices.push_back(face.v1);
-        indices.push_back(face.v2);
-        indices.push_back(face.v3);
+        m_indices.push_back(face.v1);
+        m_indices.push_back(face.v2);
+        m_indices.push_back(face.v3);
     }
 
     _setupBuffers();
@@ -97,8 +97,8 @@ unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2) {
         return _midPointCache.at(key);
     } else {
         // Create new Vertex
-        Vertex v1 = vertices.at(p1);
-        Vertex v2 = vertices.at(p2);
+        Vertex v1 = m_vertices.at(p1);
+        Vertex v2 = m_vertices.at(p2);
 
         // Calculate midpoint
         glm::vec3 midpoint = glm::normalize(glm::vec3((v1.position.x + v2.position.x) / 2.0f,
@@ -121,9 +121,9 @@ unsigned int Sphere::_createVertex(glm::vec3 point) {
     point += 0.05f * noise;
 
     // Create Vertex at _vertexIndex
-    vertices.push_back(Vertex{point, // Position
-                              point, // Normal is equal to Position on a Sphere
-                              color});
+    m_vertices.push_back(Vertex{point, // Position
+                                point, // Normal is equal to Position on a Sphere
+                                color});
 
     // Add 1 to _vertexIndex but return pre-incremented value (Value of vertex created in this
     // method)
