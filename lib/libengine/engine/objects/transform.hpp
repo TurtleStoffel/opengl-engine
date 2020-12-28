@@ -21,7 +21,7 @@ class Transform {
     glm::vec3 getPosition() const;
     glm::vec3 getScale() const;
 
-    void passModelMatrixToShader(const ShaderContainer& shaderContainer);
+    void passModelMatrixToShader(const ShaderContainer& shaderContainer) const;
 
   private:
     glm::mat4 calculateModelMatrix() const;
