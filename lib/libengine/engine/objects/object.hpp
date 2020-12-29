@@ -4,26 +4,31 @@
 #include "engine/models/model.hpp"
 #include "engine/objects/collider.hpp"
 #include "engine/objects/transform.hpp"
+#include "engine/tree.hpp"
 
 #include <glm/glm.hpp>
 #include <map>
 #include <memory>
+#include <string>
 
 class ShaderContainer;
 
-class Object {
+class Object : public TreeNode<Object> {
   public:
-    Object() : Object{nullptr} {};
-    Object(const Object* parent);
-
-    virtual ~Object() = default;
+    explicit Object(const Object* parent, std::string name);
+    explicit Object();
+    ~Object() override = default;
 
     virtual void update([[maybe_unused]] int t){};
 
     virtual void render(const ShaderContainer& shaderContainer) const;
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
+    auto getObjectName() const -> const std::string&;
+
   protected:
+    auto visitImpl(std::function<void(const Object&)> callback) -> void override;
+
     std::unique_ptr<Model> model;
 
     /**
@@ -41,5 +46,5 @@ class Object {
 
     std::unique_ptr<GuiBinding> guiBinding;
 
-    std::vector<std::unique_ptr<Object>> children;
+    std::string m_name = "Invalid Object Name";
 };

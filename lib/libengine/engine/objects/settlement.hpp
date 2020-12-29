@@ -2,5 +2,5 @@
 
 class Settlement : public Object {
   public:
-    Settlement(Object* parent, glm::vec3 position);
+    Settlement(const Object* parent, glm::vec3 position);
 };

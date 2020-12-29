@@ -7,7 +7,7 @@
 
 #include <memory>
 
-Sun::Sun(GuiFactory guiFactory) {
+Sun::Sun(GuiFactory guiFactory) : Object{nullptr, "Sun"} {
     _generateModel();
 
     guiBinding = guiFactory.createSunGui(this);

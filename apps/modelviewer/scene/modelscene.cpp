@@ -5,6 +5,8 @@
 #include "engine/objects/sun.hpp"
 #include "imgui.h"
 
+#include <iostream>
+
 ModelScene::ModelScene() {
     guiFactory = GuiFactory(GuiFactory::CONFIGURATION);
 }
@@ -23,11 +25,14 @@ void ModelScene::_renderGui() {
 }
 
 void ModelScene::_createModel(const char* model) {
-    _objects.clear();
+    m_objects.clear();
 
     if (strcmp(model, "Planet") == 0) {
-        _objects.push_back(std::make_unique<Planet>(0.0f, 1.0f));
+        m_objects.push_back(std::make_unique<Planet>(0.0f, 1.0f));
     } else if (strcmp(model, "Sun") == 0) {
-        _objects.push_back(std::make_unique<Sun>(guiFactory));
+        m_objects.push_back(std::make_unique<Sun>(guiFactory));
     }
+
+    m_objects[0]->visit(
+        [](const Object& element) { std::cout << element.getObjectName() << "\n"; });
 }

@@ -23,7 +23,7 @@ class Scene {
   protected:
     virtual void _renderGui(){};
 
-    std::vector<std::unique_ptr<Object>> _objects;
+    std::vector<std::unique_ptr<Object>> m_objects;
     std::unique_ptr<Camera> camera;
     GuiFactory guiFactory = GuiFactory();
 

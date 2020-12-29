@@ -8,7 +8,7 @@
 
 #include <math.h>
 
-Planet::Planet(float distance, float radius) {
+Planet::Planet(float distance, float radius) : Object{nullptr, "Planet"} {
     model = std::make_unique<Sphere>(*transform.get());
     model->addEffect(std::make_unique<Outline>(*model.get()));
 
@@ -22,7 +22,7 @@ Planet::Planet(float distance, float radius) {
         glm::vec3(distance * sin(rotationAngle), distance * cos(rotationAngle), 0.0f));
     transform->scale(glm::vec3(radius, radius, radius));
 
-    children.push_back(std::make_unique<Settlement>(this, glm::vec3(0.0f, 0.0f, radius * 1.5f)));
+    m_children.push_back(std::make_unique<Settlement>(this, glm::vec3(0.0f, 0.0f, radius * 1.5f)));
 }
 
 void Planet::update(int dt) {
