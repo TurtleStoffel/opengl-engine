@@ -24,7 +24,7 @@ class Object : public TreeNode<Object> {
     virtual void render(const ShaderContainer& shaderContainer) const;
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
-    auto getObjectName() const -> const std::string&;
+    auto getName() const -> const std::string&;
 
   protected:
     auto visitImpl(std::function<void(const Object&)> callback) -> void override;

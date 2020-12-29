@@ -33,7 +33,7 @@ bool Object::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
     return _selected;
 }
 
-auto Object::getObjectName() const -> const std::string& {
+auto Object::getName() const -> const std::string& {
     return m_name;
 }
 

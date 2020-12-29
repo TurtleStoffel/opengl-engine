@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <functional>
 #include <memory>
 #include <vector>
@@ -11,6 +12,8 @@ class TreeNode {
     virtual ~TreeNode() = default;
 
     virtual auto visit(std::function<void(const T&)> callback) -> void;
+
+    virtual auto getDepth() const -> std::size_t;
 
   protected:
     virtual auto visitImpl(std::function<void(const T&)> callback) -> void = 0;
@@ -29,5 +32,14 @@ auto TreeNode<T>::visit(std::function<void(const T&)> callback) -> void {
 
     for (auto& child : m_children) {
         child->visit(callback);
+    }
+}
+
+template <typename T>
+auto TreeNode<T>::getDepth() const -> std::size_t {
+    if (m_parent) {
+        return m_parent->getDepth() + 1;
+    } else {
+        return 1;
     }
 }

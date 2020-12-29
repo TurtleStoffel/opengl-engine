@@ -22,6 +22,16 @@ void ModelScene::_renderGui() {
         }
     }
     ImGui::End();
+
+    ImGui::Begin("Object Tree");
+    for (auto& object : m_objects) {
+        object->visit([](const Object& element) {
+            ImGui::Indent(element.getDepth() * 8.0f);
+            ImGui::Text("%s", element.getName().c_str());
+            ImGui::Unindent(element.getDepth() * 8.0f);
+        });
+    }
+    ImGui::End();
 }
 
 void ModelScene::_createModel(const char* model) {
@@ -33,6 +43,5 @@ void ModelScene::_createModel(const char* model) {
         m_objects.push_back(std::make_unique<Sun>(guiFactory));
     }
 
-    m_objects[0]->visit(
-        [](const Object& element) { std::cout << element.getObjectName() << "\n"; });
+    m_objects[0]->visit([](const Object& element) { std::cout << element.getName() << "\n"; });
 }
