@@ -8,7 +8,7 @@
 #include <iostream>
 
 ModelScene::ModelScene() {
-    guiFactory = GuiFactory(GuiFactory::CONFIGURATION);
+    guiFactory = GuiFactory(GuiFactory::GuiType::CONFIGURATION);
 }
 
 void ModelScene::_renderGui() {

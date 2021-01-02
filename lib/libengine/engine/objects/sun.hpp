@@ -9,7 +9,7 @@ class Sun : public Object {
     friend class SunConfigurationGui;
 
   public:
-    Sun(GuiFactory guiFactory);
+    Sun(GuiFactory& guiFactory);
 
   private:
     // Used by SunConfigurationGui

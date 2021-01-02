@@ -1,7 +1,5 @@
 #pragma once
 
-#include "engine/opengl.hpp"
-
 class ShaderContainer;
 
 class Effect {

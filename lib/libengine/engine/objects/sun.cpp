@@ -7,10 +7,10 @@
 
 #include <memory>
 
-Sun::Sun(GuiFactory guiFactory) : Object{nullptr, "Sun"} {
+Sun::Sun(GuiFactory& guiFactory) : Object{nullptr, "Sun"} {
     _generateModel();
 
-    guiBinding = guiFactory.createSunGui(this);
+    guiBinding = guiFactory.createGui(this);
 }
 
 void Sun::_generateModel() {

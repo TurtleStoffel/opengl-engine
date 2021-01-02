@@ -25,7 +25,7 @@ class Scene {
 
     std::vector<std::unique_ptr<Object>> m_objects;
     std::unique_ptr<Camera> camera;
-    GuiFactory guiFactory = GuiFactory();
+    GuiFactory guiFactory{GuiFactory(GuiFactory::GuiType::GAME)};
 
   private:
     void _mousePick(SDL_Event event);
