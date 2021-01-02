@@ -1,16 +1,9 @@
 #include "model.hpp"
 
-#include "engine/models/effects/debug_vectors.hpp"
 #include "engine/models/effects/effect.hpp"
 #include "engine/models/vector.hpp"
 #include "engine/opengl.hpp"
 #include "engine/shadercontainer.hpp"
-
-Model::Model(const Transform& transform, bool debug) : Model{transform} {
-    if (debug) {
-        m_postRenderEffects.push_back(std::make_unique<DebugVectors>(*this));
-    }
-}
 
 Model::Model(const Transform& transform) : m_transform{transform} {
     _generateOpenGLBuffers();
@@ -44,8 +37,12 @@ void Model::glDraw() const {
     glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
 }
 
-void Model::addEffect(std::unique_ptr<Effect> effect) {
+void Model::addPreRenderEffect(std::unique_ptr<Effect> effect) {
     preRenderEffects.push_back(std::move(effect));
+}
+
+void Model::addPostRenderEffect(std::unique_ptr<Effect> effect) {
+    m_postRenderEffects.push_back(std::move(effect));
 }
 
 auto Model::getTransform() const -> const Transform& {

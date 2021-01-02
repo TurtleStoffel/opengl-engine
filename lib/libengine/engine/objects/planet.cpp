@@ -10,7 +10,7 @@
 
 Planet::Planet(float distance, float radius) : Object{nullptr, "Planet"} {
     model = std::make_unique<Sphere>(*transform.get());
-    model->addEffect(std::make_unique<Outline>(*model.get()));
+    model->addPreRenderEffect(std::make_unique<Outline>(*model.get()));
 
     guiBinding = std::make_unique<PlanetGui>(this);
 

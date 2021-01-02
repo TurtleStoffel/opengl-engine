@@ -1,13 +1,16 @@
 #include "engine/models/sphere.hpp"
 
 #include "engine/application.hpp"
+#include "engine/models/effects/debug_vectors.hpp"
 #include "engine/noise/simplex_noise.hpp"
 #include "engine/util.hpp"
 
 #include <math.h>
 
-Sphere::Sphere(Transform& transform, glm::vec3 color, int depth) : Model(transform, true) {
+Sphere::Sphere(Transform& transform, glm::vec3 color, int depth) : Model(transform) {
     this->color = color;
+
+    addPostRenderEffect(std::make_unique<DebugVectors>(*this));
 
     float d = (1.0f + sqrt(5.0f)) / 2.0f;
     // clang-format off

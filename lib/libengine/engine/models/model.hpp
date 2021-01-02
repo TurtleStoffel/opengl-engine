@@ -21,7 +21,6 @@ class Model {
     /**
      * @param transform Transform of Game Object
      */
-    Model(const Transform& transform, bool debug);
     Model(const Transform& transform);
 
     // Not default because otherwise build error for Effect class
@@ -30,7 +29,8 @@ class Model {
     void render(bool selected, const ShaderContainer& shaderContainer) const;
     void glDraw() const;
 
-    void addEffect(std::unique_ptr<Effect> effect);
+    void addPreRenderEffect(std::unique_ptr<Effect> effect);
+    void addPostRenderEffect(std::unique_ptr<Effect> effect);
     auto getTransform() const -> const Transform&;
 
   protected:
