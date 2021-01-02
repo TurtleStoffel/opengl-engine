@@ -32,10 +32,9 @@ class Model {
     void addPreRenderEffect(std::unique_ptr<Effect> effect);
     void addPostRenderEffect(std::unique_ptr<Effect> effect);
     auto getTransform() const -> const Transform&;
-
-  protected:
     void _setupBuffers();
 
+  protected:
     const Transform& m_transform;
 
     GLenum m_renderingMode{GL_TRIANGLES};

@@ -13,5 +13,5 @@ class DebugVectors : public Effect {
     auto render(bool selected, const ShaderContainer& shaderContainer) const -> void override;
 
   private:
-    std::list<Vector> m_vectors;
+    std::list<std::unique_ptr<Vector>> m_vectors;
 };

@@ -25,6 +25,4 @@ SettlementModel::SettlementModel(Transform* transform) : Model(*transform) {
     m_indices.push_back(0);
     m_indices.push_back(2);
     m_indices.push_back(3);
-
-    _setupBuffers();
 }

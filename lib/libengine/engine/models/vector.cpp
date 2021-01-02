@@ -15,6 +15,4 @@ Vector::Vector(const Transform& transform, glm::vec3 direction) : Model{transfor
 
     m_indices.push_back(0);
     m_indices.push_back(1);
-
-    _setupBuffers();
 }

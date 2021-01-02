@@ -2,6 +2,7 @@
 
 #include "engine/guibinding/planet_gui.hpp"
 #include "engine/models/effects/outline.hpp"
+#include "engine/models/model_factory.hpp"
 #include "engine/models/sphere.hpp"
 #include "engine/objects/collider.hpp"
 #include "engine/util.hpp"
@@ -9,7 +10,7 @@
 #include <math.h>
 
 Planet::Planet(float distance, float radius) : Object{nullptr, "Planet"} {
-    model = std::make_unique<Sphere>(*transform.get());
+    model = ModelFactory::make<Sphere>(*transform.get());
     model->addPreRenderEffect(std::make_unique<Outline>(*model.get()));
 
     guiBinding = std::make_unique<PlanetGui>(this);

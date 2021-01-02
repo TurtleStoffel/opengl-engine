@@ -78,8 +78,6 @@ Sphere::Sphere(Transform& transform, glm::vec3 color, int depth) : Model(transfo
         m_indices.push_back(face.v2);
         m_indices.push_back(face.v3);
     }
-
-    _setupBuffers();
 }
 
 unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2) {

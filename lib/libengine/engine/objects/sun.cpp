@@ -3,6 +3,7 @@
 #include "engine/color.hpp"
 #include "engine/guibinding/gui_factory.hpp"
 #include "engine/models/effects/glow.hpp"
+#include "engine/models/model_factory.hpp"
 #include "engine/models/sphere.hpp"
 
 #include <memory>
@@ -14,6 +15,6 @@ Sun::Sun(GuiFactory& guiFactory) : Object{nullptr, "Sun"} {
 }
 
 void Sun::_generateModel() {
-    model = std::make_unique<Sphere>(*transform.get(), color::starColor(_temperature));
+    model = ModelFactory::make<Sphere>(*transform.get(), color::starColor(_temperature));
     model->addPreRenderEffect(std::make_unique<Glow>(*model.get()));
 }
