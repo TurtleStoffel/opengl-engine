@@ -49,7 +49,7 @@ auto Model::getTransform() const -> const Transform& {
     return m_transform;
 }
 
-void Model::_setupBuffers() {
+void Model::setupBuffers() {
     // Enable model VAO to store Buffer Objects
     glBindVertexArray(_vertexArrayObject);
     // clang-format off

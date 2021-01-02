@@ -12,6 +12,6 @@ class ModelFactory {
 template <typename T, typename... TArgs>
 auto ModelFactory::make(TArgs&&... args) -> std::unique_ptr<T> {
     auto model = std::make_unique<T>(std::forward<TArgs>(args)...);
-    model->_setupBuffers();
+    model->setupBuffers();
     return std::move(model);
 }

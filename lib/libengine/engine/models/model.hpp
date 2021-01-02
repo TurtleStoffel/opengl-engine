@@ -32,7 +32,7 @@ class Model {
     void addPreRenderEffect(std::unique_ptr<Effect> effect);
     void addPostRenderEffect(std::unique_ptr<Effect> effect);
     auto getTransform() const -> const Transform&;
-    void _setupBuffers();
+    auto setupBuffers() -> void;
 
   protected:
     const Transform& m_transform;
