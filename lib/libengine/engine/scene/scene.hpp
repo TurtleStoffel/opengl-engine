@@ -14,19 +14,19 @@ class Scene {
     Scene();
     virtual ~Scene() = default;
 
-    void update(int dt, const ShaderContainer& shaderContainer);
-    void render(const ShaderContainer& shaderContainer);
+    auto update(int dt, const ShaderContainer& shaderContainer) -> void;
+    auto render(const ShaderContainer& shaderContainer) -> void;
 
-    bool handleInput(SDL_Event event);
-    void setWindowSize(int windowWidth, int windowHeight);
+    auto handleInput(SDL_Event event) -> bool;
+    auto setWindowSize(int windowWidth, int windowHeight) -> void;
 
   protected:
-    virtual void _renderGui(){};
+    virtual auto renderGui() -> void;
 
     std::vector<std::unique_ptr<Object>> m_objects;
-    std::unique_ptr<Camera> camera;
-    GuiFactory guiFactory{GuiFactory(GuiFactory::GuiType::GAME)};
+    std::unique_ptr<Camera> m_camera;
+    GuiFactory m_guiFactory;
 
   private:
-    void _mousePick(SDL_Event event);
+    auto mousePick(SDL_Event event) -> void;
 };

@@ -8,19 +8,19 @@
 #include <iostream>
 
 ModelScene::ModelScene() {
-    guiFactory = GuiFactory(GuiFactory::GuiType::CONFIGURATION);
+    m_guiFactory = GuiFactory{GuiFactory::GuiType::CONFIGURATION};
 }
 
-void ModelScene::_renderGui() {
+auto ModelScene::renderGui() -> void {
     ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
     ImGui::SetNextWindowSize(ImVec2(150.0f, 200.0f));
     ImGui::Begin("Scene Options");
-    for (unsigned int i = 0; i < _models.size(); i++) {
-        if (ImGui::Selectable(_models[i], i == _selectedModel)) {
-            if (i != _selectedModel) {
-                _createModel(_models[i]);
+    for (unsigned int i = 0; i < m_models.size(); i++) {
+        if (ImGui::Selectable(m_models[i], i == m_selectedModel)) {
+            if (i != m_selectedModel) {
+                createModel(m_models[i]);
             }
-            _selectedModel = i;
+            m_selectedModel = i;
         }
     }
 
@@ -37,12 +37,12 @@ void ModelScene::_renderGui() {
     ImGui::End();
 }
 
-void ModelScene::_createModel(const char* model) {
+auto ModelScene::createModel(const char* model) -> void {
     m_objects.clear();
 
     if (strcmp(model, "Planet") == 0) {
         m_objects.push_back(std::make_unique<Planet>(0.0f, 1.0f));
     } else if (strcmp(model, "Sun") == 0) {
-        m_objects.push_back(std::make_unique<Sun>(guiFactory));
+        m_objects.push_back(std::make_unique<Sun>(m_guiFactory));
     }
 }

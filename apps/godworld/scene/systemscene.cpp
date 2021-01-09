@@ -7,7 +7,7 @@
 
 SystemScene::SystemScene() {
     // Create objects
-    m_objects.push_back(std::make_unique<Sun>(guiFactory));
+    m_objects.push_back(std::make_unique<Sun>(m_guiFactory));
     float minPlanetOffset = 2.0f;
     float maxPlanetOffset = 3.0f;
     float minPlanetRadius = 0.3f;

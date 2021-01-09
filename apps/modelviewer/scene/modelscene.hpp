@@ -2,16 +2,17 @@
 
 #include "engine/scene/scene.hpp"
 
-class ModelScene : public Scene {
+class ModelScene final : public Scene {
   public:
     ModelScene();
+    ~ModelScene() override = default;
 
   protected:
-    virtual void _renderGui();
+    auto renderGui() -> void override;
 
   private:
-    void _createModel(const char* model);
+    auto createModel(const char* model) -> void;
 
-    unsigned int _selectedModel            = -1;
-    const std::vector<const char*> _models = {"Planet", "Sun"};
+    unsigned int m_selectedModel            = -1;
+    const std::vector<const char*> m_models = {"Planet", "Sun"};
 };

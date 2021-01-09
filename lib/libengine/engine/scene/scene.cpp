@@ -6,48 +6,51 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Scene::Scene() {
-    camera = std::make_unique<Camera>();
+Scene::Scene()
+    : m_camera{std::make_unique<Camera>()}, m_guiFactory{GuiFactory{GuiFactory::GuiType::GAME}} {
 }
 
-void Scene::update(int dt, const ShaderContainer& shaderContainer) {
-    camera->update(dt, shaderContainer);
+auto Scene::update(int dt, const ShaderContainer& shaderContainer) -> void {
+    m_camera->update(dt, shaderContainer);
 
     for (auto& pObject : m_objects) {
         pObject->update(dt);
     }
 }
 
-void Scene::render(const ShaderContainer& shaderContainer) {
+auto Scene::render(const ShaderContainer& shaderContainer) -> void {
     for (auto& pObject : m_objects) {
         pObject->render(shaderContainer);
     }
 
-    _renderGui();
+    renderGui();
 }
 
-bool Scene::handleInput(SDL_Event event) {
-    if (camera->handleInput(event)) {
+auto Scene::handleInput(SDL_Event event) -> bool {
+    if (m_camera->handleInput(event)) {
         return true;
     }
 
     // Mousepicking has no impact on return value
-    _mousePick(event);
+    mousePick(event);
 
     return false;
 }
 
-void Scene::setWindowSize(int windowWidth, int windowHeight) {
-    camera->setWindowSize(windowWidth, windowHeight);
+auto Scene::setWindowSize(int windowWidth, int windowHeight) -> void {
+    m_camera->setWindowSize(windowWidth, windowHeight);
 }
 
-void Scene::_mousePick(SDL_Event event) {
+auto Scene::renderGui() -> void {
+}
+
+auto Scene::mousePick(SDL_Event event) -> void {
     // Only update if mouse has moved
     if (event.type == SDL_MOUSEMOTION) {
         // Transform point to ray in world space
         glm::vec3 point;
         glm::vec3 direction;
-        camera->calculateClickRay(event.motion.x, event.motion.y, point, direction);
+        m_camera->calculateClickRay(event.motion.x, event.motion.y, point, direction);
 
         // Check for each object in scene if there was an intersection
         for (auto& object : m_objects) {
