@@ -12,7 +12,9 @@ ModelScene::ModelScene() {
 }
 
 void ModelScene::_renderGui() {
-    ImGui::Begin("Model Selector");
+    ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
+    ImGui::SetNextWindowSize(ImVec2(150.0f, 200.0f));
+    ImGui::Begin("Scene Options");
     for (unsigned int i = 0; i < _models.size(); i++) {
         if (ImGui::Selectable(_models[i], i == _selectedModel)) {
             if (i != _selectedModel) {
@@ -21,9 +23,10 @@ void ModelScene::_renderGui() {
             _selectedModel = i;
         }
     }
-    ImGui::End();
 
-    ImGui::Begin("Object Tree");
+    ImGui::Separator();
+    ImGui::Text("Models in scene");
+
     for (auto& object : m_objects) {
         object->visit([](const Object& element) {
             ImGui::Indent(element.getDepth() * 8.0f);
@@ -42,6 +45,4 @@ void ModelScene::_createModel(const char* model) {
     } else if (strcmp(model, "Sun") == 0) {
         m_objects.push_back(std::make_unique<Sun>(guiFactory));
     }
-
-    m_objects[0]->visit([](const Object& element) { std::cout << element.getName() << "\n"; });
 }
