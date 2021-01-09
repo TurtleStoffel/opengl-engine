@@ -16,6 +16,7 @@ auto ModelScene::renderGui() -> void {
     for (unsigned int i = 0; i < m_models.size(); i++) {
         if (ImGui::Selectable(m_models[i], i == m_selectedModel)) {
             if (i != m_selectedModel) {
+                resetSelectedObject();
                 createModel(m_models[i]);
             }
             m_selectedModel = i;
@@ -49,4 +50,8 @@ auto ModelScene::createModel(const char* model) -> void {
     } else if (strcmp(model, "Sun##model") == 0) {
         m_objects.push_back(std::make_unique<Sun>(m_guiFactory));
     }
+}
+
+auto ModelScene::resetSelectedObject() -> void {
+    m_selectedObject = std::numeric_limits<decltype(m_selectedObject)>::max();
 }
