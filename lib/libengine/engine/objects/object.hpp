@@ -25,6 +25,7 @@ class Object : public TreeNode<Object> {
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
     auto getName() const -> const std::string&;
+    auto getTransform() const -> const Transform&;
 
   protected:
     auto visitImpl(std::function<void(const Object&)> callback) -> void override;

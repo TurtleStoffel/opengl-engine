@@ -37,6 +37,10 @@ auto Object::getName() const -> const std::string& {
     return m_name;
 }
 
+auto Object::getTransform() const -> const Transform& {
+    return *transform.get();
+}
+
 auto Object::visitImpl(std::function<void(const Object&)> callback) -> void {
     callback(*this);
 }

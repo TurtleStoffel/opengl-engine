@@ -19,5 +19,7 @@ class ModelScene final : public Scene {
     unsigned short m_selectedModel  = std::numeric_limits<decltype(m_selectedModel)>::max();
     unsigned short m_selectedObject = std::numeric_limits<decltype(m_selectedObject)>::max();
 
+    const Object* m_selectedObjectPointer = nullptr;
+
     const std::vector<const char*> m_models = {"Planet##model", "Sun##model"};
 };
