@@ -5,8 +5,6 @@
 #include "engine/objects/sun.hpp"
 #include "imgui.h"
 
-#include <iostream>
-
 ModelScene::ModelScene() {
     m_guiFactory = GuiFactory{GuiFactory::GuiType::CONFIGURATION};
 }
@@ -27,11 +25,17 @@ auto ModelScene::renderGui() -> void {
     ImGui::Separator();
     ImGui::Text("Models in scene");
 
+    unsigned short i = 0;
     for (auto& object : m_objects) {
-        object->visit([](const Object& element) {
+        object->visit([this, &i](const Object& element) {
             ImGui::Indent(element.getDepth() * 8.0f);
-            ImGui::Text("%s", element.getName().c_str());
+            if (ImGui::Selectable(element.getName().c_str(), i == m_selectedObject)) {
+                m_selectedObject = i;
+            }
             ImGui::Unindent(element.getDepth() * 8.0f);
+
+            // Increment in lambda to increment per object (outside of lambda is per root object)
+            i++;
         });
     }
     ImGui::End();
@@ -40,9 +44,9 @@ auto ModelScene::renderGui() -> void {
 auto ModelScene::createModel(const char* model) -> void {
     m_objects.clear();
 
-    if (strcmp(model, "Planet") == 0) {
+    if (strcmp(model, "Planet##model") == 0) {
         m_objects.push_back(std::make_unique<Planet>(0.0f, 1.0f));
-    } else if (strcmp(model, "Sun") == 0) {
+    } else if (strcmp(model, "Sun##model") == 0) {
         m_objects.push_back(std::make_unique<Sun>(m_guiFactory));
     }
 }
