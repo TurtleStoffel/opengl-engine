@@ -25,7 +25,7 @@ void Object::render(const ShaderContainer& shaderContainer) const {
     }
 
     if (guiBinding) {
-        guiBinding->render(m_selected);
+        guiBinding->render();
     }
 }
 

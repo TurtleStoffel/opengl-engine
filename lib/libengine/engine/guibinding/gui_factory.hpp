@@ -17,19 +17,19 @@ class GuiFactory {
     explicit GuiFactory(GuiType guiType);
 
     template <typename T>
-    auto createGui(T* object) -> std::unique_ptr<GuiBinding>;
+    auto createGui(T& object) -> std::unique_ptr<GuiBinding>;
 
   private:
     template <typename T>
-    auto createConfigurationGui(T* object) -> std::unique_ptr<GuiBinding>;
+    auto createConfigurationGui(T& object) -> std::unique_ptr<GuiBinding>;
     template <typename T>
-    auto createGameGui(T* object) -> std::unique_ptr<GuiBinding>;
+    auto createGameGui(T& object) -> std::unique_ptr<GuiBinding>;
 
     GuiType m_guiType;
 };
 
 template <typename T>
-auto GuiFactory::createGui(T* object) -> std::unique_ptr<GuiBinding> {
+auto GuiFactory::createGui(T& object) -> std::unique_ptr<GuiBinding> {
     if (m_guiType == GuiType::CONFIGURATION) {
         return createConfigurationGui(object);
     }
@@ -42,7 +42,7 @@ auto GuiFactory::createGui(T* object) -> std::unique_ptr<GuiBinding> {
 }
 
 template <typename T>
-auto GuiFactory::createConfigurationGui(T* object) -> std::unique_ptr<GuiBinding> {
+auto GuiFactory::createConfigurationGui(T& object) -> std::unique_ptr<GuiBinding> {
     if constexpr (std::is_same_v<T, Sun>) {
         return std::make_unique<SunConfigurationGui>(object);
     }
@@ -55,7 +55,7 @@ auto GuiFactory::createConfigurationGui(T* object) -> std::unique_ptr<GuiBinding
 }
 
 template <typename T>
-auto GuiFactory::createGameGui(T* object) -> std::unique_ptr<GuiBinding> {
+auto GuiFactory::createGameGui(T& object) -> std::unique_ptr<GuiBinding> {
     if constexpr (std::is_same_v<T, Sun>) {
         return std::make_unique<SunGui>(object);
     }

@@ -1,14 +1,15 @@
 #pragma once
 
 #include "engine/guibinding/guibinding.hpp"
-#include "engine/objects/sun.hpp"
+
+class Sun;
 
 class SunGui : public GuiBinding {
   public:
-    SunGui(const Sun* pSun);
+    SunGui(const Sun& sun);
 
-    virtual void render(bool selected) const;
+    auto render() const -> void override;
 
   private:
-    const Sun* _pSun;
+    const Sun& m_sun;
 };

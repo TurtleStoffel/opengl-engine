@@ -13,7 +13,7 @@ Planet::Planet(float distance, float radius) : Object{nullptr, "Planet"} {
     model = ModelFactory::make<Sphere>(*this);
     model->addPreRenderEffect(std::make_unique<Outline>(*model.get()));
 
-    guiBinding = std::make_unique<PlanetGui>(this);
+    guiBinding = std::make_unique<PlanetGui>(*this);
 
     _rotationalSpeed = util::randf(0.00003f, 0.0001f);
 

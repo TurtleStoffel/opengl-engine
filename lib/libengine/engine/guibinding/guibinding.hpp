@@ -4,7 +4,7 @@
 
 class GuiBinding {
   public:
-    virtual ~GuiBinding(){};
+    virtual ~GuiBinding() = default;
 
-    virtual void render(bool selected) const = 0;
+    virtual auto render() const -> void = 0;
 };

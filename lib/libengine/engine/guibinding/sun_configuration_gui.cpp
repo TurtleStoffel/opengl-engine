@@ -1,13 +1,14 @@
 #include "sun_configuration_gui.hpp"
 
-SunConfigurationGui::SunConfigurationGui(Sun* pSun) {
-    _pSun = pSun;
+#include "engine/objects/sun.hpp"
+
+SunConfigurationGui::SunConfigurationGui(Sun& sun) : m_sun{sun} {
 }
 
-void SunConfigurationGui::render(bool selected __attribute__((unused))) const {
+auto SunConfigurationGui::render() const -> void {
     ImGui::Begin("Sun Configuration");
-    if (ImGui::SliderInt("Temperature", &_pSun->_temperature, 3190, 17000)) {
-        _pSun->_generateModel();
+    if (ImGui::SliderInt("Temperature", &m_sun._temperature, 3190, 17000)) {
+        m_sun._generateModel();
     }
     ImGui::End();
 }

@@ -1,14 +1,16 @@
 #pragma once
 
 #include "engine/guibinding/guibinding.hpp"
-#include "engine/objects/planet.hpp"
 
-class PlanetGui : public GuiBinding {
+class Planet;
+
+class PlanetGui final : public GuiBinding {
   public:
-    PlanetGui(const Planet* pPlanet);
+    PlanetGui(const Planet& planet);
+    ~PlanetGui() override = default;
 
-    virtual void render(bool selected) const;
+    auto render() const -> void override;
 
   private:
-    const Planet* _pPlanet;
+    const Planet& m_planet;
 };

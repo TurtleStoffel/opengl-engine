@@ -11,7 +11,7 @@
 Sun::Sun(GuiFactory& guiFactory) : Object{nullptr, "Sun"} {
     _generateModel();
 
-    guiBinding = guiFactory.createGui(this);
+    guiBinding = guiFactory.createGui(*this);
 }
 
 void Sun::_generateModel() {

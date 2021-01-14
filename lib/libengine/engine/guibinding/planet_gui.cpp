@@ -1,23 +1,24 @@
 #include "planet_gui.hpp"
 
-PlanetGui::PlanetGui(const Planet* pPlanet) {
-    _pPlanet = pPlanet;
+#include "engine/objects/planet.hpp"
+
+PlanetGui::PlanetGui(const Planet& planet) : m_planet{planet} {
 }
 
-void PlanetGui::render(bool selected) const {
-    if (selected) {
+auto PlanetGui::render() const -> void {
+    if (m_planet.getSelected()) {
         ImGui::SetNextWindowSize(ImVec2(200.0f, 80.0f));
         ImGui::Begin("Planet");
         ImGui::Columns(2);
 
         ImGui::Text("Inhabitants");
         ImGui::NextColumn();
-        ImGui::Text("%d", _pPlanet->_inhabitants);
+        ImGui::Text("%d", m_planet._inhabitants);
         ImGui::NextColumn();
 
         ImGui::Text("Ownership");
         ImGui::NextColumn();
-        ImGui::Text("%.2f", _pPlanet->_ownership);
+        ImGui::Text("%.2f", m_planet._ownership);
         ImGui::NextColumn();
 
         ImGui::Columns(1);
