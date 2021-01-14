@@ -2,10 +2,12 @@
 
 #include "engine/models/effects/effect.hpp"
 #include "engine/models/vector.hpp"
+#include "engine/objects/object.hpp"
+#include "engine/objects/transform.hpp"
 #include "engine/opengl.hpp"
 #include "engine/shadercontainer.hpp"
 
-Model::Model(const Transform& transform) : m_transform{transform} {
+Model::Model(const Object& object) : m_object{object}, m_transform{object.getTransform()} {
     _generateOpenGLBuffers();
 }
 

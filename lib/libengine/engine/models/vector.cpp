@@ -3,7 +3,7 @@
 #include "engine/color.hpp"
 #include "engine/objects/object.hpp"
 
-Vector::Vector(const Transform& transform, glm::vec3 direction) : Model{transform} {
+Vector::Vector(const Object& object, glm::vec3 direction) : Model{object} {
     m_renderingMode = GL_LINES;
 
     auto normalizedDirection = glm::normalize(direction);

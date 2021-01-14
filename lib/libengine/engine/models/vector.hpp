@@ -6,6 +6,6 @@
 
 class Vector final : public Model {
   public:
-    Vector(const Transform& transform, glm::vec3 direction);
+    Vector(const Object& object, glm::vec3 direction);
     ~Vector() override = default;
 };

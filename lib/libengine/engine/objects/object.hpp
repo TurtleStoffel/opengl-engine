@@ -26,6 +26,7 @@ class Object : public TreeNode<Object> {
 
     auto getName() const -> const std::string&;
     auto getTransform() const -> const Transform&;
+    auto getSelected() const -> bool;
 
   protected:
     auto visitImpl(std::function<void(const Object&)> callback) -> void override;
@@ -43,7 +44,7 @@ class Object : public TreeNode<Object> {
      * Collider is responsible to check if an object has been selected
      */
     std::unique_ptr<Collider> _pSelectionCollider;
-    bool _selected = false;
+    bool m_selected = false;
 
     std::unique_ptr<GuiBinding> guiBinding;
 

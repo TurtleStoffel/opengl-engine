@@ -4,7 +4,7 @@
 
 #include <math.h>
 
-SettlementModel::SettlementModel(Transform* transform) : Model(*transform) {
+SettlementModel::SettlementModel(const Object& object) : Model{object} {
     Vertex vertex;
     vertex.position = glm::vec3(-0.5f, 0.5f, 0.0f);
     vertex.color    = color::black;

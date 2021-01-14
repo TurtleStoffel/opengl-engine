@@ -4,5 +4,5 @@
 
 class SettlementModel : public Model {
   public:
-    SettlementModel(Transform* transform);
+    SettlementModel(const Object& object);
 };

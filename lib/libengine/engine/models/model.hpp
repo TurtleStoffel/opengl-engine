@@ -1,7 +1,6 @@
 #pragma once
 
 #include "engine/models/effects/effect.hpp"
-#include "engine/objects/transform.hpp"
 #include "engine/opengl.hpp"
 
 #include <glm/glm.hpp>
@@ -9,6 +8,8 @@
 #include <vector>
 
 class ShaderContainer;
+class Object;
+class Transform;
 
 struct Vertex {
     glm::vec3 position;
@@ -21,7 +22,7 @@ class Model {
     /**
      * @param transform Transform of Game Object
      */
-    Model(const Transform& transform);
+    Model(const Object& parent);
 
     // Not default because otherwise build error for Effect class
     virtual ~Model() = default;
@@ -36,6 +37,7 @@ class Model {
 
   protected:
     const Transform& m_transform;
+    const Object& m_object;
 
     GLenum m_renderingMode{GL_TRIANGLES};
 

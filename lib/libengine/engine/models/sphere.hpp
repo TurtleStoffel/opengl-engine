@@ -13,7 +13,7 @@ struct Face {
 
 class Sphere : public Model {
   public:
-    Sphere(Transform& transform, glm::vec3 color = color::brown(), int depth = 4);
+    Sphere(const Object& object, glm::vec3 color = color::brown(), int depth = 4);
 
   private:
     unsigned int _getMidpoint(unsigned int p1, unsigned int p2);

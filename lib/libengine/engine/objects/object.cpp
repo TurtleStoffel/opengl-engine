@@ -17,20 +17,20 @@ Object::Object() : Object{nullptr, "Invalid Object Name"} {
 
 void Object::render(const ShaderContainer& shaderContainer) const {
     if (model) {
-        model->render(_selected, shaderContainer);
+        model->render(m_selected, shaderContainer);
     }
     for (const auto& child : m_children) {
         child->render(shaderContainer);
     }
 
     if (guiBinding) {
-        guiBinding->render(_selected);
+        guiBinding->render(m_selected);
     }
 }
 
 bool Object::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
-    _selected = _pSelectionCollider->intersect(rayPosition, rayDirection);
-    return _selected;
+    m_selected = _pSelectionCollider->intersect(rayPosition, rayDirection);
+    return m_selected;
 }
 
 auto Object::getName() const -> const std::string& {
@@ -39,6 +39,10 @@ auto Object::getName() const -> const std::string& {
 
 auto Object::getTransform() const -> const Transform& {
     return *transform.get();
+}
+
+auto Object::getSelected() const -> bool {
+    return m_selected;
 }
 
 auto Object::visitImpl(std::function<void(const Object&)> callback) -> void {

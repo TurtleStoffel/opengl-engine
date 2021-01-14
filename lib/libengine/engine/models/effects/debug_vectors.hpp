@@ -7,7 +7,7 @@
 
 class DebugVectors : public Effect {
   public:
-    DebugVectors(const Model& model);
+    DebugVectors(const Object& object);
     ~DebugVectors() override = default;
 
     auto render(bool selected, const ShaderContainer& shaderContainer) const -> void override;
