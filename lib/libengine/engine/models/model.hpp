@@ -27,12 +27,14 @@ class Model {
     // Not default because otherwise build error for Effect class
     virtual ~Model() = default;
 
-    void render(bool selected, const ShaderContainer& shaderContainer) const;
+    void render(const ShaderContainer& shaderContainer) const;
     void glDraw() const;
 
     void addPreRenderEffect(std::unique_ptr<Effect> effect);
     void addPostRenderEffect(std::unique_ptr<Effect> effect);
     auto setupBuffers() -> void;
+
+    auto getSelected() const -> bool;
 
   protected:
     const Object& m_object;

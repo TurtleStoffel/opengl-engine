@@ -18,7 +18,7 @@ Object::Object() : Object{nullptr, "Invalid Object Name"} {
 void Object::render(const ShaderContainer& shaderContainer) const {
     if (model) {
         transform->passModelMatrixToShader(shaderContainer);
-        model->render(m_selected, shaderContainer);
+        model->render(shaderContainer);
     }
     for (const auto& child : m_children) {
         child->render(shaderContainer);

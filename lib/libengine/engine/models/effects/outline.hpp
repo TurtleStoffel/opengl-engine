@@ -9,7 +9,7 @@ class Outline final : public Effect {
     Outline(const Model& model);
     ~Outline() override = default;
 
-    void render(bool selected, const ShaderContainer& shaderContainer) const override;
+    void render(const ShaderContainer& shaderContainer) const override;
 
   private:
     const Model& m_model;

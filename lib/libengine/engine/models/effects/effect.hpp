@@ -6,5 +6,5 @@ class Effect {
   public:
     virtual ~Effect() = default;
 
-    virtual auto render(bool selected, const ShaderContainer& shaderContainer) const -> void = 0;
+    virtual auto render(const ShaderContainer& shaderContainer) const -> void = 0;
 };

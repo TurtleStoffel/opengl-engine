@@ -17,18 +17,18 @@ void Model::_generateOpenGLBuffers() {
     glGenBuffers(1, &_elementBufferObject);
 }
 
-void Model::render(bool selected, const ShaderContainer& shaderContainer) const {
+void Model::render(const ShaderContainer& shaderContainer) const {
     glBindVertexArray(_vertexArrayObject);
 
     for (const auto& effect : preRenderEffects) {
-        effect->render(selected, shaderContainer);
+        effect->render(shaderContainer);
     }
 
     shaderContainer.useLowPolyShader();
     glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
 
     for (const auto& effect : m_postRenderEffects) {
-        effect->render(selected, shaderContainer);
+        effect->render(shaderContainer);
     }
 
     glBindVertexArray(0);
@@ -80,4 +80,8 @@ void Model::setupBuffers() {
 
     // Disable EBO (AFTER VAO has been unbinded, otherwise they are not linked anymore)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+auto Model::getSelected() const -> bool {
+    return m_object.getSelected();
 }

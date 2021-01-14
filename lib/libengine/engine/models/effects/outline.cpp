@@ -6,8 +6,8 @@
 Outline::Outline(const Model& model) : m_model{model} {
 }
 
-void Outline::render(bool selected, const ShaderContainer& shaderContainer) const {
-    if (selected) {
+void Outline::render(const ShaderContainer& shaderContainer) const {
+    if (m_model.getSelected()) {
         // Disable depth test to render to background
         glDisable(GL_DEPTH_TEST);
         shaderContainer.useSilhouetteShader();
