@@ -20,7 +20,7 @@ struct Vertex {
 class Model {
   public:
     /**
-     * @param transform Transform of Game Object
+     * @param parent Game Object that spawned this Model
      */
     Model(const Object& parent);
 
@@ -32,11 +32,9 @@ class Model {
 
     void addPreRenderEffect(std::unique_ptr<Effect> effect);
     void addPostRenderEffect(std::unique_ptr<Effect> effect);
-    auto getTransform() const -> const Transform&;
     auto setupBuffers() -> void;
 
   protected:
-    const Transform& m_transform;
     const Object& m_object;
 
     GLenum m_renderingMode{GL_TRIANGLES};

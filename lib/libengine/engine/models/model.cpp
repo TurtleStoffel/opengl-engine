@@ -7,7 +7,7 @@
 #include "engine/opengl.hpp"
 #include "engine/shadercontainer.hpp"
 
-Model::Model(const Object& object) : m_object{object}, m_transform{object.getTransform()} {
+Model::Model(const Object& object) : m_object{object} {
     _generateOpenGLBuffers();
 }
 
@@ -18,7 +18,6 @@ void Model::_generateOpenGLBuffers() {
 }
 
 void Model::render(bool selected, const ShaderContainer& shaderContainer) const {
-    m_transform.passModelMatrixToShader(shaderContainer);
     glBindVertexArray(_vertexArrayObject);
 
     for (const auto& effect : preRenderEffects) {
@@ -45,10 +44,6 @@ void Model::addPreRenderEffect(std::unique_ptr<Effect> effect) {
 
 void Model::addPostRenderEffect(std::unique_ptr<Effect> effect) {
     m_postRenderEffects.push_back(std::move(effect));
-}
-
-auto Model::getTransform() const -> const Transform& {
-    return m_transform;
 }
 
 void Model::setupBuffers() {
