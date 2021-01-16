@@ -1,6 +1,6 @@
 #include "camera.hpp"
 
-#include "shadercontainer.hpp"
+#include "engine/shaders/shadercontainer.hpp"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtc/matrix_transform.hpp>

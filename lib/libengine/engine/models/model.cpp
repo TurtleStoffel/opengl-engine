@@ -5,7 +5,7 @@
 #include "engine/objects/object.hpp"
 #include "engine/objects/transform.hpp"
 #include "engine/opengl.hpp"
-#include "engine/shadercontainer.hpp"
+#include "engine/shaders/shadercontainer.hpp"
 
 Model::Model(const Object& object) : m_object{object} {
     _generateOpenGLBuffers();

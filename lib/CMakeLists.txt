@@ -18,12 +18,12 @@ set(ENGINE_SOURCES
     "libengine/engine/objects/sun.cpp"
     "libengine/engine/objects/transform.cpp"
     "libengine/engine/scene/scene.cpp"
+    "libengine/engine/shaders/shader.cpp"
+    "libengine/engine/shaders/shadercontainer.cpp"
     "libengine/engine/application.cpp"
     "libengine/engine/camera.cpp"
     "libengine/engine/color.cpp"
     "libengine/engine/sdl.cpp"
-    "libengine/engine/shader.cpp"
-    "libengine/engine/shadercontainer.cpp"
     "libengine/engine/util.cpp"
 )
 

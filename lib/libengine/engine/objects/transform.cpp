@@ -1,9 +1,9 @@
 #include "engine/objects/transform.hpp"
 
+#include "engine/shaders/shadercontainer.hpp"
+
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/transform.hpp>
-
-#include "engine/shadercontainer.hpp"
 
 void Transform::scale(glm::vec3 v) {
     _scale *= v;

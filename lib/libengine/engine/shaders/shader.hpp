@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "opengl.hpp"
+#include "engine/opengl.hpp"
 
 /**
  * Class responsible to hold all information for a specific Shader and responsible for all OpenGL

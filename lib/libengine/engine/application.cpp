@@ -4,9 +4,9 @@
 #include "backends/imgui_impl_sdl.h"
 #include "imgui.h"
 
-#include "const.hpp"
-#include "scene/scene.hpp"
-#include "shadercontainer.hpp"
+#include "engine/const.hpp"
+#include "engine/scene/scene.hpp"
+#include "engine/shaders/shadercontainer.hpp"
 
 Application::Application(SDL_Window* window) : window(window) {
     _lastFpsTicks    = SDL_GetTicks();

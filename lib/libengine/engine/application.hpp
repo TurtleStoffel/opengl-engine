@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <memory>
 
-#include "shadercontainer.hpp"
+#include "engine/shaders/shadercontainer.hpp"
 
 class Scene;
 struct SDL_Window;
