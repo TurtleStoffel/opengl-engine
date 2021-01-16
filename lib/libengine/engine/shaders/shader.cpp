@@ -5,16 +5,16 @@
 #include <string>
 
 Shader::Shader(const char* vertexShader, const char* geometryShader, const char* fragmentShader) {
-    GLuint vShader = _compileShader(vertexShader, GL_VERTEX_SHADER);
-    GLuint gShader = _compileShader(geometryShader, GL_GEOMETRY_SHADER);
-    GLuint fShader = _compileShader(fragmentShader, GL_FRAGMENT_SHADER);
+    GLuint vShader = compileShader(vertexShader, GL_VERTEX_SHADER);
+    GLuint gShader = compileShader(geometryShader, GL_GEOMETRY_SHADER);
+    GLuint fShader = compileShader(fragmentShader, GL_FRAGMENT_SHADER);
 
-    _ID = glCreateProgram();
-    glAttachShader(_ID, vShader);
-    glAttachShader(_ID, gShader);
-    glAttachShader(_ID, fShader);
-    glLinkProgram(_ID);
-    _checkCompileErrors(_ID, "Program");
+    m_id = glCreateProgram();
+    glAttachShader(m_id, vShader);
+    glAttachShader(m_id, gShader);
+    glAttachShader(m_id, fShader);
+    glLinkProgram(m_id);
+    checkCompileErrors(m_id, "Program");
 
     glDeleteShader(vShader);
     glDeleteShader(gShader);
@@ -22,37 +22,37 @@ Shader::Shader(const char* vertexShader, const char* geometryShader, const char*
 }
 
 Shader::Shader(const char* vertexShader, const char* fragmentShader) {
-    GLuint vShader = _compileShader(vertexShader, GL_VERTEX_SHADER);
-    GLuint fShader = _compileShader(fragmentShader, GL_FRAGMENT_SHADER);
+    GLuint vShader = compileShader(vertexShader, GL_VERTEX_SHADER);
+    GLuint fShader = compileShader(fragmentShader, GL_FRAGMENT_SHADER);
 
-    _ID = glCreateProgram();
-    glAttachShader(_ID, vShader);
-    glAttachShader(_ID, fShader);
-    glLinkProgram(_ID);
-    _checkCompileErrors(_ID, "Program");
+    m_id = glCreateProgram();
+    glAttachShader(m_id, vShader);
+    glAttachShader(m_id, fShader);
+    glLinkProgram(m_id);
+    checkCompileErrors(m_id, "Program");
 
     glDeleteShader(vShader);
     glDeleteShader(fShader);
 }
 
 GLuint Shader::getUniformBlockIndex(const char* name) {
-    return glGetUniformBlockIndex(_ID, name);
+    return glGetUniformBlockIndex(m_id, name);
 }
 
 void Shader::setUniform3fv(const char* name, GLfloat* value) const {
-    GLuint location = glGetUniformLocation(_ID, name);
+    GLuint location = glGetUniformLocation(m_id, name);
     glUniform3fv(location, 1, value);
 }
 
 void Shader::uniformBlockBinding(GLuint blockIndex, GLuint bindingIndex) {
-    glUniformBlockBinding(_ID, blockIndex, bindingIndex);
+    glUniformBlockBinding(m_id, blockIndex, bindingIndex);
 }
 
 void Shader::use() const {
-    glUseProgram(_ID);
+    glUseProgram(m_id);
 }
 
-GLuint Shader::_compileShader(const char* path, GLenum type) {
+GLuint Shader::compileShader(const char* path, GLenum type) {
     SDL_Log("Compiling %s", path);
     std::string code;
     std::ifstream shaderFile;
@@ -73,11 +73,11 @@ GLuint Shader::_compileShader(const char* path, GLenum type) {
     GLuint shaderId        = glCreateShader(type);
     glShaderSource(shaderId, 1, &shaderCode, NULL);
     glCompileShader(shaderId);
-    _checkCompileErrors(shaderId, _getShaderType(type));
+    checkCompileErrors(shaderId, getShaderType(type));
     return shaderId;
 }
 
-const char* Shader::_getShaderType(GLenum type) {
+const char* Shader::getShaderType(GLenum type) {
     switch (type) {
         case GL_VERTEX_SHADER:
             return "Vertex";
@@ -90,7 +90,7 @@ const char* Shader::_getShaderType(GLenum type) {
     }
 }
 
-void Shader::_checkCompileErrors(GLuint shader, std::string type) {
+void Shader::checkCompileErrors(GLuint shader, std::string type) {
     int success;
     char infoLog[1024];
 

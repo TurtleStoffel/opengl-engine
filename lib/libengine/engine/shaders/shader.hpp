@@ -12,6 +12,7 @@ class Shader {
   public:
     Shader(const char* vertexShader, const char* geometryShader, const char* fragmentShader);
     Shader(const char* vertexShader, const char* fragmentShader);
+    virtual ~Shader() = default;
 
     /**
      * Wrappers for OpenGL calls
@@ -29,9 +30,9 @@ class Shader {
     void use() const;
 
   private:
-    GLuint _compileShader(const char* path, GLenum type);
-    const char* _getShaderType(GLenum type);
-    void _checkCompileErrors(GLuint shader, std::string type);
+    GLuint compileShader(const char* path, GLenum type);
+    const char* getShaderType(GLenum type);
+    void checkCompileErrors(GLuint shader, std::string type);
 
-    GLuint _ID;
+    GLuint m_id;
 };
