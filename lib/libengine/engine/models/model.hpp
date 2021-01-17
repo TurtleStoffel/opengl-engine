@@ -3,6 +3,7 @@
 #include "engine/models/effects/effect.hpp"
 #include "engine/opengl.hpp"
 
+#include <functional>
 #include <glm/glm.hpp>
 #include <memory>
 #include <vector>
@@ -30,6 +31,7 @@ class Model {
     void render(const ShaderContainer& shaderContainer) const;
     void glDraw() const;
 
+    auto setPreRenderLogic(std::function<void(const ShaderContainer&)> preRenderLogic) -> void;
     void addPreRenderEffect(std::unique_ptr<Effect> effect);
     void addPostRenderEffect(std::unique_ptr<Effect> effect);
     auto setupBuffers() -> void;
@@ -48,6 +50,7 @@ class Model {
     void _generateOpenGLBuffers();
     void _renderSilhouette(const ShaderContainer& shaderContainer) const;
 
+    std::function<void(const ShaderContainer&)> m_preRenderLogic;
     std::vector<std::unique_ptr<Effect>> preRenderEffects;
     std::vector<std::unique_ptr<Effect>> m_postRenderEffects;
 

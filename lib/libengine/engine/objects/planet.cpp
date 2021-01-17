@@ -5,6 +5,7 @@
 #include "engine/models/model_factory.hpp"
 #include "engine/models/sphere.hpp"
 #include "engine/objects/collider.hpp"
+#include "engine/shaders/shadercontainer.hpp"
 #include "engine/util.hpp"
 
 #include <math.h>
@@ -12,6 +13,9 @@
 Planet::Planet(float distance, float radius) : Object{nullptr, "Planet"} {
     model = ModelFactory::make<Sphere>(*this);
     model->addPreRenderEffect(std::make_unique<Outline>(*model.get()));
+    model->setPreRenderLogic([](const ShaderContainer& shaderContainer) {
+        shaderContainer.lowPolyShader().setSettlementPosition(glm::vec3(0.0f, 0.0f, 1.0f));
+    });
 
     guiBinding = std::make_unique<PlanetGui>(*this);
 
@@ -22,8 +26,6 @@ Planet::Planet(float distance, float radius) : Object{nullptr, "Planet"} {
     transform->translate(
         glm::vec3(distance * sin(rotationAngle), distance * cos(rotationAngle), 0.0f));
     transform->scale(glm::vec3(radius, radius, radius));
-
-    m_children.push_back(std::make_unique<Settlement>(this, glm::vec3(0.0f, 0.0f, radius * 1.5f)));
 }
 
 void Planet::update(int dt) {

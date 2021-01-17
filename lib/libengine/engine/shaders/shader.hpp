@@ -29,10 +29,11 @@ class Shader {
      */
     void use() const;
 
+  protected:
+    GLuint m_id;
+
   private:
     GLuint compileShader(const char* path, GLenum type);
     const char* getShaderType(GLenum type);
     void checkCompileErrors(GLuint shader, std::string type);
-
-    GLuint m_id;
 };

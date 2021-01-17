@@ -94,8 +94,6 @@ auto Camera::update(int dt, const ShaderContainer& shaderContainer) -> void {
 }
 
 auto Camera::configureShader(const ShaderContainer& shaderContainer) -> void {
-    shaderContainer.lowPolyShader().setCameraPosition(&m_cameraPosition[0]);
-
     // calculate projection and view matrix
     auto ratio         = (float)m_windowWidth / m_windowHeight;
     m_projectionMatrix = glm::ortho(-5.0f * ratio, 5.0f * ratio, -5.0f, 5.0f, 0.1f, 100.0f);
