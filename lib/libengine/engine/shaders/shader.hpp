@@ -19,8 +19,6 @@ class Shader {
      */
     // getters
     GLuint getUniformBlockIndex(const char* name);
-    // setters
-    void setUniform3fv(const char* name, GLfloat* value) const;
     // other
     void uniformBlockBinding(GLuint blockIndex, GLuint bindingIndex);
 
