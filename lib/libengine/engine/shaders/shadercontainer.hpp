@@ -1,6 +1,7 @@
 #pragma once
 
-#include "shader.hpp"
+#include "engine/shaders/lowpolyshader.hpp"
+#include "engine/shaders/shader.hpp"
 
 class ShaderContainer {
   public:
@@ -15,16 +16,14 @@ class ShaderContainer {
      */
     void setModelMatrix(void* model) const;
 
-    void useLowPolyShader() const;
+    auto lowPolyShader() const -> const LowPolyShader&;
     void useSilhouetteShader() const;
     void useGlowShader() const;
-
-    void setCameraPosition(GLfloat* position) const;
 
   private:
     GLuint _matrixUBO;
 
-    Shader lowPolyShader{"shaders/low-poly/vertex.glsl", "shaders/low-poly/fragment.glsl"};
+    LowPolyShader m_lowPolyShader;
     Shader silhouetteShader{"shaders/silhouette/vertex.glsl", "shaders/silhouette/fragment.glsl"};
     Shader glowShader{"shaders/glow/vertex.glsl", "shaders/glow/fragment.glsl"};
 };

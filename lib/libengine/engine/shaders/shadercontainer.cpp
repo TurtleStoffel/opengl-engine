@@ -11,17 +11,17 @@ ShaderContainer::ShaderContainer() {
 
     // Bind Uniform Block to Uniform Buffer Object
     GLuint bindingIndex     = 1;
-    GLuint matrixBlockIndex = lowPolyShader.getUniformBlockIndex("ModelViewProjection");
+    GLuint matrixBlockIndex = m_lowPolyShader.getUniformBlockIndex("ModelViewProjection");
     // Bind shader block to index
-    lowPolyShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
+    m_lowPolyShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
     silhouetteShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
     glowShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
     // Bind buffer to index
     glBindBufferRange(GL_UNIFORM_BUFFER, bindingIndex, _matrixUBO, 0, sizeof(glm::mat4) * 3);
 }
 
-void ShaderContainer::useLowPolyShader() const {
-    lowPolyShader.use();
+auto ShaderContainer::lowPolyShader() const -> const LowPolyShader& {
+    return m_lowPolyShader;
 }
 
 void ShaderContainer::useSilhouetteShader() const {
@@ -30,10 +30,6 @@ void ShaderContainer::useSilhouetteShader() const {
 
 void ShaderContainer::useGlowShader() const {
     glowShader.use();
-}
-
-void ShaderContainer::setCameraPosition(GLfloat* value) const {
-    lowPolyShader.setUniform3fv("cameraPosition", value);
 }
 
 void ShaderContainer::setViewProjectionMatrix(void* view, void* projection) const {
