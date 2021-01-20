@@ -3,7 +3,6 @@
 #include "engine/models/model_factory.hpp"
 #include "engine/models/rectangle_model.hpp"
 
-Rectangle::Rectangle(const Object* parent, glm::vec3 position) : Object{parent, "Rectangle"} {
+Rectangle::Rectangle() : Object{nullptr, "Rectangle"} {
     model = ModelFactory::make<RectangleModel>(*this);
-    transform->translate(position);
 }

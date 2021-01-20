@@ -2,5 +2,6 @@
 
 class Rectangle : public Object {
   public:
-    Rectangle(const Object* parent, glm::vec3 position);
+    Rectangle();
+    ~Rectangle() override = default;
 };

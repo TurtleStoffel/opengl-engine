@@ -2,7 +2,9 @@
 
 #include "engine/application.hpp"
 #include "engine/objects/planet.hpp"
+#include "engine/objects/rectangle.hpp"
 #include "engine/objects/sun.hpp"
+
 #include "imgui.h"
 
 #include <iostream>
@@ -62,6 +64,8 @@ auto ModelScene::createModel(const char* model) -> void {
         m_objects.push_back(std::make_unique<Planet>(0.0f, 1.0f));
     } else if (strcmp(model, "Sun##model") == 0) {
         m_objects.push_back(std::make_unique<Sun>(m_guiFactory));
+    } else if (strcmp(model, "Rectangle##model") == 0) {
+        m_objects.push_back(std::make_unique<Rectangle>());
     }
 }
 
