@@ -1,10 +1,11 @@
-#include "engine/models/settlement_model.hpp"
+#include "engine/models/rectangle_model.hpp"
 
 #include "engine/color.hpp"
+#include "engine/models/model.hpp"
 
 #include <math.h>
 
-SettlementModel::SettlementModel(const Object& object) : Model{object} {
+RectangleModel::RectangleModel(const Object& object) : Model{object} {
     Vertex vertex;
     vertex.position = glm::vec3(-0.5f, 0.5f, 0.0f);
     vertex.color    = color::black;
