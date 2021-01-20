@@ -24,6 +24,10 @@ auto ShaderContainer::lowPolyShader() const -> const LowPolyShader& {
     return m_lowPolyShader;
 }
 
+auto ShaderContainer::circleShader() const -> const CircleShader& {
+    return m_circleShader;
+}
+
 void ShaderContainer::useSilhouetteShader() const {
     silhouetteShader.use();
 }
