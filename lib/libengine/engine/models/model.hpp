@@ -18,6 +18,9 @@ struct Vertex {
     glm::vec3 color;
 };
 
+/**
+ * Default shader is low-poly, different shaders can be enabled through Pre Render Logic.
+ */
 class Model {
   public:
     /**

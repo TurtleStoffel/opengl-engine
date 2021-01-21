@@ -24,11 +24,12 @@ void Model::render(const ShaderContainer& shaderContainer) const {
         effect->render(shaderContainer);
     }
 
+    shaderContainer.lowPolyShader().use();
+
     if (m_preRenderLogic) {
         m_preRenderLogic(shaderContainer);
     }
 
-    shaderContainer.lowPolyShader().use();
     glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
 
     for (const auto& effect : m_postRenderEffects) {

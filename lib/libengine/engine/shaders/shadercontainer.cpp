@@ -14,6 +14,7 @@ ShaderContainer::ShaderContainer() {
     GLuint matrixBlockIndex = m_lowPolyShader.getUniformBlockIndex("ModelViewProjection");
     // Bind shader block to index
     m_lowPolyShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
+    m_circleShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
     silhouetteShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
     glowShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
     // Bind buffer to index
