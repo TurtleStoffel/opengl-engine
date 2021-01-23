@@ -7,7 +7,7 @@ flat in vec3 vertexColor;
 in vec4 worldPosition;
 
 void main() {
-    if(distance(worldPosition.xyz, circlePosition) < 0.5) {
+    if(distance(worldPosition.xyz, circlePosition) < 1.5) {
         fColor = vec4(vertexColor, 1.0);
     } else {
         fColor = vec4(0.0, 0.0, 0.0, 0.0);
