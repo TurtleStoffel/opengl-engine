@@ -7,15 +7,15 @@
 
 #include <vector>
 
-class ShaderContainer;
+class ShaderRegistry;
 
 class Scene {
   public:
     Scene();
     virtual ~Scene() = default;
 
-    auto update(int dt, const ShaderContainer& shaderContainer) -> void;
-    auto render(const ShaderContainer& shaderContainer) -> void;
+    auto update(int dt, const ShaderRegistry& shaderContainer) -> void;
+    auto render(const ShaderRegistry& shaderContainer) -> void;
 
     auto handleInput(SDL_Event event) -> bool;
     auto setWindowSize(int windowWidth, int windowHeight) -> void;

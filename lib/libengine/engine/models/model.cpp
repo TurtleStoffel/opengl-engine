@@ -18,7 +18,7 @@ void Model::_generateOpenGLBuffers() {
     glGenBuffers(1, &_elementBufferObject);
 }
 
-void Model::render(const ShaderContainer& shaderContainer) const {
+void Model::render(const ShaderRegistry& shaderContainer) const {
     glBindVertexArray(_vertexArrayObject);
 
     for (const auto& effect : preRenderEffects) {
@@ -44,7 +44,7 @@ void Model::glDraw() const {
     glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
 }
 
-auto Model::setPreRenderLogic(std::function<void(const ShaderContainer&)> preRenderLogic) -> void {
+auto Model::setPreRenderLogic(std::function<void(const ShaderRegistry&)> preRenderLogic) -> void {
     m_preRenderLogic = preRenderLogic;
 }
 

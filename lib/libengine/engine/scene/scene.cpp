@@ -10,7 +10,7 @@ Scene::Scene()
     : m_camera{std::make_unique<Camera>()}, m_guiFactory{GuiFactory{GuiFactory::GuiType::GAME}} {
 }
 
-auto Scene::update(int dt, const ShaderContainer& shaderContainer) -> void {
+auto Scene::update(int dt, const ShaderRegistry& shaderContainer) -> void {
     m_camera->update(dt, shaderContainer);
 
     for (auto& pObject : m_objects) {
@@ -18,7 +18,7 @@ auto Scene::update(int dt, const ShaderContainer& shaderContainer) -> void {
     }
 }
 
-auto Scene::render(const ShaderContainer& shaderContainer) -> void {
+auto Scene::render(const ShaderRegistry& shaderContainer) -> void {
     for (auto& pObject : m_objects) {
         pObject->render(shaderContainer);
     }

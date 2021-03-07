@@ -19,7 +19,7 @@ class Application {
     void run();
 
   protected:
-    ShaderContainer shaderContainer;
+    ShaderRegistry shaderContainer;
 
     std::unique_ptr<Scene> scene;
 

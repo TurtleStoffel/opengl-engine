@@ -11,7 +11,7 @@
 #include <memory>
 #include <string>
 
-class ShaderContainer;
+class ShaderRegistry;
 
 class Object : public TreeNode<Object> {
   public:
@@ -21,7 +21,7 @@ class Object : public TreeNode<Object> {
 
     virtual void update([[maybe_unused]] int t){};
 
-    virtual void render(const ShaderContainer& shaderContainer) const;
+    virtual void render(const ShaderRegistry& shaderContainer) const;
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
     auto getName() const -> const std::string&;

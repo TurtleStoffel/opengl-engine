@@ -14,7 +14,7 @@
 Planet::Planet(float distance, float radius) : Object{nullptr, "Planet"} {
     model = ModelFactory::make<Sphere>(*this);
     model->addPreRenderEffect(std::make_unique<Outline>(*model.get()));
-    model->setPreRenderLogic([](const ShaderContainer& shaderContainer) {
+    model->setPreRenderLogic([](const ShaderRegistry& shaderContainer) {
         shaderContainer.get<LowPolyShader>().setSettlementPosition(glm::vec3(0.0f, 0.0f, 1.0f));
     });
 

@@ -10,7 +10,7 @@ class DebugVectors : public Effect {
     DebugVectors(const Object& object);
     ~DebugVectors() override = default;
 
-    auto render(const ShaderContainer& shaderContainer) const -> void override;
+    auto render(const ShaderRegistry& shaderContainer) const -> void override;
 
   private:
     std::list<std::unique_ptr<Vector>> m_vectors;

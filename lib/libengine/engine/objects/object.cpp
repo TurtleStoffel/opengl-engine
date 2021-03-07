@@ -15,7 +15,7 @@ Object::Object(const Object* parent, std::string name) : TreeNode{parent}, m_nam
 Object::Object() : Object{nullptr, "Invalid Object Name"} {
 }
 
-void Object::render(const ShaderContainer& shaderContainer) const {
+void Object::render(const ShaderRegistry& shaderContainer) const {
     if (model) {
         transform->passModelMatrixToShader(shaderContainer);
         model->render(shaderContainer);

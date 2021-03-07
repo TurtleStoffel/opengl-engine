@@ -10,9 +10,10 @@
 
 #include <glm/glm.hpp>
 
-class ShaderContainer {
+// TODO rename to ShaderRegistry
+class ShaderRegistry final {
   public:
-    ShaderContainer();
+    ShaderRegistry();
 
     /**
      * View and Projection matrix are always set simultaneously by the Camera
@@ -32,14 +33,14 @@ class ShaderContainer {
     template <typename TShaderType>
     auto registerShader(std::unique_ptr<TShaderType> shader) -> void;
 
-    GLuint _matrixUBO;
+    GLuint m_matrixUBO;
     GLuint m_matrixBlockIndex{GL_INVALID_INDEX};
 
     std::unordered_map<std::size_t, std::unique_ptr<Shader>> m_shaders;
 };
 
 template <typename TShaderType>
-auto ShaderContainer::get() const -> const TShaderType& {
+auto ShaderRegistry::get() const -> const TShaderType& {
     auto iterator = m_shaders.find(typeid(TShaderType).hash_code());
     if (iterator == m_shaders.end()) {
         throw std::invalid_argument("No shader with type" +
@@ -49,12 +50,12 @@ auto ShaderContainer::get() const -> const TShaderType& {
 }
 
 template <typename TShaderType>
-auto ShaderContainer::registerShader(std::unique_ptr<TShaderType> shader) -> void {
+auto ShaderRegistry::registerShader(std::unique_ptr<TShaderType> shader) -> void {
     if (m_matrixBlockIndex == GL_INVALID_INDEX) {
         // Bind Uniform Block to Uniform Buffer Object
         m_matrixBlockIndex = shader->getUniformBlockIndex("ModelViewProjection");
         // Bind buffer to index
-        glBindBufferRange(GL_UNIFORM_BUFFER, BINDING_INDEX, _matrixUBO, 0, sizeof(glm::mat4) * 3);
+        glBindBufferRange(GL_UNIFORM_BUFFER, BINDING_INDEX, m_matrixUBO, 0, sizeof(glm::mat4) * 3);
     }
 
     shader->uniformBlockBinding(m_matrixBlockIndex, BINDING_INDEX);

@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-class ShaderContainer;
+class ShaderRegistry;
 
 /**
  * Contains all information about location and orientation of an object, also has the required
@@ -21,7 +21,7 @@ class Transform {
     glm::vec3 getPosition() const;
     glm::vec3 getScale() const;
 
-    void passModelMatrixToShader(const ShaderContainer& shaderContainer) const;
+    void passModelMatrixToShader(const ShaderRegistry& shaderContainer) const;
 
   private:
     glm::mat4 calculateModelMatrix() const;

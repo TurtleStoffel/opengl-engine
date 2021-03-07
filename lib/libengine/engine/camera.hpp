@@ -5,7 +5,7 @@
 
 #include <glm/glm.hpp>
 
-class ShaderContainer;
+class ShaderRegistry;
 
 class Camera {
   public:
@@ -23,13 +23,13 @@ class Camera {
      */
     auto handleInput(SDL_Event event) -> bool;
 
-    auto update(int dt, const ShaderContainer& shaderContainer) -> void;
+    auto update(int dt, const ShaderRegistry& shaderContainer) -> void;
 
   private:
     /**
      * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
      */
-    auto configureShader(const ShaderContainer& shaderContainer) -> void;
+    auto configureShader(const ShaderRegistry& shaderContainer) -> void;
 
     auto moveFlat(int dt) -> void;
 

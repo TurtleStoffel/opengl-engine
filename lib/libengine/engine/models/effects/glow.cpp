@@ -6,7 +6,7 @@
 Glow::Glow(const Model& model) : m_model{model} {
 }
 
-void Glow::render(const ShaderContainer& shaderContainer) const {
+void Glow::render(const ShaderRegistry& shaderContainer) const {
     glDisable(GL_DEPTH_TEST);
     shaderContainer.get<GlowShader>().use();
     m_model.glDraw();

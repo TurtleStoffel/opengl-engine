@@ -1,10 +1,10 @@
 #pragma once
 
-class ShaderContainer;
+class ShaderRegistry;
 
 class Effect {
   public:
     virtual ~Effect() = default;
 
-    virtual auto render(const ShaderContainer& shaderContainer) const -> void = 0;
+    virtual auto render(const ShaderRegistry& shaderContainer) const -> void = 0;
 };

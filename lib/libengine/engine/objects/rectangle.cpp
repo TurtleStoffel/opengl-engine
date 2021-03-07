@@ -11,7 +11,7 @@ Rectangle::Rectangle() : Object{nullptr, "Rectangle"} {
     model = ModelFactory::make<RectangleModel>(*this);
     transform->translate(glm::vec3(1.2f, 0.2f, 0.0f));
     transform->scale(glm::vec3(3.0f, 3.0f, 1.0f));
-    model->setPreRenderLogic([&transform = transform](const ShaderContainer& shaderContainer) {
+    model->setPreRenderLogic([&transform = transform](const ShaderRegistry& shaderContainer) {
         shaderContainer.get<CircleShader>().use();
         shaderContainer.get<CircleShader>().setCirclePosition(transform->getPosition());
     });

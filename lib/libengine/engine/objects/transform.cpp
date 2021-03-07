@@ -30,7 +30,7 @@ glm::vec3 Transform::getScale() const {
     return _scale;
 }
 
-void Transform::passModelMatrixToShader(const ShaderContainer& shaderContainer) const {
+void Transform::passModelMatrixToShader(const ShaderRegistry& shaderContainer) const {
     glm::mat4 modelMatrix = calculateModelMatrix();
 
     // Apply model transformation matrix

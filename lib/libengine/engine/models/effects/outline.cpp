@@ -7,7 +7,7 @@
 Outline::Outline(const Model& model) : m_model{model} {
 }
 
-void Outline::render(const ShaderContainer& shaderContainer) const {
+void Outline::render(const ShaderRegistry& shaderContainer) const {
     if (m_model.getSelected()) {
         // Disable depth test to render to background
         glDisable(GL_DEPTH_TEST);
