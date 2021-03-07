@@ -7,6 +7,8 @@
 #include "const.hpp"
 
 auto SDL::createWindow(const std::string name) -> SDL_Window* {
+    SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
+
     SDL_Init(SDL_INIT_VIDEO);
 
     // Add SDL_WINDOW_FULLSCREEN_DESKTOP flag for Fullscreen at desktop resolution

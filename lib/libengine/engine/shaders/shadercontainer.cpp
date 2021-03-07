@@ -1,6 +1,9 @@
-#include "shadercontainer.hpp"
+#include "engine/shaders/shadercontainer.hpp"
 
-#include <glm/glm.hpp>
+#include "engine/shaders/circleshader.hpp"
+#include "engine/shaders/glowshader.hpp"
+#include "engine/shaders/lowpolyshader.hpp"
+#include "engine/shaders/silhouetteshader.hpp"
 
 ShaderContainer::ShaderContainer() {
     // Create uniform buffer object to store Model/View/Projection matrix
@@ -9,32 +12,10 @@ ShaderContainer::ShaderContainer() {
     glBufferData(GL_UNIFORM_BUFFER, sizeof(glm::mat4) * 3, nullptr, GL_STREAM_DRAW);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-    // Bind Uniform Block to Uniform Buffer Object
-    GLuint bindingIndex     = 1;
-    GLuint matrixBlockIndex = m_lowPolyShader.getUniformBlockIndex("ModelViewProjection");
-    // Bind shader block to index
-    m_lowPolyShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
-    m_circleShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
-    silhouetteShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
-    glowShader.uniformBlockBinding(matrixBlockIndex, bindingIndex);
-    // Bind buffer to index
-    glBindBufferRange(GL_UNIFORM_BUFFER, bindingIndex, _matrixUBO, 0, sizeof(glm::mat4) * 3);
-}
-
-auto ShaderContainer::lowPolyShader() const -> const LowPolyShader& {
-    return m_lowPolyShader;
-}
-
-auto ShaderContainer::circleShader() const -> const CircleShader& {
-    return m_circleShader;
-}
-
-void ShaderContainer::useSilhouetteShader() const {
-    silhouetteShader.use();
-}
-
-void ShaderContainer::useGlowShader() const {
-    glowShader.use();
+    registerShader(std::make_unique<LowPolyShader>());
+    registerShader(std::make_unique<CircleShader>());
+    registerShader(std::make_unique<SilhouetteShader>());
+    registerShader(std::make_unique<GlowShader>());
 }
 
 void ShaderContainer::setViewProjectionMatrix(void* view, void* projection) const {

@@ -1,8 +1,14 @@
 #pragma once
 
-#include "engine/shaders/circleshader.hpp"
-#include "engine/shaders/lowpolyshader.hpp"
+#include "engine/opengl.hpp"
 #include "engine/shaders/shader.hpp"
+
+#include <memory>
+#include <stdexcept>
+#include <typeinfo>
+#include <unordered_map>
+
+#include <glm/glm.hpp>
 
 class ShaderContainer {
   public:
@@ -17,16 +23,45 @@ class ShaderContainer {
      */
     void setModelMatrix(void* model) const;
 
-    auto lowPolyShader() const -> const LowPolyShader&;
-    auto circleShader() const -> const CircleShader&;
-    void useSilhouetteShader() const;
-    void useGlowShader() const;
+    template <typename TShaderType>
+    auto get() const -> const TShaderType&;
 
   private:
-    GLuint _matrixUBO;
+    static constexpr GLuint BINDING_INDEX = 1;
 
-    LowPolyShader m_lowPolyShader;
-    CircleShader m_circleShader;
-    Shader silhouetteShader{"shaders/silhouette/vertex.glsl", "shaders/silhouette/fragment.glsl"};
-    Shader glowShader{"shaders/glow/vertex.glsl", "shaders/glow/fragment.glsl"};
+    template <typename TShaderType>
+    auto registerShader(std::unique_ptr<TShaderType> shader) -> void;
+
+    GLuint _matrixUBO;
+    GLuint m_matrixBlockIndex{GL_INVALID_INDEX};
+
+    std::unordered_map<std::size_t, std::unique_ptr<Shader>> m_shaders;
 };
+
+template <typename TShaderType>
+auto ShaderContainer::get() const -> const TShaderType& {
+    auto iterator = m_shaders.find(typeid(TShaderType).hash_code());
+    if (iterator == m_shaders.end()) {
+        throw std::invalid_argument("No shader with type" +
+                                    std::string{typeid(TShaderType).name()});
+    }
+    return static_cast<TShaderType&>(*iterator->second);
+}
+
+template <typename TShaderType>
+auto ShaderContainer::registerShader(std::unique_ptr<TShaderType> shader) -> void {
+    if (m_matrixBlockIndex == GL_INVALID_INDEX) {
+        // Bind Uniform Block to Uniform Buffer Object
+        m_matrixBlockIndex = shader->getUniformBlockIndex("ModelViewProjection");
+        // Bind buffer to index
+        glBindBufferRange(GL_UNIFORM_BUFFER, BINDING_INDEX, _matrixUBO, 0, sizeof(glm::mat4) * 3);
+    }
+
+    shader->uniformBlockBinding(m_matrixBlockIndex, BINDING_INDEX);
+
+    SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM,
+                "Registering Shader with ID %s",
+                typeid(TShaderType).name());
+
+    m_shaders.insert({typeid(TShaderType).hash_code(), std::move(shader)});
+}
