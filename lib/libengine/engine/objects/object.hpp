@@ -21,7 +21,7 @@ class Object : public TreeNode<Object> {
 
     virtual void update([[maybe_unused]] int t){};
 
-    virtual void render(const ShaderRegistry& shaderContainer) const;
+    void render(const ShaderRegistry& shaderContainer) const;
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
     auto getName() const -> const std::string&;
@@ -31,22 +31,22 @@ class Object : public TreeNode<Object> {
   protected:
     auto visitImpl(std::function<void(const Object&)> callback) -> void override;
 
-    std::unique_ptr<Model> model;
+    std::unique_ptr<Model> m_model;
 
     /**
      * Object has the local transform (even though it is used by the Model) because an object needs
      * a notion of where it is even when it has no model (e.g. only load model when objects will be
      * visible)
      */
-    std::unique_ptr<Transform> transform;
+    std::unique_ptr<Transform> m_transform;
 
     /**
      * Collider is responsible to check if an object has been selected
      */
-    std::unique_ptr<Collider> _pSelectionCollider;
+    std::unique_ptr<Collider> m_selectionCollider;
     bool m_selected = false;
 
-    std::unique_ptr<GuiBinding> guiBinding;
+    std::unique_ptr<GuiBinding> m_guiBinding;
 
     std::string m_name = "Invalid Object Name";
 };

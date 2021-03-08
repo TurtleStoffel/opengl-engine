@@ -11,10 +11,10 @@
 Sun::Sun(GuiFactory& guiFactory) : Object{nullptr, "Sun"} {
     _generateModel();
 
-    guiBinding = guiFactory.createGui(*this);
+    m_guiBinding = guiFactory.createGui(*this);
 }
 
 void Sun::_generateModel() {
-    model = ModelFactory::make<Sphere>(*this, color::starColor(_temperature));
-    model->addPreRenderEffect(std::make_unique<Glow>(*model.get()));
+    m_model = ModelFactory::make<Sphere>(*this, color::starColor(_temperature));
+    m_model->addPreRenderEffect(std::make_unique<Glow>(*m_model.get()));
 }
