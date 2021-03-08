@@ -27,8 +27,6 @@ class Model {
      * @param parent Game Object that spawned this Model
      */
     Model(const Object& parent);
-
-    // Not default because otherwise build error for Effect class
     virtual ~Model() = default;
 
     void render(const ShaderRegistry& shaderContainer) const;
