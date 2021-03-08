@@ -1,6 +1,6 @@
 #include "engine/objects/transform.hpp"
 
-#include "engine/shaders/shadercontainer.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/transform.hpp>

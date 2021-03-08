@@ -2,7 +2,6 @@
 
 #include "engine/models/model_factory.hpp"
 #include "engine/objects/object.hpp"
-#include "engine/shaders/shadercontainer.hpp"
 
 DebugVectors::DebugVectors(const Object& object) {
     m_vectors.push_back(ModelFactory::make<Vector>(object, glm::vec3(1.0f, 0.0f, 0.0f)));

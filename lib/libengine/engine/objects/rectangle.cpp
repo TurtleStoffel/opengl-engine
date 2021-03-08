@@ -3,7 +3,7 @@
 #include "engine/models/model_factory.hpp"
 #include "engine/models/rectangle_model.hpp"
 #include "engine/shaders/circleshader.hpp"
-#include "engine/shaders/shadercontainer.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 
 #include <glm/glm.hpp>
 

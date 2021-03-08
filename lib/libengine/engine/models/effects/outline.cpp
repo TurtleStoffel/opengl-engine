@@ -1,7 +1,7 @@
 #include "engine/models/effects/outline.hpp"
 
 #include "engine/models/model.hpp"
-#include "engine/shaders/shadercontainer.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 #include "engine/shaders/silhouetteshader.hpp"
 
 Outline::Outline(const Model& model) : m_model{model} {

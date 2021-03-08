@@ -10,7 +10,6 @@
 
 #include <glm/glm.hpp>
 
-// TODO rename to ShaderRegistry
 class ShaderRegistry final {
   public:
     ShaderRegistry();

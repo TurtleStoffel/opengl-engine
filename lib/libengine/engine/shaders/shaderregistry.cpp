@@ -1,4 +1,4 @@
-#include "engine/shaders/shadercontainer.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 
 #include "engine/shaders/circleshader.hpp"
 #include "engine/shaders/glowshader.hpp"

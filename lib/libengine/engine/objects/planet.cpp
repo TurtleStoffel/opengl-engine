@@ -6,7 +6,7 @@
 #include "engine/models/sphere.hpp"
 #include "engine/objects/collider.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
-#include "engine/shaders/shadercontainer.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 #include "engine/util.hpp"
 
 #include <math.h>

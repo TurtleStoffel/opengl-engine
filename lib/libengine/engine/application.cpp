@@ -6,7 +6,7 @@
 
 #include "engine/const.hpp"
 #include "engine/scene/scene.hpp"
-#include "engine/shaders/shadercontainer.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 
 Application::Application(SDL_Window* window) : window(window) {
     _lastFpsTicks    = SDL_GetTicks();

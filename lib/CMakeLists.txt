@@ -22,7 +22,7 @@ set(ENGINE_SOURCES
     "libengine/engine/shaders/glowshader.cpp"
     "libengine/engine/shaders/lowpolyshader.cpp"
     "libengine/engine/shaders/shader.cpp"
-    "libengine/engine/shaders/shadercontainer.cpp"
+    "libengine/engine/shaders/shaderregistry.cpp"
     "libengine/engine/shaders/silhouetteshader.cpp"
     "libengine/engine/application.cpp"
     "libengine/engine/camera.cpp"
