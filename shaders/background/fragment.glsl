@@ -9,7 +9,7 @@ float rand(vec2 co) {
 void main() {
     float randomValue = rand(gl_FragCoord.xy);
     if(randomValue > 0.995) {
-        colorOut = vec4(randomValue, randomValue, randomValue, 1.0);
+        colorOut = vec4(randomValue*0.7, randomValue*0.7, randomValue*0.7, 1.0);
     } else {
         colorOut = vec4(0.0, 0.0, 0.2, 1.0);
     }

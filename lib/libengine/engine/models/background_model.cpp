@@ -8,16 +8,12 @@
 BackgroundModel::BackgroundModel(const Object& object) : Model{object} {
     Vertex vertex;
     vertex.position = glm::vec3(-1.0f, 1.0f, 0.0f);
-    vertex.color    = color::black;
     m_vertices.push_back(vertex);
     vertex.position = glm::vec3(1.0f, 1.0f, 0.0f);
-    vertex.color    = color::black;
     m_vertices.push_back(vertex);
     vertex.position = glm::vec3(-1.0f, -1.0f, 0.0f);
-    vertex.color    = color::black;
     m_vertices.push_back(vertex);
     vertex.position = glm::vec3(1.0f, -1.0f, 0.0f);
-    vertex.color    = color::black;
     m_vertices.push_back(vertex);
 
     m_indices.push_back(0);
