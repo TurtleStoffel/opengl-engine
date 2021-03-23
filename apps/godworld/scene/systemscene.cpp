@@ -1,11 +1,13 @@
 #include "systemscene.hpp"
 
 #include "engine/application.hpp"
+#include "engine/objects/background.hpp"
 #include "engine/objects/planet.hpp"
 #include "engine/objects/sun.hpp"
 #include "engine/util.hpp"
 
 SystemScene::SystemScene() {
+    m_objects.push_back(std::make_unique<Background>());
     // Create objects
     m_objects.push_back(std::make_unique<Sun>(m_guiFactory));
     float minPlanetOffset = 2.0f;

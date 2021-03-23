@@ -1,22 +1,22 @@
-#include "engine/models/rectangle_model.hpp"
+#include "engine/models/background_model.hpp"
 
 #include "engine/color.hpp"
 #include "engine/models/model.hpp"
 
 #include <math.h>
 
-RectangleModel::RectangleModel(const Object& object) : Model{object} {
+BackgroundModel::BackgroundModel(const Object& object) : Model{object} {
     Vertex vertex;
-    vertex.position = glm::vec3(-0.5f, 0.5f, 0.0f);
+    vertex.position = glm::vec3(-1.0f, 1.0f, 0.0f);
     vertex.color    = color::black;
     m_vertices.push_back(vertex);
-    vertex.position = glm::vec3(0.5f, 0.5f, 0.0f);
+    vertex.position = glm::vec3(1.0f, 1.0f, 0.0f);
     vertex.color    = color::black;
     m_vertices.push_back(vertex);
-    vertex.position = glm::vec3(-0.5f, -0.5f, 0.0f);
+    vertex.position = glm::vec3(-1.0f, -1.0f, 0.0f);
     vertex.color    = color::black;
     m_vertices.push_back(vertex);
-    vertex.position = glm::vec3(0.5f, -0.5f, 0.0f);
+    vertex.position = glm::vec3(1.0f, -1.0f, 0.0f);
     vertex.color    = color::black;
     m_vertices.push_back(vertex);
 

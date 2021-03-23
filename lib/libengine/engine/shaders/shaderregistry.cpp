@@ -1,5 +1,6 @@
 #include "engine/shaders/shaderregistry.hpp"
 
+#include "engine/shaders/backgroundshader.hpp"
 #include "engine/shaders/circleshader.hpp"
 #include "engine/shaders/glowshader.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
@@ -16,6 +17,7 @@ ShaderRegistry::ShaderRegistry() {
     registerShader(std::make_unique<CircleShader>());
     registerShader(std::make_unique<SilhouetteShader>());
     registerShader(std::make_unique<GlowShader>());
+    registerShader(std::make_unique<BackgroundShader>());
 }
 
 void ShaderRegistry::setViewProjectionMatrix(void* view, void* projection) const {
