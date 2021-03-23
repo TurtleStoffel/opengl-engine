@@ -5,8 +5,6 @@
 #include "engine/shaders/backgroundshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
-#include <glm/glm.hpp>
-
 Background::Background() : Object{nullptr, "Background"} {
     m_model = ModelFactory::make<BackgroundModel>(*this);
     m_model->setPreRenderLogic([](const ShaderRegistry& shaderContainer) {

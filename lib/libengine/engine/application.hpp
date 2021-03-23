@@ -1,11 +1,11 @@
 #pragma once
 
+#include "engine/scene/scene.hpp"
+#include "engine/shaders/shaderregistry.hpp"
+
 #include <SDL2/SDL.h>
 #include <memory>
 
-#include "engine/shaders/shaderregistry.hpp"
-
-class Scene;
 struct SDL_Window;
 
 class Application {

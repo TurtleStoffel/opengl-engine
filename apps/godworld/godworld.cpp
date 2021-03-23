@@ -1,19 +1,19 @@
 #include "engine/sdl.hpp"
 #include "gameapplication.hpp"
 
+#include <memory>
 #include <time.h>
 
-// Set argc and argv as unused to remove compiler warnings
-int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused))) {
-    SDL_Window* pWindow = SDL::createWindow("GodWorld");
+int main() {
+    SDL_Window* window = SDL::createWindow("GodWorld");
 
     // set random seed
     srand(time(NULL));
 
-    Application* pApplication = new GameApplication(pWindow);
-    pApplication->run();
+    std::unique_ptr<Application> application = std::make_unique<GameApplication>(window);
+    application->run();
 
-    SDL::destroy(pWindow);
+    SDL::destroy(window);
 
     return 0;
 }

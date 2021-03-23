@@ -1,20 +1,19 @@
+#include "engine/sdl.hpp"
 #include "modelviewerapplication.hpp"
 
-#include "engine/sdl.hpp"
-
+#include <memory>
 #include <time.h>
 
-int main(int argc __attribute__((unused)), char* argv[] __attribute__((unused))) {
-    SDL_Window* pWindow = SDL::createWindow("ModelViewer");
+int main() {
+    SDL_Window* window = SDL::createWindow("ModelViewer");
 
     // set random seed
     srand(time(NULL));
 
-    // Startup Application
-    Application* pApplication = new ModelViewerApplication(pWindow);
-    pApplication->run();
+    std::unique_ptr<Application> application = std::make_unique<ModelViewerApplication>(window);
+    application->run();
 
-    SDL::destroy(pWindow);
+    SDL::destroy(window);
 
     return 0;
 }
