@@ -7,7 +7,7 @@
 
 #include <glm/glm.hpp>
 
-Background::Background() : Object{nullptr, "Rectangle"} {
+Background::Background() : Object{nullptr, "Background"} {
     m_model = ModelFactory::make<BackgroundModel>(*this);
     m_model->setPreRenderLogic([](const ShaderRegistry& shaderContainer) {
         shaderContainer.get<BackgroundShader>().use();
