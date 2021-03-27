@@ -13,10 +13,6 @@ void Transform::scale(glm::vec3 v) {
     m_scale *= v;
 }
 
-void Transform::translate(glm::vec3 v) {
-    m_position += v;
-}
-
 auto Transform::setPosition(const glm::vec3& position) -> void {
     m_position = position;
 }

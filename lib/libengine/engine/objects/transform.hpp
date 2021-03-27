@@ -14,7 +14,6 @@ class Transform {
     Transform(Transform* parent);
 
     void scale(glm::vec3 v);
-    void translate(glm::vec3 v);
     auto setPosition(const glm::vec3& position) -> void;
     void rotateLocal(float radians);
 
