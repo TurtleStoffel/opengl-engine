@@ -11,8 +11,10 @@ class Planet : public Object {
     virtual void update(int dt);
 
   private:
-    float _rotationalSpeed;
+    float m_rotationalSpeed;
+    float m_rotationAngle;
+    float m_distance;
 
-    int _inhabitants = 5000;
-    float _ownership = 0.0f;
+    int m_inhabitants = 5000;
+    float m_ownership = 0.0f;
 };

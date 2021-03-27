@@ -10,13 +10,13 @@ class ShaderRegistry;
  */
 class Transform {
   public:
-    Transform() : Transform(nullptr){};
-    Transform(Transform* parent) : parent(parent){};
+    Transform();
+    Transform(Transform* parent);
 
     void scale(glm::vec3 v);
     void translate(glm::vec3 v);
+    auto setPosition(const glm::vec3& position) -> void;
     void rotateLocal(float radians);
-    void rotateGlobal(float radians);
 
     glm::vec3 getPosition() const;
     glm::vec3 getScale() const;
@@ -26,13 +26,11 @@ class Transform {
   private:
     glm::mat4 calculateModelMatrix() const;
 
-    Transform* parent;
+    Transform* m_parent;
 
-    glm::vec3 _position = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 _scale    = glm::vec3(1.0f, 1.0f, 1.0f);
+    glm::vec3 m_position = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 m_scale    = glm::vec3(1.0f, 1.0f, 1.0f);
 
     // Local Rotation is around its own center
-    float _localRotation = 0.0f;
-    // Global Rotation is around the origin
-    float _globalRotation = 0.0f;
+    float m_localRotation = 0.0f;
 };

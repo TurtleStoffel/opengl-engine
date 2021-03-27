@@ -5,20 +5,28 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/transform.hpp>
 
+Transform::Transform()
+      : Transform(nullptr) {
+}
+
+Transform::Transform(Transform* parent)
+      : m_parent{parent} {
+}
+
 void Transform::scale(glm::vec3 v) {
-    _scale *= v;
+    m_scale *= v;
 }
 
 void Transform::translate(glm::vec3 v) {
-    _position += v;
+    m_position += v;
+}
+
+auto Transform::setPosition(const glm::vec3& position) -> void {
+    m_position = position;
 }
 
 void Transform::rotateLocal(float radians) {
-    _localRotation += radians;
-}
-
-void Transform::rotateGlobal(float radians) {
-    _globalRotation += radians;
+    m_localRotation += radians;
 }
 
 glm::vec3 Transform::getPosition() const {
@@ -27,7 +35,7 @@ glm::vec3 Transform::getPosition() const {
 }
 
 glm::vec3 Transform::getScale() const {
-    return _scale;
+    return m_scale;
 }
 
 void Transform::passModelMatrixToShader(const ShaderRegistry& shaderContainer) const {
@@ -38,16 +46,14 @@ void Transform::passModelMatrixToShader(const ShaderRegistry& shaderContainer) c
 }
 
 glm::mat4 Transform::calculateModelMatrix() const {
-    glm::mat4 scaleMatrix          = glm::scale(_scale);
-    glm::mat4 localRotationMatrix  = glm::rotate(_localRotation, glm::vec3(0.0f, 0.0f, 1.0f));
-    glm::mat4 translateMatrix      = glm::translate(_position);
-    glm::mat4 globalRotationMatrix = glm::rotate(_globalRotation, glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 scaleMatrix         = glm::scale(m_scale);
+    glm::mat4 localRotationMatrix = glm::rotate(m_localRotation, glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 translateMatrix     = glm::translate(m_position);
 
-    glm::mat4 modelMatrix = globalRotationMatrix * translateMatrix * localRotationMatrix *
-                            scaleMatrix;
+    glm::mat4 modelMatrix = translateMatrix * localRotationMatrix * scaleMatrix;
 
-    if (parent) {
-        modelMatrix = parent->calculateModelMatrix() * modelMatrix;
+    if (m_parent) {
+        modelMatrix = m_parent->calculateModelMatrix() * modelMatrix;
     }
 
     return modelMatrix;
