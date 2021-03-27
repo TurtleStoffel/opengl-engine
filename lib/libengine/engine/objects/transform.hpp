@@ -10,7 +10,7 @@ class ShaderRegistry;
  */
 class Transform {
   public:
-    Transform();
+    Transform() = default;
     Transform(Transform* parent);
 
     void scale(glm::vec3 v);
@@ -26,7 +26,7 @@ class Transform {
   private:
     glm::mat4 calculateModelMatrix() const;
 
-    Transform* m_parent;
+    Transform* m_parent{nullptr};
 
     glm::vec3 m_position = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 m_scale    = glm::vec3(1.0f, 1.0f, 1.0f);

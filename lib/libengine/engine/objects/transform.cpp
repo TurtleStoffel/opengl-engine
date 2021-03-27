@@ -5,10 +5,6 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/transform.hpp>
 
-Transform::Transform()
-      : Transform(nullptr) {
-}
-
 Transform::Transform(Transform* parent)
       : m_parent{parent} {
 }
