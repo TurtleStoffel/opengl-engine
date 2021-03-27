@@ -37,6 +37,18 @@ void Transform::passModelMatrixToShader(const ShaderRegistry& shaderContainer) c
     shaderContainer.setModelMatrix(&modelMatrix[0][0]);
 }
 
+auto Transform::getRelativePosition() -> glm::vec3& {
+    return m_position;
+}
+
+auto Transform::getScale() -> glm::vec3& {
+    return m_scale;
+}
+
+auto Transform::getRotation() -> float& {
+    return m_localRotation;
+}
+
 glm::mat4 Transform::calculateModelMatrix() const {
     glm::mat4 scaleMatrix         = glm::scale(m_scale);
     glm::mat4 localRotationMatrix = glm::rotate(m_localRotation, glm::vec3(0.0f, 0.0f, 1.0f));

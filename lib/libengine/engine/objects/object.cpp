@@ -2,7 +2,9 @@
 
 #include "collider.hpp"
 
-Object::Object(const Object* parent, std::string name) : TreeNode{parent}, m_name{name} {
+Object::Object(const Object* parent, std::string name)
+      : TreeNode{parent}
+      , m_name{name} {
     if (parent) {
         m_transform = std::make_unique<Transform>(parent->m_transform.get());
     } else {
@@ -12,7 +14,8 @@ Object::Object(const Object* parent, std::string name) : TreeNode{parent}, m_nam
     m_selectionCollider = std::make_unique<Collider>(m_transform.get());
 }
 
-Object::Object() : Object{nullptr, "Invalid Object Name"} {
+Object::Object()
+      : Object{nullptr, "Invalid Object Name"} {
 }
 
 void Object::render(const ShaderRegistry& shaderContainer) const {
@@ -42,10 +45,18 @@ auto Object::getTransform() const -> const Transform& {
     return *m_transform.get();
 }
 
+auto Object::getTransform() -> Transform& {
+    return *m_transform.get();
+}
+
 auto Object::getSelected() const -> bool {
     return m_selected;
 }
 
-auto Object::visitImpl(std::function<void(const Object&)> callback) -> void {
+auto Object::visitImpl(std::function<void(const Object&)> callback) const -> void {
+    callback(*this);
+}
+
+auto Object::visitImpl(std::function<void(Object&)> callback) -> void {
     callback(*this);
 }

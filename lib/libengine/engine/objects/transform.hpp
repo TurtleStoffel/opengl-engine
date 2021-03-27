@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 
+class ModelScene;
 class ShaderRegistry;
 
 /**
@@ -9,6 +10,8 @@ class ShaderRegistry;
  * information to calculate the model matrix
  */
 class Transform {
+    friend class ModelScene;
+
   public:
     Transform() = default;
     Transform(Transform* parent);
@@ -17,12 +20,18 @@ class Transform {
     auto setRelativePosition(const glm::vec3& position) -> void;
     void rotateLocal(float radians);
 
+    auto getRelativePosition() const -> const glm::vec3&;
     auto getAbsolutePosition() const -> glm::vec3;
     auto getScale() const -> const glm::vec3&;
 
     void passModelMatrixToShader(const ShaderRegistry& shaderContainer) const;
 
   private:
+    // Modifiable data to be used in GUI
+    auto getRelativePosition() -> glm::vec3&;
+    auto getScale() -> glm::vec3&;
+    auto getRotation() -> float&;
+
     glm::mat4 calculateModelMatrix() const;
 
     Transform* m_parent{nullptr};

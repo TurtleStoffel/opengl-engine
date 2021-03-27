@@ -15,7 +15,7 @@ ModelScene::ModelScene() {
 
 auto ModelScene::renderGui() -> void {
     ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
-    ImGui::SetNextWindowSize(ImVec2(250.0f, 200.0f));
+    ImGui::SetNextWindowSize(ImVec2(250.0f, 400.0f));
     ImGui::Begin("Scene Options");
     for (unsigned int i = 0; i < m_models.size(); i++) {
         if (ImGui::Selectable(m_models[i], i == m_selectedModel)) {
@@ -32,7 +32,7 @@ auto ModelScene::renderGui() -> void {
 
     unsigned short i = 0;
     for (auto& object : m_objects) {
-        object->visit([this, &i](const Object& element) {
+        object->visit([this, &i](Object& element) {
             ImGui::Indent(element.getDepth() * 8.0f);
             if (ImGui::Selectable(element.getName().c_str(), i == m_selectedObject)) {
                 if (i != m_selectedObject) {
@@ -50,8 +50,15 @@ auto ModelScene::renderGui() -> void {
     if (m_selectedObjectPointer) {
         ImGui::Separator();
         ImGui::Text("Details of selected Model");
-        const auto& position = m_selectedObjectPointer->getTransform().getAbsolutePosition();
-        ImGui::Text("x: %.2f, y: %.2f, z: %.2f", position.x, position.y, position.z);
+        auto& relativePosition = m_selectedObjectPointer->getTransform().getRelativePosition();
+        ImGui::Text("Relative Position");
+        ImGui::DragFloat3("##positionDrags", &relativePosition[0], 0.05f);
+        auto& rotation = m_selectedObjectPointer->getTransform().getRotation();
+        ImGui::Text("Rotation");
+        ImGui::DragFloat("##rotationDrag", &rotation, 0.05f);
+        auto& scale = m_selectedObjectPointer->getTransform().getScale();
+        ImGui::Text("Scale");
+        ImGui::DragFloat3("##scaleDrags", &scale[0], 0.05f);
     }
 
     ImGui::End();

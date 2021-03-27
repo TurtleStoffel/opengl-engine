@@ -26,10 +26,12 @@ class Object : public TreeNode<Object> {
 
     auto getName() const -> const std::string&;
     auto getTransform() const -> const Transform&;
+    auto getTransform() -> Transform&;
     auto getSelected() const -> bool;
 
   protected:
-    auto visitImpl(std::function<void(const Object&)> callback) -> void override;
+    auto visitImpl(std::function<void(const Object&)> callback) const -> void override;
+    auto visitImpl(std::function<void(Object&)> callback) -> void override;
 
     std::unique_ptr<Model> m_model;
 
