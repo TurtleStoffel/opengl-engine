@@ -14,7 +14,7 @@ bool Collider::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
     glm::vec3 intersectionNormal;
     return glm::intersectRaySphere(rayPosition,
                                    glm::normalize(rayDirection),
-                                   _pTransform->getPosition(),
+                                   _pTransform->getAbsolutePosition(),
                                    _pTransform->getScale()[0], // Sphere has uniform Scale
                                    intersectionPoint,
                                    intersectionNormal);

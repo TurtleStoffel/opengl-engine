@@ -13,7 +13,7 @@ void Transform::scale(glm::vec3 v) {
     m_scale *= v;
 }
 
-auto Transform::setPosition(const glm::vec3& position) -> void {
+auto Transform::setRelativePosition(const glm::vec3& position) -> void {
     m_position = position;
 }
 
@@ -21,12 +21,12 @@ void Transform::rotateLocal(float radians) {
     m_localRotation += radians;
 }
 
-glm::vec3 Transform::getPosition() const {
+auto Transform::getAbsolutePosition() const -> glm::vec3 {
     glm::vec4 transformedPosition = calculateModelMatrix() * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
     return glm::vec3(transformedPosition.x, transformedPosition.y, transformedPosition.z);
 }
 
-glm::vec3 Transform::getScale() const {
+auto Transform::getScale() const -> const glm::vec3& {
     return m_scale;
 }
 

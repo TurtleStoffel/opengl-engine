@@ -50,7 +50,7 @@ auto ModelScene::renderGui() -> void {
     if (m_selectedObjectPointer) {
         ImGui::Separator();
         ImGui::Text("Details of selected Model");
-        const auto& position = m_selectedObjectPointer->getTransform().getPosition();
+        const auto& position = m_selectedObjectPointer->getTransform().getAbsolutePosition();
         ImGui::Text("x: %.2f, y: %.2f, z: %.2f", position.x, position.y, position.z);
     }
 

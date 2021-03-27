@@ -14,11 +14,11 @@ class Transform {
     Transform(Transform* parent);
 
     void scale(glm::vec3 v);
-    auto setPosition(const glm::vec3& position) -> void;
+    auto setRelativePosition(const glm::vec3& position) -> void;
     void rotateLocal(float radians);
 
-    glm::vec3 getPosition() const;
-    glm::vec3 getScale() const;
+    auto getAbsolutePosition() const -> glm::vec3;
+    auto getScale() const -> const glm::vec3&;
 
     void passModelMatrixToShader(const ShaderRegistry& shaderContainer) const;
 
