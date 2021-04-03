@@ -16,29 +16,24 @@ class Transform {
     Transform() = default;
     Transform(Transform* parent);
 
-    void scale(glm::vec3 v);
+    auto scale(glm::vec3 v) -> void;
     auto setRelativePosition(const glm::vec3& position) -> void;
-    void rotateLocal(float radians);
+    auto rotateLocal(float radians) -> void;
 
     auto getRelativePosition() const -> const glm::vec3&;
     auto getAbsolutePosition() const -> glm::vec3;
     auto getScale() const -> const glm::vec3&;
 
-    void passModelMatrixToShader(const ShaderRegistry& shaderContainer) const;
+    auto passModelMatrixToShader(const ShaderRegistry& shaderContainer) const -> void;
 
   private:
-    // Modifiable data to be used in GUI
-    auto getRelativePosition() -> glm::vec3&;
-    auto getScale() -> glm::vec3&;
-    auto getRotation() -> float&;
-
-    glm::mat4 calculateModelMatrix() const;
+    auto calculateModelMatrix() const -> glm::mat4;
 
     Transform* m_parent{nullptr};
 
     glm::vec3 m_position = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 m_scale    = glm::vec3(1.0f, 1.0f, 1.0f);
 
-    // Local Rotation is around its own center
-    float m_localRotation = 0.0f;
+    // Rotation around z-axis
+    float m_rotation = 0.0f;
 };
