@@ -17,3 +17,7 @@ AlwaysBreakTemplateDeclarations: true
 
 BreakConstructorInitializers: BeforeComma
 ConstructorInitializerIndentWidth: 6
+
+# Namespaces
+FixNamespaceComments: false
+NamespaceIndentation: All

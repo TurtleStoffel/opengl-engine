@@ -1,10 +1,14 @@
 #include "systemscene.hpp"
 
 #include "engine/application.hpp"
+#include "engine/components/update_scripts/planet_rotation.hpp"
+#include "engine/components/update_scripts/update_script.hpp"
 #include "engine/objects/background.hpp"
 #include "engine/objects/planet.hpp"
 #include "engine/objects/sun.hpp"
 #include "engine/util.hpp"
+
+#include <utility>
 
 SystemScene::SystemScene() {
     m_objects.push_back(std::make_unique<Background>());
@@ -20,6 +24,11 @@ SystemScene::SystemScene() {
     for (int i = 0; i < util::randi(1, 3); i++) {
         currentPlanetOffset += util::randf(minPlanetOffset, maxPlanetOffset);
         float planetRadius = util::randf(minPlanetRadius, maxPlanetRadius);
-        m_objects.push_back(std::make_unique<Planet>(currentPlanetOffset, planetRadius));
+
+        auto planet = std::make_unique<Planet>(currentPlanetOffset, planetRadius);
+        planet->registerComponent<Engine::Components::UpdateScripts::UpdateScript>(
+            std::make_unique<Engine::Components::UpdateScripts::PlanetRotation>(*planet));
+
+        m_objects.push_back(std::move(planet));
     }
 }

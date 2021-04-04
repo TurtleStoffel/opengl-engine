@@ -1,6 +1,7 @@
 #include "object.hpp"
 
-#include "collider.hpp"
+#include "engine/components/update_scripts/update_script.hpp"
+#include "engine/objects/collider.hpp"
 
 Object::Object(const Object* parent, std::string name)
       : TreeNode{parent}
@@ -16,6 +17,13 @@ Object::Object(const Object* parent, std::string name)
 
 Object::Object()
       : Object{nullptr, "Invalid Object Name"} {
+}
+
+auto Object::update(int dt) -> void {
+    auto updateScriptComponent = get<Engine::Components::UpdateScripts::UpdateScript>();
+    if (updateScriptComponent) {
+        updateScriptComponent->update(dt);
+    }
 }
 
 void Object::render(const ShaderRegistry& shaderContainer) const {

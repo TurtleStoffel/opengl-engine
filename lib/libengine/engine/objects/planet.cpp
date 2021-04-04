@@ -27,9 +27,3 @@ Planet::Planet(float distance, float radius)
     m_transform->scale(glm::vec3(radius, radius, radius));
     update(0);
 }
-
-void Planet::update(int dt) {
-    m_rotationAngle += m_rotationalSpeed * dt;
-    m_transform->setRelativePosition(
-        glm::vec3(m_distance * sin(m_rotationAngle), m_distance * cos(m_rotationAngle), 0.0f));
-}

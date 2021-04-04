@@ -2,13 +2,16 @@
 
 #include "engine/objects/object.hpp"
 
+namespace Engine::Components::UpdateScripts {
+    class PlanetRotation;
+}
+
 class Planet : public Object {
     friend class PlanetGui;
+    friend class Engine::Components::UpdateScripts::PlanetRotation;
 
   public:
     Planet(float distance, float radius);
-
-    virtual void update(int dt);
 
   private:
     float m_rotationalSpeed;
