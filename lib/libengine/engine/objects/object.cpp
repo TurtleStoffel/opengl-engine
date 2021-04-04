@@ -1,6 +1,6 @@
 #include "object.hpp"
 
-#include "engine/components/update_scripts/update_script.hpp"
+#include "engine/components/script.hpp"
 #include "engine/objects/collider.hpp"
 
 Object::Object(const Object* parent, std::string name)
@@ -20,9 +20,9 @@ Object::Object()
 }
 
 auto Object::update(int dt) -> void {
-    auto updateScriptComponent = get<Engine::Components::UpdateScripts::UpdateScript>();
+    auto updateScriptComponent = get<Engine::Components::Script>();
     if (updateScriptComponent) {
-        updateScriptComponent->update(dt);
+        updateScriptComponent->execute(dt);
     }
 }
 

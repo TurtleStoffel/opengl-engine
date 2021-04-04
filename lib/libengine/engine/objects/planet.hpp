@@ -2,13 +2,13 @@
 
 #include "engine/objects/object.hpp"
 
-namespace Engine::Components::UpdateScripts {
+namespace Engine::Components::Scripts {
     class PlanetRotation;
 }
 
 class Planet : public Object {
     friend class PlanetGui;
-    friend class Engine::Components::UpdateScripts::PlanetRotation;
+    friend class Engine::Components::Scripts::PlanetRotation;
 
   public:
     Planet(float distance, float radius);

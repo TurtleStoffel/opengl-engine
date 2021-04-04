@@ -1,5 +1,5 @@
 set(ENGINE_SOURCES 
-    "libengine/engine/components/update_scripts/planet_rotation.cpp"
+    "libengine/engine/components/scripts/planet_rotation.cpp"
     "libengine/engine/guibinding/gui_factory.cpp"
     "libengine/engine/guibinding/planet_gui.cpp"
     "libengine/engine/guibinding/sun_configuration_gui.cpp"

@@ -1,12 +1,12 @@
-#include "engine/components/update_scripts/planet_rotation.hpp"
+#include "engine/components/scripts/planet_rotation.hpp"
 
 #include "engine/objects/planet.hpp"
 
 #include <glm/glm.hpp>
 #include <math.h>
 
-namespace Engine::Components::UpdateScripts {
-    auto PlanetRotation::update(int dt) -> void {
+namespace Engine::Components::Scripts {
+    auto PlanetRotation::execute(int dt) -> void {
         auto& planet = static_cast<Planet&>(m_object);
 
         planet.m_rotationAngle += planet.m_rotationalSpeed * dt;
