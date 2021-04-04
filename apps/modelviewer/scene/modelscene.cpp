@@ -9,7 +9,8 @@
 
 #include <iostream>
 
-ModelScene::ModelScene() {
+ModelScene::ModelScene(const ShaderRegistry& shaderRegistry)
+      : Scene{shaderRegistry} {
     m_guiFactory = GuiFactory{GuiFactory::GuiType::CONFIGURATION};
 }
 

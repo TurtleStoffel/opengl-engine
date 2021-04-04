@@ -4,5 +4,6 @@
 
 class SystemScene : public Scene {
   public:
-    SystemScene();
+    SystemScene(const ShaderRegistry& shaderRegistry);
+    ~SystemScene() override = default;
 };

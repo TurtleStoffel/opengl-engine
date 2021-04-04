@@ -2,12 +2,12 @@
 
 #include "scene/systemscene.hpp"
 
-GameApplication::GameApplication(SDL_Window* pWindow) : Application(pWindow) {
-}
+namespace Godworld {
+    GameApplication::GameApplication(SDL_Window* window)
+          : Application{window} {
+    }
 
-GameApplication::~GameApplication() {
-}
-
-void GameApplication::_createScene() {
-    scene = std::make_unique<SystemScene>();
+    void GameApplication::_createScene() {
+        m_scene = std::make_unique<SystemScene>(m_shaderRegistry);
+    }
 }

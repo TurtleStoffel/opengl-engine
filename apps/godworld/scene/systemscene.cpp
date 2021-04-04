@@ -10,7 +10,8 @@
 
 #include <utility>
 
-SystemScene::SystemScene() {
+SystemScene::SystemScene(const ShaderRegistry& shaderRegistry)
+      : Scene{shaderRegistry} {
     m_objects.push_back(std::make_unique<Background>());
     // Create objects
     m_objects.push_back(std::make_unique<Sun>(m_guiFactory));

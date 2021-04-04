@@ -2,11 +2,13 @@
 
 #include "engine/application.hpp"
 
-class GameApplication : public Application {
-  public:
-    GameApplication(SDL_Window* pWindow);
-    virtual ~GameApplication();
+namespace Godworld {
+    class GameApplication : public Application {
+      public:
+        GameApplication(SDL_Window* pWindow);
+        ~GameApplication() override = default;
 
-  protected:
-    virtual void _createScene();
-};
+      protected:
+        virtual void _createScene();
+    };
+}

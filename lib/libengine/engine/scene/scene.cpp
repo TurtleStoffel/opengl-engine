@@ -6,8 +6,10 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Scene::Scene()
-    : m_camera{std::make_unique<Camera>()}, m_guiFactory{GuiFactory{GuiFactory::GuiType::GAME}} {
+Scene::Scene(const ShaderRegistry& shaderRegistry)
+      : m_camera{std::make_unique<Camera>()}
+      , m_guiFactory{GuiFactory{GuiFactory::GuiType::GAME}}
+      , m_shaderRegistry{shaderRegistry} {
 }
 
 auto Scene::update(int dt, const ShaderRegistry& shaderContainer) -> void {

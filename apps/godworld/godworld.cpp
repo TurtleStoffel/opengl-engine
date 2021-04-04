@@ -10,7 +10,7 @@ int main() {
     // set random seed
     srand(time(NULL));
 
-    std::unique_ptr<Application> application = std::make_unique<GameApplication>(window);
+    std::unique_ptr<Application> application = std::make_unique<Godworld::GameApplication>(window);
     application->run();
 
     SDL::destroy(window);

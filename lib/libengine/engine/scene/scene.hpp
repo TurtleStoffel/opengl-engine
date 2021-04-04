@@ -11,7 +11,7 @@ class ShaderRegistry;
 
 class Scene {
   public:
-    Scene();
+    Scene(const ShaderRegistry& shaderRegistry);
     virtual ~Scene() = default;
 
     auto update(int dt, const ShaderRegistry& shaderContainer) -> void;
@@ -26,6 +26,8 @@ class Scene {
     std::vector<std::unique_ptr<Object>> m_objects;
     std::unique_ptr<Camera> m_camera;
     GuiFactory m_guiFactory;
+
+    const ShaderRegistry& m_shaderRegistry;
 
   private:
     auto mousePick(SDL_Event event) -> void;

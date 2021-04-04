@@ -2,12 +2,10 @@
 
 #include "scene/modelscene.hpp"
 
-ModelViewerApplication::ModelViewerApplication(SDL_Window* pWindow) : Application(pWindow) {
-}
-
-ModelViewerApplication::~ModelViewerApplication() {
+ModelViewerApplication::ModelViewerApplication(SDL_Window* window)
+      : Application{window} {
 }
 
 void ModelViewerApplication::_createScene() {
-    scene = std::make_unique<ModelScene>();
+    m_scene = std::make_unique<ModelScene>(m_shaderRegistry);
 }

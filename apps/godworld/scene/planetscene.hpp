@@ -4,5 +4,6 @@
 
 class PlanetScene : public Scene {
   public:
-    PlanetScene();
+    PlanetScene(const ShaderRegistry& shaderRegistry);
+    ~PlanetScene() override = default;
 };

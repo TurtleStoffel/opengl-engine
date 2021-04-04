@@ -8,7 +8,8 @@
 #include "engine/scene/scene.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
-Application::Application(SDL_Window* window) : window(window) {
+Application::Application(SDL_Window* window)
+      : window(window) {
     _lastFpsTicks    = SDL_GetTicks();
     _lastUpdateTicks = SDL_GetTicks();
 }
@@ -34,7 +35,7 @@ void Application::_handleInput() {
         if (_handleApplicationInput(event)) { // Application has handled the event
             continue;
         }
-        if (scene->handleInput(event)) { // Scene is last thing to handle events
+        if (m_scene->handleInput(event)) { // Scene is last thing to handle events
             continue;
         }
     }
@@ -46,7 +47,7 @@ bool Application::_handleApplicationInput(SDL_Event event) {
             if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
                 int windowWidth  = event.window.data1;
                 int windowHeight = event.window.data2;
-                scene->setWindowSize(windowWidth, windowHeight);
+                m_scene->setWindowSize(windowWidth, windowHeight);
             }
             return true;
         case SDL_QUIT:
@@ -71,14 +72,14 @@ bool Application::_handleApplicationInput(SDL_Event event) {
 void Application::_updateScene() {
     int passedTicks = _getTicksSinceLastUpdate();
 
-    scene->update(passedTicks, shaderContainer);
+    m_scene->update(passedTicks, m_shaderRegistry);
 }
 
 void Application::_renderScene() {
     // Cleanup rendering buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-    scene->render(shaderContainer);
+    m_scene->render(m_shaderRegistry);
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

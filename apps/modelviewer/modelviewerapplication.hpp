@@ -5,7 +5,7 @@
 class ModelViewerApplication : public Application {
   public:
     ModelViewerApplication(SDL_Window* pWindow);
-    virtual ~ModelViewerApplication();
+    ~ModelViewerApplication() override = default;
 
   protected:
     virtual void _createScene();

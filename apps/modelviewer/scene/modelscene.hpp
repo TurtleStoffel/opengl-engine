@@ -6,7 +6,7 @@
 
 class ModelScene final : public Scene {
   public:
-    ModelScene();
+    ModelScene(const ShaderRegistry& shaderRegistry);
     ~ModelScene() override = default;
 
   protected:
