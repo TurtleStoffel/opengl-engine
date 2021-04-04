@@ -12,17 +12,17 @@ Scene::Scene(const ShaderRegistry& shaderRegistry)
       , m_shaderRegistry{shaderRegistry} {
 }
 
-auto Scene::update(int dt, const ShaderRegistry& shaderContainer) -> void {
-    m_camera->update(dt, shaderContainer);
+auto Scene::update(int dt) -> void {
+    m_camera->update(dt, m_shaderRegistry);
 
     for (auto& pObject : m_objects) {
         pObject->update(dt);
     }
 }
 
-auto Scene::render(const ShaderRegistry& shaderContainer) -> void {
+auto Scene::render() -> void {
     for (auto& pObject : m_objects) {
-        pObject->render(shaderContainer);
+        pObject->render(m_shaderRegistry);
     }
 
     renderGui();

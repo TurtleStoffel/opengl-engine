@@ -14,8 +14,8 @@ class Scene {
     Scene(const ShaderRegistry& shaderRegistry);
     virtual ~Scene() = default;
 
-    auto update(int dt, const ShaderRegistry& shaderContainer) -> void;
-    auto render(const ShaderRegistry& shaderContainer) -> void;
+    auto update(int dt) -> void;
+    auto render() -> void;
 
     auto handleInput(SDL_Event event) -> bool;
     auto setWindowSize(int windowWidth, int windowHeight) -> void;

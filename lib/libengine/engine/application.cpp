@@ -72,14 +72,14 @@ bool Application::_handleApplicationInput(SDL_Event event) {
 void Application::_updateScene() {
     int passedTicks = _getTicksSinceLastUpdate();
 
-    m_scene->update(passedTicks, m_shaderRegistry);
+    m_scene->update(passedTicks);
 }
 
 void Application::_renderScene() {
     // Cleanup rendering buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-    m_scene->render(m_shaderRegistry);
+    m_scene->render();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
