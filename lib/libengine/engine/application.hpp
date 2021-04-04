@@ -23,8 +23,6 @@ class Application {
 
     std::unique_ptr<Scene> m_scene;
 
-    virtual void _createScene() = 0;
-
   private:
     void _handleInput();
     void _updateScene();

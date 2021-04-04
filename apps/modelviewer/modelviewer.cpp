@@ -10,7 +10,8 @@ int main() {
     // set random seed
     srand(time(NULL));
 
-    std::unique_ptr<Application> application = std::make_unique<ModelViewerApplication>(window);
+    std::unique_ptr<Application>
+        application = std::make_unique<ModelViewer::ModelViewerApplication>(window);
     application->run();
 
     SDL::destroy(window);

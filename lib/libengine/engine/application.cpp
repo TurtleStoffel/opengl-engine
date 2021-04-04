@@ -15,8 +15,6 @@ Application::Application(SDL_Window* window)
 }
 
 void Application::run() {
-    _createScene();
-
     while (_running) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL2_NewFrame(window);

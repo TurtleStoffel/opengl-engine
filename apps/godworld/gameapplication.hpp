@@ -7,8 +7,5 @@ namespace Godworld {
       public:
         GameApplication(SDL_Window* pWindow);
         ~GameApplication() override = default;
-
-      protected:
-        virtual void _createScene();
     };
 }
