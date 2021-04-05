@@ -1,6 +1,5 @@
 #include "systemscene.hpp"
 
-#include "engine/application.hpp"
 #include "engine/components/script.hpp"
 #include "engine/components/scripts/planet_rotation.hpp"
 #include "engine/objects/background.hpp"
@@ -12,9 +11,9 @@
 
 SystemScene::SystemScene(const ShaderRegistry& shaderRegistry)
       : Scene{shaderRegistry} {
-    m_objects.push_back(std::make_unique<Background>());
+    m_objects.push_back(Background::createDefault(m_shaderRegistry));
     // Create objects
-    m_objects.push_back(std::make_unique<Sun>(m_guiFactory));
+    m_objects.push_back(Sun::createDefault(m_guiFactory, m_shaderRegistry));
     float minPlanetOffset = 2.0f;
     float maxPlanetOffset = 3.0f;
     float minPlanetRadius = 0.3f;
@@ -26,7 +25,7 @@ SystemScene::SystemScene(const ShaderRegistry& shaderRegistry)
         currentPlanetOffset += util::randf(minPlanetOffset, maxPlanetOffset);
         float planetRadius = util::randf(minPlanetRadius, maxPlanetRadius);
 
-        auto planet = std::make_unique<Planet>(currentPlanetOffset, planetRadius);
+        auto planet = Planet::createDefault(currentPlanetOffset, planetRadius, m_shaderRegistry);
         planet->registerComponent<Engine::Components::Script>(
             std::make_unique<Engine::Components::Scripts::PlanetRotation>(*planet));
 

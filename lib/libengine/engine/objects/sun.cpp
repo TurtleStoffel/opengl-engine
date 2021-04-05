@@ -1,14 +1,31 @@
 #include "engine/objects/sun.hpp"
 
 #include "engine/color.hpp"
+#include "engine/components/shader_component.hpp"
+#include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/guibinding/gui_factory.hpp"
 #include "engine/models/effects/glow.hpp"
 #include "engine/models/model_factory.hpp"
 #include "engine/models/sphere.hpp"
+#include "engine/shaders/lowpolyshader.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 
 #include <memory>
+#include <utility>
 
-Sun::Sun(GuiFactory& guiFactory) : Object{nullptr, "Sun"} {
+auto Sun::createDefault(GuiFactory& guiFactory, const ShaderRegistry& shaderRegistry)
+    -> std::unique_ptr<Sun> {
+    auto sun = std::make_unique<Sun>(guiFactory);
+
+    sun->registerComponent<Engine::Components::ShaderComponent>(
+        std::make_unique<Engine::Components::Shaders::GenericShaderComponent>(
+            *sun, shaderRegistry.get<LowPolyShader>()));
+
+    return sun;
+}
+
+Sun::Sun(GuiFactory& guiFactory)
+      : Object{nullptr, "Sun"} {
     _generateModel();
 
     m_guiBinding = guiFactory.createGui(*this);

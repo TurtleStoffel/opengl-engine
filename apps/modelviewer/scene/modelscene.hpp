@@ -4,6 +4,8 @@
 
 #include <limits>
 
+class ShaderRegistry;
+
 class ModelScene final : public Scene {
   public:
     ModelScene(const ShaderRegistry& shaderRegistry);

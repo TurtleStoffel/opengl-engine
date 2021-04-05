@@ -35,7 +35,7 @@ class Object : public TreeNode<Object> {
     template <typename TComponentType>
     auto registerComponent(std::unique_ptr<TComponentType> component) -> void;
     template <typename TComponentType>
-    auto get() -> TComponentType*;
+    auto get() const -> TComponentType*;
 
   protected:
     auto visitImpl(std::function<void(const Object&)> callback) const -> void override;
@@ -69,7 +69,7 @@ auto Object::registerComponent(std::unique_ptr<TComponentType> component) -> voi
 }
 
 template <typename TComponentType>
-auto Object::get() -> TComponentType* {
+auto Object::get() const -> TComponentType* {
     auto iterator = m_components.find(typeid(TComponentType).hash_code());
     if (iterator == m_components.end()) {
         return nullptr;

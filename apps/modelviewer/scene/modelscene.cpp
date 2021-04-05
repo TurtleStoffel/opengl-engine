@@ -1,13 +1,10 @@
 #include "modelscene.hpp"
 
-#include "engine/application.hpp"
 #include "engine/objects/background.hpp"
 #include "engine/objects/planet.hpp"
 #include "engine/objects/sun.hpp"
 
 #include "imgui.h"
-
-#include <iostream>
 
 ModelScene::ModelScene(const ShaderRegistry& shaderRegistry)
       : Scene{shaderRegistry} {
@@ -69,11 +66,11 @@ auto ModelScene::createModel(const char* model) -> void {
     m_objects.clear();
 
     if (strcmp(model, "Planet##model") == 0) {
-        m_objects.push_back(std::make_unique<Planet>(0.0f, 1.0f));
+        m_objects.push_back(Planet::createDefault(0.0f, 1.0f, m_shaderRegistry));
     } else if (strcmp(model, "Sun##model") == 0) {
-        m_objects.push_back(std::make_unique<Sun>(m_guiFactory));
+        m_objects.push_back(Sun::createDefault(m_guiFactory, m_shaderRegistry));
     } else if (strcmp(model, "Background##model") == 0) {
-        m_objects.push_back(std::make_unique<Background>());
+        m_objects.push_back(Background::createDefault(m_shaderRegistry));
     }
 }
 

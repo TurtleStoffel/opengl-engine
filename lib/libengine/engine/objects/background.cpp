@@ -1,13 +1,24 @@
 #include "engine/objects/background.hpp"
 
+#include "engine/components/shader_component.hpp"
+#include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/models/background_model.hpp"
 #include "engine/models/model_factory.hpp"
 #include "engine/shaders/backgroundshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
-Background::Background() : Object{nullptr, "Background"} {
+auto Background::createDefault(const ShaderRegistry& shaderRegistry)
+    -> std::unique_ptr<Background> {
+    auto background = std::make_unique<Background>();
+
+    background->registerComponent<Engine::Components::ShaderComponent>(
+        std::make_unique<Engine::Components::Shaders::GenericShaderComponent>(
+            *background, shaderRegistry.get<BackgroundShader>()));
+
+    return background;
+}
+
+Background::Background()
+      : Object{nullptr, "Background"} {
     m_model = ModelFactory::make<BackgroundModel>(*this);
-    m_model->setPreRenderLogic([](const ShaderRegistry& shaderContainer) {
-        shaderContainer.get<BackgroundShader>().use();
-    });
 }

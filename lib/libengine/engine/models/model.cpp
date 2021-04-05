@@ -1,14 +1,15 @@
 #include "model.hpp"
 
+#include "engine/components/shader_component.hpp"
 #include "engine/models/effects/effect.hpp"
 #include "engine/models/vector.hpp"
 #include "engine/objects/object.hpp"
 #include "engine/objects/transform.hpp"
 #include "engine/opengl.hpp"
-#include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
-Model::Model(const Object& object) : m_object{object} {
+Model::Model(const Object& object)
+      : m_object{object} {
     _generateOpenGLBuffers();
 }
 
@@ -25,7 +26,7 @@ void Model::render(const ShaderRegistry& shaderContainer) const {
         effect->render(shaderContainer);
     }
 
-    shaderContainer.get<LowPolyShader>().use();
+    m_object.get<Engine::Components::ShaderComponent>()->use();
 
     if (m_preRenderLogic) {
         m_preRenderLogic(shaderContainer);
