@@ -2,9 +2,8 @@
 
 #include <fstream>
 #include <sstream>
-#include <string>
 
-Shader::Shader(const char* vertexShader, const char* fragmentShader)
+Shader::Shader(std::string vertexShader, std::string fragmentShader)
       : m_vertexShaderFilename{vertexShader}
       , m_fragmentShaderFilename{fragmentShader} {
     compileShader();
@@ -18,7 +17,7 @@ auto Shader::recompile() -> void {
     setMatrixBlockIndex(m_matrixBlockIndex);
 }
 
-GLuint Shader::getUniformBlockIndex(const char* name) {
+auto Shader::getUniformBlockIndex(const char* name) -> GLuint {
     return glGetUniformBlockIndex(m_id, name);
 }
 
@@ -27,13 +26,13 @@ auto Shader::setMatrixBlockIndex(GLuint matrixBlockIndex) -> void {
     glUniformBlockBinding(m_id, m_matrixBlockIndex, BINDING_INDEX);
 }
 
-void Shader::use() const {
+auto Shader::use() const -> void {
     glUseProgram(m_id);
 }
 
 auto Shader::compileShader() -> void {
-    GLuint vShader = compilePartialShader(m_vertexShaderFilename.c_str(), GL_VERTEX_SHADER);
-    GLuint fShader = compilePartialShader(m_fragmentShaderFilename.c_str(), GL_FRAGMENT_SHADER);
+    GLuint vShader = compilePartialShader(m_vertexShaderFilename, GL_VERTEX_SHADER);
+    GLuint fShader = compilePartialShader(m_fragmentShaderFilename, GL_FRAGMENT_SHADER);
 
     m_id = glCreateProgram();
     glAttachShader(m_id, vShader);
@@ -45,14 +44,14 @@ auto Shader::compileShader() -> void {
     glDeleteShader(fShader);
 }
 
-auto Shader::compilePartialShader(const char* path, GLenum type) -> GLuint {
-    SDL_Log("Compiling %s", path);
+auto Shader::compilePartialShader(const std::string& path, GLenum type) -> GLuint {
+    SDL_Log("Compiling %s", path.c_str());
     std::string code;
     std::ifstream shaderFile;
 
     shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try {
-        shaderFile.open(path);
+        shaderFile.open(path.c_str());
         std::stringstream shaderStream;
         shaderStream << shaderFile.rdbuf();
 
@@ -70,7 +69,7 @@ auto Shader::compilePartialShader(const char* path, GLenum type) -> GLuint {
     return shaderId;
 }
 
-const char* Shader::getShaderType(GLenum type) {
+auto Shader::getShaderType(GLenum type) -> const char* {
     switch (type) {
         case GL_VERTEX_SHADER:
             return "Vertex";
@@ -83,7 +82,7 @@ const char* Shader::getShaderType(GLenum type) {
     }
 }
 
-void Shader::checkCompileErrors(GLuint shader, std::string type) {
+auto Shader::checkCompileErrors(GLuint shader, std::string type) -> void {
     int success;
     char infoLog[1024];
 

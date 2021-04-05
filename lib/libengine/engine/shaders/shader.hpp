@@ -12,28 +12,28 @@ class Shader {
   public:
     static constexpr GLuint BINDING_INDEX{1};
 
-    explicit Shader(const char* vertexShader, const char* fragmentShader);
+    explicit Shader(std::string vertexShader, std::string fragmentShader);
     virtual ~Shader() = default;
 
     auto recompile() -> void;
 
-    GLuint getUniformBlockIndex(const char* name);
+    auto getUniformBlockIndex(const char* name) -> GLuint;
     auto setMatrixBlockIndex(GLuint matrixBlockIndex) -> void;
 
     // Set current shader as active program in OpenGL
-    void use() const;
+    auto use() const -> void;
 
   protected:
     GLuint m_id;
-    GLuint m_matrixBlockIndex;
 
   private:
     auto compileShader() -> void;
 
-    auto compilePartialShader(const char* path, GLenum type) -> GLuint;
-    const char* getShaderType(GLenum type);
-    void checkCompileErrors(GLuint shader, std::string type);
+    auto compilePartialShader(const std::string& path, GLenum type) -> GLuint;
+    auto getShaderType(GLenum type) -> const char*;
+    auto checkCompileErrors(GLuint shader, std::string type) -> void;
 
     std::string m_vertexShaderFilename;
     std::string m_fragmentShaderFilename;
+    GLuint m_matrixBlockIndex;
 };
