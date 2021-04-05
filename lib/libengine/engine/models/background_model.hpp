@@ -2,9 +2,11 @@
 
 #include "engine/models/model.hpp"
 
-class Object;
+namespace Engine {
+    class Object;
+}
 
 class BackgroundModel : public Model {
   public:
-    BackgroundModel(const Object& object);
+    BackgroundModel(const Engine::Object& object);
 };

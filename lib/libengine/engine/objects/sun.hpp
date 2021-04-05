@@ -1,13 +1,13 @@
 #pragma once
 
-#include "object.hpp"
+#include "engine/objects/object.hpp"
 
 #include <memory>
 
 class GuiFactory;
 class ShaderRegistry;
 
-class Sun : public Object {
+class Sun : public Engine::Object {
     friend class SunGui;
     friend class SunConfigurationGui;
 

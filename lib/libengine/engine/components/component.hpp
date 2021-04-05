@@ -1,6 +1,8 @@
 #pragma once
 
-class Object;
+namespace Engine {
+    class Object;
+}
 
 namespace Engine::Components {
     class Component {

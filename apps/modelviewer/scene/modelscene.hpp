@@ -6,6 +6,10 @@
 
 class ShaderRegistry;
 
+namespace Engine {
+    class Object;
+}
+
 namespace ModelViewer {
     class ModelScene final : public Scene {
       public:
@@ -22,7 +26,7 @@ namespace ModelViewer {
         unsigned short m_selectedModel  = std::numeric_limits<decltype(m_selectedModel)>::max();
         unsigned short m_selectedObject = std::numeric_limits<decltype(m_selectedObject)>::max();
 
-        Object* m_selectedObjectPointer{nullptr};
+        Engine::Object* m_selectedObjectPointer{nullptr};
 
         const std::vector<const char*> m_models = {"Planet##model",
                                                    "Sun##model",

@@ -5,6 +5,10 @@
 
 #include <map>
 
+namespace Engine {
+    class Object;
+}
+
 struct Face {
     unsigned int v1;
     unsigned int v2;
@@ -13,7 +17,7 @@ struct Face {
 
 class Sphere : public Model {
   public:
-    Sphere(const Object& object, glm::vec3 color = color::brown(), int depth = 4);
+    Sphere(const Engine::Object& object, glm::vec3 color = color::brown(), int depth = 4);
 
   private:
     unsigned int _getMidpoint(unsigned int p1, unsigned int p2);

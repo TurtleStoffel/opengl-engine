@@ -8,7 +8,8 @@
 
 #include <math.h>
 
-Sphere::Sphere(const Object& object, glm::vec3 color, int depth) : Model{object} {
+Sphere::Sphere(const Engine::Object& object, glm::vec3 color, int depth)
+      : Model{object} {
     this->color = color;
 
     addPostRenderEffect(std::make_unique<DebugVectors>(object));

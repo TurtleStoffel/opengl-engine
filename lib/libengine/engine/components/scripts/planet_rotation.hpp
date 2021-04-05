@@ -10,5 +10,7 @@ namespace Engine::Components::Scripts {
         ~PlanetRotation() override = default;
 
         auto execute(int dt) -> void override;
+
+        auto render() -> void override{};
     };
 }

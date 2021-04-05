@@ -3,6 +3,7 @@
 #include "engine/components/gui/component_gui.hpp"
 #include "engine/components/gui_component.hpp"
 #include "engine/objects/background.hpp"
+#include "engine/objects/object.hpp"
 #include "engine/objects/planet.hpp"
 #include "engine/objects/sun.hpp"
 
@@ -33,7 +34,7 @@ namespace ModelViewer {
 
         unsigned short i = 0;
         for (auto& object : m_objects) {
-            object->visit([this, &i](Object& element) {
+            object->visit([this, &i](Engine::Object& element) {
                 ImGui::Indent(element.getDepth() * 8.0f);
                 if (ImGui::Selectable(element.getName().c_str(), i == m_selectedObject)) {
                     if (i != m_selectedObject) {

@@ -9,8 +9,11 @@
 #include <vector>
 
 class ShaderRegistry;
-class Object;
 class Transform;
+
+namespace Engine {
+    class Object;
+}
 
 struct Vertex {
     glm::vec3 position;
@@ -26,7 +29,7 @@ class Model {
     /**
      * @param parent Game Object that spawned this Model
      */
-    Model(const Object& parent);
+    Model(const Engine::Object& parent);
     virtual ~Model() = default;
 
     void render(const ShaderRegistry& shaderContainer) const;
@@ -39,7 +42,7 @@ class Model {
     auto getSelected() const -> bool;
 
   protected:
-    const Object& m_object;
+    const Engine::Object& m_object;
 
     GLenum m_renderingMode{GL_TRIANGLES};
 

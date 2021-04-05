@@ -6,7 +6,7 @@
 
 class ShaderRegistry;
 
-class Background : public Object {
+class Background : public Engine::Object {
   public:
     static auto createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Background>;
 
