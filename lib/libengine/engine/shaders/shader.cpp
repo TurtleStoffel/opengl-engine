@@ -4,23 +4,6 @@
 #include <sstream>
 #include <string>
 
-Shader::Shader(const char* vertexShader, const char* geometryShader, const char* fragmentShader) {
-    GLuint vShader = compileShader(vertexShader, GL_VERTEX_SHADER);
-    GLuint gShader = compileShader(geometryShader, GL_GEOMETRY_SHADER);
-    GLuint fShader = compileShader(fragmentShader, GL_FRAGMENT_SHADER);
-
-    m_id = glCreateProgram();
-    glAttachShader(m_id, vShader);
-    glAttachShader(m_id, gShader);
-    glAttachShader(m_id, fShader);
-    glLinkProgram(m_id);
-    checkCompileErrors(m_id, "Program");
-
-    glDeleteShader(vShader);
-    glDeleteShader(gShader);
-    glDeleteShader(fShader);
-}
-
 Shader::Shader(const char* vertexShader, const char* fragmentShader) {
     GLuint vShader = compileShader(vertexShader, GL_VERTEX_SHADER);
     GLuint fShader = compileShader(fragmentShader, GL_FRAGMENT_SHADER);

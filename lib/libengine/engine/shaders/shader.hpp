@@ -10,7 +10,6 @@
  */
 class Shader {
   public:
-    Shader(const char* vertexShader, const char* geometryShader, const char* fragmentShader);
     Shader(const char* vertexShader, const char* fragmentShader);
     virtual ~Shader() = default;
 
