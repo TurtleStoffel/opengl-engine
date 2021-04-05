@@ -8,7 +8,7 @@ class Object;
 namespace Engine::Components::Shaders {
     class GenericShaderComponent : public ShaderComponent {
       public:
-        GenericShaderComponent(Object& object, const Shader& shader);
+        GenericShaderComponent(Object& object, Shader& shader);
         ~GenericShaderComponent() override = default;
 
         // --- ShaderComponent ---
@@ -18,6 +18,6 @@ namespace Engine::Components::Shaders {
         auto render() -> void override;
 
       private:
-        const Shader& m_shader;
+        Shader& m_shader;
     };
 }

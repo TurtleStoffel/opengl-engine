@@ -5,7 +5,7 @@
 #include "imgui.h"
 
 namespace Engine::Components::Shaders {
-    GenericShaderComponent::GenericShaderComponent(Object& object, const Shader& shader)
+    GenericShaderComponent::GenericShaderComponent(Object& object, Shader& shader)
           : ShaderComponent{object}
           , m_shader{shader} {
     }
@@ -16,5 +16,8 @@ namespace Engine::Components::Shaders {
 
     auto GenericShaderComponent::render() -> void {
         ImGui::Text("Shader Component");
+        if (ImGui::Button("Recompile")) {
+            m_shader.recompile();
+        }
     }
 }

@@ -10,27 +10,30 @@
  */
 class Shader {
   public:
-    Shader(const char* vertexShader, const char* fragmentShader);
+    static constexpr GLuint BINDING_INDEX{1};
+
+    explicit Shader(const char* vertexShader, const char* fragmentShader);
     virtual ~Shader() = default;
 
-    /**
-     * Wrappers for OpenGL calls
-     */
-    // getters
-    GLuint getUniformBlockIndex(const char* name);
-    // other
-    void uniformBlockBinding(GLuint blockIndex, GLuint bindingIndex);
+    auto recompile() -> void;
 
-    /**
-     * Set current shader as active program in OpenGL
-     */
+    GLuint getUniformBlockIndex(const char* name);
+    auto setMatrixBlockIndex(GLuint matrixBlockIndex) -> void;
+
+    // Set current shader as active program in OpenGL
     void use() const;
 
   protected:
     GLuint m_id;
+    GLuint m_matrixBlockIndex;
 
   private:
-    GLuint compileShader(const char* path, GLenum type);
+    auto compileShader() -> void;
+
+    auto compilePartialShader(const char* path, GLenum type) -> GLuint;
     const char* getShaderType(GLenum type);
     void checkCompileErrors(GLuint shader, std::string type);
+
+    std::string m_vertexShaderFilename;
+    std::string m_fragmentShaderFilename;
 };

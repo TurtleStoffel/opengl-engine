@@ -4,9 +4,36 @@
 #include <sstream>
 #include <string>
 
-Shader::Shader(const char* vertexShader, const char* fragmentShader) {
-    GLuint vShader = compileShader(vertexShader, GL_VERTEX_SHADER);
-    GLuint fShader = compileShader(fragmentShader, GL_FRAGMENT_SHADER);
+Shader::Shader(const char* vertexShader, const char* fragmentShader)
+      : m_vertexShaderFilename{vertexShader}
+      , m_fragmentShaderFilename{fragmentShader} {
+    compileShader();
+}
+
+auto Shader::recompile() -> void {
+    glDeleteProgram(m_id);
+
+    compileShader();
+
+    setMatrixBlockIndex(m_matrixBlockIndex);
+}
+
+GLuint Shader::getUniformBlockIndex(const char* name) {
+    return glGetUniformBlockIndex(m_id, name);
+}
+
+auto Shader::setMatrixBlockIndex(GLuint matrixBlockIndex) -> void {
+    m_matrixBlockIndex = matrixBlockIndex;
+    glUniformBlockBinding(m_id, m_matrixBlockIndex, BINDING_INDEX);
+}
+
+void Shader::use() const {
+    glUseProgram(m_id);
+}
+
+auto Shader::compileShader() -> void {
+    GLuint vShader = compilePartialShader(m_vertexShaderFilename.c_str(), GL_VERTEX_SHADER);
+    GLuint fShader = compilePartialShader(m_fragmentShaderFilename.c_str(), GL_FRAGMENT_SHADER);
 
     m_id = glCreateProgram();
     glAttachShader(m_id, vShader);
@@ -18,19 +45,7 @@ Shader::Shader(const char* vertexShader, const char* fragmentShader) {
     glDeleteShader(fShader);
 }
 
-GLuint Shader::getUniformBlockIndex(const char* name) {
-    return glGetUniformBlockIndex(m_id, name);
-}
-
-void Shader::uniformBlockBinding(GLuint blockIndex, GLuint bindingIndex) {
-    glUniformBlockBinding(m_id, blockIndex, bindingIndex);
-}
-
-void Shader::use() const {
-    glUseProgram(m_id);
-}
-
-GLuint Shader::compileShader(const char* path, GLenum type) {
+auto Shader::compilePartialShader(const char* path, GLenum type) -> GLuint {
     SDL_Log("Compiling %s", path);
     std::string code;
     std::ifstream shaderFile;

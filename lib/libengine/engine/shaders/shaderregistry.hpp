@@ -24,11 +24,9 @@ class ShaderRegistry final {
     void setModelMatrix(void* model) const;
 
     template <typename TShaderType>
-    auto get() const -> const TShaderType&;
+    auto get() const -> TShaderType&;
 
   private:
-    static constexpr GLuint BINDING_INDEX = 1;
-
     template <typename TShaderType>
     auto registerShader(std::unique_ptr<TShaderType> shader) -> void;
 
@@ -39,7 +37,7 @@ class ShaderRegistry final {
 };
 
 template <typename TShaderType>
-auto ShaderRegistry::get() const -> const TShaderType& {
+auto ShaderRegistry::get() const -> TShaderType& {
     auto iterator = m_shaders.find(typeid(TShaderType).hash_code());
     if (iterator == m_shaders.end()) {
         throw std::invalid_argument("No shader with type" +
@@ -54,10 +52,13 @@ auto ShaderRegistry::registerShader(std::unique_ptr<TShaderType> shader) -> void
         // Bind Uniform Block to Uniform Buffer Object
         m_matrixBlockIndex = shader->getUniformBlockIndex("ModelViewProjection");
         // Bind buffer to index
-        glBindBufferRange(GL_UNIFORM_BUFFER, BINDING_INDEX, m_matrixUBO, 0, sizeof(glm::mat4) * 3);
+        glBindBufferRange(GL_UNIFORM_BUFFER,
+                          Shader::BINDING_INDEX,
+                          m_matrixUBO,
+                          0,
+                          sizeof(glm::mat4) * 3);
     }
-
-    shader->uniformBlockBinding(m_matrixBlockIndex, BINDING_INDEX);
+    shader->setMatrixBlockIndex(m_matrixBlockIndex);
 
     SDL_LogInfo(SDL_LOG_CATEGORY_SYSTEM,
                 "Registering Shader with ID %s",
