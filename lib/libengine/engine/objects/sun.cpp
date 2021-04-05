@@ -32,6 +32,6 @@ Sun::Sun(GuiFactory& guiFactory)
 }
 
 void Sun::_generateModel() {
-    m_model = ModelFactory::make<Sphere>(*this, color::starColor(_temperature));
+    m_model = ModelFactory::make<Engine::Sphere>(*this, color::starColor(_temperature));
     m_model->addPreRenderEffect(std::make_unique<Glow>(*m_model.get()));
 }
