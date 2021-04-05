@@ -14,9 +14,15 @@
 #include <unordered_map>
 #include <utility>
 
+namespace Engine::Components::Gui {
+    class ComponentGui;
+}
+
 class ShaderRegistry;
 
 class Object : public TreeNode<Object> {
+    friend class Engine::Components::Gui::ComponentGui;
+
   public:
     explicit Object(const Object* parent, std::string name);
     explicit Object();

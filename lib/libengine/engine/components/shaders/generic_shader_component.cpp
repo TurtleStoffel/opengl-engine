@@ -2,6 +2,8 @@
 
 #include "engine/shaders/shader.hpp"
 
+#include "imgui.h"
+
 namespace Engine::Components::Shaders {
     GenericShaderComponent::GenericShaderComponent(Object& object, const Shader& shader)
           : ShaderComponent{object}
@@ -10,5 +12,9 @@ namespace Engine::Components::Shaders {
 
     auto GenericShaderComponent::use() -> void {
         m_shader.use();
+    }
+
+    auto GenericShaderComponent::render() -> void {
+        ImGui::Text("Shader Component");
     }
 }

@@ -9,6 +9,9 @@ namespace Engine::Components {
               : m_object{object} {};
         virtual ~Component() = default;
 
+        // ImGui visualization
+        virtual auto render() -> void = 0;
+
       protected:
         Object& m_object;
     };

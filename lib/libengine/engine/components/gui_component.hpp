@@ -9,6 +9,6 @@ namespace Engine::Components {
               : Component{object} {};
         ~GuiComponent() override = default;
 
-        virtual auto render() -> void = 0;
+        auto render() -> void override = 0;
     };
 }

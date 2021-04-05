@@ -11,7 +11,11 @@ namespace Engine::Components::Shaders {
         GenericShaderComponent(Object& object, const Shader& shader);
         ~GenericShaderComponent() override = default;
 
+        // --- ShaderComponent ---
         auto use() -> void override;
+
+        // --- Component ---
+        auto render() -> void override;
 
       private:
         const Shader& m_shader;
