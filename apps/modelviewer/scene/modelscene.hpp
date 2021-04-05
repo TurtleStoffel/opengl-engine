@@ -28,8 +28,6 @@ namespace ModelViewer {
 
         Engine::Object* m_selectedObjectPointer{nullptr};
 
-        const std::vector<const char*> m_models = {"Planet##model",
-                                                   "Sun##model",
-                                                   "Background##model"};
+        const std::vector<const char*> m_models = {"Planet##model", "Sun##model"};
     };
 }

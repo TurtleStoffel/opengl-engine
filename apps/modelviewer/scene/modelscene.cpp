@@ -13,6 +13,7 @@ namespace ModelViewer {
     ModelScene::ModelScene(const ShaderRegistry& shaderRegistry)
           : Scene{shaderRegistry} {
         m_guiFactory = GuiFactory{GuiFactory::GuiType::CONFIGURATION};
+        m_objects.push_back(Background::createDefault(m_shaderRegistry));
     }
 
     auto ModelScene::renderGui() -> void {
@@ -69,6 +70,7 @@ namespace ModelViewer {
 
     auto ModelScene::createModel(const char* model) -> void {
         m_objects.clear();
+        m_objects.push_back(Background::createDefault(m_shaderRegistry));
 
         if (strcmp(model, "Planet##model") == 0) {
             auto planet = Planet::createDefault(0.0f, 1.0f, m_shaderRegistry);
@@ -77,8 +79,6 @@ namespace ModelViewer {
             m_objects.push_back(std::move(planet));
         } else if (strcmp(model, "Sun##model") == 0) {
             m_objects.push_back(Sun::createDefault(m_guiFactory, m_shaderRegistry));
-        } else if (strcmp(model, "Background##model") == 0) {
-            m_objects.push_back(Background::createDefault(m_shaderRegistry));
         }
     }
 
