@@ -1,5 +1,6 @@
 #include "object.hpp"
 
+#include "engine/components/gui_component.hpp"
 #include "engine/components/script.hpp"
 #include "engine/objects/collider.hpp"
 
@@ -37,6 +38,10 @@ void Object::render(const ShaderRegistry& shaderContainer) const {
 
     if (m_guiBinding) {
         m_guiBinding->render();
+    }
+    auto guiComponent = get<Engine::Components::GuiComponent>();
+    if (guiComponent) {
+        guiComponent->render();
     }
 }
 

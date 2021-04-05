@@ -1,5 +1,7 @@
 #include "modelscene.hpp"
 
+#include "engine/components/gui/component_gui.hpp"
+#include "engine/components/gui_component.hpp"
 #include "engine/objects/background.hpp"
 #include "engine/objects/planet.hpp"
 #include "engine/objects/sun.hpp"
@@ -66,7 +68,10 @@ auto ModelScene::createModel(const char* model) -> void {
     m_objects.clear();
 
     if (strcmp(model, "Planet##model") == 0) {
-        m_objects.push_back(Planet::createDefault(0.0f, 1.0f, m_shaderRegistry));
+        auto planet = Planet::createDefault(0.0f, 1.0f, m_shaderRegistry);
+        planet->registerComponent<Engine::Components::GuiComponent>(
+            std::make_unique<Engine::Components::Gui::ComponentGui>(*planet));
+        m_objects.push_back(std::move(planet));
     } else if (strcmp(model, "Sun##model") == 0) {
         m_objects.push_back(Sun::createDefault(m_guiFactory, m_shaderRegistry));
     } else if (strcmp(model, "Background##model") == 0) {
