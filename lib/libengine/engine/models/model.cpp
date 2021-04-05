@@ -28,10 +28,6 @@ void Model::render(const ShaderRegistry& shaderContainer) const {
 
     m_object.get<Engine::Components::ShaderComponent>()->use();
 
-    if (m_preRenderLogic) {
-        m_preRenderLogic(shaderContainer);
-    }
-
     glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
 
     for (const auto& effect : m_postRenderEffects) {
@@ -43,10 +39,6 @@ void Model::render(const ShaderRegistry& shaderContainer) const {
 
 void Model::glDraw() const {
     glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
-}
-
-auto Model::setPreRenderLogic(std::function<void(const ShaderRegistry&)> preRenderLogic) -> void {
-    m_preRenderLogic = preRenderLogic;
 }
 
 void Model::addPreRenderEffect(std::unique_ptr<Effect> effect) {

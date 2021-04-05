@@ -32,7 +32,6 @@ class Model {
     void render(const ShaderRegistry& shaderContainer) const;
     void glDraw() const;
 
-    auto setPreRenderLogic(std::function<void(const ShaderRegistry&)> preRenderLogic) -> void;
     void addPreRenderEffect(std::unique_ptr<Effect> effect);
     void addPostRenderEffect(std::unique_ptr<Effect> effect);
     auto setupBuffers() -> void;
@@ -51,7 +50,6 @@ class Model {
     void _generateOpenGLBuffers();
     void _renderSilhouette(const ShaderRegistry& shaderContainer) const;
 
-    std::function<void(const ShaderRegistry&)> m_preRenderLogic;
     std::vector<std::unique_ptr<Effect>> preRenderEffects;
     std::vector<std::unique_ptr<Effect>> m_postRenderEffects;
 
