@@ -9,17 +9,17 @@ namespace Engine {
     class Object;
 }
 
-struct Face {
-    unsigned int v1;
-    unsigned int v2;
-    unsigned int v3;
-};
-
 class Sphere : public Model {
   public:
     Sphere(const Engine::Object& object, glm::vec3 color = color::brown(), int depth = 4);
 
   private:
+    struct Face {
+        unsigned int v1;
+        unsigned int v2;
+        unsigned int v3;
+    };
+
     unsigned int _getMidpoint(unsigned int p1, unsigned int p2);
     unsigned int _createVertex(glm::vec3 point);
 
