@@ -2,7 +2,10 @@
 
 #include <glm/glm.hpp>
 
-class ModelScene;
+namespace ModelViewer {
+    class ModelScene;
+}
+
 class ShaderRegistry;
 
 /**
@@ -10,7 +13,7 @@ class ShaderRegistry;
  * information to calculate the model matrix
  */
 class Transform {
-    friend class ModelScene;
+    friend class ModelViewer::ModelScene;
 
   public:
     Transform() = default;
