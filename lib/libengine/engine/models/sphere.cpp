@@ -9,8 +9,8 @@
 #include <math.h>
 
 namespace Engine {
-    Sphere::Sphere(const Object& object,
-                   std::function<const glm::vec3&(const glm::vec3&)> colorGenerator, int depth)
+    Sphere::Sphere(const Object& object, std::function<const glm::vec3&(float)> colorGenerator,
+                   int depth)
           : Model{object}
           , m_colorGenerator{colorGenerator} {
         addPostRenderEffect(std::make_unique<DebugVectors>(object));
@@ -121,13 +121,15 @@ namespace Engine {
 
     unsigned int Sphere::_createVertex(glm::vec3 point) {
         float noise = SimplexNoise::noise(point.x * 2.0f, point.y * 2.0f, point.z * 2.0f);
+        // Noise in range [0, 1]
+        auto height = (noise + 1.0f) / 2.0f;
 
         point += 0.05f * noise;
 
         // Create Vertex at _vertexIndex
         m_vertices.push_back(Vertex{point, // Position
                                     point, // Normal is equal to Position on a Sphere
-                                    m_colorGenerator(point)});
+                                    m_colorGenerator(height)});
 
         // Add 1 to _vertexIndex but return pre-incremented value (Value of vertex created in this
         // method)

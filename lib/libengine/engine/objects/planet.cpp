@@ -30,12 +30,15 @@ Planet::Planet(float distance, float radius)
       , m_rotationalSpeed{util::randf(0.00003f, 0.0001f)}
       , m_rotationAngle{util::randRadian()}
       , m_distance{distance} {
-    auto colorGenerator = []([[maybe_unused]] const glm::vec3& position) { return color::brown; };
-    m_model             = ModelFactory::make<Engine::Sphere>(*this, colorGenerator);
+    m_model = ModelFactory::make<Engine::Sphere>(*this, &colorGenerator);
     m_model->addPreRenderEffect(std::make_unique<Outline>(*m_model.get()));
 
     m_guiBinding = std::make_unique<PlanetGui>(*this);
 
     m_transform->scale(glm::vec3(radius, radius, radius));
     update(0);
+}
+
+auto Planet::colorGenerator(float height) -> const glm::vec3& {
+    return color::brown;
 }

@@ -32,7 +32,7 @@ Sun::Sun(GuiFactory& guiFactory)
 }
 
 void Sun::_generateModel() {
-    auto colorGenerator = [this]([[maybe_unused]] const glm::vec3& position) {
+    auto colorGenerator = [this]([[maybe_unused]] float height) {
         return color::starColor(m_temperature);
     };
     m_model = ModelFactory::make<Engine::Sphere>(*this, colorGenerator);
