@@ -72,13 +72,19 @@ namespace ModelViewer {
         m_objects.clear();
         m_objects.push_back(Background::createDefault(m_shaderRegistry));
 
+        auto object = std::unique_ptr<Engine::Object>{nullptr};
+
         if (strcmp(model, "Planet##model") == 0) {
-            auto planet = Planet::createDefault(0.0f, 1.0f, m_shaderRegistry);
-            planet->registerComponent<Engine::Components::GuiComponent>(
-                std::make_unique<Engine::Components::Gui::ComponentGui>(*planet));
-            m_objects.push_back(std::move(planet));
+            object = Planet::createDefault(0.0f, 3.0f, m_shaderRegistry);
+            object->registerComponent<Engine::Components::GuiComponent>(
+                std::make_unique<Engine::Components::Gui::ComponentGui>(*object));
         } else if (strcmp(model, "Sun##model") == 0) {
-            m_objects.push_back(Sun::createDefault(m_guiFactory, m_shaderRegistry));
+            object = Sun::createDefault(m_guiFactory, m_shaderRegistry);
+        }
+
+        if (object) {
+            m_selectedObjectPointer = object.get();
+            m_objects.push_back(std::move(object));
         }
     }
 
