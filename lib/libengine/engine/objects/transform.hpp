@@ -21,7 +21,6 @@ class Transform {
 
     auto scale(glm::vec3 v) -> void;
     auto setRelativePosition(const glm::vec3& position) -> void;
-    auto rotateLocal(float radians) -> void;
 
     auto getRelativePosition() const -> const glm::vec3&;
     auto getAbsolutePosition() const -> glm::vec3;
@@ -34,9 +33,7 @@ class Transform {
 
     Transform* m_parent{nullptr};
 
-    glm::vec3 m_position = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 m_scale    = glm::vec3(1.0f, 1.0f, 1.0f);
-
-    // Rotation around z-axis
-    float m_rotation = 0.0f;
+    glm::vec3 m_position    = glm::vec3{0.0f, 0.0f, 0.0f};
+    glm::vec3 m_scale       = glm::vec3{1.0f, 1.0f, 1.0f};
+    glm::vec3 m_rotationYXZ = glm::vec3{0.0f, 0.0f, 0.0f};
 };

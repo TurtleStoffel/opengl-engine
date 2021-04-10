@@ -57,9 +57,9 @@ namespace ModelViewer {
             auto& relativePosition = m_selectedObjectPointer->getTransform().m_position;
             ImGui::Text("Relative Position");
             ImGui::DragFloat3("##positionDrags", &relativePosition[0], 0.05f);
-            auto& rotation = m_selectedObjectPointer->getTransform().m_rotation;
+            auto& rotation = m_selectedObjectPointer->getTransform().m_rotationYXZ;
             ImGui::Text("Rotation");
-            ImGui::DragFloat("##rotationDrag", &rotation, 0.05f);
+            ImGui::DragFloat3("##rotationDrags", &rotation[0], 0.05f);
             auto& scale = m_selectedObjectPointer->getTransform().m_scale;
             ImGui::Text("Scale");
             ImGui::DragFloat3("##scaleDrags", &scale[0], 0.05f);

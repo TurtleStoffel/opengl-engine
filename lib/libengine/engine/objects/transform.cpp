@@ -3,6 +3,7 @@
 #include "engine/shaders/shaderregistry.hpp"
 
 #define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/euler_angles.hpp>
 #include <glm/gtx/transform.hpp>
 
 Transform::Transform(Transform* parent)
@@ -15,10 +16,6 @@ auto Transform::scale(glm::vec3 v) -> void {
 
 auto Transform::setRelativePosition(const glm::vec3& position) -> void {
     m_position = position;
-}
-
-auto Transform::rotateLocal(float radians) -> void {
-    m_rotation += radians;
 }
 
 auto Transform::getRelativePosition() const -> const glm::vec3& {
@@ -42,11 +39,13 @@ auto Transform::passModelMatrixToShader(const ShaderRegistry& shaderContainer) c
 }
 
 auto Transform::calculateModelMatrix() const -> glm::mat4 {
-    glm::mat4 scaleMatrix         = glm::scale(m_scale);
-    glm::mat4 localRotationMatrix = glm::rotate(m_rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-    glm::mat4 translateMatrix     = glm::translate(m_position);
+    glm::mat4 scaleMatrix     = glm::scale(m_scale);
+    glm::mat4 rotationMatrix  = glm::eulerAngleYXZ(m_rotationYXZ.x,
+                                                  m_rotationYXZ.y,
+                                                  m_rotationYXZ.z);
+    glm::mat4 translateMatrix = glm::translate(m_position);
 
-    glm::mat4 modelMatrix = translateMatrix * localRotationMatrix * scaleMatrix;
+    glm::mat4 modelMatrix = translateMatrix * rotationMatrix * scaleMatrix;
 
     if (m_parent) {
         modelMatrix = m_parent->calculateModelMatrix() * modelMatrix;
