@@ -23,5 +23,5 @@ class Sun : public Engine::Object {
     void _generateModel();
 
     // Temperature in Kelvin
-    int _temperature = 6000;
+    int m_temperature = 6000;
 };

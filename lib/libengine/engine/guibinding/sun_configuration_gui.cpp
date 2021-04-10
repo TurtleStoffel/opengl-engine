@@ -2,12 +2,13 @@
 
 #include "engine/objects/sun.hpp"
 
-SunConfigurationGui::SunConfigurationGui(Sun& sun) : m_sun{sun} {
+SunConfigurationGui::SunConfigurationGui(Sun& sun)
+      : m_sun{sun} {
 }
 
 auto SunConfigurationGui::render() const -> void {
     ImGui::Begin("Sun Configuration");
-    if (ImGui::SliderInt("Temperature", &m_sun._temperature, 3190, 17000)) {
+    if (ImGui::SliderInt("Temperature", &m_sun.m_temperature, 3190, 17000)) {
         m_sun._generateModel();
     }
     ImGui::End();

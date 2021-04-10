@@ -3,6 +3,7 @@
 #include "engine/color.hpp"
 #include "engine/models/model.hpp"
 
+#include <functional>
 #include <map>
 
 namespace Engine {
@@ -12,7 +13,8 @@ namespace Engine {
 namespace Engine {
     class Sphere : public Model {
       public:
-        Sphere(const Object& object, glm::vec3 color = color::brown(), int depth = 4);
+        Sphere(const Object& object,
+               std::function<const glm::vec3&(const glm::vec3&)> colorGenerator, int depth = 4);
 
       private:
         struct Face {
@@ -24,8 +26,6 @@ namespace Engine {
         unsigned int _getMidpoint(unsigned int p1, unsigned int p2);
         unsigned int _createVertex(glm::vec3 point);
 
-        glm::vec3 color;
-
         // Index + 1 of the last created Vertex
         int _vertexIndex = 0;
 
@@ -36,5 +36,7 @@ namespace Engine {
          *      (otherwise smallIndex 0 would lead to existing indices)
          */
         std::map<unsigned long, unsigned int> _midPointCache;
+
+        std::function<const glm::vec3&(const glm::vec3&)> m_colorGenerator;
     };
 }

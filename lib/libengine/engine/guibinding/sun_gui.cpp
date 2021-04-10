@@ -2,7 +2,8 @@
 
 #include "engine/objects/sun.hpp"
 
-SunGui::SunGui(const Sun& sun) : m_sun{sun} {
+SunGui::SunGui(const Sun& sun)
+      : m_sun{sun} {
 }
 
 auto SunGui::render() const -> void {
@@ -13,7 +14,7 @@ auto SunGui::render() const -> void {
 
         ImGui::Text("Temperature");
         ImGui::NextColumn();
-        ImGui::Text("%d", m_sun._temperature);
+        ImGui::Text("%d", m_sun.m_temperature);
         ImGui::NextColumn();
 
         ImGui::Columns(1);

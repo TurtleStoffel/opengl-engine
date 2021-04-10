@@ -9,10 +9,10 @@
 #include <math.h>
 
 namespace Engine {
-    Sphere::Sphere(const Object& object, glm::vec3 color, int depth)
-          : Model{object} {
-        this->color = color;
-
+    Sphere::Sphere(const Object& object,
+                   std::function<const glm::vec3&(const glm::vec3&)> colorGenerator, int depth)
+          : Model{object}
+          , m_colorGenerator{colorGenerator} {
         addPostRenderEffect(std::make_unique<DebugVectors>(object));
 
         float d = (1.0f + sqrt(5.0f)) / 2.0f;
@@ -127,7 +127,7 @@ namespace Engine {
         // Create Vertex at _vertexIndex
         m_vertices.push_back(Vertex{point, // Position
                                     point, // Normal is equal to Position on a Sphere
-                                    color});
+                                    m_colorGenerator(point)});
 
         // Add 1 to _vertexIndex but return pre-incremented value (Value of vertex created in this
         // method)
