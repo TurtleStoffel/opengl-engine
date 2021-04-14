@@ -17,20 +17,20 @@ namespace Engine {
 
         float d = (1.0f + sqrt(5.0f)) / 2.0f;
         // clang-format off
-        _createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f)));
-        _createVertex(glm::normalize(glm::vec3( 1.0f,  d, 0.0f)));
-        _createVertex(glm::normalize(glm::vec3(-1.0f, -d, 0.0f)));
-        _createVertex(glm::normalize(glm::vec3( 1.0f, -d, 0.0f)));
+        createVertex(glm::normalize(glm::vec3(-1.0f,  d, 0.0f)));
+        createVertex(glm::normalize(glm::vec3( 1.0f,  d, 0.0f)));
+        createVertex(glm::normalize(glm::vec3(-1.0f, -d, 0.0f)));
+        createVertex(glm::normalize(glm::vec3( 1.0f, -d, 0.0f)));
 
-        _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f,  d)));
-        _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f,  d)));
-        _createVertex(glm::normalize(glm::vec3(0.0f, -1.0f, -d)));
-        _createVertex(glm::normalize(glm::vec3(0.0f,  1.0f, -d)));
+        createVertex(glm::normalize(glm::vec3(0.0f, -1.0f,  d)));
+        createVertex(glm::normalize(glm::vec3(0.0f,  1.0f,  d)));
+        createVertex(glm::normalize(glm::vec3(0.0f, -1.0f, -d)));
+        createVertex(glm::normalize(glm::vec3(0.0f,  1.0f, -d)));
 
-        _createVertex(glm::normalize(glm::vec3( d, 0.0f, -1.0f)));
-        _createVertex(glm::normalize(glm::vec3( d, 0.0f,  1.0f)));
-        _createVertex(glm::normalize(glm::vec3(-d, 0.0f, -1.0f)));
-        _createVertex(glm::normalize(glm::vec3(-d, 0.0f,  1.0f)));
+        createVertex(glm::normalize(glm::vec3( d, 0.0f, -1.0f)));
+        createVertex(glm::normalize(glm::vec3( d, 0.0f,  1.0f)));
+        createVertex(glm::normalize(glm::vec3(-d, 0.0f, -1.0f)));
+        createVertex(glm::normalize(glm::vec3(-d, 0.0f,  1.0f)));
 
         std::vector<Face> faces;
         faces.push_back(Face{ 0, 11,  5});
@@ -61,9 +61,9 @@ namespace Engine {
         for (int i = 0; i < depth; i++) {
             std::vector<Face> newFaces;
             for (Face face : faces) {
-                unsigned int a = _getMidpoint(face.v1, face.v2);
-                unsigned int b = _getMidpoint(face.v2, face.v3);
-                unsigned int c = _getMidpoint(face.v3, face.v1);
+                unsigned int a = getMidpoint(face.v1, face.v2);
+                unsigned int b = getMidpoint(face.v2, face.v3);
+                unsigned int c = getMidpoint(face.v3, face.v1);
 
                 // clang-format off
                 newFaces.push_back(Face{face.v1, a, c});
@@ -96,7 +96,7 @@ namespace Engine {
         }
     }
 
-    unsigned int Sphere::_getMidpoint(unsigned int p1, unsigned int p2) {
+    auto Sphere::getMidpoint(unsigned int p1, unsigned int p2) -> unsigned int {
         // Determine smallest and biggest index
         unsigned long smallIndex, bigIndex;
         if (p1 < p2) {
@@ -109,9 +109,9 @@ namespace Engine {
 
         // Calculate key in Midpoint Cache and check if point is already calculated
         unsigned long key = (smallIndex << 32) + bigIndex;
-        if (_midPointCache.count(key) == 1) {
+        if (m_midPointCache.count(key) == 1) {
             // Vertex has already been calculated before, reuse
-            return _midPointCache.at(key);
+            return m_midPointCache.at(key);
         } else {
             // Create new Vertex
             Vertex v1 = m_vertices.at(p1);
@@ -123,16 +123,16 @@ namespace Engine {
                                                           (v1.position.z + v2.position.z) / 2.0f));
 
             // Create Midpoint Vertex
-            unsigned int vertexIndex = _createVertex(midpoint);
+            unsigned int vertexIndex = createVertex(midpoint);
 
             // Add Vertex to cache
-            _midPointCache[key] = vertexIndex;
+            m_midPointCache[key] = vertexIndex;
 
             return vertexIndex;
         }
     }
 
-    unsigned int Sphere::_createVertex(glm::vec3 point) {
+    auto Sphere::createVertex(glm::vec3 point) -> unsigned int {
         float noise = SimplexNoise::noise(point.x * 2.0f, point.y * 2.0f, point.z * 2.0f);
         // Noise in range [0, 1]
         auto normalizedHeight = (noise + 1.0f) / 2.0f;
@@ -147,6 +147,6 @@ namespace Engine {
 
         // Add 1 to _vertexIndex but return pre-incremented value (Value of vertex created in this
         // method)
-        return _vertexIndex++;
+        return m_vertexIndex++;
     }
 }

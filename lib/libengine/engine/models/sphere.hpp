@@ -13,7 +13,8 @@ namespace Engine {
 namespace Engine {
     class Sphere : public Model {
       public:
-        Sphere(const Object& object, std::function<glm::vec3(float)> colorGenerator, int depth = 4);
+        explicit Sphere(const Object& object, std::function<glm::vec3(float)> colorGenerator,
+                        int depth = 4);
 
       private:
         struct Face {
@@ -22,11 +23,11 @@ namespace Engine {
             unsigned int v3;
         };
 
-        unsigned int _getMidpoint(unsigned int p1, unsigned int p2);
-        unsigned int _createVertex(glm::vec3 point);
+        auto getMidpoint(unsigned int p1, unsigned int p2) -> unsigned int;
+        auto createVertex(glm::vec3 point) -> unsigned int;
 
         // Index + 1 of the last created Vertex
-        int _vertexIndex = 0;
+        int m_vertexIndex = 0;
 
         /**
          * unsigned int can define 4.294.967.295 unique points
@@ -34,7 +35,7 @@ namespace Engine {
          * Original Vertices are not added to _midPointCache, so keys are unique
          *      (otherwise smallIndex 0 would lead to existing indices)
          */
-        std::map<unsigned long, unsigned int> _midPointCache;
+        std::map<unsigned long, unsigned int> m_midPointCache;
 
         std::function<glm::vec3(float)> m_colorGenerator;
     };
