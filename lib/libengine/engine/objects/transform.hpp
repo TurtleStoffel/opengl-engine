@@ -21,10 +21,12 @@ class Transform {
 
     auto scale(glm::vec3 v) -> void;
     auto setRelativePosition(const glm::vec3& position) -> void;
+    auto setRotation(const glm::vec3& rotation) -> void;
 
     auto getRelativePosition() const -> const glm::vec3&;
     auto getAbsolutePosition() const -> glm::vec3;
     auto getScale() const -> const glm::vec3&;
+    auto getRotation() const -> const glm::vec3&;
 
     auto passModelMatrixToShader(const ShaderRegistry& shaderContainer) const -> void;
 

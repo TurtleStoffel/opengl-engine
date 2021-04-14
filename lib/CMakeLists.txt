@@ -1,5 +1,6 @@
 set(ENGINE_SOURCES 
     "libengine/engine/components/gui/component_gui.cpp"
+    "libengine/engine/components/scripts/demo_rotation.cpp"
     "libengine/engine/components/scripts/planet_rotation.cpp"
     "libengine/engine/components/shaders/generic_shader_component.cpp"
     "libengine/engine/guibinding/gui_factory.cpp"

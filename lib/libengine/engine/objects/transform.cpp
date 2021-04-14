@@ -18,6 +18,10 @@ auto Transform::setRelativePosition(const glm::vec3& position) -> void {
     m_position = position;
 }
 
+auto Transform::setRotation(const glm::vec3& rotation) -> void {
+    m_rotationYXZ = rotation;
+}
+
 auto Transform::getRelativePosition() const -> const glm::vec3& {
     return m_position;
 }
@@ -29,6 +33,10 @@ auto Transform::getAbsolutePosition() const -> glm::vec3 {
 
 auto Transform::getScale() const -> const glm::vec3& {
     return m_scale;
+}
+
+auto Transform::getRotation() const -> const glm::vec3& {
+    return m_rotationYXZ;
 }
 
 auto Transform::passModelMatrixToShader(const ShaderRegistry& shaderContainer) const -> void {

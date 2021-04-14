@@ -2,6 +2,8 @@
 
 #include "engine/components/gui/component_gui.hpp"
 #include "engine/components/gui_component.hpp"
+#include "engine/components/script.hpp"
+#include "engine/components/scripts/demo_rotation.hpp"
 #include "engine/objects/background.hpp"
 #include "engine/objects/object.hpp"
 #include "engine/objects/planet.hpp"
@@ -78,6 +80,8 @@ namespace ModelViewer {
             object = Planet::createDefault(0.0f, 3.0f, m_shaderRegistry);
             object->registerComponent<Engine::Components::GuiComponent>(
                 std::make_unique<Engine::Components::Gui::ComponentGui>(*object));
+            object->registerComponent<Engine::Components::Script>(
+                std::make_unique<Engine::Components::Scripts::DemoRotation>(*object));
         } else if (strcmp(model, "Sun##model") == 0) {
             object = Sun::createDefault(m_guiFactory, m_shaderRegistry);
         }
