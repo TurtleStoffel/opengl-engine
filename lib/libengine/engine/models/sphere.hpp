@@ -13,8 +13,7 @@ namespace Engine {
 namespace Engine {
     class Sphere : public Model {
       public:
-        Sphere(const Object& object, std::function<const glm::vec3&(float)> colorGenerator,
-               int depth = 4);
+        Sphere(const Object& object, std::function<glm::vec3(float)> colorGenerator, int depth = 4);
 
       private:
         struct Face {
@@ -37,6 +36,6 @@ namespace Engine {
          */
         std::map<unsigned long, unsigned int> _midPointCache;
 
-        std::function<const glm::vec3&(float)> m_colorGenerator;
+        std::function<glm::vec3(float)> m_colorGenerator;
     };
 }

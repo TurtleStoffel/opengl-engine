@@ -22,7 +22,7 @@ class Planet : public Engine::Object {
     ~Planet() override = default;
 
   private:
-    static auto colorGenerator(float height) -> const glm::vec3&;
+    static auto colorGenerator(float height) -> glm::vec3;
 
     float m_rotationalSpeed;
     float m_rotationAngle;

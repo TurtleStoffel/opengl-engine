@@ -50,6 +50,8 @@ auto SDL::createWindow(const std::string name) -> SDL_Window* {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
+
     // Only render triangles that are facing towards the camera
     glEnable(GL_CULL_FACE);
 

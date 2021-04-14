@@ -6,6 +6,11 @@
 #include "util.hpp"
 
 namespace color {
+    auto interpolate(const glm::vec3& source, const glm::vec3& target, float fraction)
+        -> glm::vec3 {
+        return (target - source) * fraction + source;
+    }
+
     glm::vec3 starColor(unsigned int temperature) {
         // Based on
         // https://stackoverflow.com/questions/21977786/star-b-v-color-index-to-apparent-rgb-color

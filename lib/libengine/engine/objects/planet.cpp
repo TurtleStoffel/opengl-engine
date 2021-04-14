@@ -39,6 +39,20 @@ Planet::Planet(float distance, float radius)
     update(0);
 }
 
-auto Planet::colorGenerator(float height) -> const glm::vec3& {
-    return color::brown;
+auto Planet::colorGenerator(float height) -> glm::vec3 {
+    constexpr auto CUTOFF_1 = 0.95f;
+    constexpr auto CUTOFF_2 = 0.60f;
+    constexpr auto CUTOFF_3 = 0.50f;
+
+    if (height > CUTOFF_1) {
+        return color::grey;
+    } else if (height > CUTOFF_2) {
+        auto fraction = (height - CUTOFF_2) / (CUTOFF_1 - CUTOFF_2);
+        return color::interpolate(color::brown, color::darkGrey, fraction);
+    } else if (height > CUTOFF_3) {
+        auto fraction = (height - CUTOFF_3) / (CUTOFF_2 - CUTOFF_3);
+        return color::interpolate(color::darkGreen, color::brown, fraction);
+    } else {
+        return color::darkGreen;
+    }
 }
