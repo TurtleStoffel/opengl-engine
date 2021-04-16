@@ -15,6 +15,7 @@ namespace Engine {
       public:
         explicit Sphere(const Object& object, std::function<glm::vec3(float)> colorGenerator,
                         int depth = 4);
+        ~Sphere() override = default;
 
       private:
         struct Face {
