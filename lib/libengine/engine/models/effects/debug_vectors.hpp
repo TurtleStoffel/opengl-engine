@@ -6,12 +6,12 @@
 #include <list>
 
 namespace Engine {
-    class Object;
+    class Entity;
 }
 
 class DebugVectors : public Effect {
   public:
-    DebugVectors(const Engine::Object& object);
+    DebugVectors(const Engine::Entity& object);
     ~DebugVectors() override = default;
 
     auto render(const ShaderRegistry& shaderContainer) const -> void override;

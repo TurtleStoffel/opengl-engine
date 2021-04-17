@@ -7,13 +7,13 @@
 #include <map>
 
 namespace Engine {
-    class Object;
+    class Entity;
 }
 
 namespace Engine {
     class Sphere : public Model {
       public:
-        explicit Sphere(const Object& object, std::function<glm::vec3(float)> colorGenerator,
+        explicit Sphere(const Entity& object, std::function<glm::vec3(float)> colorGenerator,
                         int depth = 4);
         ~Sphere() override = default;
 

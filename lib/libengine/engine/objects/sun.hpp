@@ -7,7 +7,7 @@
 class GuiFactory;
 class ShaderRegistry;
 
-class Sun : public Engine::Object {
+class Sun : public Engine::Entity {
     friend class SunGui;
     friend class SunConfigurationGui;
 

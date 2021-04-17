@@ -5,7 +5,7 @@
 namespace Engine::Components {
     class Script : public Component {
       public:
-        Script(Object& object)
+        Script(Entity& object)
               : Component{object} {};
         ~Script() override = default;
 

@@ -8,7 +8,7 @@ class Object;
 namespace Engine::Components::Shaders {
     class GenericShaderComponent : public ShaderComponent {
       public:
-        GenericShaderComponent(Object& object, Shader& shader);
+        GenericShaderComponent(Entity& object, Shader& shader);
         ~GenericShaderComponent() override = default;
 
         // --- ShaderComponent ---

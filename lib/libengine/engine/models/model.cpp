@@ -8,7 +8,7 @@
 #include "engine/opengl.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
-Model::Model(const Engine::Object& object)
+Model::Model(const Engine::Entity& object)
       : m_object{object} {
     _generateOpenGLBuffers();
 }

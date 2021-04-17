@@ -37,7 +37,7 @@ namespace ModelViewer {
 
         unsigned short i = 0;
         for (auto& object : m_objects) {
-            object->visit([this, &i](Engine::Object& element) {
+            object->visit([this, &i](Engine::Entity& element) {
                 ImGui::Indent(element.getDepth() * 8.0f);
                 if (ImGui::Selectable(element.getName().c_str(), i == m_selectedObject)) {
                     if (i != m_selectedObject) {
@@ -74,7 +74,7 @@ namespace ModelViewer {
         m_objects.clear();
         m_objects.push_back(Background::createDefault(m_shaderRegistry));
 
-        auto object = std::unique_ptr<Engine::Object>{nullptr};
+        auto object = std::unique_ptr<Engine::Entity>{nullptr};
 
         if (strcmp(model, "Planet##model") == 0) {
             object = Planet::createDefault(0.0f, 3.0f, m_shaderRegistry);

@@ -26,7 +26,7 @@ auto Planet::createDefault(float distance, float radius, const ShaderRegistry& s
 }
 
 Planet::Planet(float distance, float radius)
-      : Object{nullptr, "Planet"}
+      : Entity{nullptr, "Planet"}
       , m_rotationalSpeed{util::randf(0.00003f, 0.0001f)}
       , m_rotationAngle{util::randRadian()}
       , m_distance{distance} {

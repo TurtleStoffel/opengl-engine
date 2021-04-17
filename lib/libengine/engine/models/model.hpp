@@ -12,7 +12,7 @@ class ShaderRegistry;
 class Transform;
 
 namespace Engine {
-    class Object;
+    class Entity;
 }
 
 struct Vertex {
@@ -29,7 +29,7 @@ class Model {
     /**
      * @param parent Game Object that spawned this Model
      */
-    Model(const Engine::Object& parent);
+    Model(const Engine::Entity& parent);
     virtual ~Model() = default;
 
     void render(const ShaderRegistry& shaderContainer) const;
@@ -42,7 +42,7 @@ class Model {
     auto getSelected() const -> bool;
 
   protected:
-    const Engine::Object& m_object;
+    const Engine::Entity& m_object;
 
     GLenum m_renderingMode{GL_TRIANGLES};
 

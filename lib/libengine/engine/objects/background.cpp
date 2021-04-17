@@ -19,6 +19,6 @@ auto Background::createDefault(const ShaderRegistry& shaderRegistry)
 }
 
 Background::Background()
-      : Engine::Object{nullptr, "Background"} {
+      : Engine::Entity{nullptr, "Background"} {
     m_model = ModelFactory::make<BackgroundModel>(*this);
 }

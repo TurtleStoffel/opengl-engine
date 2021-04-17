@@ -5,7 +5,7 @@
 namespace Engine::Components {
     class ShaderComponent : public Component {
       public:
-        ShaderComponent(Object& object)
+        ShaderComponent(Entity& object)
               : Component{object} {};
         ~ShaderComponent() override = default;
 

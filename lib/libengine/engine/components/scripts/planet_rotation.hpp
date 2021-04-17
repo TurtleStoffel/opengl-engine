@@ -5,7 +5,7 @@
 namespace Engine::Components::Scripts {
     class PlanetRotation : public Script {
       public:
-        PlanetRotation(Object& object)
+        PlanetRotation(Entity& object)
               : Script{object} {};
         ~PlanetRotation() override = default;
 

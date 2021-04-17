@@ -5,7 +5,7 @@
 #include "imgui.h"
 
 namespace Engine::Components::Gui {
-    ComponentGui::ComponentGui(Object& object)
+    ComponentGui::ComponentGui(Entity& object)
           : GuiComponent{object} {};
 
     auto ComponentGui::render() -> void {

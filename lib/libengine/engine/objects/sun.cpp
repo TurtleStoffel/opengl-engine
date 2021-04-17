@@ -25,7 +25,7 @@ auto Sun::createDefault(GuiFactory& guiFactory, const ShaderRegistry& shaderRegi
 }
 
 Sun::Sun(GuiFactory& guiFactory)
-      : Object{nullptr, "Sun"} {
+      : Entity{nullptr, "Sun"} {
     _generateModel();
 
     m_guiBinding = guiFactory.createGui(*this);

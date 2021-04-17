@@ -5,7 +5,7 @@
 namespace Engine::Components::Scripts {
     class DemoRotation : public Script {
       public:
-        DemoRotation(Object& object)
+        DemoRotation(Entity& object)
               : Script{object} {};
         ~DemoRotation() override = default;
 

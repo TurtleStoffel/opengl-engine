@@ -10,7 +10,7 @@
 #include <math.h>
 
 namespace Engine {
-    Sphere::Sphere(const Object& object, std::function<glm::vec3(float)> colorGenerator, int depth)
+    Sphere::Sphere(const Entity& object, std::function<glm::vec3(float)> colorGenerator, int depth)
           : Model{object}
           , m_colorGenerator{colorGenerator} {
         addPostRenderEffect(std::make_unique<DebugVectors>(object));

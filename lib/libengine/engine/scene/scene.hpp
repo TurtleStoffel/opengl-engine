@@ -23,7 +23,7 @@ class Scene {
   protected:
     virtual auto renderGui() -> void;
 
-    std::vector<std::unique_ptr<Engine::Object>> m_objects;
+    std::vector<std::unique_ptr<Engine::Entity>> m_objects;
     std::unique_ptr<Camera> m_camera;
     GuiFactory m_guiFactory;
 

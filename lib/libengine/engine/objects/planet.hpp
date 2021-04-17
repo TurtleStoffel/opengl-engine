@@ -10,7 +10,7 @@ namespace Engine::Components::Scripts {
 
 class ShaderRegistry;
 
-class Planet : public Engine::Object {
+class Planet : public Engine::Entity {
     friend class PlanetGui;
     friend class Engine::Components::Scripts::PlanetRotation;
 

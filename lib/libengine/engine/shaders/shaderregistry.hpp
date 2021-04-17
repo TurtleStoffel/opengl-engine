@@ -19,7 +19,7 @@ class ShaderRegistry final {
      */
     void setViewProjectionMatrix(void* view, void* projection) const;
     /**
-     * Model matrix is set separately by the Transform of the Object
+     * Model matrix is set separately by the Transform of the Entity
      */
     void setModelMatrix(void* model) const;
 

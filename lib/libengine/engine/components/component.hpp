@@ -1,13 +1,13 @@
 #pragma once
 
 namespace Engine {
-    class Object;
+    class Entity;
 }
 
 namespace Engine::Components {
     class Component {
       public:
-        Component(Object& object)
+        Component(Entity& object)
               : m_object{object} {};
         virtual ~Component() = default;
 
@@ -15,6 +15,6 @@ namespace Engine::Components {
         virtual auto render() -> void = 0;
 
       protected:
-        Object& m_object;
+        Entity& m_object;
     };
 }

@@ -25,14 +25,14 @@ namespace Engine::Components::Scripts {
 class ShaderRegistry;
 
 namespace Engine {
-    class Object : public TreeNode<Object> {
+    class Entity : public TreeNode<Entity> {
         friend class Components::Gui::ComponentGui;
         friend class Components::Scripts::DemoRotation;
 
       public:
-        explicit Object(const Object* parent, std::string name);
-        explicit Object();
-        ~Object() override = default;
+        explicit Entity(const Entity* parent, std::string name);
+        explicit Entity();
+        ~Entity() override = default;
 
         auto update(int dt) -> void;
 
@@ -50,15 +50,15 @@ namespace Engine {
         auto get() const -> TComponentType*;
 
       protected:
-        auto visitImpl(std::function<void(const Object&)> callback) const -> void override;
-        auto visitImpl(std::function<void(Object&)> callback) -> void override;
+        auto visitImpl(std::function<void(const Entity&)> callback) const -> void override;
+        auto visitImpl(std::function<void(Entity&)> callback) -> void override;
 
         std::unordered_map<std::size_t, std::unique_ptr<Components::Component>> m_components;
 
         std::unique_ptr<Model> m_model;
 
         /**
-         * Object has the local transform (even though it is used by the Model) because an object
+         * Entity has the local transform (even though it is used by the Model) because an object
          * needs a notion of where it is even when it has no model (e.g. only load model when
          * objects will be visible)
          */
@@ -72,16 +72,16 @@ namespace Engine {
 
         std::unique_ptr<GuiBinding> m_guiBinding;
 
-        std::string m_name = "Invalid Object Name";
+        std::string m_name = "Invalid Entity Name";
     };
 
     template <typename TComponentType>
-    auto Object::registerComponent(std::unique_ptr<TComponentType> component) -> void {
+    auto Entity::registerComponent(std::unique_ptr<TComponentType> component) -> void {
         m_components.insert({typeid(TComponentType).hash_code(), std::move(component)});
     }
 
     template <typename TComponentType>
-    auto Object::get() const -> TComponentType* {
+    auto Entity::get() const -> TComponentType* {
         auto iterator = m_components.find(typeid(TComponentType).hash_code());
         if (iterator == m_components.end()) {
             return nullptr;

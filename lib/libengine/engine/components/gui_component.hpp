@@ -5,7 +5,7 @@
 namespace Engine::Components {
     class GuiComponent : public Component {
       public:
-        GuiComponent(Object& object)
+        GuiComponent(Entity& object)
               : Component{object} {};
         ~GuiComponent() override = default;
 

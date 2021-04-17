@@ -3,7 +3,7 @@
 #include "engine/color.hpp"
 #include "engine/objects/object.hpp"
 
-Vector::Vector(const Engine::Object& object, glm::vec3 direction)
+Vector::Vector(const Engine::Entity& object, glm::vec3 direction)
       : Model{object} {
     m_renderingMode = GL_LINES;
 

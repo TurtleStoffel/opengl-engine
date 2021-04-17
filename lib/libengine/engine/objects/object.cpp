@@ -5,7 +5,7 @@
 #include "engine/objects/collider.hpp"
 
 namespace Engine {
-    Object::Object(const Object* parent, std::string name)
+    Entity::Entity(const Entity* parent, std::string name)
           : TreeNode{parent}
           , m_name{name} {
         if (parent) {
@@ -17,18 +17,18 @@ namespace Engine {
         m_selectionCollider = std::make_unique<Collider>(m_transform.get());
     }
 
-    Object::Object()
-          : Object{nullptr, "Invalid Object Name"} {
+    Entity::Entity()
+          : Entity{nullptr, "Invalid Object Name"} {
     }
 
-    auto Object::update(int dt) -> void {
+    auto Entity::update(int dt) -> void {
         auto updateScriptComponent = get<Components::Script>();
         if (updateScriptComponent) {
             updateScriptComponent->execute(dt);
         }
     }
 
-    void Object::render(const ShaderRegistry& shaderContainer) const {
+    void Entity::render(const ShaderRegistry& shaderContainer) const {
         if (m_model) {
             m_transform->passModelMatrixToShader(shaderContainer);
             m_model->render(shaderContainer);
@@ -46,32 +46,32 @@ namespace Engine {
         }
     }
 
-    bool Object::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
+    bool Entity::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
         m_selected = m_selectionCollider->intersect(rayPosition, rayDirection);
         return m_selected;
     }
 
-    auto Object::getName() const -> const std::string& {
+    auto Entity::getName() const -> const std::string& {
         return m_name;
     }
 
-    auto Object::getTransform() const -> const Transform& {
+    auto Entity::getTransform() const -> const Transform& {
         return *m_transform.get();
     }
 
-    auto Object::getTransform() -> Transform& {
+    auto Entity::getTransform() -> Transform& {
         return *m_transform.get();
     }
 
-    auto Object::getSelected() const -> bool {
+    auto Entity::getSelected() const -> bool {
         return m_selected;
     }
 
-    auto Object::visitImpl(std::function<void(const Object&)> callback) const -> void {
+    auto Entity::visitImpl(std::function<void(const Entity&)> callback) const -> void {
         callback(*this);
     }
 
-    auto Object::visitImpl(std::function<void(Object&)> callback) -> void {
+    auto Entity::visitImpl(std::function<void(Entity&)> callback) -> void {
         callback(*this);
     }
 }

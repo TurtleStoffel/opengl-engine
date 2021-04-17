@@ -5,7 +5,7 @@
 namespace Engine::Components::Gui {
     class ComponentGui : public GuiComponent {
       public:
-        ComponentGui(Object& object);
+        ComponentGui(Entity& object);
         ~ComponentGui() override = default;
 
         auto render() -> void override;
