@@ -1,7 +1,7 @@
 #include "debug_vectors.hpp"
 
 #include "engine/models/model_factory.hpp"
-#include "engine/objects/object.hpp"
+#include "engine/objects/entity.hpp"
 
 DebugVectors::DebugVectors(const Engine::Entity& object) {
     m_vectors.push_back(ModelFactory::make<Vector>(object, glm::vec3(1.0f, 0.0f, 0.0f)));

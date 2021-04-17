@@ -3,7 +3,7 @@
 #include "engine/application.hpp"
 #include "engine/models/effects/debug_vectors.hpp"
 #include "engine/noise/simplex_noise.hpp"
-#include "engine/objects/object.hpp"
+#include "engine/objects/entity.hpp"
 #include "engine/util.hpp"
 
 #include <glm/gtx/norm.hpp>

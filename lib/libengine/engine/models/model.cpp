@@ -3,7 +3,7 @@
 #include "engine/components/shader_component.hpp"
 #include "engine/models/effects/effect.hpp"
 #include "engine/models/vector.hpp"
-#include "engine/objects/object.hpp"
+#include "engine/objects/entity.hpp"
 #include "engine/objects/transform.hpp"
 #include "engine/opengl.hpp"
 #include "engine/shaders/shaderregistry.hpp"

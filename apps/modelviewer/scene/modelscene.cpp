@@ -5,7 +5,7 @@
 #include "engine/components/script.hpp"
 #include "engine/components/scripts/demo_rotation.hpp"
 #include "engine/objects/background.hpp"
-#include "engine/objects/object.hpp"
+#include "engine/objects/entity.hpp"
 #include "engine/objects/planet.hpp"
 #include "engine/objects/sun.hpp"
 

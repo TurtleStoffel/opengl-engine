@@ -1,4 +1,4 @@
-#include "object.hpp"
+#include "engine/objects/entity.hpp"
 
 #include "engine/components/gui_component.hpp"
 #include "engine/components/script.hpp"

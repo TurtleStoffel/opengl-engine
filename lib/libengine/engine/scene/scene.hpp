@@ -2,7 +2,7 @@
 
 #include "engine/camera.hpp"
 #include "engine/guibinding/gui_factory.hpp"
-#include "engine/objects/object.hpp"
+#include "engine/objects/entity.hpp"
 #include "engine/opengl.hpp"
 
 #include <vector>

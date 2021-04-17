@@ -17,7 +17,7 @@ set(ENGINE_SOURCES
     "libengine/engine/noise/simplex_noise.cpp"
     "libengine/engine/objects/background.cpp"
     "libengine/engine/objects/collider.cpp"
-    "libengine/engine/objects/object.cpp"
+    "libengine/engine/objects/entity.cpp"
     "libengine/engine/objects/planet.cpp"
     "libengine/engine/objects/sun.cpp"
     "libengine/engine/objects/transform.cpp"

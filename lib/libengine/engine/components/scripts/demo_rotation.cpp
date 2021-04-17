@@ -1,6 +1,6 @@
 #include "engine/components/scripts/demo_rotation.hpp"
 
-#include "engine/objects/object.hpp"
+#include "engine/objects/entity.hpp"
 #include "engine/objects/transform.hpp"
 
 namespace Engine::Components::Scripts {
