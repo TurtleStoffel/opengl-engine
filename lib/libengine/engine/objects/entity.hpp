@@ -18,16 +18,11 @@ namespace Engine::Components::Gui {
     class ComponentGui;
 }
 
-namespace Engine::Components::Scripts {
-    class DemoRotation;
-}
-
 class ShaderRegistry;
 
 namespace Engine {
     class Entity : public TreeNode<Entity> {
         friend class Components::Gui::ComponentGui;
-        friend class Components::Scripts::DemoRotation;
 
       public:
         explicit Entity(const Entity* parent, std::string name);
