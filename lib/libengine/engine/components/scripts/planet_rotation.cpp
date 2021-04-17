@@ -7,7 +7,7 @@
 
 namespace Engine::Components::Scripts {
     auto PlanetRotation::execute(int dt) -> void {
-        auto& planet = static_cast<Planet&>(m_object);
+        auto& planet = static_cast<Planet&>(m_entity);
 
         planet.m_rotationAngle += planet.m_rotationalSpeed * dt;
         planet.getRequired<Transform>().setRelativePosition(

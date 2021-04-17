@@ -7,14 +7,14 @@ namespace Engine {
 namespace Engine::Components {
     class Component {
       public:
-        Component(Entity& object)
-              : m_object{object} {};
+        Component(Entity& entity)
+              : m_entity{entity} {};
         virtual ~Component() = default;
 
         // ImGui visualization
         virtual auto render() -> void{};
 
       protected:
-        Entity& m_object;
+        Entity& m_entity;
     };
 }

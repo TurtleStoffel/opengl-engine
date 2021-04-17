@@ -5,12 +5,12 @@
 #include "imgui.h"
 
 namespace Engine::Components::Gui {
-    ComponentGui::ComponentGui(Entity& object)
-          : GuiComponent{object} {};
+    ComponentGui::ComponentGui(Entity& entity)
+          : GuiComponent{entity} {};
 
     auto ComponentGui::render() -> void {
         ImGui::Begin("Entity Component GUI");
-        for (auto iterator = m_object.m_components.begin(); iterator != m_object.m_components.end();
+        for (auto iterator = m_entity.m_components.begin(); iterator != m_entity.m_components.end();
              ++iterator) {
             // Ignore this component in the list to avoid recursive call
             if (iterator->second.get() != this) {

@@ -10,7 +10,7 @@
 namespace Engine::Components {
     Transform::Transform(Engine::Entity& entity)
           : Engine::Components::Component{entity} {
-        auto parent = m_object.getParent();
+        auto parent = m_entity.getParent();
         if (parent) {
             m_parent = parent->get<Transform>();
         }
