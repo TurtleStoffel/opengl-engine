@@ -16,16 +16,20 @@
 
 auto Planet::createDefault(float distance, float radius, const ShaderRegistry& shaderRegistry)
     -> std::unique_ptr<Planet> {
-    auto planet = std::make_unique<Planet>(distance, radius);
+    auto planet = std::make_unique<Planet>(distance);
 
     planet->registerComponent<Engine::Components::ShaderComponent>(
         std::make_unique<Engine::Components::Shaders::GenericShaderComponent>(
             *planet, shaderRegistry.get<LowPolyShader>()));
 
+    auto transform = std::make_unique<Engine::Components::Transform>(*planet);
+    transform->scale(glm::vec3{radius, radius, radius});
+    planet->registerComponent<Engine::Components::Transform>(std::move(transform));
+
     return planet;
 }
 
-Planet::Planet(float distance, float radius)
+Planet::Planet(float distance)
       : Entity{nullptr, "Planet"}
       , m_rotationalSpeed{util::randf(0.00003f, 0.0001f)}
       , m_rotationAngle{util::randRadian()}
@@ -34,9 +38,6 @@ Planet::Planet(float distance, float radius)
     m_model->addPreRenderEffect(std::make_unique<Outline>(*m_model.get()));
 
     m_guiBinding = std::make_unique<PlanetGui>(*this);
-
-    m_transform->scale(glm::vec3(radius, radius, radius));
-    update(0);
 }
 
 auto Planet::colorGenerator(float height) -> glm::vec3 {

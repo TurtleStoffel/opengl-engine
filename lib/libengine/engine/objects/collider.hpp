@@ -1,12 +1,14 @@
 #pragma once
 
-#include <memory>
+#include <glm/glm.hpp>
 
-#include "transform.hpp"
+namespace Engine::Components {
+    class Transform;
+}
 
 class Collider {
   public:
-    Collider(const Transform* pTransform);
+    Collider(const Engine::Components::Transform* pTransform);
 
     /**
      * Intermediate implementation where Collider is always equal to a sphere
@@ -14,5 +16,5 @@ class Collider {
     bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
   private:
-    const Transform* _pTransform;
+    const Engine::Components::Transform* _pTransform;
 };

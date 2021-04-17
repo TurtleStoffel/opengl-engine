@@ -8,13 +8,12 @@ namespace Engine {
     Entity::Entity(const Entity* parent, std::string name)
           : TreeNode{parent}
           , m_name{name} {
-        if (parent) {
-            m_transform = std::make_unique<Transform>(parent->m_transform.get());
-        } else {
-            m_transform = std::make_unique<Transform>();
-        }
 
-        m_selectionCollider = std::make_unique<Collider>(m_transform.get());
+        /*
+        Temporarily disabled, reintroduce when moving Collider to a Component
+        Can not be refactored right now because Transform is not known at construction time
+        */
+        // m_selectionCollider = std::make_unique<Collider>(m_transform.get());
     }
 
     Entity::Entity()
@@ -30,7 +29,10 @@ namespace Engine {
 
     void Entity::render(const ShaderRegistry& shaderContainer) const {
         if (m_model) {
-            m_transform->passModelMatrixToShader(shaderContainer);
+            auto transform = get<Components::Transform>();
+            assert(transform);
+            transform->passModelMatrixToShader(shaderContainer);
+
             m_model->render(shaderContainer);
         }
         for (const auto& child : m_children) {
@@ -47,20 +49,16 @@ namespace Engine {
     }
 
     bool Entity::intersect(glm::vec3 rayPosition, glm::vec3 rayDirection) {
-        m_selected = m_selectionCollider->intersect(rayPosition, rayDirection);
+        if (m_selectionCollider) {
+            m_selected = m_selectionCollider->intersect(rayPosition, rayDirection);
+        } else {
+            m_selected = false;
+        }
         return m_selected;
     }
 
     auto Entity::getName() const -> const std::string& {
         return m_name;
-    }
-
-    auto Entity::getTransform() const -> const Transform& {
-        return *m_transform.get();
-    }
-
-    auto Entity::getTransform() -> Transform& {
-        return *m_transform.get();
     }
 
     auto Entity::getSelected() const -> bool {

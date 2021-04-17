@@ -15,6 +15,9 @@ auto Background::createDefault(const ShaderRegistry& shaderRegistry)
         std::make_unique<Engine::Components::Shaders::GenericShaderComponent>(
             *background, shaderRegistry.get<BackgroundShader>()));
 
+    background->registerComponent<Engine::Components::Transform>(
+        std::make_unique<Engine::Components::Transform>(*background));
+
     return background;
 }
 

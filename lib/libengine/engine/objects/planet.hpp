@@ -18,7 +18,7 @@ class Planet : public Engine::Entity {
     static auto createDefault(float distance, float radius, const ShaderRegistry& shaderRegistry)
         -> std::unique_ptr<Planet>;
 
-    Planet(float distance, float radius);
+    Planet(float distance);
     ~Planet() override = default;
 
   private:

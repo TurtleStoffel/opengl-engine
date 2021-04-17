@@ -12,7 +12,7 @@ namespace Engine::Components {
         virtual ~Component() = default;
 
         // ImGui visualization
-        virtual auto render() -> void = 0;
+        virtual auto render() -> void{};
 
       protected:
         Entity& m_object;

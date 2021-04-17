@@ -9,10 +9,13 @@
 #include <vector>
 
 class ShaderRegistry;
-class Transform;
 
 namespace Engine {
     class Entity;
+}
+
+namespace Engine::Components {
+    class Transform;
 }
 
 struct Vertex {

@@ -20,6 +20,8 @@ auto Sun::createDefault(GuiFactory& guiFactory, const ShaderRegistry& shaderRegi
     sun->registerComponent<Engine::Components::ShaderComponent>(
         std::make_unique<Engine::Components::Shaders::GenericShaderComponent>(
             *sun, shaderRegistry.get<LowPolyShader>()));
+    sun->registerComponent<Engine::Components::Transform>(
+        std::make_unique<Engine::Components::Transform>(*sun));
 
     return sun;
 }

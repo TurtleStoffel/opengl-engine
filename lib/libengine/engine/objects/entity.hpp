@@ -1,10 +1,10 @@
 #pragma once
 
 #include "engine/components/component.hpp"
+#include "engine/components/transform.hpp"
 #include "engine/guibinding/guibinding.hpp"
 #include "engine/models/model.hpp"
 #include "engine/objects/collider.hpp"
-#include "engine/objects/transform.hpp"
 #include "engine/tree.hpp"
 
 #include <glm/glm.hpp>
@@ -40,8 +40,6 @@ namespace Engine {
         bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
         auto getName() const -> const std::string&;
-        auto getTransform() const -> const Transform&;
-        auto getTransform() -> Transform&;
         auto getSelected() const -> bool;
 
         template <typename TComponentType>
@@ -56,13 +54,6 @@ namespace Engine {
         std::unordered_map<std::size_t, std::unique_ptr<Components::Component>> m_components;
 
         std::unique_ptr<Model> m_model;
-
-        /**
-         * Entity has the local transform (even though it is used by the Model) because an object
-         * needs a notion of where it is even when it has no model (e.g. only load model when
-         * objects will be visible)
-         */
-        std::unique_ptr<Transform> m_transform;
 
         /**
          * Collider is responsible to check if an object has been selected

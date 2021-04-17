@@ -14,7 +14,8 @@ class TreeNode {
     virtual auto visit(std::function<void(const T&)> callback) const -> void;
     virtual auto visit(std::function<void(T&)> callback) -> void;
 
-    virtual auto getDepth() const -> std::size_t;
+    auto getDepth() const -> std::size_t;
+    auto getParent() const -> const T*;
 
   protected:
     virtual auto visitImpl(std::function<void(const T&)> callback) const -> void = 0;
@@ -56,4 +57,9 @@ auto TreeNode<T>::getDepth() const -> std::size_t {
     } else {
         return 1;
     }
+}
+
+template <typename T>
+auto TreeNode<T>::getParent() const -> const T* {
+    return m_parent;
 }
