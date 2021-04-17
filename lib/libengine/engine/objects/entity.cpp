@@ -29,10 +29,7 @@ namespace Engine {
 
     void Entity::render(const ShaderRegistry& shaderContainer) const {
         if (m_model) {
-            auto transform = get<Components::Transform>();
-            assert(transform);
-            transform->passModelMatrixToShader(shaderContainer);
-
+            getRequired<Components::Transform>().passModelMatrixToShader(shaderContainer);
             m_model->render(shaderContainer);
         }
         for (const auto& child : m_children) {

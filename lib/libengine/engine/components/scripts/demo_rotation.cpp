@@ -5,10 +5,10 @@
 
 namespace Engine::Components::Scripts {
     auto DemoRotation::execute(int dt) -> void {
-        auto transform = m_object.get<Transform>();
-        assert(transform);
-        auto rotation = transform->getRotation();
+        auto& transform = m_object.getRequired<Transform>();
+
+        auto rotation = transform.getRotation();
         rotation += glm::vec3{0.0001f * dt, 0.0f, 0.0f};
-        transform->setRotation(rotation);
+        transform.setRotation(rotation);
     }
 }

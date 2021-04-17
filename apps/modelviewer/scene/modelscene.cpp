@@ -54,17 +54,16 @@ namespace ModelViewer {
         }
 
         if (m_selectedObjectPointer) {
-            auto transform = m_selectedObjectPointer->get<Engine::Components::Transform>();
-            assert(transform);
+            auto& transform = m_selectedObjectPointer->getRequired<Engine::Components::Transform>();
 
             ImGui::Separator();
             ImGui::Text("Details of selected Model");
             ImGui::Text("Relative Position");
-            ImGui::DragFloat3("##positionDrags", &transform->m_position[0], 0.05f);
+            ImGui::DragFloat3("##positionDrags", &transform.m_position[0], 0.05f);
             ImGui::Text("Rotation");
-            ImGui::DragFloat3("##rotationDrags", &transform->m_rotationYXZ[0], 0.05f);
+            ImGui::DragFloat3("##rotationDrags", &transform.m_rotationYXZ[0], 0.05f);
             ImGui::Text("Scale");
-            ImGui::DragFloat3("##scaleDrags", &transform->m_scale[0], 0.05f);
+            ImGui::DragFloat3("##scaleDrags", &transform.m_scale[0], 0.05f);
         }
 
         ImGui::End();

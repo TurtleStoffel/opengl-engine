@@ -41,6 +41,8 @@ namespace Engine {
         auto registerComponent(std::unique_ptr<TComponentType> component) -> void;
         template <typename TComponentType>
         auto get() const -> TComponentType*;
+        template <typename TComponentType>
+        auto getRequired() const -> TComponentType&;
 
       protected:
         auto visitImpl(std::function<void(const Entity&)> callback) const -> void override;
@@ -74,5 +76,12 @@ namespace Engine {
         }
 
         return static_cast<TComponentType*>(iterator->second.get());
+    }
+
+    template <typename TComponentType>
+    auto Entity::getRequired() const -> TComponentType& {
+        auto componentPtr = get<TComponentType>();
+        assert(componentPtr);
+        return *componentPtr;
     }
 }
