@@ -1,5 +1,6 @@
 #include "sun_gui.hpp"
 
+#include "engine/components/collider.hpp"
 #include "engine/objects/sun.hpp"
 
 SunGui::SunGui(const Sun& sun)
@@ -7,7 +8,8 @@ SunGui::SunGui(const Sun& sun)
 }
 
 auto SunGui::render() const -> void {
-    if (m_sun.getSelected()) {
+    auto collider = m_sun.get<Engine::Components::Collider>();
+    if (collider && collider->getSelected()) {
         ImGui::SetNextWindowSize(ImVec2(200.0f, 80.0f));
         ImGui::Begin("Sun");
         ImGui::Columns(2);

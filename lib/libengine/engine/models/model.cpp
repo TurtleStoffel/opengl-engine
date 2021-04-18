@@ -1,5 +1,6 @@
 #include "model.hpp"
 
+#include "engine/components/collider.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/transform.hpp"
 #include "engine/models/effects/effect.hpp"
@@ -86,5 +87,10 @@ void Model::setupBuffers() {
 }
 
 auto Model::getSelected() const -> bool {
-    return m_object.getSelected();
+    auto collider = m_object.get<Engine::Components::Collider>();
+    if (collider) {
+        return collider->getSelected();
+    } else {
+        return false;
+    }
 }

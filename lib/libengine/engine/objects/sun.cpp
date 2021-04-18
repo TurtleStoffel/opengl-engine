@@ -1,6 +1,7 @@
 #include "engine/objects/sun.hpp"
 
 #include "engine/color.hpp"
+#include "engine/components/collider.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/guibinding/gui_factory.hpp"
@@ -22,6 +23,8 @@ auto Sun::createDefault(GuiFactory& guiFactory, const ShaderRegistry& shaderRegi
             *sun, shaderRegistry.get<LowPolyShader>()));
     sun->registerComponent<Engine::Components::Transform>(
         std::make_unique<Engine::Components::Transform>(*sun));
+    sun->registerComponent<Engine::Components::Collider>(
+        std::make_unique<Engine::Components::Collider>(*sun));
 
     return sun;
 }

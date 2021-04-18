@@ -2,7 +2,7 @@
 
 #include "engine/application.hpp"
 #include "engine/camera.hpp"
-#include "engine/objects/collider.hpp"
+#include "engine/components/collider.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -55,8 +55,11 @@ auto Scene::mousePick(SDL_Event event) -> void {
         m_camera->calculateClickRay(event.motion.x, event.motion.y, point, direction);
 
         // Check for each object in scene if there was an intersection
-        for (auto& object : m_objects) {
-            object->intersect(point, direction);
+        for (auto& entity : m_objects) {
+            auto collider = entity->get<Engine::Components::Collider>();
+            if (collider) {
+                collider->intersect(point, direction);
+            }
         }
     }
 }

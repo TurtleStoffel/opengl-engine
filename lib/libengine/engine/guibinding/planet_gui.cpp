@@ -1,5 +1,6 @@
 #include "planet_gui.hpp"
 
+#include "engine/components/collider.hpp"
 #include "engine/objects/planet.hpp"
 
 PlanetGui::PlanetGui(const Planet& planet)
@@ -7,7 +8,8 @@ PlanetGui::PlanetGui(const Planet& planet)
 }
 
 auto PlanetGui::render() const -> void {
-    if (m_planet.getSelected()) {
+    auto collider = m_planet.get<Engine::Components::Collider>();
+    if (collider && collider->getSelected()) {
         ImGui::SetNextWindowSize(ImVec2(200.0f, 80.0f));
         ImGui::Begin("Planet");
         ImGui::Columns(2);

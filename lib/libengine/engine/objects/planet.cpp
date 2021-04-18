@@ -1,12 +1,12 @@
 #include "engine/objects/planet.hpp"
 
+#include "engine/components/collider.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/guibinding/planet_gui.hpp"
 #include "engine/models/effects/outline.hpp"
 #include "engine/models/model_factory.hpp"
 #include "engine/models/sphere.hpp"
-#include "engine/objects/collider.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 #include "engine/util.hpp"
@@ -25,6 +25,9 @@ auto Planet::createDefault(float distance, float radius, const ShaderRegistry& s
     auto transform = std::make_unique<Engine::Components::Transform>(*planet);
     transform->scale(glm::vec3{radius, radius, radius});
     planet->registerComponent<Engine::Components::Transform>(std::move(transform));
+
+    planet->registerComponent<Engine::Components::Collider>(
+        std::make_unique<Engine::Components::Collider>(*planet));
 
     return planet;
 }

@@ -1,10 +1,10 @@
 #pragma once
 
+#include "engine/components/collider.hpp"
 #include "engine/components/component.hpp"
 #include "engine/components/transform.hpp"
 #include "engine/guibinding/guibinding.hpp"
 #include "engine/models/model.hpp"
-#include "engine/objects/collider.hpp"
 #include "engine/tree.hpp"
 
 #include <glm/glm.hpp>
@@ -32,10 +32,8 @@ namespace Engine {
         auto update(int dt) -> void;
 
         void render(const ShaderRegistry& shaderContainer) const;
-        bool intersect(glm::vec3 rayPosition, glm::vec3 rayDirection);
 
         auto getName() const -> const std::string&;
-        auto getSelected() const -> bool;
 
         template <typename TComponentType>
         auto registerComponent(std::unique_ptr<TComponentType> component) -> void;
@@ -51,12 +49,6 @@ namespace Engine {
         std::unordered_map<std::size_t, std::unique_ptr<Components::Component>> m_components;
 
         std::unique_ptr<Model> m_model;
-
-        /**
-         * Collider is responsible to check if an object has been selected
-         */
-        std::unique_ptr<Collider> m_selectionCollider;
-        bool m_selected = false;
 
         std::unique_ptr<GuiBinding> m_guiBinding;
 
