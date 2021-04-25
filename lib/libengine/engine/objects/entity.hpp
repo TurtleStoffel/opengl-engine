@@ -3,7 +3,6 @@
 #include "engine/components/collider.hpp"
 #include "engine/components/component.hpp"
 #include "engine/components/transform.hpp"
-#include "engine/guibinding/guibinding.hpp"
 #include "engine/models/model.hpp"
 #include "engine/tree.hpp"
 
@@ -49,8 +48,6 @@ namespace Engine {
         std::unordered_map<std::size_t, std::unique_ptr<Components::Component>> m_components;
 
         std::unique_ptr<Model> m_model;
-
-        std::unique_ptr<GuiBinding> m_guiBinding;
 
         std::string m_name = "Invalid Entity Name";
     };

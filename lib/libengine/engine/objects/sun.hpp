@@ -4,18 +4,21 @@
 
 #include <memory>
 
-class GuiFactory;
 class ShaderRegistry;
 
+namespace Engine::Components::Gui {
+    class SunConfigurationGui;
+    class SunGui;
+}
+
 class Sun : public Engine::Entity {
-    friend class SunGui;
-    friend class SunConfigurationGui;
+    friend class Engine::Components::Gui::SunGui;
+    friend class Engine::Components::Gui::SunConfigurationGui;
 
   public:
-    static auto createDefault(GuiFactory& guiFactory, const ShaderRegistry& shaderRegistry)
-        -> std::unique_ptr<Sun>;
+    static auto createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Sun>;
 
-    Sun(GuiFactory& guiFactory);
+    Sun();
     ~Sun() override = default;
 
   private:

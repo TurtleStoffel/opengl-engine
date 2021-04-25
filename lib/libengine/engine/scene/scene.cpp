@@ -8,7 +8,6 @@
 
 Scene::Scene(const ShaderRegistry& shaderRegistry)
       : m_camera{std::make_unique<Camera>()}
-      , m_guiFactory{GuiFactory{GuiFactory::GuiType::GAME}}
       , m_shaderRegistry{shaderRegistry} {
 }
 

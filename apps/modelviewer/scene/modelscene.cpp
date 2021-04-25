@@ -1,6 +1,7 @@
 #include "modelscene.hpp"
 
 #include "engine/components/gui/component_gui.hpp"
+#include "engine/components/gui/sun_configuration_gui.hpp"
 #include "engine/components/gui_component.hpp"
 #include "engine/components/script.hpp"
 #include "engine/components/scripts/demo_rotation.hpp"
@@ -14,7 +15,6 @@
 namespace ModelViewer {
     ModelScene::ModelScene(const ShaderRegistry& shaderRegistry)
           : Scene{shaderRegistry} {
-        m_guiFactory = GuiFactory{GuiFactory::GuiType::CONFIGURATION};
         m_objects.push_back(Background::createDefault(m_shaderRegistry));
     }
 
@@ -85,7 +85,9 @@ namespace ModelViewer {
             object->registerComponent<Engine::Components::Script>(
                 std::make_unique<Engine::Components::Scripts::DemoRotation>(*object));
         } else if (strcmp(model, "Sun##model") == 0) {
-            object = Sun::createDefault(m_guiFactory, m_shaderRegistry);
+            object = Sun::createDefault(m_shaderRegistry);
+            object->registerComponent<Engine::Components::GuiComponent>(
+                std::make_unique<Engine::Components::Gui::SunConfigurationGui>(*object));
         }
 
         if (object) {

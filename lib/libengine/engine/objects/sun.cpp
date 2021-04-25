@@ -4,7 +4,6 @@
 #include "engine/components/collider.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
-#include "engine/guibinding/gui_factory.hpp"
 #include "engine/models/effects/glow.hpp"
 #include "engine/models/model_factory.hpp"
 #include "engine/models/sphere.hpp"
@@ -14,9 +13,8 @@
 #include <memory>
 #include <utility>
 
-auto Sun::createDefault(GuiFactory& guiFactory, const ShaderRegistry& shaderRegistry)
-    -> std::unique_ptr<Sun> {
-    auto sun = std::make_unique<Sun>(guiFactory);
+auto Sun::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Sun> {
+    auto sun = std::make_unique<Sun>();
 
     sun->registerComponent<Engine::Components::ShaderComponent>(
         std::make_unique<Engine::Components::Shaders::GenericShaderComponent>(
@@ -29,11 +27,9 @@ auto Sun::createDefault(GuiFactory& guiFactory, const ShaderRegistry& shaderRegi
     return sun;
 }
 
-Sun::Sun(GuiFactory& guiFactory)
+Sun::Sun()
       : Entity{nullptr, "Sun"} {
     _generateModel();
-
-    m_guiBinding = guiFactory.createGui(*this);
 }
 
 void Sun::_generateModel() {

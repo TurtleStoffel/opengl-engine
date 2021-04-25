@@ -1,7 +1,6 @@
 #pragma once
 
 #include "engine/camera.hpp"
-#include "engine/guibinding/gui_factory.hpp"
 #include "engine/objects/entity.hpp"
 #include "engine/opengl.hpp"
 
@@ -25,7 +24,6 @@ class Scene {
 
     std::vector<std::unique_ptr<Engine::Entity>> m_objects;
     std::unique_ptr<Camera> m_camera;
-    GuiFactory m_guiFactory;
 
     const ShaderRegistry& m_shaderRegistry;
 

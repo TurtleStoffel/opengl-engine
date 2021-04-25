@@ -30,9 +30,6 @@ namespace Engine {
             child->render(shaderContainer);
         }
 
-        if (m_guiBinding) {
-            m_guiBinding->render();
-        }
         auto guiComponent = get<Components::GuiComponent>();
         if (guiComponent) {
             guiComponent->render();
