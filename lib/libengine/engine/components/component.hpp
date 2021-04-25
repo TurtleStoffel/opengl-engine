@@ -11,8 +11,7 @@ namespace Engine::Components {
               : m_entity{entity} {};
         virtual ~Component() = default;
 
-        // ImGui visualization
-        virtual auto render() -> void{};
+        virtual auto renderConfiguration() -> void{};
 
       protected:
         Entity& m_entity;

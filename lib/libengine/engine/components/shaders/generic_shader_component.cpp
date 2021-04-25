@@ -14,7 +14,7 @@ namespace Engine::Components::Shaders {
         m_shader.use();
     }
 
-    auto GenericShaderComponent::render() -> void {
+    auto GenericShaderComponent::renderConfiguration() -> void {
         ImGui::Text("Shader Component");
         if (ImGui::Button("Recompile")) {
             m_shader.recompile();

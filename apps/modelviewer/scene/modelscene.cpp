@@ -77,8 +77,11 @@ namespace ModelViewer {
 
         if (strcmp(model, "Planet##model") == 0) {
             object = Planet::createDefault(0.0f, 3.0f, m_shaderRegistry);
-            object->registerComponent<Engine::Components::GuiComponent>(
+
+            auto& guiComponent = object->getRequired<Engine::Components::GuiComponent>();
+            guiComponent.addSubcomponent(
                 std::make_unique<Engine::Components::Gui::ComponentGui>(*object));
+
             object->registerComponent<Engine::Components::Script>(
                 std::make_unique<Engine::Components::Scripts::DemoRotation>(*object));
         } else if (strcmp(model, "Sun##model") == 0) {

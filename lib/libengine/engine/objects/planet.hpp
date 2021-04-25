@@ -4,6 +4,10 @@
 
 #include <memory>
 
+namespace Engine::Components::Gui {
+    class PlanetGui;
+}
+
 namespace Engine::Components::Scripts {
     class PlanetRotation;
 }
@@ -11,7 +15,7 @@ namespace Engine::Components::Scripts {
 class ShaderRegistry;
 
 class Planet : public Engine::Entity {
-    friend class PlanetGui;
+    friend class Engine::Components::Gui::PlanetGui;
     friend class Engine::Components::Scripts::PlanetRotation;
 
   public:

@@ -2,6 +2,9 @@
 
 #include "engine/components/component.hpp"
 
+#include <cassert>
+#include <memory>
+
 namespace Engine::Components {
     class GuiComponent : public Component {
       public:
@@ -9,6 +12,12 @@ namespace Engine::Components {
               : Component{object} {};
         ~GuiComponent() override = default;
 
-        auto render() -> void override = 0;
+        virtual auto render() -> void = 0;
+
+        virtual auto addSubcomponent([[maybe_unused]] std::unique_ptr<GuiComponent> subcomponent)
+            -> void {
+            // This call is only allowed on CompositeGui
+            assert(false);
+        }
     };
 }

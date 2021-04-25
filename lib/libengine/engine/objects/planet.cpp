@@ -1,9 +1,11 @@
 #include "engine/objects/planet.hpp"
 
 #include "engine/components/collider.hpp"
+#include "engine/components/gui/composite_gui.hpp"
+#include "engine/components/gui/planet_gui.hpp"
+#include "engine/components/gui_component.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
-#include "engine/guibinding/planet_gui.hpp"
 #include "engine/models/effects/outline.hpp"
 #include "engine/models/model_factory.hpp"
 #include "engine/models/sphere.hpp"
@@ -29,6 +31,10 @@ auto Planet::createDefault(float distance, float radius, const ShaderRegistry& s
     planet->registerComponent<Engine::Components::Collider>(
         std::make_unique<Engine::Components::Collider>(*planet));
 
+    auto compositeGui = std::make_unique<Engine::Components::Gui::CompositeGui>(*planet);
+    compositeGui->addSubcomponent(std::make_unique<Engine::Components::Gui::PlanetGui>(*planet));
+    planet->registerComponent<Engine::Components::GuiComponent>(std::move(compositeGui));
+
     return planet;
 }
 
@@ -39,8 +45,6 @@ Planet::Planet(float distance)
       , m_distance{distance} {
     m_model = ModelFactory::make<Engine::Sphere>(*this, &colorGenerator);
     m_model->addPreRenderEffect(std::make_unique<Outline>(*m_model.get()));
-
-    m_guiBinding = std::make_unique<PlanetGui>(*this);
 }
 
 auto Planet::colorGenerator(float height) -> glm::vec3 {

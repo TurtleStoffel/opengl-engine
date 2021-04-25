@@ -15,7 +15,7 @@ namespace Engine::Components::Shaders {
         auto use() -> void override;
 
         // --- Component ---
-        auto render() -> void override;
+        auto renderConfiguration() -> void override;
 
       private:
         Shader& m_shader;

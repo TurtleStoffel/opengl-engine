@@ -14,7 +14,7 @@ namespace Engine::Components::Gui {
              ++iterator) {
             // Ignore this component in the list to avoid recursive call
             if (iterator->second.get() != this) {
-                iterator->second->render();
+                iterator->second->renderConfiguration();
             }
         }
         ImGui::End();

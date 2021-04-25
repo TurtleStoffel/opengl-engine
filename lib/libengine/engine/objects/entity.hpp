@@ -57,7 +57,13 @@ namespace Engine {
 
     template <typename TComponentType>
     auto Entity::registerComponent(std::unique_ptr<TComponentType> component) -> void {
-        m_components.insert({typeid(TComponentType).hash_code(), std::move(component)});
+        auto componentHash = typeid(TComponentType).hash_code();
+
+        auto iterator = m_components.find(componentHash);
+        // Each type of component can only be registered once
+        assert(iterator == m_components.end());
+
+        m_components.insert({componentHash, std::move(component)});
     }
 
     template <typename TComponentType>
