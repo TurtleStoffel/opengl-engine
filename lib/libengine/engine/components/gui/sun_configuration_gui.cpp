@@ -10,7 +10,7 @@ namespace Engine::Components::Gui {
 
         ImGui::Begin("Sun Configuration");
         if (ImGui::SliderInt("Temperature", &sun.m_temperature, 3190, 17000)) {
-            sun._generateModel();
+            sun.generateModel();
         }
         ImGui::End();
     }

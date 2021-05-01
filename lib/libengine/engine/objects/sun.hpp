@@ -23,7 +23,7 @@ class Sun : public Engine::Entity {
 
   private:
     // Used by SunConfigurationGui
-    void _generateModel();
+    auto generateModel() -> void;
 
     // Temperature in Kelvin
     int m_temperature = 6000;
