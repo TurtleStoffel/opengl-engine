@@ -13,7 +13,7 @@ namespace Engine::Components::Models {
     Sphere::Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator, int depth)
           : Model{entity}
           , m_colorGenerator{colorGenerator} {
-        addPostRenderEffect(std::make_unique<DebugVectors>(object));
+        addPostRenderEffect(std::make_unique<DebugVectors>(entity));
 
         float d = (1.0f + sqrt(5.0f)) / 2.0f;
         // clang-format off
