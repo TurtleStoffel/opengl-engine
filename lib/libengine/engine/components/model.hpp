@@ -51,8 +51,8 @@ namespace Engine::Components {
         std::vector<unsigned int> m_indices;
 
       private:
-        auto setupBuffers() -> void;
         auto generateOpenGLBuffers() -> void;
+        auto setupBuffers() -> void;
 
         std::vector<std::unique_ptr<Effect>> m_preRenderEffects;
         std::vector<std::unique_ptr<Effect>> m_postRenderEffects;

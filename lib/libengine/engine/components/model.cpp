@@ -23,12 +23,6 @@ namespace Engine::Components {
         setupBuffers();
     }
 
-    auto Model::generateOpenGLBuffers() -> void {
-        glGenVertexArrays(1, &m_vertexArrayObject);
-        glGenBuffers(1, &m_vertexBufferObject);
-        glGenBuffers(1, &m_elementBufferObject);
-    }
-
     auto Model::render(const ShaderRegistry& shaderContainer) const -> void {
         glBindVertexArray(m_vertexArrayObject);
 
@@ -36,7 +30,7 @@ namespace Engine::Components {
             effect->render(shaderContainer);
         }
 
-        m_entity.get<Engine::Components::ShaderComponent>()->use();
+        m_entity.getRequired<Engine::Components::ShaderComponent>().use();
 
         glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
 
@@ -57,6 +51,21 @@ namespace Engine::Components {
 
     auto Model::addPostRenderEffect(std::unique_ptr<Effect> effect) -> void {
         m_postRenderEffects.push_back(std::move(effect));
+    }
+
+    auto Model::getSelected() const -> bool {
+        auto collider = m_entity.get<Engine::Components::Collider>();
+        if (collider) {
+            return collider->getSelected();
+        } else {
+            return false;
+        }
+    }
+
+    auto Model::generateOpenGLBuffers() -> void {
+        glGenVertexArrays(1, &m_vertexArrayObject);
+        glGenBuffers(1, &m_vertexBufferObject);
+        glGenBuffers(1, &m_elementBufferObject);
     }
 
     auto Model::setupBuffers() -> void {
@@ -93,14 +102,5 @@ namespace Engine::Components {
 
         // Disable EBO (AFTER VAO has been unbinded, otherwise they are not linked anymore)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    }
-
-    auto Model::getSelected() const -> bool {
-        auto collider = m_entity.get<Engine::Components::Collider>();
-        if (collider) {
-            return collider->getSelected();
-        } else {
-            return false;
-        }
     }
 }
