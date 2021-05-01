@@ -7,9 +7,12 @@ namespace Engine {
 }
 
 namespace Engine::Components::Models {
-    class BackgroundModel : public Model {
+    class BackgroundModel final : public Model {
       public:
         BackgroundModel(Entity& entity);
         ~BackgroundModel() override = default;
+
+      private:
+        auto generateImpl() -> void override;
     };
 }

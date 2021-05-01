@@ -14,6 +14,15 @@ namespace Engine::Components {
         generateOpenGLBuffers();
     }
 
+    auto Model::generate() -> void {
+        m_vertices.clear();
+        m_indices.clear();
+
+        generateImpl();
+
+        setupBuffers();
+    }
+
     auto Model::generateOpenGLBuffers() -> void {
         glGenVertexArrays(1, &m_vertexArrayObject);
         glGenBuffers(1, &m_vertexBufferObject);

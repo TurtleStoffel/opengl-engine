@@ -11,7 +11,12 @@ namespace Engine {
 namespace Engine::Components::Models {
     class Vector final : public Model {
       public:
-        Vector(Entity& entity, glm::vec3 direction);
+        Vector(Entity& entity, const glm::vec3& direction);
         ~Vector() override = default;
+
+      private:
+        auto generateImpl() -> void override;
+
+        glm::vec3 m_direction;
     };
 }

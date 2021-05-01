@@ -3,6 +3,9 @@
 namespace Engine::Components::Models {
     BackgroundModel::BackgroundModel(Entity& entity)
           : Model{entity} {
+    }
+
+    auto BackgroundModel::generateImpl() -> void {
         Vertex vertex;
         vertex.position = glm::vec3(-1.0f, 1.0f, 0.0f);
         m_vertices.push_back(vertex);

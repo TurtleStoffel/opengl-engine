@@ -18,6 +18,8 @@ namespace Engine::Components::Models {
         ~Sphere() override = default;
 
       private:
+        auto generateImpl() -> void override;
+
         struct Face {
             unsigned int v1;
             unsigned int v2;
@@ -26,6 +28,8 @@ namespace Engine::Components::Models {
 
         auto getMidpoint(unsigned int p1, unsigned int p2) -> unsigned int;
         auto createVertex(glm::vec3 point) -> unsigned int;
+
+        int m_depth;
 
         // Index + 1 of the last created Vertex
         int m_vertexIndex = 0;

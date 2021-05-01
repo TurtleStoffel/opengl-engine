@@ -38,6 +38,3 @@ Sun::Sun()
 
     registerComponent<Engine::Components::Model>(std::move(model));
 }
-
-auto Sun::generateModel() -> void {
-}

@@ -12,8 +12,14 @@
 namespace Engine::Components::Models {
     Sphere::Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator, int depth)
           : Model{entity}
+          , m_depth{depth}
           , m_colorGenerator{colorGenerator} {
         addPostRenderEffect(std::make_unique<DebugVectors>(entity));
+    }
+
+    auto Sphere::generateImpl() -> void {
+        m_midPointCache.clear();
+        m_vertexIndex = 0;
 
         float d = (1.0f + sqrt(5.0f)) / 2.0f;
         // clang-format off
@@ -58,7 +64,7 @@ namespace Engine::Components::Models {
         faces.push_back(Face{ 9,  8,  1});
         // clang-format on
 
-        for (int i = 0; i < depth; i++) {
+        for (int i = 0; i < m_depth; i++) {
             std::vector<Face> newFaces;
             for (Face face : faces) {
                 unsigned int a = getMidpoint(face.v1, face.v2);

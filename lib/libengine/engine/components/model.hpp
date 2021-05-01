@@ -31,23 +31,27 @@ namespace Engine::Components {
         Model(Entity& entity);
         ~Model() override = default;
 
+        auto generate() -> void;
         auto render(const ShaderRegistry& shaderContainer) const -> void;
+
         auto glDraw() const -> void;
 
         auto addPreRenderEffect(std::unique_ptr<Effect> effect) -> void;
         auto addPostRenderEffect(std::unique_ptr<Effect> effect) -> void;
-        // Has to be called after m_vertices and m_indices are filled in
-        auto setupBuffers() -> void;
 
         auto getSelected() const -> bool;
 
       protected:
+        // Fill m_vertices and m_indices.
+        virtual auto generateImpl() -> void = 0;
+
         GLenum m_renderingMode{GL_TRIANGLES};
 
         std::vector<Vertex> m_vertices;
         std::vector<unsigned int> m_indices;
 
       private:
+        auto setupBuffers() -> void;
         auto generateOpenGLBuffers() -> void;
 
         std::vector<std::unique_ptr<Effect>> m_preRenderEffects;

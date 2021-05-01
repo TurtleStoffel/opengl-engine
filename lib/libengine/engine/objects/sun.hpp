@@ -22,9 +22,6 @@ class Sun : public Engine::Entity {
     ~Sun() override = default;
 
   private:
-    // Used by SunConfigurationGui
-    auto generateModel() -> void;
-
     // Temperature in Kelvin
     int m_temperature = 6000;
 };
