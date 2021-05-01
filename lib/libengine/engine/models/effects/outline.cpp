@@ -1,10 +1,11 @@
 #include "engine/models/effects/outline.hpp"
 
-#include "engine/models/model.hpp"
+#include "engine/components/model.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 #include "engine/shaders/silhouetteshader.hpp"
 
-Outline::Outline(const Model& model) : m_model{model} {
+Outline::Outline(const Engine::Components::Model& model)
+      : m_model{model} {
 }
 
 void Outline::render(const ShaderRegistry& shaderContainer) const {

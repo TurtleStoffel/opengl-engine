@@ -1,4 +1,4 @@
-#include "engine/models/sphere.hpp"
+#include "engine/components/models/sphere.hpp"
 
 #include "engine/application.hpp"
 #include "engine/models/effects/debug_vectors.hpp"
@@ -9,9 +9,9 @@
 #include <glm/gtx/norm.hpp>
 #include <math.h>
 
-namespace Engine {
-    Sphere::Sphere(const Entity& object, std::function<glm::vec3(float)> colorGenerator, int depth)
-          : Model{object}
+namespace Engine::Components::Models {
+    Sphere::Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator, int depth)
+          : Model{entity}
           , m_colorGenerator{colorGenerator} {
         addPostRenderEffect(std::make_unique<DebugVectors>(object));
 

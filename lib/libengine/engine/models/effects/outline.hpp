@@ -2,15 +2,17 @@
 
 #include "engine/models/effects/effect.hpp"
 
-class Model;
+namespace Engine::Components {
+    class Model;
+}
 
 class Outline final : public Effect {
   public:
-    Outline(const Model& model);
+    Outline(const Engine::Components::Model& model);
     ~Outline() override = default;
 
     void render(const ShaderRegistry& shaderContainer) const override;
 
   private:
-    const Model& m_model;
+    const Engine::Components::Model& m_model;
 };

@@ -3,7 +3,8 @@
 #include "engine/shaders/glowshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
-Glow::Glow(const Model& model) : m_model{model} {
+Glow::Glow(const Engine::Components::Model& model)
+      : m_model{model} {
 }
 
 void Glow::render(const ShaderRegistry& shaderContainer) const {

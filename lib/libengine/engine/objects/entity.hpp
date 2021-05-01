@@ -2,8 +2,8 @@
 
 #include "engine/components/collider.hpp"
 #include "engine/components/component.hpp"
+#include "engine/components/model.hpp"
 #include "engine/components/transform.hpp"
-#include "engine/models/model.hpp"
 #include "engine/tree.hpp"
 
 #include <glm/glm.hpp>
@@ -46,8 +46,6 @@ namespace Engine {
         auto visitImpl(std::function<void(Entity&)> callback) -> void override;
 
         std::unordered_map<std::size_t, std::unique_ptr<Components::Component>> m_components;
-
-        std::unique_ptr<Model> m_model;
 
         std::string m_name = "Invalid Entity Name";
     };

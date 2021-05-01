@@ -22,9 +22,10 @@ namespace Engine {
     }
 
     void Entity::render(const ShaderRegistry& shaderContainer) const {
-        if (m_model) {
+        auto model = get<Components::Model>();
+        if (model) {
             getRequired<Components::Transform>().passModelMatrixToShader(shaderContainer);
-            m_model->render(shaderContainer);
+            model->render(shaderContainer);
         }
         for (const auto& child : m_children) {
             child->render(shaderContainer);

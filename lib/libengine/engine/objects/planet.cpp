@@ -4,11 +4,11 @@
 #include "engine/components/gui/composite_gui.hpp"
 #include "engine/components/gui/planet_gui.hpp"
 #include "engine/components/gui_component.hpp"
+#include "engine/components/models/model_factory.hpp"
+#include "engine/components/models/sphere.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/models/effects/outline.hpp"
-#include "engine/models/model_factory.hpp"
-#include "engine/models/sphere.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 #include "engine/util.hpp"
@@ -43,8 +43,10 @@ Planet::Planet(float distance)
       , m_rotationalSpeed{util::randf(0.00003f, 0.0001f)}
       , m_rotationAngle{util::randRadian()}
       , m_distance{distance} {
-    m_model = ModelFactory::make<Engine::Sphere>(*this, &colorGenerator);
-    m_model->addPreRenderEffect(std::make_unique<Outline>(*m_model.get()));
+    auto model = Engine::Components::Models::ModelFactory::make<
+        Engine::Components::Models::Sphere>(*this, colorGenerator);
+    model->addPreRenderEffect(std::make_unique<Outline>(*model));
+    registerComponent<Engine::Components::Model>(std::move(model));
 }
 
 auto Planet::colorGenerator(float height) -> glm::vec3 {

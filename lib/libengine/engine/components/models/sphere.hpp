@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/color.hpp"
-#include "engine/models/model.hpp"
+#include "engine/components/model.hpp"
 
 #include <functional>
 #include <map>
@@ -10,10 +10,10 @@ namespace Engine {
     class Entity;
 }
 
-namespace Engine {
+namespace Engine::Components::Models {
     class Sphere : public Model {
       public:
-        explicit Sphere(const Entity& object, std::function<glm::vec3(float)> colorGenerator,
+        explicit Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator,
                         int depth = 4);
         ~Sphere() override = default;
 

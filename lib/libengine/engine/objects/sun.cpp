@@ -2,11 +2,11 @@
 
 #include "engine/color.hpp"
 #include "engine/components/collider.hpp"
+#include "engine/components/models/model_factory.hpp"
+#include "engine/components/models/sphere.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/models/effects/glow.hpp"
-#include "engine/models/model_factory.hpp"
-#include "engine/models/sphere.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
@@ -29,13 +29,15 @@ auto Sun::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr
 
 Sun::Sun()
       : Entity{nullptr, "Sun"} {
-    _generateModel();
-}
-
-void Sun::_generateModel() {
     auto colorGenerator = [this]([[maybe_unused]] float height) {
         return color::starColor(m_temperature);
     };
-    m_model = ModelFactory::make<Engine::Sphere>(*this, colorGenerator);
-    m_model->addPreRenderEffect(std::make_unique<Glow>(*m_model.get()));
+    auto model = Engine::Components::Models::ModelFactory::make<
+        Engine::Components::Models::Sphere>(*this, colorGenerator);
+    model->addPreRenderEffect(std::make_unique<Glow>(*model.get()));
+
+    registerComponent<Engine::Components::Model>(std::move(model));
+}
+
+void Sun::_generateModel() {
 }
