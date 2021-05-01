@@ -31,11 +31,11 @@ namespace Engine::Components {
         Model(Entity& entity);
         ~Model() override = default;
 
-        void render(const ShaderRegistry& shaderContainer) const;
-        void glDraw() const;
+        auto render(const ShaderRegistry& shaderContainer) const -> void;
+        auto glDraw() const -> void;
 
-        void addPreRenderEffect(std::unique_ptr<Effect> effect);
-        void addPostRenderEffect(std::unique_ptr<Effect> effect);
+        auto addPreRenderEffect(std::unique_ptr<Effect> effect) -> void;
+        auto addPostRenderEffect(std::unique_ptr<Effect> effect) -> void;
         // Has to be called after m_vertices and m_indices are filled in
         auto setupBuffers() -> void;
 
@@ -48,16 +48,15 @@ namespace Engine::Components {
         std::vector<unsigned int> m_indices;
 
       private:
-        void _generateOpenGLBuffers();
-        void _renderSilhouette(const ShaderRegistry& shaderContainer) const;
+        auto generateOpenGLBuffers() -> void;
 
-        std::vector<std::unique_ptr<Effect>> preRenderEffects;
+        std::vector<std::unique_ptr<Effect>> m_preRenderEffects;
         std::vector<std::unique_ptr<Effect>> m_postRenderEffects;
 
-        GLuint _vertexArrayObject;
+        GLuint m_vertexArrayObject;
         // Vertex Information
-        GLuint _vertexBufferObject;
+        GLuint m_vertexBufferObject;
         // Vertex Indices
-        GLuint _elementBufferObject;
+        GLuint m_elementBufferObject;
     };
 }
