@@ -8,8 +8,8 @@
 #include <glm/gtx/transform.hpp>
 
 namespace Engine::Components {
-    Transform::Transform(Engine::Entity& entity)
-          : Engine::Components::Component{entity} {
+    Transform::Transform(Entity& entity)
+          : Component{entity, "Transform"} {
         auto parent = m_entity.getParent();
         if (parent) {
             m_parent = parent->get<Transform>();

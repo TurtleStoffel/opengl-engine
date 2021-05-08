@@ -5,7 +5,7 @@
 
 namespace Engine::Components::Models {
     Vector::Vector(Entity& entity, const glm::vec3& direction)
-          : Model{entity}
+          : Model{entity, "Vector Model"}
           , m_direction{direction} {
         m_renderingMode = GL_LINES;
     }

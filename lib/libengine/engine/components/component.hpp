@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace Engine {
     class Entity;
 }
@@ -7,13 +9,13 @@ namespace Engine {
 namespace Engine::Components {
     class Component {
       public:
-        Component(Entity& entity)
-              : m_entity{entity} {};
+        Component(Entity& entity, const std::string& m_name);
         virtual ~Component() = default;
 
-        virtual auto renderConfiguration() -> void{};
+        virtual auto renderConfiguration() -> void;
 
       protected:
         Entity& m_entity;
+        std::string m_name;
     };
 }

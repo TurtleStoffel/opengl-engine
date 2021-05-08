@@ -8,7 +8,7 @@
 
 namespace Engine::Components {
     Collider::Collider(Entity& entity)
-          : Component{entity}
+          : Component{entity, "Collider"}
           , m_transform{entity.getRequired<Transform>()} {
     }
 

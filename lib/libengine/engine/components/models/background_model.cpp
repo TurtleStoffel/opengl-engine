@@ -2,7 +2,7 @@
 
 namespace Engine::Components::Models {
     BackgroundModel::BackgroundModel(Entity& entity)
-          : Model{entity} {
+          : Model{entity, "Background Model"} {
     }
 
     auto BackgroundModel::generateImpl() -> void {

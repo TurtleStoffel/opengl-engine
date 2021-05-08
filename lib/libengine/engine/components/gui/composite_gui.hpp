@@ -9,7 +9,7 @@ namespace Engine::Components::Gui {
     class CompositeGui : public GuiComponent {
       public:
         CompositeGui(Entity& entity)
-              : GuiComponent{entity} {};
+              : GuiComponent{entity, "Composite GUI"} {};
         ~CompositeGui() override = default;
 
         auto render() -> void override;

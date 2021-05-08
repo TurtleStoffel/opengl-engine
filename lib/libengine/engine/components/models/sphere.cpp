@@ -11,7 +11,7 @@
 
 namespace Engine::Components::Models {
     Sphere::Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator, int depth)
-          : Model{entity}
+          : Model{entity, "Sphere Model"}
           , m_depth{depth}
           , m_colorGenerator{colorGenerator} {
         addPostRenderEffect(std::make_unique<DebugVectors>(entity));

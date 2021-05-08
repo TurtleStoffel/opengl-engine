@@ -5,8 +5,8 @@
 #include "imgui.h"
 
 namespace Engine::Components::Shaders {
-    GenericShaderComponent::GenericShaderComponent(Entity& object, Shader& shader)
-          : ShaderComponent{object}
+    GenericShaderComponent::GenericShaderComponent(Entity& entity, Shader& shader)
+          : ShaderComponent{entity, "Generic Shader Component"}
           , m_shader{shader} {
     }
 

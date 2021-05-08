@@ -8,9 +8,11 @@
 #include "engine/opengl.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
+#include <string>
+
 namespace Engine::Components {
-    Model::Model(Entity& entity)
-          : Component{entity} {
+    Model::Model(Entity& entity, const std::string& name)
+          : Component{entity, name} {
         generateOpenGLBuffers();
     }
 

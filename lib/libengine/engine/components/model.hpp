@@ -7,6 +7,7 @@
 #include <functional>
 #include <glm/glm.hpp>
 #include <memory>
+#include <string>
 #include <vector>
 
 class ShaderRegistry;
@@ -28,7 +29,7 @@ struct Vertex {
 namespace Engine::Components {
     class Model : public Component {
       public:
-        Model(Entity& entity);
+        Model(Entity& entity, const std::string& name);
         ~Model() override = default;
 
         auto generate() -> void;

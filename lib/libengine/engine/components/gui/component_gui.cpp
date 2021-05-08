@@ -6,7 +6,7 @@
 
 namespace Engine::Components::Gui {
     ComponentGui::ComponentGui(Entity& entity)
-          : GuiComponent{entity} {};
+          : GuiComponent{entity, "Component GUI"} {};
 
     auto ComponentGui::render() -> void {
         ImGui::Begin("Entity Component GUI");
@@ -15,6 +15,7 @@ namespace Engine::Components::Gui {
             // Ignore this component in the list to avoid recursive call
             if (iterator->second.get() != this) {
                 iterator->second->renderConfiguration();
+                ImGui::Separator();
             }
         }
         ImGui::End();

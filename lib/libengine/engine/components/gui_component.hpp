@@ -4,12 +4,13 @@
 
 #include <cassert>
 #include <memory>
+#include <string>
 
 namespace Engine::Components {
     class GuiComponent : public Component {
       public:
-        GuiComponent(Entity& object)
-              : Component{object} {};
+        GuiComponent(Entity& entity, const std::string name)
+              : Component{entity, name} {};
         ~GuiComponent() override = default;
 
         virtual auto render() -> void = 0;
