@@ -15,8 +15,8 @@ auto SDL::createWindow(const std::string name) -> SDL_Window* {
     SDL_Window* pWindow = SDL_CreateWindow(name.c_str(),
                                            SDL_WINDOWPOS_CENTERED,
                                            SDL_WINDOWPOS_CENTERED,
-                                           constant::initialWindowWidth,
-                                           constant::initialWindowHeight,
+                                           constant::INITIAL_WINDOW_WIDTH,
+                                           constant::INITIAL_WINDOW_HEIGHT,
                                            SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
 
     // Generate OpenGL Context

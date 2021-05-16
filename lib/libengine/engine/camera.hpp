@@ -46,8 +46,8 @@ class Camera {
     // Camera speed in the update call
     static constexpr float SPEED = 0.001f;
 
-    int m_windowWidth  = constant::initialWindowWidth;
-    int m_windowHeight = constant::initialWindowHeight;
+    int m_windowWidth{constant::INITIAL_WINDOW_WIDTH};
+    int m_windowHeight{constant::INITIAL_WINDOW_HEIGHT};
 
     glm::mat4 m_viewMatrix;
     glm::mat4 m_projectionMatrix;
