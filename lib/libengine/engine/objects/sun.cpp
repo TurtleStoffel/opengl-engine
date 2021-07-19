@@ -13,28 +13,30 @@
 #include <memory>
 #include <utility>
 
-auto Sun::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Sun> {
-    auto sun = std::make_unique<Sun>();
+namespace Engine {
+    auto Sun::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Sun> {
+        auto sun = std::make_unique<Sun>();
 
-    sun->registerComponent<Engine::Components::ShaderComponent>(
-        std::make_unique<Engine::Components::Shaders::GenericShaderComponent>(
-            *sun, shaderRegistry.get<LowPolyShader>()));
-    sun->registerComponent<Engine::Components::Transform>(
-        std::make_unique<Engine::Components::Transform>(*sun));
-    sun->registerComponent<Engine::Components::Collider>(
-        std::make_unique<Engine::Components::Collider>(*sun));
+        sun->registerComponent<Components::ShaderComponent>(
+            std::make_unique<
+                Components::Shaders::GenericShaderComponent>(*sun,
+                                                             shaderRegistry.get<LowPolyShader>()));
+        sun->registerComponent<Components::Transform>(
+            std::make_unique<Components::Transform>(*sun));
+        sun->registerComponent<Components::Collider>(std::make_unique<Components::Collider>(*sun));
 
-    return sun;
-}
+        return sun;
+    }
 
-Sun::Sun()
-      : Entity{nullptr, "Sun"} {
-    auto colorGenerator = [this]([[maybe_unused]] float height) {
-        return color::starColor(m_temperature);
-    };
-    auto model = Engine::Components::Models::ModelFactory::make<
-        Engine::Components::Models::Sphere>(*this, colorGenerator);
-    model->addPreRenderEffect(std::make_unique<Glow>(*model.get()));
+    Sun::Sun()
+          : Entity{nullptr, "Sun"} {
+        auto colorGenerator = [this]([[maybe_unused]] float height) {
+            return color::starColor(m_temperature);
+        };
+        auto model = Components::Models::ModelFactory::make<
+            Components::Models::Sphere>(*this, colorGenerator);
+        model->addPreRenderEffect(std::make_unique<Glow>(*model.get()));
 
-    registerComponent<Engine::Components::Model>(std::move(model));
+        registerComponent<Components::Model>(std::move(model));
+    }
 }
