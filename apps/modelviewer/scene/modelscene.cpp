@@ -15,7 +15,7 @@
 namespace ModelViewer {
     ModelScene::ModelScene(const ShaderRegistry& shaderRegistry)
           : Scene{shaderRegistry} {
-        m_objects.push_back(Background::createDefault(m_shaderRegistry));
+        m_objects.push_back(Engine::Background::createDefault(m_shaderRegistry));
     }
 
     auto ModelScene::renderGui() -> void {
@@ -71,7 +71,7 @@ namespace ModelViewer {
 
     auto ModelScene::createModel(const char* model) -> void {
         m_objects.clear();
-        m_objects.push_back(Background::createDefault(m_shaderRegistry));
+        m_objects.push_back(Engine::Background::createDefault(m_shaderRegistry));
 
         auto object = std::unique_ptr<Engine::Entity>{nullptr};
 

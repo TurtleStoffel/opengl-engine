@@ -7,24 +7,26 @@
 #include "engine/shaders/backgroundshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
-auto Background::createDefault(const ShaderRegistry& shaderRegistry)
-    -> std::unique_ptr<Background> {
-    auto background = std::make_unique<Background>();
+namespace Engine {
+    auto Background::createDefault(const ShaderRegistry& shaderRegistry)
+        -> std::unique_ptr<Background> {
+        auto background = std::make_unique<Background>();
 
-    background->registerComponent<Engine::Components::ShaderComponent>(
-        std::make_unique<Engine::Components::Shaders::GenericShaderComponent>(
-            *background, shaderRegistry.get<BackgroundShader>()));
+        background->registerComponent<Components::ShaderComponent>(
+            std::make_unique<Components::Shaders::GenericShaderComponent>(*background,
+                                                                          shaderRegistry.get<
+                                                                              BackgroundShader>()));
 
-    background->registerComponent<Engine::Components::Transform>(
-        std::make_unique<Engine::Components::Transform>(*background));
+        background->createAndRegisterComponent<Components::Transform>(*background);
 
-    background->registerComponent<Engine::Components::Model>(
-        Engine::Components::Models::ModelFactory::make<Engine::Components::Models::BackgroundModel>(
-            *background));
+        background->registerComponent<Components::Model>(
+            Components::Models::ModelFactory::make<Components::Models::BackgroundModel>(
+                *background));
 
-    return background;
-}
+        return background;
+    }
 
-Background::Background()
-      : Engine::Entity{nullptr, "Background"} {
+    Background::Background()
+          : Entity{nullptr, "Background"} {
+    }
 }

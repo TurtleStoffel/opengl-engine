@@ -13,7 +13,7 @@
 
 SystemScene::SystemScene(const ShaderRegistry& shaderRegistry)
       : Scene{shaderRegistry} {
-    m_objects.push_back(Background::createDefault(m_shaderRegistry));
+    m_objects.push_back(Engine::Background::createDefault(m_shaderRegistry));
     // Create objects
     auto sun = Engine::Sun::createDefault(m_shaderRegistry);
     sun->registerComponent<Engine::Components::GuiComponent>(
