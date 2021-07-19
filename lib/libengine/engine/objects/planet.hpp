@@ -26,8 +26,6 @@ class Planet : public Engine::Entity {
     ~Planet() override = default;
 
   private:
-    static auto colorGenerator(float height) -> glm::vec3;
-
     float m_rotationalSpeed;
     float m_rotationAngle;
     float m_distance;

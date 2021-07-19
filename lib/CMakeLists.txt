@@ -11,6 +11,7 @@ set(ENGINE_SOURCES
     "libengine/engine/components/scripts/planet_rotation.cpp"
     "libengine/engine/components/shaders/generic_shader_component.cpp"
     "libengine/engine/components/collider.cpp"
+    "libengine/engine/components/color_selector.cpp"
     "libengine/engine/components/component.cpp"
     "libengine/engine/components/model.cpp"
     "libengine/engine/components/transform.cpp"
