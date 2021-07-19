@@ -14,22 +14,24 @@ namespace Engine::Components::Scripts {
 
 class ShaderRegistry;
 
-class Planet : public Engine::Entity {
-    friend class Engine::Components::Gui::PlanetGui;
-    friend class Engine::Components::Scripts::PlanetRotation;
+namespace Engine {
+    class Planet : public Entity {
+        friend class Components::Gui::PlanetGui;
+        friend class Components::Scripts::PlanetRotation;
 
-  public:
-    static auto createDefault(float distance, float radius, const ShaderRegistry& shaderRegistry)
-        -> std::unique_ptr<Planet>;
+      public:
+        static auto createDefault(float distance, float radius,
+                                  const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Planet>;
 
-    Planet(float distance);
-    ~Planet() override = default;
+        Planet(float distance);
+        ~Planet() override = default;
 
-  private:
-    float m_rotationalSpeed;
-    float m_rotationAngle;
-    float m_distance;
+      private:
+        float m_rotationalSpeed;
+        float m_rotationAngle;
+        float m_distance;
 
-    int m_inhabitants = 5000;
-    float m_ownership = 0.0f;
-};
+        int m_inhabitants = 5000;
+        float m_ownership = 0.0f;
+    };
+}

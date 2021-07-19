@@ -76,7 +76,7 @@ namespace ModelViewer {
         auto object = std::unique_ptr<Engine::Entity>{nullptr};
 
         if (strcmp(model, "Planet##model") == 0) {
-            object = Planet::createDefault(0.0f, 3.0f, m_shaderRegistry);
+            object = Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry);
 
             auto& guiComponent = object->getRequired<Engine::Components::GuiComponent>();
             guiComponent.addSubcomponent(

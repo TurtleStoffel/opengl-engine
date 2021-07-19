@@ -31,7 +31,9 @@ SystemScene::SystemScene(const ShaderRegistry& shaderRegistry)
         currentPlanetOffset += util::randf(minPlanetOffset, maxPlanetOffset);
         float planetRadius = util::randf(minPlanetRadius, maxPlanetRadius);
 
-        auto planet = Planet::createDefault(currentPlanetOffset, planetRadius, m_shaderRegistry);
+        auto planet = Engine::Planet::createDefault(currentPlanetOffset,
+                                                    planetRadius,
+                                                    m_shaderRegistry);
         planet->registerComponent<Engine::Components::Script>(
             std::make_unique<Engine::Components::Scripts::PlanetRotation>(*planet));
 
