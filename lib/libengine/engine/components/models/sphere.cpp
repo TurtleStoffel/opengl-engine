@@ -1,10 +1,6 @@
 #include "engine/components/models/sphere.hpp"
 
-#include "engine/application.hpp"
 #include "engine/models/effects/debug_vectors.hpp"
-#include "engine/noise/simplex_noise.hpp"
-#include "engine/objects/entity.hpp"
-#include "engine/util.hpp"
 
 #include <glm/gtx/norm.hpp>
 #include <math.h>
@@ -14,6 +10,14 @@ namespace Engine::Components::Models {
           : Model{entity, "Sphere Model"}
           , m_depth{depth}
           , m_colorGenerator{colorGenerator} {
+        addPostRenderEffect(std::make_unique<DebugVectors>(entity));
+    }
+    Sphere::Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator,
+                   std::function<float(glm::vec3&)> noiseFunction, int depth)
+          : Model{entity, "Sphere Model"}
+          , m_depth{depth}
+          , m_colorGenerator{colorGenerator}
+          , m_noiseFunction{noiseFunction} {
         addPostRenderEffect(std::make_unique<DebugVectors>(entity));
     }
 
@@ -139,12 +143,10 @@ namespace Engine::Components::Models {
     }
 
     auto Sphere::createVertex(glm::vec3 point) -> unsigned int {
-        float noise = SimplexNoise::noise(point.x * 2.0f, point.y * 2.0f, point.z * 2.0f);
-        // Noise in range [0, 1]
-        auto normalizedHeight = (noise + 1.0f) / 2.0f;
-
-        auto heightFactor = 1.0f + noise / 15.0f;
-        point *= heightFactor;
+        auto normalizedHeight = 0.0f;
+        if (m_noiseFunction) {
+            normalizedHeight = m_noiseFunction(point);
+        }
 
         // Create Vertex at _vertexIndex
         m_vertices.push_back(Vertex{point, // Position

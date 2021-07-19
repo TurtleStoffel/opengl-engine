@@ -1,5 +1,6 @@
 #include "engine/objects/planet.hpp"
 
+#include "engine/color.hpp"
 #include "engine/components/collider.hpp"
 #include "engine/components/color_selector.hpp"
 #include "engine/components/gui/composite_gui.hpp"
@@ -10,6 +11,7 @@
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/models/effects/outline.hpp"
+#include "engine/noise/simplex_noise.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 #include "engine/util.hpp"
@@ -47,7 +49,8 @@ namespace Engine {
           , m_rotationalSpeed{util::randf(0.00003f, 0.0001f)}
           , m_rotationAngle{util::randRadian()}
           , m_distance{distance} {
-        auto lambda = [this](float height) {
+
+        auto colorFunction = [this](float height) {
             auto colorSelector = get<Components::ColorSelector>();
             if (colorSelector) {
                 return colorSelector->getColor(height);
@@ -69,8 +72,17 @@ namespace Engine {
                 }
             }
         };
-        auto model = Components::Models::ModelFactory::make<Components::Models::Sphere>(*this,
-                                                                                        lambda);
+        auto noiseFunction = [](glm::vec3& point) {
+            float noise = SimplexNoise::noise(point.x * 2.0f, point.y * 2.0f, point.z * 2.0f);
+            // Noise in range [0, 1]
+            auto normalizedHeight = (noise + 1.0f) / 2.0f;
+
+            auto heightFactor = 1.0f + noise / 15.0f;
+            point *= heightFactor;
+            return normalizedHeight;
+        };
+        auto model = Components::Models::ModelFactory::make<
+            Components::Models::Sphere>(*this, colorFunction, noiseFunction);
         model->addPreRenderEffect(std::make_unique<Outline>(*model));
         registerComponent<Components::Model>(std::move(model));
     }

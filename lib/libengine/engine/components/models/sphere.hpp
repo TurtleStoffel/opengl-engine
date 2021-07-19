@@ -1,10 +1,11 @@
 #pragma once
 
-#include "engine/color.hpp"
 #include "engine/components/model.hpp"
 
 #include <functional>
 #include <map>
+
+#include <glm/glm.hpp>
 
 namespace Engine {
     class Entity;
@@ -15,6 +16,8 @@ namespace Engine::Components::Models {
       public:
         explicit Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator,
                         int depth = 4);
+        explicit Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator,
+                        std::function<float(glm::vec3&)> noiseFunction, int depth = 4);
         ~Sphere() override = default;
 
       private:
@@ -43,5 +46,6 @@ namespace Engine::Components::Models {
         std::map<unsigned long, unsigned int> m_midPointCache;
 
         std::function<glm::vec3(float)> m_colorGenerator;
+        std::function<float(glm::vec3&)> m_noiseFunction;
     };
 }
