@@ -36,6 +36,9 @@ namespace Engine {
 
         template <typename TComponentType>
         auto registerComponent(std::unique_ptr<TComponentType> component) -> void;
+        template <typename TComponentType, typename... TArgs>
+        auto createAndRegisterComponent(TArgs&&... args) -> void;
+
         template <typename TComponentType>
         auto get() const -> TComponentType*;
         template <typename TComponentType>
@@ -59,6 +62,12 @@ namespace Engine {
         assert(iterator == m_components.end());
 
         m_components.insert({componentHash, std::move(component)});
+    }
+
+    template <typename TComponentType, typename... TArgs>
+    auto Entity::createAndRegisterComponent(TArgs&&... args) -> void {
+        registerComponent<TComponentType>(
+            std::make_unique<TComponentType>(std::forward<TArgs>(args)...));
     }
 
     template <typename TComponentType>

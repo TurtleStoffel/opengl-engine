@@ -31,15 +31,13 @@ namespace Engine {
         transform->scale(glm::vec3{radius, radius, radius});
         planet->registerComponent<Components::Transform>(std::move(transform));
 
-        planet->registerComponent<Components::Collider>(
-            std::make_unique<Components::Collider>(*planet));
+        planet->createAndRegisterComponent<Components::Collider>(*planet);
 
         auto compositeGui = std::make_unique<Components::Gui::CompositeGui>(*planet);
         compositeGui->addSubcomponent(std::make_unique<Components::Gui::PlanetGui>(*planet));
         planet->registerComponent<Components::GuiComponent>(std::move(compositeGui));
 
-        planet->registerComponent<Components::ColorSelector>(
-            std::make_unique<Components::ColorSelector>(*planet));
+        planet->createAndRegisterComponent<Components::ColorSelector>(*planet);
 
         return planet;
     }

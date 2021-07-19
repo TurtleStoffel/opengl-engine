@@ -21,9 +21,9 @@ namespace Engine {
             std::make_unique<
                 Components::Shaders::GenericShaderComponent>(*sun,
                                                              shaderRegistry.get<LowPolyShader>()));
-        sun->registerComponent<Components::Transform>(
-            std::make_unique<Components::Transform>(*sun));
-        sun->registerComponent<Components::Collider>(std::make_unique<Components::Collider>(*sun));
+
+        sun->createAndRegisterComponent<Components::Transform>(*sun);
+        sun->createAndRegisterComponent<Components::Collider>(*sun);
 
         return sun;
     }
