@@ -2,13 +2,14 @@
 
 #include "engine/color.hpp"
 #include "engine/components/collider.hpp"
+#include "engine/components/gui/composite_gui.hpp"
 #include "engine/components/models/model_factory.hpp"
 #include "engine/components/models/sphere.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/models/effects/glow.hpp"
-#include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
+#include "engine/shaders/sun_shader.hpp"
 
 #include <memory>
 #include <utility>
@@ -18,9 +19,12 @@ namespace Engine {
         auto sun = std::make_unique<Sun>();
 
         sun->registerComponent<Components::ShaderComponent>(
-            std::make_unique<
-                Components::Shaders::GenericShaderComponent>(*sun,
-                                                             shaderRegistry.get<LowPolyShader>()));
+            std::make_unique<Components::Shaders::GenericShaderComponent>(*sun,
+                                                                          shaderRegistry
+                                                                              .get<SunShader>()));
+
+        sun->registerComponent<Components::GuiComponent>(
+            std::make_unique<Components::Gui::CompositeGui>(*sun));
 
         sun->createAndRegisterComponent<Components::Transform>(*sun);
         sun->createAndRegisterComponent<Components::Collider>(*sun);

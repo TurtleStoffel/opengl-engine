@@ -86,7 +86,11 @@ namespace ModelViewer {
                 std::make_unique<Engine::Components::Scripts::DemoRotation>(*object));
         } else if (strcmp(model, "Sun##model") == 0) {
             object = Engine::Sun::createDefault(m_shaderRegistry);
-            object->registerComponent<Engine::Components::GuiComponent>(
+
+            auto& guiComponent = object->getRequired<Engine::Components::GuiComponent>();
+            guiComponent.addSubcomponent(
+                std::make_unique<Engine::Components::Gui::ComponentGui>(*object));
+            guiComponent.addSubcomponent(
                 std::make_unique<Engine::Components::Gui::SunConfigurationGui>(*object));
         }
 

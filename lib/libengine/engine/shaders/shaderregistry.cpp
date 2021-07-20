@@ -5,6 +5,7 @@
 #include "engine/shaders/glowshader.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/silhouetteshader.hpp"
+#include "engine/shaders/sun_shader.hpp"
 
 ShaderRegistry::ShaderRegistry() {
     // Create uniform buffer object to store Model/View/Projection matrix
@@ -13,11 +14,12 @@ ShaderRegistry::ShaderRegistry() {
     glBufferData(GL_UNIFORM_BUFFER, sizeof(glm::mat4) * 3, nullptr, GL_STREAM_DRAW);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-    registerShader(std::make_unique<LowPolyShader>());
-    registerShader(std::make_unique<CircleShader>());
-    registerShader(std::make_unique<SilhouetteShader>());
-    registerShader(std::make_unique<GlowShader>());
     registerShader(std::make_unique<BackgroundShader>());
+    registerShader(std::make_unique<CircleShader>());
+    registerShader(std::make_unique<GlowShader>());
+    registerShader(std::make_unique<LowPolyShader>());
+    registerShader(std::make_unique<SilhouetteShader>());
+    registerShader(std::make_unique<SunShader>());
 }
 
 void ShaderRegistry::setViewProjectionMatrix(void* view, void* projection) const {
