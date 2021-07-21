@@ -16,6 +16,7 @@ namespace Engine::Components {
     class Collider : public Component {
       public:
         Collider(Entity& entity);
+        ~Collider() override = default;
 
         /**
          * Collider is always equal to a sphere

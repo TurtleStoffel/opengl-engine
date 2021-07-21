@@ -1,4 +1,5 @@
 set(ENGINE_SOURCES 
+    "libengine/engine/components/effects/debug_vectors.cpp"
     "libengine/engine/components/gui/component_gui.cpp"
     "libengine/engine/components/gui/composite_gui.cpp"
     "libengine/engine/components/gui/planet_gui.cpp"
@@ -15,7 +16,6 @@ set(ENGINE_SOURCES
     "libengine/engine/components/component.cpp"
     "libengine/engine/components/model.cpp"
     "libengine/engine/components/transform.cpp"
-    "libengine/engine/models/effects/debug_vectors.cpp"
     "libengine/engine/models/effects/glow.cpp"
     "libengine/engine/models/effects/outline.cpp"
     "libengine/engine/noise/simplex_noise.cpp"

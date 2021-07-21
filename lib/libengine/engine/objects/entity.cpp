@@ -1,6 +1,7 @@
 #include "engine/objects/entity.hpp"
 
 #include "engine/components/collider.hpp"
+#include "engine/components/effect.hpp"
 #include "engine/components/gui_component.hpp"
 #include "engine/components/script.hpp"
 
@@ -21,14 +22,18 @@ namespace Engine {
         }
     }
 
-    void Entity::render(const ShaderRegistry& shaderContainer) const {
+    void Entity::render(const ShaderRegistry& shaderRegistry) const {
         auto model = get<Components::Model>();
         if (model) {
-            getRequired<Components::Transform>().passModelMatrixToShader(shaderContainer);
-            model->render(shaderContainer);
+            getRequired<Components::Transform>().passModelMatrixToShader(shaderRegistry);
+            model->render(shaderRegistry);
+        }
+        auto effect = get<Components::Effect>();
+        if (effect) {
+            effect->render(shaderRegistry);
         }
         for (const auto& child : m_children) {
-            child->render(shaderContainer);
+            child->render(shaderRegistry);
         }
 
         auto guiComponent = get<Components::GuiComponent>();
