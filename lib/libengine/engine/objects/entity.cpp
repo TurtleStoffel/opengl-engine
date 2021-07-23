@@ -23,14 +23,18 @@ namespace Engine {
     }
 
     void Entity::render(const ShaderRegistry& shaderRegistry) const {
+        auto effect = get<Components::Effect>();
+        if (effect) {
+            getRequired<Components::Transform>().passModelMatrixToShader(shaderRegistry);
+            effect->renderPreRenderEffects(shaderRegistry);
+        }
         auto model = get<Components::Model>();
         if (model) {
             getRequired<Components::Transform>().passModelMatrixToShader(shaderRegistry);
             model->render(shaderRegistry);
         }
-        auto effect = get<Components::Effect>();
         if (effect) {
-            effect->render(shaderRegistry);
+            effect->renderPostRenderEffects(shaderRegistry);
         }
         for (const auto& child : m_children) {
             child->render(shaderRegistry);

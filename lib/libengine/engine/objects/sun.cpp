@@ -2,6 +2,7 @@
 
 #include "engine/color.hpp"
 #include "engine/components/collider.hpp"
+#include "engine/components/effect.hpp"
 #include "engine/components/gui/composite_gui.hpp"
 #include "engine/components/models/model_factory.hpp"
 #include "engine/components/models/sphere.hpp"
@@ -34,6 +35,7 @@ namespace Engine {
 
     Sun::Sun()
           : Entity{nullptr, "Sun"} {
+        createAndRegisterComponent<Components::Effect>(*this);
         auto colorGenerator = [this]([[maybe_unused]] float height) {
             return color::starColor(m_temperature);
         };

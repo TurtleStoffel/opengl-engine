@@ -3,6 +3,7 @@
 #include "engine/color.hpp"
 #include "engine/components/collider.hpp"
 #include "engine/components/color_selector.hpp"
+#include "engine/components/effect.hpp"
 #include "engine/components/gui/composite_gui.hpp"
 #include "engine/components/gui/planet_gui.hpp"
 #include "engine/components/gui_component.hpp"
@@ -81,6 +82,7 @@ namespace Engine {
             point *= heightFactor;
             return normalizedHeight;
         };
+        createAndRegisterComponent<Components::Effect>(*this);
         auto model = Components::Models::ModelFactory::make<
             Components::Models::Sphere>(*this, colorFunction, noiseFunction);
         model->addPreRenderEffect(std::make_unique<Outline>(*model));

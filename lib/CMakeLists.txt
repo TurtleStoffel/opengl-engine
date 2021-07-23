@@ -14,6 +14,7 @@ set(ENGINE_SOURCES
     "libengine/engine/components/collider.cpp"
     "libengine/engine/components/color_selector.cpp"
     "libengine/engine/components/component.cpp"
+    "libengine/engine/components/effect.cpp"
     "libengine/engine/components/model.cpp"
     "libengine/engine/components/transform.cpp"
     "libengine/engine/models/effects/glow.cpp"

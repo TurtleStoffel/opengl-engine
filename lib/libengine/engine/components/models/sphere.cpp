@@ -11,7 +11,8 @@ namespace Engine::Components::Models {
           : Model{entity, "Sphere Model"}
           , m_depth{depth}
           , m_colorGenerator{colorGenerator} {
-        entity.registerComponent<Effect>(std::make_unique<Effects::DebugVectors>(entity));
+        auto& effectComponent = entity.getRequired<Effect>();
+        effectComponent.addPreRenderEffect(std::make_unique<Effects::DebugVectors>(entity));
     }
     Sphere::Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator,
                    std::function<float(glm::vec3&)> noiseFunction, int depth)
@@ -19,7 +20,8 @@ namespace Engine::Components::Models {
           , m_depth{depth}
           , m_colorGenerator{colorGenerator}
           , m_noiseFunction{noiseFunction} {
-        entity.registerComponent<Effect>(std::make_unique<Effects::DebugVectors>(entity));
+        auto& effectComponent = entity.getRequired<Effect>();
+        effectComponent.addPreRenderEffect(std::make_unique<Effects::DebugVectors>(entity));
     }
 
     auto Sphere::generateImpl() -> void {
