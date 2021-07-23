@@ -3,7 +3,6 @@
 #include "engine/components/collider.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/transform.hpp"
-#include "engine/models/effects/effect.hpp"
 #include "engine/objects/entity.hpp"
 #include "engine/opengl.hpp"
 #include "engine/shaders/shaderregistry.hpp"
@@ -25,45 +24,21 @@ namespace Engine::Components {
         setupBuffers();
     }
 
-    auto Model::render(const ShaderRegistry& shaderContainer) const -> void {
+    auto Model::render() const -> void {
         glBindVertexArray(m_vertexArrayObject);
 
-        for (const auto& effect : m_preRenderEffects) {
-            effect->render(shaderContainer);
-        }
-
         m_entity.getRequired<Engine::Components::ShaderComponent>().use();
-
         glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
-
-        for (const auto& effect : m_postRenderEffects) {
-            effect->render(shaderContainer);
-        }
 
         glBindVertexArray(0);
     }
 
     auto Model::glDraw() const -> void {
         glBindVertexArray(m_vertexArrayObject);
+
         glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
+
         glBindVertexArray(0);
-    }
-
-    auto Model::addPreRenderEffect(std::unique_ptr<Effect> effect) -> void {
-        m_preRenderEffects.push_back(std::move(effect));
-    }
-
-    auto Model::addPostRenderEffect(std::unique_ptr<Effect> effect) -> void {
-        m_postRenderEffects.push_back(std::move(effect));
-    }
-
-    auto Model::getSelected() const -> bool {
-        auto collider = m_entity.get<Engine::Components::Collider>();
-        if (collider) {
-            return collider->getSelected();
-        } else {
-            return false;
-        }
     }
 
     auto Model::generateOpenGLBuffers() -> void {

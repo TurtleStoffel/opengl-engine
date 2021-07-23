@@ -31,7 +31,7 @@ namespace Engine {
         auto model = get<Components::Model>();
         if (model) {
             getRequired<Components::Transform>().passModelMatrixToShader(shaderRegistry);
-            model->render(shaderRegistry);
+            model->render();
         }
         if (effect) {
             effect->renderPostRenderEffects(shaderRegistry);

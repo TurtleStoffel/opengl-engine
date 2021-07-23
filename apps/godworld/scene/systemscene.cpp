@@ -16,7 +16,7 @@ SystemScene::SystemScene(const ShaderRegistry& shaderRegistry)
     m_objects.push_back(Engine::Background::createDefault(m_shaderRegistry));
     // Create objects
     auto sun = Engine::Sun::createDefault(m_shaderRegistry);
-    sun->registerComponent<Engine::Components::GuiComponent>(
+    sun->getRequired<Engine::Components::GuiComponent>().addSubcomponent(
         std::make_unique<Engine::Components::Gui::SunGui>(*sun));
     m_objects.push_back(std::move(sun));
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "engine/components/component.hpp"
-#include "engine/models/effects/effect.hpp"
 #include "engine/opengl.hpp"
 
 #include <functional>
@@ -33,14 +32,9 @@ namespace Engine::Components {
         ~Model() override = default;
 
         auto generate() -> void;
-        auto render(const ShaderRegistry& shaderContainer) const -> void;
+        auto render() const -> void;
 
         auto glDraw() const -> void;
-
-        auto addPreRenderEffect(std::unique_ptr<Effect> effect) -> void;
-        auto addPostRenderEffect(std::unique_ptr<Effect> effect) -> void;
-
-        auto getSelected() const -> bool;
 
       protected:
         // Fill m_vertices and m_indices.
@@ -54,9 +48,6 @@ namespace Engine::Components {
       private:
         auto generateOpenGLBuffers() -> void;
         auto setupBuffers() -> void;
-
-        std::vector<std::unique_ptr<Effect>> m_preRenderEffects;
-        std::vector<std::unique_ptr<Effect>> m_postRenderEffects;
 
         GLuint m_vertexArrayObject;
         // Vertex Information
