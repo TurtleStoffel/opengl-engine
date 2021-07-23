@@ -4,6 +4,7 @@
 #include "engine/components/collider.hpp"
 #include "engine/components/color_selector.hpp"
 #include "engine/components/effect.hpp"
+#include "engine/components/effects/outline.hpp"
 #include "engine/components/gui/composite_gui.hpp"
 #include "engine/components/gui/planet_gui.hpp"
 #include "engine/components/gui_component.hpp"
@@ -11,7 +12,6 @@
 #include "engine/components/models/sphere.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
-#include "engine/models/effects/outline.hpp"
 #include "engine/noise/simplex_noise.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
@@ -82,10 +82,12 @@ namespace Engine {
             point *= heightFactor;
             return normalizedHeight;
         };
-        createAndRegisterComponent<Components::Effect>(*this);
+        auto effectComponent = std::make_unique<Components::Effect>(*this);
+        effectComponent->addPreRenderEffect(std::make_unique<Components::Effects::Outline>(*this));
+        registerComponent<Components::Effect>(std::move(effectComponent));
+
         auto model = Components::Models::ModelFactory::make<
             Components::Models::Sphere>(*this, colorFunction, noiseFunction);
-        model->addPreRenderEffect(std::make_unique<Outline>(*model));
         registerComponent<Components::Model>(std::move(model));
     }
 }
