@@ -44,7 +44,9 @@ namespace Engine::Components {
     }
 
     auto Model::glDraw() const -> void {
+        glBindVertexArray(m_vertexArrayObject);
         glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
     }
 
     auto Model::addPreRenderEffect(std::unique_ptr<Effect> effect) -> void {

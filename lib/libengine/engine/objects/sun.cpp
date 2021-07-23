@@ -3,12 +3,12 @@
 #include "engine/color.hpp"
 #include "engine/components/collider.hpp"
 #include "engine/components/effect.hpp"
+#include "engine/components/effects/glow.hpp"
 #include "engine/components/gui/composite_gui.hpp"
 #include "engine/components/models/model_factory.hpp"
 #include "engine/components/models/sphere.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
-#include "engine/models/effects/glow.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 #include "engine/shaders/sun_shader.hpp"
 
@@ -35,13 +35,15 @@ namespace Engine {
 
     Sun::Sun()
           : Entity{nullptr, "Sun"} {
-        createAndRegisterComponent<Components::Effect>(*this);
+        auto effectComponent = std::make_unique<Components::Effect>(*this);
+        effectComponent->addPreRenderEffect(std::make_unique<Components::Effects::Glow>(*this));
+        registerComponent<Components::Effect>(std::move(effectComponent));
+
         auto colorGenerator = [this]([[maybe_unused]] float height) {
             return color::starColor(m_temperature);
         };
         auto model = Components::Models::ModelFactory::make<
             Components::Models::Sphere>(*this, colorGenerator);
-        model->addPreRenderEffect(std::make_unique<Glow>(*model.get()));
 
         registerComponent<Components::Model>(std::move(model));
     }
