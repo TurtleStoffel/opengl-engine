@@ -20,7 +20,7 @@ namespace Engine::Components::Gui {
 class ShaderRegistry;
 
 namespace Engine {
-    class Entity : public TreeNode<Entity> {
+    class Entity final : public TreeNode<Entity> {
         friend class Components::Gui::ComponentGui;
 
       public:
