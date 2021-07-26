@@ -6,24 +6,9 @@
 
 class ShaderRegistry;
 
-namespace Engine::Components::Gui {
-    class SunConfigurationGui;
-    class SunGui;
-}
-
 namespace Engine {
-    class Sun : public Entity {
-        friend class Components::Gui::SunGui;
-        friend class Components::Gui::SunConfigurationGui;
-
+    class Sun final {
       public:
-        static auto createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Sun>;
-
-        Sun();
-        ~Sun() override = default;
-
-      private:
-        // Temperature in Kelvin
-        int m_temperature = 6000;
+        static auto createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity>;
     };
 }

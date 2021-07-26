@@ -9,6 +9,7 @@
 #include "engine/components/models/sphere.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
+#include "engine/components/state/sun_state.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 #include "engine/shaders/sun_shader.hpp"
 
@@ -16,35 +17,35 @@
 #include <utility>
 
 namespace Engine {
-    auto Sun::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Sun> {
-        auto sun = std::make_unique<Sun>();
+    auto Sun::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
+        auto entity = std::make_unique<Entity>(nullptr, "Sun");
 
-        sun->registerComponent<Components::ShaderComponent>(
-            std::make_unique<Components::Shaders::GenericShaderComponent>(*sun,
+        entity->createAndRegisterComponent<Components::SunState>(*entity);
+
+        auto effectComponent = std::make_unique<Components::Effect>(*entity);
+        effectComponent->addPreRenderEffect(std::make_unique<Components::Effects::Glow>(*entity));
+        entity->registerComponent<Components::Effect>(std::move(effectComponent));
+
+        auto colorGenerator = [entity = entity.get()]([[maybe_unused]] float height) {
+            auto& sunState = entity->getRequired<Components::SunState>();
+            return color::starColor(sunState.m_temperature);
+        };
+
+        auto model = Components::Models::ModelFactory::make<
+            Components::Models::Sphere>(*entity, colorGenerator);
+        entity->registerComponent<Components::Model>(std::move(model));
+
+        entity->registerComponent<Components::ShaderComponent>(
+            std::make_unique<Components::Shaders::GenericShaderComponent>(*entity,
                                                                           shaderRegistry
                                                                               .get<SunShader>()));
 
-        sun->registerComponent<Components::GuiComponent>(
-            std::make_unique<Components::Gui::CompositeGui>(*sun));
+        entity->registerComponent<Components::GuiComponent>(
+            std::make_unique<Components::Gui::CompositeGui>(*entity));
 
-        sun->createAndRegisterComponent<Components::Transform>(*sun);
-        sun->createAndRegisterComponent<Components::Collider>(*sun);
+        entity->createAndRegisterComponent<Components::Transform>(*entity);
+        entity->createAndRegisterComponent<Components::Collider>(*entity);
 
-        return sun;
-    }
-
-    Sun::Sun()
-          : Entity{nullptr, "Sun"} {
-        auto effectComponent = std::make_unique<Components::Effect>(*this);
-        effectComponent->addPreRenderEffect(std::make_unique<Components::Effects::Glow>(*this));
-        registerComponent<Components::Effect>(std::move(effectComponent));
-
-        auto colorGenerator = [this]([[maybe_unused]] float height) {
-            return color::starColor(m_temperature);
-        };
-        auto model = Components::Models::ModelFactory::make<
-            Components::Models::Sphere>(*this, colorGenerator);
-
-        registerComponent<Components::Model>(std::move(model));
+        return entity;
     }
 }
