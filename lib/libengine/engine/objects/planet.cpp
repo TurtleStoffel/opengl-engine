@@ -12,7 +12,9 @@
 #include "engine/components/models/sphere.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
+#include "engine/components/state/planet_state.hpp"
 #include "engine/noise/simplex_noise.hpp"
+#include "engine/objects/entity.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 #include "engine/util.hpp"
@@ -22,37 +24,17 @@
 
 namespace Engine {
     auto Planet::createDefault(float distance, float radius, const ShaderRegistry& shaderRegistry)
-        -> std::unique_ptr<Planet> {
-        auto planet = std::make_unique<Planet>(distance);
+        -> std::unique_ptr<Entity> {
+        auto entity = std::make_unique<Entity>(nullptr, "Planet");
 
-        planet->registerComponent<Components::ShaderComponent>(
-            std::make_unique<
-                Components::Shaders::GenericShaderComponent>(*planet,
-                                                             shaderRegistry.get<LowPolyShader>()));
+        auto planetState               = std::make_unique<Components::PlanetState>(*entity);
+        planetState->m_rotationalSpeed = util::randf(0.00003f, 0.0001f);
+        planetState->m_rotationAngle   = util::randRadian();
+        planetState->m_distance        = distance;
+        entity->registerComponent<Components::PlanetState>(std::move(planetState));
 
-        auto transform = std::make_unique<Components::Transform>(*planet);
-        transform->scale(glm::vec3{radius, radius, radius});
-        planet->registerComponent<Components::Transform>(std::move(transform));
-
-        planet->createAndRegisterComponent<Components::Collider>(*planet);
-
-        auto compositeGui = std::make_unique<Components::Gui::CompositeGui>(*planet);
-        compositeGui->addSubcomponent(std::make_unique<Components::Gui::PlanetGui>(*planet));
-        planet->registerComponent<Components::GuiComponent>(std::move(compositeGui));
-
-        planet->createAndRegisterComponent<Components::ColorSelector>(*planet);
-
-        return planet;
-    }
-
-    Planet::Planet(float distance)
-          : Entity{nullptr, "Planet"}
-          , m_rotationalSpeed{util::randf(0.00003f, 0.0001f)}
-          , m_rotationAngle{util::randRadian()}
-          , m_distance{distance} {
-
-        auto colorFunction = [this](float height) {
-            auto colorSelector = get<Components::ColorSelector>();
+        auto colorFunction = [entity = entity.get()](float height) {
+            auto colorSelector = entity->get<Components::ColorSelector>();
             if (colorSelector) {
                 return colorSelector->getColor(height);
             } else {
@@ -82,12 +64,32 @@ namespace Engine {
             point *= heightFactor;
             return normalizedHeight;
         };
-        auto effectComponent = std::make_unique<Components::Effect>(*this);
-        effectComponent->addPreRenderEffect(std::make_unique<Components::Effects::Outline>(*this));
-        registerComponent<Components::Effect>(std::move(effectComponent));
+        auto effectComponent = std::make_unique<Components::Effect>(*entity);
+        effectComponent->addPreRenderEffect(
+            std::make_unique<Components::Effects::Outline>(*entity));
+        entity->registerComponent<Components::Effect>(std::move(effectComponent));
 
         auto model = Components::Models::ModelFactory::make<
-            Components::Models::Sphere>(*this, colorFunction, noiseFunction);
-        registerComponent<Components::Model>(std::move(model));
+            Components::Models::Sphere>(*entity, colorFunction, noiseFunction);
+        entity->registerComponent<Components::Model>(std::move(model));
+
+        entity->registerComponent<Components::ShaderComponent>(
+            std::make_unique<
+                Components::Shaders::GenericShaderComponent>(*entity,
+                                                             shaderRegistry.get<LowPolyShader>()));
+
+        auto transform = std::make_unique<Components::Transform>(*entity);
+        transform->scale(glm::vec3{radius, radius, radius});
+        entity->registerComponent<Components::Transform>(std::move(transform));
+
+        entity->createAndRegisterComponent<Components::Collider>(*entity);
+
+        auto compositeGui = std::make_unique<Components::Gui::CompositeGui>(*entity);
+        compositeGui->addSubcomponent(std::make_unique<Components::Gui::PlanetGui>(*entity));
+        entity->registerComponent<Components::GuiComponent>(std::move(compositeGui));
+
+        entity->createAndRegisterComponent<Components::ColorSelector>(*entity);
+
+        return entity;
     }
 }
