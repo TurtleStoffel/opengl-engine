@@ -10,12 +10,12 @@ layout(std140) uniform ModelViewProjection {
     mat4 projection;
 };
 
-out vec4 worldPosition;
+out vec3 originalPosition;
 flat out vec3 vertexColor;
 
 void main() {
-    worldPosition = model * vec4(vPosition, 1.0f);
+    originalPosition = vPosition;
     // Transform Vertex Position from Local to World Space
-    gl_Position = projection * view * worldPosition;
+    gl_Position = projection * view * model * vec4(vPosition, 1.0f);
     vertexColor = vColor;
 }
