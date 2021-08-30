@@ -6,7 +6,7 @@
 #include "engine/components/scripts/planet_rotation.hpp"
 #include "engine/objects/background.hpp"
 #include "engine/objects/planet.hpp"
-#include "engine/objects/sun.hpp"
+#include "engine/objects/star.hpp"
 #include "engine/util.hpp"
 
 #include <utility>
@@ -15,7 +15,7 @@ SystemScene::SystemScene(const ShaderRegistry& shaderRegistry)
       : Scene{shaderRegistry} {
     m_objects.push_back(Engine::Background::createDefault(m_shaderRegistry));
     // Create objects
-    auto sun = Engine::Sun::createDefault(m_shaderRegistry);
+    auto sun = Engine::Star::createDefault(m_shaderRegistry);
     sun->getRequired<Engine::Components::GuiComponent>().addSubcomponent(
         std::make_unique<Engine::Components::Gui::SunGui>(*sun));
     m_objects.push_back(std::move(sun));

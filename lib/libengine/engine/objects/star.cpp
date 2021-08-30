@@ -1,4 +1,4 @@
-#include "engine/objects/sun.hpp"
+#include "engine/objects/star.hpp"
 
 #include "engine/color.hpp"
 #include "engine/components/collider.hpp"
@@ -17,8 +17,8 @@
 #include <utility>
 
 namespace Engine {
-    auto Sun::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
-        auto entity = std::make_unique<Entity>(nullptr, "Sun");
+    auto Star::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
+        auto entity = std::make_unique<Entity>(nullptr, "Star");
 
         entity->createAndRegisterComponent<Components::SunState>(*entity);
 

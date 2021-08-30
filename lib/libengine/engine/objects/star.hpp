@@ -7,7 +7,7 @@
 class ShaderRegistry;
 
 namespace Engine {
-    class Sun final {
+    class Star final {
       public:
         static auto createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity>;
     };

@@ -23,7 +23,7 @@ set(ENGINE_SOURCES
     "libengine/engine/objects/background.cpp"
     "libengine/engine/objects/entity.cpp"
     "libengine/engine/objects/planet.cpp"
-    "libengine/engine/objects/sun.cpp"
+    "libengine/engine/objects/star.cpp"
     "libengine/engine/scene/scene.cpp"
     "libengine/engine/shaders/circleshader.cpp"
     "libengine/engine/shaders/glowshader.cpp"

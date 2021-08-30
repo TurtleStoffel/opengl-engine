@@ -8,7 +8,7 @@
 #include "engine/objects/background.hpp"
 #include "engine/objects/entity.hpp"
 #include "engine/objects/planet.hpp"
-#include "engine/objects/sun.hpp"
+#include "engine/objects/star.hpp"
 
 #include "imgui.h"
 
@@ -84,8 +84,8 @@ namespace ModelViewer {
 
             object->registerComponent<Engine::Components::Script>(
                 std::make_unique<Engine::Components::Scripts::DemoRotation>(*object));
-        } else if (strcmp(model, "Sun##model") == 0) {
-            object = Engine::Sun::createDefault(m_shaderRegistry);
+        } else if (strcmp(model, "Star##model") == 0) {
+            object = Engine::Star::createDefault(m_shaderRegistry);
 
             auto& guiComponent = object->getRequired<Engine::Components::GuiComponent>();
             guiComponent.addSubcomponent(
