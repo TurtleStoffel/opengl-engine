@@ -17,13 +17,5 @@ namespace Engine {
 
         static auto interpolate(const glm::vec3& source, const glm::vec3& target, float fraction)
             -> glm::vec3;
-
-        /**
-         * @param[temperature] Kelvin
-         */
-        static auto starColor(int temperature) -> glm::vec3;
-
-      private:
-        static auto calculateTemperatureIndicator(int temperature) -> float;
     };
 }
