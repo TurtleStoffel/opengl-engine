@@ -43,15 +43,15 @@ namespace Engine {
                 constexpr auto CUTOFF_3 = 0.50f;
 
                 if (height > CUTOFF_1) {
-                    return color::grey;
+                    return Color::grey;
                 } else if (height > CUTOFF_2) {
                     auto fraction = (height - CUTOFF_2) / (CUTOFF_1 - CUTOFF_2);
-                    return color::interpolate(color::brown, color::darkGrey, fraction);
+                    return Color::interpolate(Color::brown, Color::darkGrey, fraction);
                 } else if (height > CUTOFF_3) {
                     auto fraction = (height - CUTOFF_3) / (CUTOFF_2 - CUTOFF_3);
-                    return color::interpolate(color::darkGreen, color::brown, fraction);
+                    return Color::interpolate(Color::darkGreen, Color::brown, fraction);
                 } else {
-                    return color::darkGreen;
+                    return Color::darkGreen;
                 }
             }
         };

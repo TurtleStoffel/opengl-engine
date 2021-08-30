@@ -1,24 +1,26 @@
 #include "color.hpp"
 
 #include <algorithm>
+#include <cassert>
 #include <math.h>
 
 #include "util.hpp"
 
-namespace color {
-    auto interpolate(const glm::vec3& source, const glm::vec3& target, float fraction)
+namespace Engine {
+    auto Color::interpolate(const glm::vec3& source, const glm::vec3& target, float fraction)
         -> glm::vec3 {
         return (target - source) * fraction + source;
     }
 
-    glm::vec3 starColor(unsigned int temperature) {
+    auto Color::starColor(int temperature) -> glm::vec3 {
         // Based on
         // https://stackoverflow.com/questions/21977786/star-b-v-color-index-to-apparent-rgb-color
+        assert(temperature > 0);
 
-        float rawTemperatureIndicator = calculateTemperatureIndicator(temperature);
-        float temperatureIndicator    = std::clamp(rawTemperatureIndicator, -0.4f, 2.0f);
+        auto rawTemperatureIndicator = calculateTemperatureIndicator(temperature);
+        auto temperatureIndicator    = std::clamp(rawTemperatureIndicator, -0.4f, 2.0f);
 
-        glm::vec3 result = glm::vec3();
+        glm::vec3 result;
         double t;
 
         if (temperatureIndicator < 0.0f) {
@@ -59,12 +61,13 @@ namespace color {
         return result;
     }
 
-    float calculateTemperatureIndicator(unsigned int temperature) {
-        float floatTemperature = (float)temperature;
+    auto Color::calculateTemperatureIndicator(int temperature) -> float {
+        assert(temperature > 0);
+
+        auto floatTemperature = static_cast<float>(temperature);
 
         return (-2.1344 * floatTemperature + 8464 +
                 sqrt(0.98724096 * floatTemperature * floatTemperature + 71639296)) /
                (1.6928 * floatTemperature);
     }
-
-} // namespace color
+}

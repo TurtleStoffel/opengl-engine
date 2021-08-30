@@ -28,7 +28,7 @@ namespace Engine {
 
         auto colorGenerator = [entity = entity.get()]([[maybe_unused]] float height) {
             auto& sunState = entity->getRequired<Components::SunState>();
-            return color::starColor(sunState.m_temperature);
+            return Color::starColor(sunState.m_temperature);
         };
 
         auto model = Components::Models::ModelFactory::make<

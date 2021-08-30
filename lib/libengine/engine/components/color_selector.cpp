@@ -91,7 +91,7 @@ namespace Engine::Components {
                                 (m_selectorLines[i].getHeight() -
                                  m_selectorLines[i - 1].getHeight());
 
-                return color::interpolate(color1, color2, fraction);
+                return Color::interpolate(color1, color2, fraction);
             }
         }
 

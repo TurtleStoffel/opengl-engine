@@ -14,9 +14,9 @@ namespace Engine::Components::Models {
         auto normalizedDirection = glm::normalize(m_direction);
 
         auto origin = glm::vec3{0.0f, 0.0f, 0.0f};
-        m_vertices.push_back(Vertex{origin, origin, color::blue});
+        m_vertices.push_back(Vertex{origin, origin, Color::blue});
         m_vertices.push_back(
-            Vertex{normalizedDirection * 2.0f, normalizedDirection * 2.0f, color::yellow});
+            Vertex{normalizedDirection * 2.0f, normalizedDirection * 2.0f, Color::yellow});
 
         m_indices.push_back(0);
         m_indices.push_back(1);
