@@ -19,12 +19,6 @@ namespace Engine::Components {
     class Transform;
 }
 
-struct Vertex {
-    glm::vec3 position;
-    glm::vec3 normal;
-    glm::vec3 color;
-};
-
 namespace Engine::Components {
     class Model : public Component {
       public:
@@ -39,6 +33,12 @@ namespace Engine::Components {
       protected:
         // Fill m_vertices and m_indices.
         virtual auto generateImpl() -> void = 0;
+
+        struct Vertex {
+            glm::vec3 position;
+            glm::vec3 normal;
+            glm::vec3 color;
+        };
 
         GLenum m_renderingMode{GL_TRIANGLES};
 
