@@ -20,8 +20,6 @@ namespace Engine::Components {
      * objects will be visible)
      */
     class Transform : public Engine::Components::Component {
-        friend class ModelViewer::ModelScene;
-
       public:
         Transform(Engine::Entity& object);
 
@@ -35,6 +33,8 @@ namespace Engine::Components {
         auto getRotation() const -> const glm::vec3&;
 
         auto passModelMatrixToShader(const ShaderRegistry& shaderContainer) const -> void;
+
+        auto renderConfiguration() -> void override;
 
       private:
         auto calculateModelMatrix() const -> glm::mat4;

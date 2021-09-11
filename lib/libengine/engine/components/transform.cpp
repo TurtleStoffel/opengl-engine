@@ -3,6 +3,8 @@
 #include "engine/objects/entity.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
+#include "imgui.h"
+
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/euler_angles.hpp>
 #include <glm/gtx/transform.hpp>
@@ -50,6 +52,24 @@ namespace Engine::Components {
 
         // Apply model transformation matrix
         shaderContainer.setModelMatrix(&modelMatrix[0][0]);
+    }
+
+    auto Transform::renderConfiguration() -> void {
+        ImGui::Text("Transform");
+
+        ImGui::Separator();
+        ImGui::Text("Details of selected Model");
+        ImGui::Text("Relative Position");
+        ImGui::DragFloat3("##positionDrags", &m_position[0], 0.05f);
+        ImGui::Text("Rotation");
+        ImGui::DragFloat3("##rotationDrags", &m_rotationYXZ[0], 0.05f);
+        ImGui::Text("Scale");
+        ImGui::DragFloat3("##scaleDrags",
+                          &m_scale[0],
+                          0.05f,
+                          0.0f,                               // min
+                          std::numeric_limits<float>::max()); // max (required, otherwise min is
+                                                              // ignored)
     }
 
     auto Transform::calculateModelMatrix() const -> glm::mat4 {

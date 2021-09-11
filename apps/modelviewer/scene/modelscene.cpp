@@ -42,9 +42,6 @@ namespace ModelViewer {
             object->visit([this, &i](Engine::Entity& element) {
                 ImGui::Indent(element.getDepth() * 8.0f);
                 if (ImGui::Selectable(element.getName().c_str(), i == m_selectedObject)) {
-                    if (i != m_selectedObject) {
-                        m_selectedObjectPointer = &element;
-                    }
                     m_selectedObject = i;
                 }
                 ImGui::Unindent(element.getDepth() * 8.0f);
@@ -53,24 +50,6 @@ namespace ModelViewer {
                 // object)
                 i++;
             });
-        }
-
-        if (m_selectedObjectPointer) {
-            auto& transform = m_selectedObjectPointer->getRequired<Engine::Components::Transform>();
-
-            ImGui::Separator();
-            ImGui::Text("Details of selected Model");
-            ImGui::Text("Relative Position");
-            ImGui::DragFloat3("##positionDrags", &transform.m_position[0], 0.05f);
-            ImGui::Text("Rotation");
-            ImGui::DragFloat3("##rotationDrags", &transform.m_rotationYXZ[0], 0.05f);
-            ImGui::Text("Scale");
-            ImGui::DragFloat3("##scaleDrags",
-                              &transform.m_scale[0],
-                              0.05f,
-                              0.0f,                               // min
-                              std::numeric_limits<float>::max()); // max (required, otherwise min is
-                                                                  // ignored)
         }
 
         ImGui::End();
@@ -102,13 +81,11 @@ namespace ModelViewer {
         }
 
         if (object) {
-            m_selectedObjectPointer = object.get();
             m_objects.push_back(std::move(object));
         }
     }
 
     auto ModelScene::resetSelectedObject() -> void {
-        m_selectedObject        = std::numeric_limits<decltype(m_selectedObject)>::max();
-        m_selectedObjectPointer = nullptr;
+        m_selectedObject = std::numeric_limits<decltype(m_selectedObject)>::max();
     }
 }
