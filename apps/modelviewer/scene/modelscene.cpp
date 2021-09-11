@@ -12,6 +12,8 @@
 
 #include "imgui.h"
 
+#include <limits>
+
 namespace ModelViewer {
     ModelScene::ModelScene(const ShaderRegistry& shaderRegistry)
           : Scene{shaderRegistry} {
@@ -63,7 +65,12 @@ namespace ModelViewer {
             ImGui::Text("Rotation");
             ImGui::DragFloat3("##rotationDrags", &transform.m_rotationYXZ[0], 0.05f);
             ImGui::Text("Scale");
-            ImGui::DragFloat3("##scaleDrags", &transform.m_scale[0], 0.05f);
+            ImGui::DragFloat3("##scaleDrags",
+                              &transform.m_scale[0],
+                              0.05f,
+                              0.0f,                               // min
+                              std::numeric_limits<float>::max()); // max (required, otherwise min is
+                                                                  // ignored)
         }
 
         ImGui::End();
