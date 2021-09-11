@@ -1,7 +1,7 @@
 #include "modelscene.hpp"
 
 #include "engine/components/gui/component_gui.hpp"
-#include "engine/components/gui/sun_configuration_gui.hpp"
+#include "engine/components/gui/star_configuration_gui.hpp"
 #include "engine/components/gui_component.hpp"
 #include "engine/components/script.hpp"
 #include "engine/components/scripts/demo_rotation.hpp"
@@ -98,7 +98,7 @@ namespace ModelViewer {
             guiComponent.addSubcomponent(
                 std::make_unique<Engine::Components::Gui::ComponentGui>(*object));
             guiComponent.addSubcomponent(
-                std::make_unique<Engine::Components::Gui::SunConfigurationGui>(*object));
+                std::make_unique<Engine::Components::Gui::StarConfigurationGui>(*object));
         }
 
         if (object) {

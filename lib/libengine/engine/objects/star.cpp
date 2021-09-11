@@ -8,9 +8,9 @@
 #include "engine/components/models/sphere.hpp"
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
-#include "engine/components/state/sun_state.hpp"
+#include "engine/components/state/star_state.hpp"
 #include "engine/shaders/shaderregistry.hpp"
-#include "engine/shaders/sun_shader.hpp"
+#include "engine/shaders/star_shader.hpp"
 
 #include <memory>
 #include <utility>
@@ -19,15 +19,15 @@ namespace Engine {
     auto Star::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Star");
 
-        entity->createAndRegisterComponent<Components::SunState>(*entity);
+        entity->createAndRegisterComponent<Components::StarState>(*entity);
 
         auto effectComponent = std::make_unique<Components::Effect>(*entity);
         effectComponent->addPreRenderEffect(std::make_unique<Components::Effects::Glow>(*entity));
         entity->registerComponent<Components::Effect>(std::move(effectComponent));
 
         auto colorGenerator = [entity = entity.get()]([[maybe_unused]] float height) {
-            auto& sunState = entity->getRequired<Components::SunState>();
-            return Star::calculateStarColor(sunState.m_temperature);
+            auto& starState = entity->getRequired<Components::StarState>();
+            return Star::calculateStarColor(starState.m_temperature);
         };
 
         auto model = Components::Models::ModelFactory::make<
@@ -37,7 +37,7 @@ namespace Engine {
         entity->registerComponent<Components::ShaderComponent>(
             std::make_unique<Components::Shaders::GenericShaderComponent>(*entity,
                                                                           shaderRegistry
-                                                                              .get<SunShader>()));
+                                                                              .get<StarShader>()));
 
         entity->registerComponent<Components::GuiComponent>(
             std::make_unique<Components::Gui::CompositeGui>(*entity));

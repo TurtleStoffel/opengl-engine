@@ -5,7 +5,7 @@
 #include "engine/shaders/glowshader.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
 #include "engine/shaders/silhouetteshader.hpp"
-#include "engine/shaders/sun_shader.hpp"
+#include "engine/shaders/star_shader.hpp"
 
 ShaderRegistry::ShaderRegistry() {
     // Create uniform buffer object to store Model/View/Projection matrix
@@ -19,7 +19,7 @@ ShaderRegistry::ShaderRegistry() {
     registerShader(std::make_unique<GlowShader>());
     registerShader(std::make_unique<LowPolyShader>());
     registerShader(std::make_unique<SilhouetteShader>());
-    registerShader(std::make_unique<SunShader>());
+    registerShader(std::make_unique<StarShader>());
 }
 
 void ShaderRegistry::setViewProjectionMatrix(void* view, void* projection) const {
