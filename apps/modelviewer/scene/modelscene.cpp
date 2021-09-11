@@ -1,5 +1,7 @@
 #include "modelscene.hpp"
 
+#include "engine/components/effect.hpp"
+#include "engine/components/effects/debug_vectors.hpp"
 #include "engine/components/gui/component_gui.hpp"
 #include "engine/components/gui/star_configuration_gui.hpp"
 #include "engine/components/gui_component.hpp"
@@ -61,26 +63,27 @@ namespace ModelViewer {
 
         auto object = std::unique_ptr<Engine::Entity>{nullptr};
 
+        using namespace Engine::Components;
+
         if (strcmp(model, "Planet##model") == 0) {
             object = Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry);
 
-            auto& guiComponent = object->getRequired<Engine::Components::GuiComponent>();
-            guiComponent.addSubcomponent(
-                std::make_unique<Engine::Components::Gui::ComponentGui>(*object));
+            auto& guiComponent = object->getRequired<GuiComponent>();
+            guiComponent.addSubcomponent(std::make_unique<Gui::ComponentGui>(*object));
 
-            object->registerComponent<Engine::Components::Script>(
-                std::make_unique<Engine::Components::Scripts::DemoRotation>(*object));
+            object->registerComponent<Script>(std::make_unique<Scripts::DemoRotation>(*object));
         } else if (strcmp(model, "Star##model") == 0) {
             object = Engine::Star::createDefault(m_shaderRegistry);
 
-            auto& guiComponent = object->getRequired<Engine::Components::GuiComponent>();
-            guiComponent.addSubcomponent(
-                std::make_unique<Engine::Components::Gui::ComponentGui>(*object));
-            guiComponent.addSubcomponent(
-                std::make_unique<Engine::Components::Gui::StarConfigurationGui>(*object));
+            auto& guiComponent = object->getRequired<GuiComponent>();
+            guiComponent.addSubcomponent(std::make_unique<Gui::ComponentGui>(*object));
+            guiComponent.addSubcomponent(std::make_unique<Gui::StarConfigurationGui>(*object));
         }
 
         if (object) {
+            auto& effectComponent = object->getRequired<Effect>();
+            effectComponent.addPreRenderEffect(std::make_unique<Effects::DebugVectors>(*object));
+
             m_objects.push_back(std::move(object));
         }
     }

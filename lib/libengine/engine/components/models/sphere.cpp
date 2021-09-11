@@ -1,6 +1,5 @@
 #include "engine/components/models/sphere.hpp"
 
-#include "engine/components/effects/debug_vectors.hpp"
 #include "engine/objects/entity.hpp"
 
 #include <glm/gtx/norm.hpp>
@@ -11,8 +10,6 @@ namespace Engine::Components::Models {
           : Model{entity, "Sphere Model"}
           , m_depth{depth}
           , m_colorGenerator{colorGenerator} {
-        auto& effectComponent = entity.getRequired<Effect>();
-        effectComponent.addPreRenderEffect(std::make_unique<Effects::DebugVectors>(entity));
     }
     Sphere::Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator,
                    std::function<float(glm::vec3&)> noiseFunction, int depth)
@@ -20,8 +17,6 @@ namespace Engine::Components::Models {
           , m_depth{depth}
           , m_colorGenerator{colorGenerator}
           , m_noiseFunction{noiseFunction} {
-        auto& effectComponent = entity.getRequired<Effect>();
-        effectComponent.addPreRenderEffect(std::make_unique<Effects::DebugVectors>(entity));
     }
 
     auto Sphere::generateImpl() -> void {
