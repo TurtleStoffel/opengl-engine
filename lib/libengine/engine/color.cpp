@@ -1,10 +1,10 @@
-#include "color.hpp"
+#include "engine/color.hpp"
+
+#include "engine/util.hpp"
 
 #include <algorithm>
 #include <cassert>
 #include <math.h>
-
-#include "util.hpp"
 
 namespace Engine {
     auto Color::interpolate(const glm::vec3& source, const glm::vec3& target, float fraction)
