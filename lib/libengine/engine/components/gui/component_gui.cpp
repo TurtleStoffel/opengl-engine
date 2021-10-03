@@ -9,9 +9,10 @@ namespace Engine::Components::Gui {
           : GuiComponent{entity, "Component GUI"} {};
 
     auto ComponentGui::render() -> void {
+        auto& components = m_entity.getComponents();
+
         ImGui::Begin("Entity Component GUI");
-        for (auto iterator = m_entity.m_components.begin(); iterator != m_entity.m_components.end();
-             ++iterator) {
+        for (auto iterator = components.begin(); iterator != components.end(); ++iterator) {
             // Ignore this component in the list to avoid recursive call
             if (iterator->second.get() != this) {
                 iterator->second->renderConfiguration();

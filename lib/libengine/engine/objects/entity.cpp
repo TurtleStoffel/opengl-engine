@@ -50,6 +50,11 @@ namespace Engine {
         return m_name;
     }
 
+    auto Entity::getComponents() const
+        -> const std::unordered_map<std::size_t, std::unique_ptr<Components::Component>>& {
+        return m_components;
+    }
+
     auto Entity::visitImpl(std::function<void(const Entity&)> callback) const -> void {
         callback(*this);
     }

@@ -13,16 +13,10 @@
 #include <unordered_map>
 #include <utility>
 
-namespace Engine::Components::Gui {
-    class ComponentGui;
-}
-
 class ShaderRegistry;
 
 namespace Engine {
     class Entity final : public TreeNode<Entity> {
-        friend class Components::Gui::ComponentGui;
-
       public:
         explicit Entity(const Entity* parent, std::string name);
         explicit Entity();
@@ -33,6 +27,8 @@ namespace Engine {
         void render(const ShaderRegistry& shaderContainer) const;
 
         auto getName() const -> const std::string&;
+        auto getComponents() const
+            -> const std::unordered_map<std::size_t, std::unique_ptr<Components::Component>>&;
 
         template <typename TComponentType>
         auto registerComponent(std::unique_ptr<TComponentType> component) -> void;
