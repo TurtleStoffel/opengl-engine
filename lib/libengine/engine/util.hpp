@@ -1,15 +1,16 @@
 #pragma once
 
-#include "opengl.hpp"
-
 namespace util {
+    // Float in range [0, 1[
+    auto randf() -> float;
+    // Float in range [min, max[
+    auto randf(float min, float max) -> float;
 
-float randf();
-float randf(float min, float max);
+    // Float in range [0, 2 Pi[
+    auto randRadian() -> float;
 
-// Return random angle in radians [0, 2 Pi]
-float randRadian();
-
-int randi(int min, int max);
-
-} // namespace util
+    // Integer in range [min, max[
+    auto randi(int min, int max) -> int;
+    // Integer in range [0, max[
+    auto randi(int max) -> int;
+}
