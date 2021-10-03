@@ -4,10 +4,6 @@
 
 #include <glm/glm.hpp>
 
-namespace ModelViewer {
-    class ModelScene;
-}
-
 class ShaderRegistry;
 
 namespace Engine::Components {
