@@ -1,10 +1,9 @@
 #pragma once
 
 #include "engine/components/component.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 
 #include <glm/glm.hpp>
-
-class ShaderRegistry;
 
 namespace Engine::Components {
     /**

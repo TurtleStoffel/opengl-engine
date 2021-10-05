@@ -1,11 +1,10 @@
 #pragma once
 
 #include "engine/scene.hpp"
-
-class ShaderRegistry;
+#include "engine/shaders/shaderregistry.hpp"
 
 class PlanetScene : public Engine::Scene {
   public:
-    PlanetScene(const ShaderRegistry& shaderRegistry);
+    PlanetScene(const Engine::ShaderRegistry& shaderRegistry);
     ~PlanetScene() override = default;
 };

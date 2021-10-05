@@ -3,10 +3,9 @@
 #include "engine/camera.hpp"
 #include "engine/objects/entity.hpp"
 #include "engine/opengl.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 
 #include <vector>
-
-class ShaderRegistry;
 
 namespace Engine {
     class Scene {

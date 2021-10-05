@@ -17,7 +17,7 @@
 #include <limits>
 
 namespace ModelViewer {
-    ModelScene::ModelScene(const ShaderRegistry& shaderRegistry)
+    ModelScene::ModelScene(const Engine::ShaderRegistry& shaderRegistry)
           : Scene{shaderRegistry} {
         m_entities.push_back(Engine::Background::createDefault(m_shaderRegistry));
     }

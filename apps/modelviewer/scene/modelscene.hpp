@@ -1,10 +1,9 @@
 #pragma once
 
 #include "engine/scene.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 
 #include <limits>
-
-class ShaderRegistry;
 
 namespace Engine {
     class Entity;
@@ -13,7 +12,7 @@ namespace Engine {
 namespace ModelViewer {
     class ModelScene final : public Engine::Scene {
       public:
-        ModelScene(const ShaderRegistry& shaderRegistry);
+        ModelScene(const Engine::ShaderRegistry& shaderRegistry);
         ~ModelScene() override = default;
 
       protected:

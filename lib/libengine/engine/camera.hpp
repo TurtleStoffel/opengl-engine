@@ -1,11 +1,10 @@
 #pragma once
 
 #include "const.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 #include "opengl.hpp"
 
 #include <glm/glm.hpp>
-
-class ShaderRegistry;
 
 class Camera {
   public:
@@ -23,13 +22,13 @@ class Camera {
      */
     auto handleInput(SDL_Event event) -> bool;
 
-    auto update(int dt, const ShaderRegistry& shaderContainer) -> void;
+    auto update(int dt, const Engine::ShaderRegistry& shaderContainer) -> void;
 
   private:
     /**
      * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
      */
-    auto configureShader(const ShaderRegistry& shaderContainer) -> void;
+    auto configureShader(const Engine::ShaderRegistry& shaderContainer) -> void;
 
     auto moveFlat(int dt) -> void;
 

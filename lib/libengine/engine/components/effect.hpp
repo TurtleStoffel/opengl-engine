@@ -1,11 +1,10 @@
 #pragma once
 
 #include "engine/components/component.hpp"
+#include "engine/shaders/shaderregistry.hpp"
 
 #include <memory>
 #include <vector>
-
-class ShaderRegistry;
 
 namespace Engine {
     class Entity;

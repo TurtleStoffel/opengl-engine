@@ -1,8 +1,8 @@
 #pragma once
 
-#include <memory>
+#include "engine/shaders/shaderregistry.hpp"
 
-class ShaderRegistry;
+#include <memory>
 
 namespace Engine {
     class Entity;
