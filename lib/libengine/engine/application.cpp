@@ -5,7 +5,7 @@
 #include "imgui.h"
 
 #include "engine/const.hpp"
-#include "engine/scene/scene.hpp"
+#include "engine/scene.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
 Application::Application(SDL_Window* window)

@@ -1,4 +1,4 @@
-#include "engine/scene/scene.hpp"
+#include "engine/scene.hpp"
 
 #include "engine/application.hpp"
 #include "engine/camera.hpp"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/scene/scene.hpp"
+#include "engine/scene.hpp"
 
 class ShaderRegistry;
 

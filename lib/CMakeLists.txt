@@ -24,7 +24,6 @@ set(ENGINE_SOURCES
     "libengine/engine/objects/entity.cpp"
     "libengine/engine/objects/planet.cpp"
     "libengine/engine/objects/star.cpp"
-    "libengine/engine/scene/scene.cpp"
     "libengine/engine/shaders/circleshader.cpp"
     "libengine/engine/shaders/glowshader.cpp"
     "libengine/engine/shaders/lowpolyshader.cpp"
@@ -34,6 +33,7 @@ set(ENGINE_SOURCES
     "libengine/engine/application.cpp"
     "libengine/engine/camera.cpp"
     "libengine/engine/color.cpp"
+    "libengine/engine/scene.cpp"
     "libengine/engine/sdl.cpp"
     "libengine/engine/util.cpp"
 )

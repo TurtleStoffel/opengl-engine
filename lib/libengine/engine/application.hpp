@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/scene/scene.hpp"
+#include "engine/scene.hpp"
 #include "engine/shaders/shaderregistry.hpp"
 
 #include <SDL2/SDL.h>
