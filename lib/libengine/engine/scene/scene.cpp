@@ -14,14 +14,14 @@ Scene::Scene(const ShaderRegistry& shaderRegistry)
 auto Scene::update(int dt) -> void {
     m_camera->update(dt, m_shaderRegistry);
 
-    for (auto& pObject : m_objects) {
-        pObject->update(dt);
+    for (auto& entity : m_entities) {
+        entity->update(dt);
     }
 }
 
 auto Scene::render() -> void {
-    for (auto& pObject : m_objects) {
-        pObject->render(m_shaderRegistry);
+    for (auto& entity : m_entities) {
+        entity->render(m_shaderRegistry);
     }
 
     renderGui();
@@ -54,7 +54,7 @@ auto Scene::mousePick(SDL_Event event) -> void {
         m_camera->calculateClickRay(event.motion.x, event.motion.y, point, direction);
 
         // Check for each object in scene if there was an intersection
-        for (auto& entity : m_objects) {
+        for (auto& entity : m_entities) {
             auto collider = entity->get<Engine::Components::Collider>();
             if (collider) {
                 collider->intersect(point, direction);

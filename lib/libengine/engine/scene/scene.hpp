@@ -22,7 +22,7 @@ class Scene {
   protected:
     virtual auto renderGui() -> void;
 
-    std::vector<std::unique_ptr<Engine::Entity>> m_objects;
+    std::vector<std::unique_ptr<Engine::Entity>> m_entities;
     std::unique_ptr<Camera> m_camera;
 
     const ShaderRegistry& m_shaderRegistry;

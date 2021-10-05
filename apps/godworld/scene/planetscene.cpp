@@ -4,5 +4,5 @@
 
 PlanetScene::PlanetScene(const ShaderRegistry& shaderRegistry)
       : Scene{shaderRegistry} {
-    m_objects.push_back(Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry));
+    m_entities.push_back(Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry));
 }

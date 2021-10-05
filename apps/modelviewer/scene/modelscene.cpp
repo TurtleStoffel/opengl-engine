@@ -19,7 +19,7 @@
 namespace ModelViewer {
     ModelScene::ModelScene(const ShaderRegistry& shaderRegistry)
           : Scene{shaderRegistry} {
-        m_objects.push_back(Engine::Background::createDefault(m_shaderRegistry));
+        m_entities.push_back(Engine::Background::createDefault(m_shaderRegistry));
     }
 
     auto ModelScene::renderGui() -> void {
@@ -40,8 +40,8 @@ namespace ModelViewer {
         ImGui::Text("Models in scene");
 
         unsigned short i = 0;
-        for (auto& object : m_objects) {
-            object->visit([this, &i](Engine::Entity& element) {
+        for (auto& entity : m_entities) {
+            entity->visit([this, &i](Engine::Entity& element) {
                 ImGui::Indent(element.getDepth() * 8.0f);
                 if (ImGui::Selectable(element.getName().c_str(), i == m_selectedObject)) {
                     m_selectedObject = i;
@@ -58,8 +58,8 @@ namespace ModelViewer {
     }
 
     auto ModelScene::createModel(const char* model) -> void {
-        m_objects.clear();
-        m_objects.push_back(Engine::Background::createDefault(m_shaderRegistry));
+        m_entities.clear();
+        m_entities.push_back(Engine::Background::createDefault(m_shaderRegistry));
 
         auto object = std::unique_ptr<Engine::Entity>{nullptr};
 
@@ -84,7 +84,7 @@ namespace ModelViewer {
             auto& effectComponent = object->getRequired<Effect>();
             effectComponent.addEffect(std::make_unique<Effects::DebugVectors>(*object));
 
-            m_objects.push_back(std::move(object));
+            m_entities.push_back(std::move(object));
         }
     }
 
