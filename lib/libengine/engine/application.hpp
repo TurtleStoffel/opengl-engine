@@ -8,33 +8,35 @@
 
 struct SDL_Window;
 
-class Application {
-  public:
-    /**
-     * Constructor can only be called once in the entire program, otherwise will throw error
-     */
-    Application(SDL_Window* pWindow);
-    virtual ~Application() = default;
+namespace Engine {
+    class Application {
+      public:
+        /**
+         * Constructor can only be called once in the entire program, otherwise will throw error
+         */
+        Application(SDL_Window* pWindow);
+        virtual ~Application() = default;
 
-    void run();
+        void run();
 
-  protected:
-    ShaderRegistry m_shaderRegistry;
+      protected:
+        ShaderRegistry m_shaderRegistry;
 
-    std::unique_ptr<Engine::Scene> m_scene;
+        std::unique_ptr<Engine::Scene> m_scene;
 
-  private:
-    void _handleInput();
-    void _updateScene();
-    void _renderScene();
-    void _throttleFps();
+      private:
+        auto handleInput() -> void;
+        auto updateScene() -> void;
+        auto renderScene() -> void;
+        auto throttleFps() -> void;
 
-    int _getTicksSinceLastUpdate();
-    bool _handleApplicationInput(SDL_Event event);
+        auto getTicksSinceLastUpdate() -> int;
+        auto handleApplicationInput(SDL_Event event) -> bool;
 
-    bool _running = true;
-    int _lastFpsTicks;
-    int _lastUpdateTicks;
+        bool m_running{true};
+        int m_lastFpsTicks;
+        int m_lastUpdateTicks;
 
-    SDL_Window* window;
-};
+        SDL_Window* m_window;
+    };
+}
