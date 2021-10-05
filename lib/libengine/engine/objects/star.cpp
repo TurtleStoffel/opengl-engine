@@ -22,7 +22,7 @@ namespace Engine {
         entity->createAndRegisterComponent<Components::StarState>(*entity);
 
         auto effectComponent = std::make_unique<Components::Effect>(*entity);
-        effectComponent->addPreRenderEffect(std::make_unique<Components::Effects::Glow>(*entity));
+        effectComponent->addEffect(std::make_unique<Components::Effects::Glow>(*entity));
         entity->registerComponent<Components::Effect>(std::move(effectComponent));
 
         auto colorGenerator = [entity = entity.get()]([[maybe_unused]] float height) {

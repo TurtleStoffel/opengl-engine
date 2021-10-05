@@ -7,24 +7,14 @@ namespace Engine::Components {
           : Component{entity, "Effect"} {
     }
 
-    auto Effect::renderPreRenderEffects(const ShaderRegistry& shaderRegistry) const -> void {
-        for (auto& effect : m_preRenderEffects) {
+    auto Effect::addEffect(std::unique_ptr<Effect> effect) -> void {
+        m_effects.push_back(std::move(effect));
+    }
+
+    auto Effect::renderEffects(const ShaderRegistry& shaderRegistry) const -> void {
+        for (auto& effect : m_effects) {
             effect->render(shaderRegistry);
         }
-    }
-
-    auto Effect::renderPostRenderEffects(const ShaderRegistry& shaderRegistry) const -> void {
-        for (auto& effect : m_postRenderEffects) {
-            effect->render(shaderRegistry);
-        }
-    }
-
-    auto Effect::addPreRenderEffect(std::unique_ptr<Effect> effect) -> void {
-        m_preRenderEffects.push_back(std::move(effect));
-    }
-
-    auto Effect::addPostRenderEffect(std::unique_ptr<Effect> effect) -> void {
-        m_postRenderEffects.push_back(std::move(effect));
     }
 
     auto Effect::render([[maybe_unused]] const ShaderRegistry& shaderRegistry) const -> void {

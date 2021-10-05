@@ -17,17 +17,13 @@ namespace Engine::Components {
         Effect(Entity& entity);
         ~Effect() override = default;
 
-        auto renderPreRenderEffects(const ShaderRegistry& shaderRegistry) const -> void;
-        auto renderPostRenderEffects(const ShaderRegistry& shaderRegistry) const -> void;
-
-        auto addPreRenderEffect(std::unique_ptr<Effect> effect) -> void;
-        auto addPostRenderEffect(std::unique_ptr<Effect> effect) -> void;
+        auto addEffect(std::unique_ptr<Effect> effect) -> void;
+        auto renderEffects(const ShaderRegistry& shaderRegistry) const -> void;
 
       protected:
         virtual auto render(const ShaderRegistry& shaderRegistry) const -> void;
 
       private:
-        std::vector<std::unique_ptr<Effect>> m_preRenderEffects;
-        std::vector<std::unique_ptr<Effect>> m_postRenderEffects;
+        std::vector<std::unique_ptr<Effect>> m_effects;
     };
 }

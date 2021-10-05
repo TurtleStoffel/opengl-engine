@@ -65,8 +65,7 @@ namespace Engine {
             return normalizedHeight;
         };
         auto effectComponent = std::make_unique<Components::Effect>(*entity);
-        effectComponent->addPreRenderEffect(
-            std::make_unique<Components::Effects::Outline>(*entity));
+        effectComponent->addEffect(std::make_unique<Components::Effects::Outline>(*entity));
         entity->registerComponent<Components::Effect>(std::move(effectComponent));
 
         auto model = Components::Models::ModelFactory::make<

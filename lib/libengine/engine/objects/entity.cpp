@@ -26,15 +26,12 @@ namespace Engine {
         auto effect = get<Components::Effect>();
         if (effect) {
             getRequired<Components::Transform>().passModelMatrixToShader(shaderRegistry);
-            effect->renderPreRenderEffects(shaderRegistry);
+            effect->renderEffects(shaderRegistry);
         }
         auto model = get<Components::Model>();
         if (model) {
             getRequired<Components::Transform>().passModelMatrixToShader(shaderRegistry);
             model->render();
-        }
-        if (effect) {
-            effect->renderPostRenderEffects(shaderRegistry);
         }
         for (const auto& child : m_children) {
             child->render(shaderRegistry);

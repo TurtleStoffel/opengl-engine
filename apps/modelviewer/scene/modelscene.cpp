@@ -82,7 +82,7 @@ namespace ModelViewer {
 
         if (object) {
             auto& effectComponent = object->getRequired<Effect>();
-            effectComponent.addPreRenderEffect(std::make_unique<Effects::DebugVectors>(*object));
+            effectComponent.addEffect(std::make_unique<Effects::DebugVectors>(*object));
 
             m_objects.push_back(std::move(object));
         }
