@@ -8,25 +8,27 @@
 
 class ShaderRegistry;
 
-class Scene {
-  public:
-    Scene(const ShaderRegistry& shaderRegistry);
-    virtual ~Scene() = default;
+namespace Engine {
+    class Scene {
+      public:
+        Scene(const ShaderRegistry& shaderRegistry);
+        virtual ~Scene() = default;
 
-    auto update(int dt) -> void;
-    auto render() -> void;
+        auto update(int dt) -> void;
+        auto render() -> void;
 
-    auto handleInput(SDL_Event event) -> bool;
-    auto setWindowSize(int windowWidth, int windowHeight) -> void;
+        auto handleInput(SDL_Event event) -> bool;
+        auto setWindowSize(int windowWidth, int windowHeight) -> void;
 
-  protected:
-    virtual auto renderGui() -> void;
+      protected:
+        virtual auto renderGui() -> void;
 
-    std::vector<std::unique_ptr<Engine::Entity>> m_entities;
-    std::unique_ptr<Camera> m_camera;
+        std::vector<std::unique_ptr<Engine::Entity>> m_entities;
+        std::unique_ptr<Camera> m_camera;
 
-    const ShaderRegistry& m_shaderRegistry;
+        const ShaderRegistry& m_shaderRegistry;
 
-  private:
-    auto mousePick(SDL_Event event) -> void;
-};
+      private:
+        auto mousePick(SDL_Event event) -> void;
+    };
+}

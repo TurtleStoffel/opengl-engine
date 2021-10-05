@@ -4,7 +4,7 @@
 
 class ShaderRegistry;
 
-class PlanetScene : public Scene {
+class PlanetScene : public Engine::Scene {
   public:
     PlanetScene(const ShaderRegistry& shaderRegistry);
     ~PlanetScene() override = default;

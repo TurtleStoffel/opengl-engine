@@ -11,7 +11,7 @@ namespace Engine {
 }
 
 namespace ModelViewer {
-    class ModelScene final : public Scene {
+    class ModelScene final : public Engine::Scene {
       public:
         ModelScene(const ShaderRegistry& shaderRegistry);
         ~ModelScene() override = default;

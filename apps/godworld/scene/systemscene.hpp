@@ -4,7 +4,7 @@
 
 class ShaderRegistry;
 
-class SystemScene : public Scene {
+class SystemScene : public Engine::Scene {
   public:
     SystemScene(const ShaderRegistry& shaderRegistry);
     ~SystemScene() override = default;

@@ -21,7 +21,7 @@ class Application {
   protected:
     ShaderRegistry m_shaderRegistry;
 
-    std::unique_ptr<Scene> m_scene;
+    std::unique_ptr<Engine::Scene> m_scene;
 
   private:
     void _handleInput();
