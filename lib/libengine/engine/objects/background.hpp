@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/shaders/shaderregistry.hpp"
+#include "engine/shaderregistry.hpp"
 
 #include <memory>
 

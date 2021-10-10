@@ -2,7 +2,7 @@
 
 #include "engine/components/model.hpp"
 #include "engine/objects/entity.hpp"
-#include "engine/shaders/shaderregistry.hpp"
+#include "engine/shaderregistry.hpp"
 #include "engine/shaders/silhouetteshader.hpp"
 
 namespace Engine::Components::Effects {

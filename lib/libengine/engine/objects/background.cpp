@@ -6,7 +6,6 @@
 #include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/objects/entity.hpp"
 #include "engine/shaders/backgroundshader.hpp"
-#include "engine/shaders/shaderregistry.hpp"
 
 namespace Engine {
     auto Background::createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {

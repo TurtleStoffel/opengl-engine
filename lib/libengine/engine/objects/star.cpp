@@ -9,7 +9,7 @@
 #include "engine/components/shader_component.hpp"
 #include "engine/components/shaders/generic_shader_component.hpp"
 #include "engine/components/state/star_state.hpp"
-#include "engine/shaders/shaderregistry.hpp"
+#include "engine/shaderregistry.hpp"
 #include "engine/shaders/star_shader.hpp"
 
 #include <memory>

@@ -2,8 +2,8 @@
 
 #include "engine/components/model.hpp"
 #include "engine/objects/entity.hpp"
+#include "engine/shaderregistry.hpp"
 #include "engine/shaders/glowshader.hpp"
-#include "engine/shaders/shaderregistry.hpp"
 
 namespace Engine::Components::Effects {
     Glow::Glow(Entity& entity)

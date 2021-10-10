@@ -1,7 +1,7 @@
 #pragma once
 
 #include "const.hpp"
-#include "engine/shaders/shaderregistry.hpp"
+#include "engine/shaderregistry.hpp"
 #include "opengl.hpp"
 
 #include <glm/glm.hpp>

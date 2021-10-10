@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/scene.hpp"
-#include "engine/shaders/shaderregistry.hpp"
+#include "engine/shaderregistry.hpp"
 
 #include <limits>
 

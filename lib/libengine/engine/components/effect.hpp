@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/components/component.hpp"
-#include "engine/shaders/shaderregistry.hpp"
+#include "engine/shaderregistry.hpp"
 
 #include <memory>
 #include <vector>

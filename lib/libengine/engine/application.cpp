@@ -2,7 +2,6 @@
 
 #include "engine/const.hpp"
 #include "engine/scene.hpp"
-#include "engine/shaders/shaderregistry.hpp"
 
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_sdl.h"

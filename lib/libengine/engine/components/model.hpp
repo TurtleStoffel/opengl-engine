@@ -9,8 +9,6 @@
 #include <string>
 #include <vector>
 
-class ShaderRegistry;
-
 namespace Engine {
     class Entity;
 }

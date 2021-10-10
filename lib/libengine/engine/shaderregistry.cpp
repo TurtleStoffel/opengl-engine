@@ -1,4 +1,4 @@
-#include "engine/shaders/shaderregistry.hpp"
+#include "engine/shaderregistry.hpp"
 
 namespace Engine {
     ShaderRegistry::ShaderRegistry() {

@@ -1,7 +1,6 @@
 #include "engine/components/transform.hpp"
 
 #include "engine/objects/entity.hpp"
-#include "engine/shaders/shaderregistry.hpp"
 
 #include "imgui.h"
 

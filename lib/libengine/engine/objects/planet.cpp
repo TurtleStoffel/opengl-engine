@@ -16,7 +16,6 @@
 #include "engine/noise/simplex_noise.hpp"
 #include "engine/objects/entity.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
-#include "engine/shaders/shaderregistry.hpp"
 #include "engine/util.hpp"
 
 #include <math.h>
