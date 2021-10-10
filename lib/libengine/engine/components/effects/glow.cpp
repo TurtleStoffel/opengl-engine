@@ -1,7 +1,7 @@
 #include "glow.hpp"
 
 #include "engine/components/model.hpp"
-#include "engine/objects/entity.hpp"
+#include "engine/entity/entity.hpp"
 #include "engine/shaderregistry.hpp"
 #include "engine/shaders/glowshader.hpp"
 

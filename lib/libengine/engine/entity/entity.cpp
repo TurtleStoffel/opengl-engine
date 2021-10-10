@@ -1,4 +1,4 @@
-#include "engine/objects/entity.hpp"
+#include "engine/entity/entity.hpp"
 
 #include "engine/components/collider.hpp"
 #include "engine/components/effect.hpp"

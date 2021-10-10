@@ -2,7 +2,7 @@
 
 #include "engine/components/model.hpp"
 #include "engine/components/state/star_state.hpp"
-#include "engine/objects/entity.hpp"
+#include "engine/entity/entity.hpp"
 
 #include "imgui.h"
 

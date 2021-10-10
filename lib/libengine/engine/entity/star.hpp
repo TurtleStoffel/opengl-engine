@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/objects/entity.hpp"
+#include "engine/entity/entity.hpp"
 
 #include <memory>
 

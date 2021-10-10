@@ -2,7 +2,7 @@
 
 #include "engine/components/collider.hpp"
 #include "engine/components/state/planet_state.hpp"
-#include "engine/objects/entity.hpp"
+#include "engine/entity/entity.hpp"
 
 #include "imgui.h"
 

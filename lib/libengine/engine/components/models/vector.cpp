@@ -1,7 +1,7 @@
 #include "vector.hpp"
 
 #include "engine/color.hpp"
-#include "engine/objects/entity.hpp"
+#include "engine/entity/entity.hpp"
 
 namespace Engine::Components::Models {
     Vector::Vector(Entity& entity, const glm::vec3& direction)

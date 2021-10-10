@@ -7,10 +7,10 @@
 #include "engine/components/gui_component.hpp"
 #include "engine/components/script.hpp"
 #include "engine/components/scripts/demo_rotation.hpp"
-#include "engine/objects/background.hpp"
-#include "engine/objects/entity.hpp"
-#include "engine/objects/planet.hpp"
-#include "engine/objects/star.hpp"
+#include "engine/entity/background.hpp"
+#include "engine/entity/entity.hpp"
+#include "engine/entity/planet.hpp"
+#include "engine/entity/star.hpp"
 
 #include "imgui.h"
 
