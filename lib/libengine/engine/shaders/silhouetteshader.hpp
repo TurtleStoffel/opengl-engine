@@ -2,7 +2,7 @@
 
 #include "engine/shaders/shader.hpp"
 
-class SilhouetteShader final : public Shader {
+class SilhouetteShader final : public Engine::Shader {
   public:
     SilhouetteShader();
     ~SilhouetteShader() override = default;

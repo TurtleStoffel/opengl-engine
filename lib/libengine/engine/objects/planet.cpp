@@ -10,8 +10,7 @@
 #include "engine/components/gui_component.hpp"
 #include "engine/components/models/model_factory.hpp"
 #include "engine/components/models/sphere.hpp"
-#include "engine/components/shader_component.hpp"
-#include "engine/components/shaders/generic_shader_component.hpp"
+#include "engine/components/shader.hpp"
 #include "engine/components/state/planet_state.hpp"
 #include "engine/noise/simplex_noise.hpp"
 #include "engine/objects/entity.hpp"
@@ -71,9 +70,9 @@ namespace Engine {
             Components::Models::Sphere>(*entity, colorFunction, noiseFunction);
         entity->registerComponent<Components::Model>(std::move(model));
 
-        entity->registerComponent<Components::ShaderComponent>(
-            std::make_unique<Components::Shaders::GenericShaderComponent>(
-                *entity, shaderRegistry.getOrCreate<LowPolyShader>()));
+        entity->createAndRegisterComponent<Components::Shader>(*entity,
+                                                               shaderRegistry
+                                                                   .getOrCreate<LowPolyShader>());
 
         auto transform = std::make_unique<Components::Transform>(*entity);
         transform->scale(glm::vec3{radius, radius, radius});

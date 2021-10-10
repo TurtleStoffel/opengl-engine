@@ -1,7 +1,7 @@
 #include "engine/shaders/lowpolyshader.hpp"
 
 LowPolyShader::LowPolyShader()
-    : Shader{"shaders/low-poly/vertex.glsl", "shaders/low-poly/fragment.glsl"} {
+      : Engine::Shader{"shaders/low-poly/vertex.glsl", "shaders/low-poly/fragment.glsl"} {
 }
 
 auto LowPolyShader::setSettlementPosition(const glm::vec3& position) const -> void {

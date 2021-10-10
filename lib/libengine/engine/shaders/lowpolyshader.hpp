@@ -4,7 +4,7 @@
 
 #include <glm/glm.hpp>
 
-class LowPolyShader final : public Shader {
+class LowPolyShader final : public Engine::Shader {
   public:
     LowPolyShader();
     ~LowPolyShader() override = default;

@@ -4,7 +4,7 @@
 
 #include <glm/glm.hpp>
 
-class CircleShader final : public Shader {
+class CircleShader final : public Engine::Shader {
   public:
     CircleShader();
     ~CircleShader() override = default;

@@ -1,7 +1,7 @@
 #include "engine/shaders/circleshader.hpp"
 
 CircleShader::CircleShader()
-    : Shader{"shaders/circle/vertex.glsl", "shaders/circle/fragment.glsl"} {
+      : Engine::Shader{"shaders/circle/vertex.glsl", "shaders/circle/fragment.glsl"} {
 }
 
 auto CircleShader::setCirclePosition(const glm::vec3& position) const -> void {

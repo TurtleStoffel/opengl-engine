@@ -2,8 +2,7 @@
 
 #include "engine/components/models/background_model.hpp"
 #include "engine/components/models/model_factory.hpp"
-#include "engine/components/shader_component.hpp"
-#include "engine/components/shaders/generic_shader_component.hpp"
+#include "engine/components/shader.hpp"
 #include "engine/objects/entity.hpp"
 #include "engine/shaders/backgroundshader.hpp"
 
@@ -11,9 +10,8 @@ namespace Engine {
     auto Background::createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Background");
 
-        entity->registerComponent<Components::ShaderComponent>(
-            std::make_unique<Components::Shaders::GenericShaderComponent>(
-                *entity, shaderRegistry.getOrCreate<BackgroundShader>()));
+        entity->createAndRegisterComponent<
+            Components::Shader>(*entity, shaderRegistry.getOrCreate<BackgroundShader>());
 
         entity->createAndRegisterComponent<Components::Transform>(*entity);
 

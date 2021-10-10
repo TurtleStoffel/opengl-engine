@@ -1,7 +1,7 @@
 #include "engine/components/model.hpp"
 
 #include "engine/components/collider.hpp"
-#include "engine/components/shader_component.hpp"
+#include "engine/components/shader.hpp"
 #include "engine/components/transform.hpp"
 #include "engine/objects/entity.hpp"
 #include "engine/opengl.hpp"
@@ -26,7 +26,7 @@ namespace Engine::Components {
     auto Model::render() const -> void {
         glBindVertexArray(m_vertexArrayObject);
 
-        m_entity.getRequired<Engine::Components::ShaderComponent>().use();
+        m_entity.getRequired<Shader>().use();
         glDrawElements(m_renderingMode, m_indices.size(), GL_UNSIGNED_INT, 0);
 
         glBindVertexArray(0);

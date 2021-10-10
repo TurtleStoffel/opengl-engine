@@ -6,8 +6,7 @@
 #include "engine/components/gui/composite_gui.hpp"
 #include "engine/components/models/model_factory.hpp"
 #include "engine/components/models/sphere.hpp"
-#include "engine/components/shader_component.hpp"
-#include "engine/components/shaders/generic_shader_component.hpp"
+#include "engine/components/shader.hpp"
 #include "engine/components/state/star_state.hpp"
 #include "engine/shaderregistry.hpp"
 #include "engine/shaders/star_shader.hpp"
@@ -34,9 +33,9 @@ namespace Engine {
             Components::Models::Sphere>(*entity, colorGenerator);
         entity->registerComponent<Components::Model>(std::move(model));
 
-        entity->registerComponent<Components::ShaderComponent>(
-            std::make_unique<Components::Shaders::GenericShaderComponent>(
-                *entity, shaderRegistry.getOrCreate<StarShader>()));
+        entity->createAndRegisterComponent<Components::Shader>(*entity,
+                                                               shaderRegistry
+                                                                   .getOrCreate<StarShader>());
 
         entity->registerComponent<Components::GuiComponent>(
             std::make_unique<Components::Gui::CompositeGui>(*entity));
