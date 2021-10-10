@@ -12,7 +12,7 @@ namespace Engine {
 namespace ModelViewer {
     class ModelScene final : public Engine::Scene {
       public:
-        ModelScene(const Engine::ShaderRegistry& shaderRegistry);
+        ModelScene(Engine::ShaderRegistry& shaderRegistry);
         ~ModelScene() override = default;
 
       protected:

@@ -9,14 +9,12 @@
 #include "engine/shaders/shaderregistry.hpp"
 
 namespace Engine {
-    auto Background::createDefault(const ShaderRegistry& shaderRegistry)
-        -> std::unique_ptr<Entity> {
+    auto Background::createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Background");
 
         entity->registerComponent<Components::ShaderComponent>(
-            std::make_unique<Components::Shaders::GenericShaderComponent>(*entity,
-                                                                          shaderRegistry.get<
-                                                                              BackgroundShader>()));
+            std::make_unique<Components::Shaders::GenericShaderComponent>(
+                *entity, shaderRegistry.getOrCreate<BackgroundShader>()));
 
         entity->createAndRegisterComponent<Components::Transform>(*entity);
 

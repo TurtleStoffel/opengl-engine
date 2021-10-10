@@ -5,6 +5,6 @@
 
 class SystemScene : public Engine::Scene {
   public:
-    SystemScene(const Engine::ShaderRegistry& shaderRegistry);
+    SystemScene(Engine::ShaderRegistry& shaderRegistry);
     ~SystemScene() override = default;
 };

@@ -16,7 +16,7 @@
 #include <utility>
 
 namespace Engine {
-    auto Star::createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
+    auto Star::createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Star");
 
         entity->createAndRegisterComponent<Components::StarState>(*entity);
@@ -35,9 +35,8 @@ namespace Engine {
         entity->registerComponent<Components::Model>(std::move(model));
 
         entity->registerComponent<Components::ShaderComponent>(
-            std::make_unique<Components::Shaders::GenericShaderComponent>(*entity,
-                                                                          shaderRegistry
-                                                                              .get<StarShader>()));
+            std::make_unique<Components::Shaders::GenericShaderComponent>(
+                *entity, shaderRegistry.getOrCreate<StarShader>()));
 
         entity->registerComponent<Components::GuiComponent>(
             std::make_unique<Components::Gui::CompositeGui>(*entity));

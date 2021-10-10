@@ -7,7 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Engine {
-    Scene::Scene(const ShaderRegistry& shaderRegistry)
+    Scene::Scene(ShaderRegistry& shaderRegistry)
           : m_camera{std::make_unique<Camera>()}
           , m_shaderRegistry{shaderRegistry} {
     }

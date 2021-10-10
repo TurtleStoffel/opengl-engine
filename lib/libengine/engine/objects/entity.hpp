@@ -24,7 +24,7 @@ namespace Engine {
 
         auto update(int dt) -> void;
 
-        void render(const ShaderRegistry& shaderContainer) const;
+        void render(ShaderRegistry& shaderContainer) const;
 
         auto getName() const -> const std::string&;
         auto getComponents() const

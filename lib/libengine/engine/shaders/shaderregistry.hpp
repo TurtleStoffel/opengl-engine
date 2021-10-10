@@ -3,6 +3,7 @@
 #include "engine/opengl.hpp"
 #include "engine/shaders/shader.hpp"
 
+#include <assert.h>
 #include <memory>
 #include <stdexcept>
 #include <typeinfo>
@@ -25,11 +26,11 @@ namespace Engine {
         void setModelMatrix(void* model) const;
 
         template <typename TShaderType>
-        auto get() const -> TShaderType&;
+        auto getOrCreate() -> TShaderType&;
 
       private:
         template <typename TShaderType>
-        auto registerShader(std::unique_ptr<TShaderType> shader) -> void;
+        auto registerShader(std::unique_ptr<TShaderType> shader);
 
         GLuint m_matrixUBO;
         GLuint m_matrixBlockIndex{GL_INVALID_INDEX};
@@ -38,17 +39,16 @@ namespace Engine {
     };
 
     template <typename TShaderType>
-    auto ShaderRegistry::get() const -> TShaderType& {
+    auto ShaderRegistry::getOrCreate() -> TShaderType& {
         auto iterator = m_shaders.find(typeid(TShaderType).hash_code());
         if (iterator == m_shaders.end()) {
-            throw std::invalid_argument("No shader with type" +
-                                        std::string{typeid(TShaderType).name()});
+            iterator = registerShader(std::make_unique<TShaderType>());
         }
         return static_cast<TShaderType&>(*iterator->second);
     }
 
     template <typename TShaderType>
-    auto ShaderRegistry::registerShader(std::unique_ptr<TShaderType> shader) -> void {
+    auto ShaderRegistry::registerShader(std::unique_ptr<TShaderType> shader) {
         if (m_matrixBlockIndex == GL_INVALID_INDEX) {
             // Bind Uniform Block to Uniform Buffer Object
             m_matrixBlockIndex = shader->getUniformBlockIndex("ModelViewProjection");
@@ -65,6 +65,8 @@ namespace Engine {
                     "Registering Shader with ID %s",
                     typeid(TShaderType).name());
 
-        m_shaders.insert({typeid(TShaderType).hash_code(), std::move(shader)});
+        auto result = m_shaders.insert({typeid(TShaderType).hash_code(), std::move(shader)});
+        assert(result.second);
+        return result.first;
     }
 }

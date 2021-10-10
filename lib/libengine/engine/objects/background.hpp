@@ -11,6 +11,6 @@ namespace Engine {
 namespace Engine {
     class Background {
       public:
-        static auto createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity>;
+        static auto createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity>;
     };
 }

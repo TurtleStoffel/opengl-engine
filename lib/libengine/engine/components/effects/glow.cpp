@@ -10,9 +10,9 @@ namespace Engine::Components::Effects {
           : Effect{entity} {
     }
 
-    void Glow::render(const ShaderRegistry& shaderRegistry) const {
+    void Glow::render(ShaderRegistry& shaderRegistry) const {
         glDisable(GL_DEPTH_TEST);
-        shaderRegistry.get<GlowShader>().use();
+        shaderRegistry.getOrCreate<GlowShader>().use();
         m_entity.getRequired<Model>().glDraw();
         glEnable(GL_DEPTH_TEST);
     }

@@ -9,7 +9,7 @@ class ShaderRegistry;
 namespace Engine {
     class Star final {
       public:
-        static auto createDefault(const ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity>;
+        static auto createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity>;
 
       private:
         /**

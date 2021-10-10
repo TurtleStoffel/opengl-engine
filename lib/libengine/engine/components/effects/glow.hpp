@@ -12,6 +12,6 @@ namespace Engine::Components::Effects {
         Glow(Entity& entity);
         ~Glow() override = default;
 
-        auto render(const ShaderRegistry& shaderRegistry) const -> void override;
+        auto render(ShaderRegistry& shaderRegistry) const -> void override;
     };
 }

@@ -15,7 +15,7 @@ namespace Engine::Components::Effects {
         DebugVectors(Entity& object);
         ~DebugVectors() override = default;
 
-        auto render(const ShaderRegistry& shaderRegistry) const -> void override;
+        auto render(ShaderRegistry& shaderRegistry) const -> void override;
 
       private:
         std::list<std::unique_ptr<Models::Vector>> m_vectors;

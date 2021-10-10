@@ -10,7 +10,7 @@
 namespace Engine {
     class Scene {
       public:
-        Scene(const ShaderRegistry& shaderRegistry);
+        Scene(ShaderRegistry& shaderRegistry);
         virtual ~Scene() = default;
 
         auto update(int dt) -> void;
@@ -25,7 +25,7 @@ namespace Engine {
         std::vector<std::unique_ptr<Engine::Entity>> m_entities;
         std::unique_ptr<Camera> m_camera;
 
-        const ShaderRegistry& m_shaderRegistry;
+        ShaderRegistry& m_shaderRegistry;
 
       private:
         auto mousePick(SDL_Event event) -> void;

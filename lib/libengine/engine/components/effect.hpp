@@ -17,10 +17,10 @@ namespace Engine::Components {
         ~Effect() override = default;
 
         auto addEffect(std::unique_ptr<Effect> effect) -> void;
-        auto renderEffects(const ShaderRegistry& shaderRegistry) const -> void;
+        auto renderEffects(ShaderRegistry& shaderRegistry) const -> void;
 
       protected:
-        virtual auto render(const ShaderRegistry& shaderRegistry) const -> void;
+        virtual auto render(ShaderRegistry& shaderRegistry) const -> void;
 
       private:
         std::vector<std::unique_ptr<Effect>> m_effects;

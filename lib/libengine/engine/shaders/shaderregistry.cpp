@@ -1,12 +1,5 @@
 #include "engine/shaders/shaderregistry.hpp"
 
-#include "engine/shaders/backgroundshader.hpp"
-#include "engine/shaders/circleshader.hpp"
-#include "engine/shaders/glowshader.hpp"
-#include "engine/shaders/lowpolyshader.hpp"
-#include "engine/shaders/silhouetteshader.hpp"
-#include "engine/shaders/star_shader.hpp"
-
 namespace Engine {
     ShaderRegistry::ShaderRegistry() {
         // Create uniform buffer object to store Model/View/Projection matrix
@@ -14,13 +7,6 @@ namespace Engine {
         glBindBuffer(GL_UNIFORM_BUFFER, m_matrixUBO);
         glBufferData(GL_UNIFORM_BUFFER, sizeof(glm::mat4) * 3, nullptr, GL_STREAM_DRAW);
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
-        registerShader(std::make_unique<BackgroundShader>());
-        registerShader(std::make_unique<CircleShader>());
-        registerShader(std::make_unique<GlowShader>());
-        registerShader(std::make_unique<LowPolyShader>());
-        registerShader(std::make_unique<SilhouetteShader>());
-        registerShader(std::make_unique<StarShader>());
     }
 
     void ShaderRegistry::setViewProjectionMatrix(void* view, void* projection) const {

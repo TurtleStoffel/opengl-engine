@@ -22,7 +22,7 @@ namespace Engine {
         }
     }
 
-    void Entity::render(const ShaderRegistry& shaderRegistry) const {
+    void Entity::render(ShaderRegistry& shaderRegistry) const {
         auto effect = get<Components::Effect>();
         if (effect) {
             getRequired<Components::Transform>().passModelMatrixToShader(shaderRegistry);

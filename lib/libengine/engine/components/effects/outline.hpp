@@ -12,6 +12,6 @@ namespace Engine::Components::Effects {
         Outline(Entity& entity);
         ~Outline() override = default;
 
-        auto render(const ShaderRegistry& shaderRegistry) const -> void override;
+        auto render(ShaderRegistry& shaderRegistry) const -> void override;
     };
 }

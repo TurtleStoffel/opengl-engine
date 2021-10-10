@@ -23,7 +23,7 @@
 #include <utility>
 
 namespace Engine {
-    auto Planet::createDefault(float distance, float radius, const ShaderRegistry& shaderRegistry)
+    auto Planet::createDefault(float distance, float radius, ShaderRegistry& shaderRegistry)
         -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Planet");
 
@@ -73,9 +73,8 @@ namespace Engine {
         entity->registerComponent<Components::Model>(std::move(model));
 
         entity->registerComponent<Components::ShaderComponent>(
-            std::make_unique<
-                Components::Shaders::GenericShaderComponent>(*entity,
-                                                             shaderRegistry.get<LowPolyShader>()));
+            std::make_unique<Components::Shaders::GenericShaderComponent>(
+                *entity, shaderRegistry.getOrCreate<LowPolyShader>()));
 
         auto transform = std::make_unique<Components::Transform>(*entity);
         transform->scale(glm::vec3{radius, radius, radius});
