@@ -21,9 +21,11 @@
 #include <utility>
 
 namespace Engine {
-    auto Planet::createDefault(float distance, float radius, ShaderRegistry& shaderRegistry)
-        -> std::unique_ptr<Entity> {
+    auto Planet::createDefault(float distance, float radius, ShaderRegistry& shaderRegistry,
+                               System::Rendering& renderingSystem) -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Planet");
+
+        renderingSystem.registerEntity(entity.get());
 
         auto planetState               = std::make_unique<Components::PlanetState>(*entity);
         planetState->m_rotationalSpeed = util::randf(0.00003f, 0.0001f);

@@ -19,7 +19,7 @@
 namespace ModelViewer {
     ModelScene::ModelScene(Engine::ShaderRegistry& shaderRegistry)
           : Scene{shaderRegistry} {
-        m_entities.push_back(Engine::Background::createDefault(m_shaderRegistry));
+        addEntity(Engine::Background::createDefault(m_shaderRegistry, m_renderingSystem));
     }
 
     auto ModelScene::renderGui() -> void {
@@ -40,7 +40,7 @@ namespace ModelViewer {
         ImGui::Text("Models in scene");
 
         unsigned short i = 0;
-        for (auto& entity : m_entities) {
+        for (auto& entity : getEntities()) {
             entity->visit([this, &i](Engine::Entity& element) {
                 ImGui::Indent(element.getDepth() * 8.0f);
                 if (ImGui::Selectable(element.getName().c_str(), i == m_selectedObject)) {
@@ -58,22 +58,22 @@ namespace ModelViewer {
     }
 
     auto ModelScene::createModel(const char* model) -> void {
-        m_entities.clear();
-        m_entities.push_back(Engine::Background::createDefault(m_shaderRegistry));
+        clearEntities();
+        addEntity(Engine::Background::createDefault(m_shaderRegistry, m_renderingSystem));
 
         auto object = std::unique_ptr<Engine::Entity>{nullptr};
 
         using namespace Engine::Components;
 
         if (strcmp(model, "Planet##model") == 0) {
-            object = Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry);
+            object = Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry, m_renderingSystem);
 
             auto& guiComponent = object->getRequired<GuiComponent>();
             guiComponent.addSubcomponent(std::make_unique<Gui::ComponentGui>(*object));
 
             object->registerComponent<Script>(std::make_unique<Scripts::DemoRotation>(*object));
         } else if (strcmp(model, "Star##model") == 0) {
-            object = Engine::Star::createDefault(m_shaderRegistry);
+            object = Engine::Star::createDefault(m_shaderRegistry, m_renderingSystem);
 
             auto& guiComponent = object->getRequired<GuiComponent>();
             guiComponent.addSubcomponent(std::make_unique<Gui::ComponentGui>(*object));
@@ -84,7 +84,7 @@ namespace ModelViewer {
             auto& effectComponent = object->getRequired<Effect>();
             effectComponent.addEffect(std::make_unique<Effects::DebugVectors>(*object));
 
-            m_entities.push_back(std::move(object));
+            addEntity(std::move(object));
         }
     }
 

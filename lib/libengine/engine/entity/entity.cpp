@@ -22,27 +22,6 @@ namespace Engine {
         }
     }
 
-    void Entity::render(ShaderRegistry& shaderRegistry) const {
-        auto effect = get<Components::Effect>();
-        if (effect) {
-            getRequired<Components::Transform>().passModelMatrixToShader(shaderRegistry);
-            effect->renderEffects(shaderRegistry);
-        }
-        auto model = get<Components::Model>();
-        if (model) {
-            getRequired<Components::Transform>().passModelMatrixToShader(shaderRegistry);
-            model->render();
-        }
-        for (const auto& child : m_children) {
-            child->render(shaderRegistry);
-        }
-
-        auto guiComponent = get<Components::GuiComponent>();
-        if (guiComponent) {
-            guiComponent->render();
-        }
-    }
-
     auto Entity::getName() const -> const std::string& {
         return m_name;
     }

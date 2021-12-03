@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine/entity/entity.hpp"
+#include "engine/system/rendering.hpp"
 
 #include <memory>
 
@@ -9,7 +10,8 @@ class ShaderRegistry;
 namespace Engine {
     class Star final {
       public:
-        static auto createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity>;
+        static auto createDefault(ShaderRegistry& shaderRegistry,
+                                  System::Rendering& renderingSystem) -> std::unique_ptr<Entity>;
 
       private:
         /**

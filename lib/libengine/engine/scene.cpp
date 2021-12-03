@@ -9,7 +9,8 @@
 namespace Engine {
     Scene::Scene(ShaderRegistry& shaderRegistry)
           : m_camera{std::make_unique<Camera>()}
-          , m_shaderRegistry{shaderRegistry} {
+          , m_shaderRegistry{shaderRegistry}
+          , m_renderingSystem{shaderRegistry} {
     }
 
     auto Scene::update(int dt) -> void {
@@ -21,9 +22,7 @@ namespace Engine {
     }
 
     auto Scene::render() -> void {
-        for (auto& entity : m_entities) {
-            entity->render(m_shaderRegistry);
-        }
+        m_renderingSystem.render();
 
         renderGui();
     }
@@ -44,6 +43,22 @@ namespace Engine {
     }
 
     auto Scene::renderGui() -> void {
+    }
+
+    auto Scene::addEntity(std::unique_ptr<Entity> entity) -> void {
+        m_entities.push_back(std::move(entity));
+    }
+
+    auto Scene::getEntities() -> const std::vector<std::unique_ptr<Entity>>& {
+        return m_entities;
+    }
+
+    auto Scene::clearEntities() -> void {
+        for (auto& entity : m_entities) {
+            m_renderingSystem.unregisterEntity(entity.get());
+        }
+
+        m_entities.clear();
     }
 
     auto Scene::mousePick(SDL_Event event) -> void {

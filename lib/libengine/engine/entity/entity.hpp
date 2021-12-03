@@ -24,8 +24,6 @@ namespace Engine {
 
         auto update(int dt) -> void;
 
-        void render(ShaderRegistry& shaderContainer) const;
-
         auto getName() const -> const std::string&;
         auto getComponents() const
             -> const std::unordered_map<std::size_t, std::unique_ptr<Components::Component>>&;

@@ -29,6 +29,7 @@ set(ENGINE_SOURCES
     "libengine/engine/shaders/lowpolyshader.cpp"
     "libengine/engine/shaders/shader.cpp"
     "libengine/engine/shaders/silhouetteshader.cpp"
+    "libengine/engine/system/rendering.cpp"
     "libengine/engine/application.cpp"
     "libengine/engine/camera.cpp"
     "libengine/engine/color.cpp"
