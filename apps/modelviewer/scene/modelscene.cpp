@@ -19,7 +19,7 @@
 namespace ModelViewer {
     ModelScene::ModelScene(Engine::ShaderRegistry& shaderRegistry)
           : Scene{shaderRegistry} {
-        addEntity(Engine::Background::createDefault(m_shaderRegistry, m_renderingSystem));
+        addEntity(Engine::Background::createDefault(m_shaderRegistry));
     }
 
     auto ModelScene::renderGui() -> void {
@@ -59,21 +59,21 @@ namespace ModelViewer {
 
     auto ModelScene::createModel(const char* model) -> void {
         clearEntities();
-        addEntity(Engine::Background::createDefault(m_shaderRegistry, m_renderingSystem));
+        addEntity(Engine::Background::createDefault(m_shaderRegistry));
 
         auto object = std::unique_ptr<Engine::Entity>{nullptr};
 
         using namespace Engine::Components;
 
         if (strcmp(model, "Planet##model") == 0) {
-            object = Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry, m_renderingSystem);
+            object = Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry);
 
             auto& guiComponent = object->getRequired<GuiComponent>();
             guiComponent.addSubcomponent(std::make_unique<Gui::ComponentGui>(*object));
 
             object->registerComponent<Script>(std::make_unique<Scripts::DemoRotation>(*object));
         } else if (strcmp(model, "Star##model") == 0) {
-            object = Engine::Star::createDefault(m_shaderRegistry, m_renderingSystem);
+            object = Engine::Star::createDefault(m_shaderRegistry);
 
             auto& guiComponent = object->getRequired<GuiComponent>();
             guiComponent.addSubcomponent(std::make_unique<Gui::ComponentGui>(*object));

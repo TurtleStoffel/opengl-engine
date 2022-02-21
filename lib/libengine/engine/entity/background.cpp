@@ -7,11 +7,8 @@
 #include "engine/shaders/backgroundshader.hpp"
 
 namespace Engine {
-    auto Background::createDefault(ShaderRegistry& shaderRegistry,
-                                   System::Rendering& renderingSystem) -> std::unique_ptr<Entity> {
+    auto Background::createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Background");
-
-        renderingSystem.registerEntity(entity.get());
 
         entity->createAndRegisterComponent<
             Components::Shader>(*entity, shaderRegistry.getOrCreate<BackgroundShader>());

@@ -12,7 +12,7 @@ namespace Engine {
 namespace Engine {
     class Planet final {
       public:
-        static auto createDefault(float distance, float radius, ShaderRegistry& shaderRegistry,
-                                  System::Rendering& renderingSystem) -> std::unique_ptr<Entity>;
+        static auto createDefault(float distance, float radius, ShaderRegistry& shaderRegistry)
+            -> std::unique_ptr<Entity>;
     };
 }

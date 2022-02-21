@@ -28,14 +28,12 @@ namespace Engine {
         auto clearEntities() -> void;
 
         std::unique_ptr<Camera> m_camera;
-
         ShaderRegistry& m_shaderRegistry;
 
-        System::Rendering m_renderingSystem;
-
       private:
-        std::vector<std::unique_ptr<Entity>> m_entities;
-
         auto mousePick(SDL_Event event) -> void;
+
+        std::vector<std::unique_ptr<Entity>> m_entities;
+        System::Rendering m_renderingSystem;
     };
 }

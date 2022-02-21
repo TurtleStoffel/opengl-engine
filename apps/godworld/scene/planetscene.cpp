@@ -4,5 +4,5 @@
 
 PlanetScene::PlanetScene(Engine::ShaderRegistry& shaderRegistry)
       : Engine::Scene{shaderRegistry} {
-    addEntity(Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry, m_renderingSystem));
+    addEntity(Engine::Planet::createDefault(0.0f, 3.0f, m_shaderRegistry));
 }

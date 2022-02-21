@@ -13,9 +13,9 @@
 
 SystemScene::SystemScene(Engine::ShaderRegistry& shaderRegistry)
       : Scene{shaderRegistry} {
-    addEntity(Engine::Background::createDefault(m_shaderRegistry, m_renderingSystem));
+    addEntity(Engine::Background::createDefault(m_shaderRegistry));
     // Create objects
-    auto star = Engine::Star::createDefault(m_shaderRegistry, m_renderingSystem);
+    auto star = Engine::Star::createDefault(m_shaderRegistry);
     star->getRequired<Engine::Components::GuiComponent>().addSubcomponent(
         std::make_unique<Engine::Components::Gui::StarGui>(*star));
     addEntity(std::move(star));
@@ -33,8 +33,7 @@ SystemScene::SystemScene(Engine::ShaderRegistry& shaderRegistry)
 
         auto planet = Engine::Planet::createDefault(currentPlanetOffset,
                                                     planetRadius,
-                                                    m_shaderRegistry,
-                                                    m_renderingSystem);
+                                                    m_shaderRegistry);
         planet->registerComponent<Engine::Components::Script>(
             std::make_unique<Engine::Components::Scripts::PlanetRotation>(*planet));
 

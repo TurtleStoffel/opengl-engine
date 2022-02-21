@@ -46,6 +46,7 @@ namespace Engine {
     }
 
     auto Scene::addEntity(std::unique_ptr<Entity> entity) -> void {
+        m_renderingSystem.registerEntity(entity.get());
         m_entities.push_back(std::move(entity));
     }
 
