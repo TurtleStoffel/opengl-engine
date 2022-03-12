@@ -19,7 +19,7 @@ out vec4 worldPosition;
 // force flat shading
 flat out vec3 vertexColor;
 
-const vec3 lightDirection = normalize(vec3(0.4, 1.0, -0.8));
+const vec4 starLocation = vec4(0.0, 0.0, 0.0, 1.0);
 const float ambientLighting = 0.35;
 
 void main() {
@@ -29,8 +29,10 @@ void main() {
     // Transform Vertex Position from World to Screen Space
     gl_Position = projection * view * worldPosition;
 
+    vec4 lightDirection = worldPosition - starLocation;
+
     // Calculate color of the Vertex
     // Brightness is factor in [0, 1] (dotproduct of normalized vectors)
-    float brightness = max(dot(-lightDirection, worldNormal.xyz)*0.72f, ambientLighting);
+    float brightness = max(dot(-lightDirection.xyz, worldNormal.xyz)*0.72f, ambientLighting);
     vertexColor = vColor * brightness;
 }
