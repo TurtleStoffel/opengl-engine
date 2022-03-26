@@ -8,4 +8,6 @@ class LowPolyShader final : public Engine::Shader {
   public:
     LowPolyShader();
     ~LowPolyShader() override = default;
+
+    auto setStarPosition(const glm::vec4& starPosition) -> void;
 };

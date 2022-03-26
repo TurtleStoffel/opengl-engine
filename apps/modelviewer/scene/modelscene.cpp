@@ -11,6 +11,7 @@
 #include "engine/entity/entity.hpp"
 #include "engine/entity/planet.hpp"
 #include "engine/entity/star.hpp"
+#include "engine/shaders/lowpolyshader.hpp"
 
 #include "imgui.h"
 
@@ -20,6 +21,10 @@ namespace ModelViewer {
     ModelScene::ModelScene(Engine::ShaderRegistry& shaderRegistry)
           : Scene{shaderRegistry} {
         addEntity(Engine::Background::createDefault(m_shaderRegistry));
+
+        // Model scene requires an artificial value for the star position
+        m_shaderRegistry.getOrCreate<LowPolyShader>().setStarPosition(
+            glm::vec4(10.0f, 0.0f, 10.0f, 1.0f));
     }
 
     auto ModelScene::renderGui() -> void {
