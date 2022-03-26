@@ -24,7 +24,6 @@ set(ENGINE_SOURCES
     "libengine/engine/entity/planet.cpp"
     "libengine/engine/entity/star.cpp"
     "libengine/engine/noise/simplex_noise.cpp"
-    "libengine/engine/shaders/circleshader.cpp"
     "libengine/engine/shaders/glowshader.cpp"
     "libengine/engine/shaders/lowpolyshader.cpp"
     "libengine/engine/shaders/shader.cpp"
