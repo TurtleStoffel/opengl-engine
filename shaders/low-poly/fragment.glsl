@@ -1,12 +1,8 @@
 #version 330 core
 out vec4 fColor;
 
-uniform bool isSettlementEnabled = false;
-uniform vec4 settlementLocation = vec4(0.0, 1.0, 1.0, 1.0);
-
 flat in vec3 vertexColor;
 in vec4 worldPosition;
-
 
 float rand(vec2 co){
     return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
@@ -16,9 +12,5 @@ void main() {
     // Add a little bit of noise to the color
     vec3 updatedVertexColor = vertexColor + vec3(0.02f, 0.02f, 0.02f)*rand(worldPosition.xy/10);
 
-    if(isSettlementEnabled && distance(worldPosition, settlementLocation) < 0.5) {
-        fColor = vec4(updatedVertexColor*0.3, 1.0);
-    } else {
-        fColor = vec4(updatedVertexColor, 1.0);
-    }
+    fColor = vec4(updatedVertexColor, 1.0);
 }

@@ -10,10 +10,6 @@ layout(std140) uniform ModelViewProjection {
     mat4 projection;
 };
 
-// Settlement related input
-uniform vec3 localSettlementPosition;
-flat out vec4 settlementPosition;
-
 out vec4 worldPosition;
 
 // force flat shading
