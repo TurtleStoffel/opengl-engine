@@ -29,10 +29,14 @@ class SimplexNoise {
      * @param[in] persistence  Persistence is the loss of amplitude between successive octaves
      * (usually 1/lacunarity)
      */
-    explicit SimplexNoise(float frequency = 1.0f, float amplitude = 1.0f, float lacunarity = 2.0f,
+    explicit SimplexNoise(float frequency   = 1.0f,
+                          float amplitude   = 1.0f,
+                          float lacunarity  = 2.0f,
                           float persistence = 0.5f)
-        : mFrequency(frequency), mAmplitude(amplitude), mLacunarity(lacunarity),
-          mPersistence(persistence) {
+          : mFrequency(frequency)
+          , mAmplitude(amplitude)
+          , mLacunarity(lacunarity)
+          , mPersistence(persistence) {
     }
 
   private:

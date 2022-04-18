@@ -8,11 +8,21 @@ PointerAlignment: Left
 IndentCaseLabels: true
 
 AllowShortFunctionsOnASingleLine: None
+
+### Arguments and Parameters
 BinPackArguments: false
+BinPackParameters: false
+# Prefer splitting over putting on next line
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllArgumentsOnNextLine: false
+
+AlignAfterOpenBracket: true
 AlignConsecutiveAssignments: true
+
+### Penalties
 PenaltyBreakAssignment: 500
 PenaltyBreakBeforeFirstCallParameter: 500
-AlignAfterOpenBracket: true
+
 AlwaysBreakTemplateDeclarations: true
 
 BreakConstructorInitializers: BeforeComma

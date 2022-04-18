@@ -14,10 +14,13 @@ namespace Engine {
 namespace Engine::Components::Models {
     class Sphere : public Model {
       public:
-        explicit Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator,
+        explicit Sphere(Entity& entity,
+                        std::function<glm::vec3(float)> colorGenerator,
                         int depth = 4);
-        explicit Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator,
-                        std::function<float(glm::vec3&)> noiseFunction, int depth = 4);
+        explicit Sphere(Entity& entity,
+                        std::function<glm::vec3(float)> colorGenerator,
+                        std::function<float(glm::vec3&)> noiseFunction,
+                        int depth = 4);
         ~Sphere() override = default;
 
       private:

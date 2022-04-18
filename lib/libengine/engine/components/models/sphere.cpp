@@ -11,8 +11,11 @@ namespace Engine::Components::Models {
           , m_depth{depth}
           , m_colorGenerator{colorGenerator} {
     }
-    Sphere::Sphere(Entity& entity, std::function<glm::vec3(float)> colorGenerator,
-                   std::function<float(glm::vec3&)> noiseFunction, int depth)
+
+    Sphere::Sphere(Entity& entity,
+                   std::function<glm::vec3(float)> colorGenerator,
+                   std::function<float(glm::vec3&)> noiseFunction,
+                   int depth)
           : Model{entity, "Sphere Model"}
           , m_depth{depth}
           , m_colorGenerator{colorGenerator}
