@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-namespace util {
+namespace Engine {
     auto randf() -> float {
         return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
     }

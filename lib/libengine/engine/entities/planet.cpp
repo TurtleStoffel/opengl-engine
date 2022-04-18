@@ -26,8 +26,8 @@ namespace Engine {
         auto entity = std::make_unique<Entity>(nullptr, "Planet");
 
         auto planetState               = std::make_unique<Components::PlanetState>(*entity);
-        planetState->m_rotationalSpeed = util::randf(0.00003f, 0.0001f);
-        planetState->m_rotationAngle   = util::randRadian();
+        planetState->m_rotationalSpeed = randf(0.00003f, 0.0001f);
+        planetState->m_rotationAngle   = randRadian();
         planetState->m_distance        = distance;
         entity->registerComponent<Components::PlanetState>(std::move(planetState));
 

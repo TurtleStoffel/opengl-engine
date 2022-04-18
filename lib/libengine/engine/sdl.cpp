@@ -1,64 +1,66 @@
-#include "sdl.hpp"
+#include "engine/sdl.hpp"
+
+#include "engine/const.hpp"
 
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_sdl.h"
 #include "imgui.h"
 
-#include "const.hpp"
+namespace Engine {
+    auto SDL::createWindow(const std::string name) -> SDL_Window* {
+        SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
 
-auto SDL::createWindow(const std::string name) -> SDL_Window* {
-    SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
+        SDL_Init(SDL_INIT_VIDEO);
 
-    SDL_Init(SDL_INIT_VIDEO);
+        // Add SDL_WINDOW_FULLSCREEN_DESKTOP flag for Fullscreen at desktop resolution
+        SDL_Window* pWindow = SDL_CreateWindow(name.c_str(),
+                                               SDL_WINDOWPOS_CENTERED,
+                                               SDL_WINDOWPOS_CENTERED,
+                                               INITIAL_WINDOW_WIDTH,
+                                               INITIAL_WINDOW_HEIGHT,
+                                               SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
 
-    // Add SDL_WINDOW_FULLSCREEN_DESKTOP flag for Fullscreen at desktop resolution
-    SDL_Window* pWindow = SDL_CreateWindow(name.c_str(),
-                                           SDL_WINDOWPOS_CENTERED,
-                                           SDL_WINDOWPOS_CENTERED,
-                                           constant::INITIAL_WINDOW_WIDTH,
-                                           constant::INITIAL_WINDOW_HEIGHT,
-                                           SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
+        // Generate OpenGL Context
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-    // Generate OpenGL Context
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+        // Enable Stencil Buffer for NanoVG
+        SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 1);
 
-    // Enable Stencil Buffer for NanoVG
-    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 1);
+        SDL_GLContext glContext = SDL_GL_CreateContext(pWindow);
 
-    SDL_GLContext glContext = SDL_GL_CreateContext(pWindow);
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGui::StyleColorsDark();
 
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui::StyleColorsDark();
-
-    ImGui_ImplSDL2_InitForOpenGL(pWindow, glContext);
-    ImGui_ImplOpenGL3_Init("#version 330");
+        ImGui_ImplSDL2_InitForOpenGL(pWindow, glContext);
+        ImGui_ImplOpenGL3_Init("#version 330");
 
 #ifndef __APPLE__
-    glewExperimental = GL_TRUE;
-    glewInit();
+        glewExperimental = GL_TRUE;
+        glewInit();
 #endif
 
-    // Set clear color to dark blue
-    glClearColor(0.0, 0.0, 0.2, 1.0);
+        // Set clear color to dark blue
+        glClearColor(0.0, 0.0, 0.2, 1.0);
 
-    glEnable(GL_DEPTH_TEST);
+        glEnable(GL_DEPTH_TEST);
 
-    // Enable transparent objects
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        // Enable transparent objects
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
+        glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 
-    // Only render triangles that are facing towards the camera
-    glEnable(GL_CULL_FACE);
+        // Only render triangles that are facing towards the camera
+        glEnable(GL_CULL_FACE);
 
-    return pWindow;
-}
+        return pWindow;
+    }
 
-auto SDL::destroy(SDL_Window* pWindow) -> void {
-    SDL_DestroyWindow(pWindow);
-    SDL_Quit();
+    auto SDL::destroy(SDL_Window* pWindow) -> void {
+        SDL_DestroyWindow(pWindow);
+        SDL_Quit();
+    }
 }

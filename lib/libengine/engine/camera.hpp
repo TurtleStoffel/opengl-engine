@@ -46,8 +46,8 @@ namespace Engine {
         // Camera speed in the update call
         static constexpr float SPEED = 0.001f;
 
-        int m_windowWidth{constant::INITIAL_WINDOW_WIDTH};
-        int m_windowHeight{constant::INITIAL_WINDOW_HEIGHT};
+        int m_windowWidth{INITIAL_WINDOW_WIDTH};
+        int m_windowHeight{INITIAL_WINDOW_HEIGHT};
 
         glm::mat4 m_viewMatrix;
         glm::mat4 m_projectionMatrix;

@@ -2,8 +2,10 @@
 
 #include "engine/shaders/shader.hpp"
 
-class GlowShader final : public Engine::Shader {
-  public:
-    GlowShader();
-    ~GlowShader() override = default;
-};
+namespace Engine {
+    class GlowShader final : public Shader {
+      public:
+        GlowShader();
+        ~GlowShader() override = default;
+    };
+}

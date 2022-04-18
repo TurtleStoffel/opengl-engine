@@ -4,10 +4,12 @@
 
 #include <glm/glm.hpp>
 
-class LowPolyShader final : public Engine::Shader {
-  public:
-    LowPolyShader();
-    ~LowPolyShader() override = default;
+namespace Engine {
+    class LowPolyShader final : public Shader {
+      public:
+        LowPolyShader();
+        ~LowPolyShader() override = default;
 
-    auto setStarPosition(const glm::vec4& starPosition) -> void;
-};
+        auto setStarPosition(const glm::vec4& starPosition) -> void;
+    };
+}

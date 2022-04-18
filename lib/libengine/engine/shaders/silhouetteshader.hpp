@@ -2,8 +2,10 @@
 
 #include "engine/shaders/shader.hpp"
 
-class SilhouetteShader final : public Engine::Shader {
-  public:
-    SilhouetteShader();
-    ~SilhouetteShader() override = default;
-};
+namespace Engine {
+    class SilhouetteShader final : public Shader {
+      public:
+        SilhouetteShader();
+        ~SilhouetteShader() override = default;
+    };
+}

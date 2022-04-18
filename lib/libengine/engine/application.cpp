@@ -87,8 +87,8 @@ namespace Engine {
 
     auto Application::throttleFps() -> void {
         auto currentFPSTick = SDL_GetTicks();
-        if (currentFPSTick - m_lastFpsTicks < (1000 / constant::FPS)) {
-            SDL_Delay(1000 / constant::FPS - currentFPSTick + m_lastFpsTicks);
+        if (currentFPSTick - m_lastFpsTicks < (1000 / FPS)) {
+            SDL_Delay(1000 / FPS - currentFPSTick + m_lastFpsTicks);
         }
         m_lastFpsTicks = currentFPSTick;
     }

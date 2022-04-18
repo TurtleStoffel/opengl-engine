@@ -27,9 +27,9 @@ SystemScene::SystemScene(Engine::ShaderRegistry& shaderRegistry)
 
     float currentPlanetOffset = 3.0f;
 
-    for (int i = 0; i < util::randi(1, 3); i++) {
-        currentPlanetOffset += util::randf(minPlanetOffset, maxPlanetOffset);
-        float planetRadius = util::randf(minPlanetRadius, maxPlanetRadius);
+    for (int i = 0; i < Engine::randi(1, 3); i++) {
+        currentPlanetOffset += Engine::randf(minPlanetOffset, maxPlanetOffset);
+        float planetRadius = Engine::randf(minPlanetRadius, maxPlanetRadius);
 
         auto planet = Engine::Planet::createDefault(currentPlanetOffset,
                                                     planetRadius,

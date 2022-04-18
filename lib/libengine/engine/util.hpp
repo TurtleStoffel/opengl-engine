@@ -1,6 +1,6 @@
 #pragma once
 
-namespace util {
+namespace Engine {
     // Float in range [0, 1[
     auto randf() -> float;
     // Float in range [min, max[

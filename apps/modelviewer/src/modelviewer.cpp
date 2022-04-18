@@ -5,7 +5,7 @@
 #include <time.h>
 
 int main() {
-    auto window = SDL::createWindow("ModelViewer");
+    auto window = Engine::SDL::createWindow("ModelViewer");
 
     // set random seed
     srand(time(NULL));
@@ -13,7 +13,7 @@ int main() {
     auto application = std::make_unique<ModelViewer::ModelViewerApplication>(window);
     application->run();
 
-    SDL::destroy(window);
+    Engine::SDL::destroy(window);
 
     return 0;
 }

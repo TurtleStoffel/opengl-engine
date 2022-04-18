@@ -23,7 +23,7 @@ namespace ModelViewer {
         addEntity(Engine::Background::createDefault(m_shaderRegistry));
 
         // Model scene requires an artificial value for the star position
-        m_shaderRegistry.getOrCreate<LowPolyShader>().setStarPosition(
+        m_shaderRegistry.getOrCreate<Engine::LowPolyShader>().setStarPosition(
             glm::vec4(10.0f, 0.0f, 10.0f, 1.0f));
     }
 
