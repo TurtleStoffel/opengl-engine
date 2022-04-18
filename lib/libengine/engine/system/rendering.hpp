@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 #include "engine/shaderregistry.hpp"
 
 #include <set>

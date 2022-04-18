@@ -1,7 +1,7 @@
 #include "engine/components/effects/outline.hpp"
 
 #include "engine/components/model.hpp"
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 #include "engine/shaderregistry.hpp"
 #include "engine/shaders/silhouetteshader.hpp"
 

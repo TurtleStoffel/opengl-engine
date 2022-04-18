@@ -1,7 +1,7 @@
 #include "engine/components/scripts/demo_rotation.hpp"
 
 #include "engine/components/transform.hpp"
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 
 namespace Engine::Components::Scripts {
     auto DemoRotation::execute(int dt) -> void {

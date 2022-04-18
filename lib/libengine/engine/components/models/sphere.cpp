@@ -1,6 +1,6 @@
 #include "engine/components/models/sphere.hpp"
 
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 
 #include <glm/gtx/norm.hpp>
 #include <math.h>

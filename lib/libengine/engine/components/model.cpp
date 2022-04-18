@@ -3,7 +3,7 @@
 #include "engine/components/collider.hpp"
 #include "engine/components/shader.hpp"
 #include "engine/components/transform.hpp"
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 #include "engine/opengl.hpp"
 
 #include <string>

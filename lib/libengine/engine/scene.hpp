@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/camera.hpp"
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 #include "engine/opengl.hpp"
 #include "engine/shaderregistry.hpp"
 #include "engine/system/rendering.hpp"

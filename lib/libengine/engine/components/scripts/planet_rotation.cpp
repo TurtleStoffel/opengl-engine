@@ -1,7 +1,7 @@
 #include "engine/components/scripts/planet_rotation.hpp"
 
 #include "engine/components/state/planet_state.hpp"
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 
 #include <glm/glm.hpp>
 #include <math.h>

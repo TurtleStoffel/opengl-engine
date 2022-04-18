@@ -1,6 +1,6 @@
 #include "engine/components/gui/component_gui.hpp"
 
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 
 #include "imgui.h"
 

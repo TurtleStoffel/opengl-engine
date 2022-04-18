@@ -1,7 +1,7 @@
 #include "debug_vectors.hpp"
 
 #include "engine/components/models/model_factory.hpp"
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 
 namespace Engine::Components::Effects {
     DebugVectors::DebugVectors(Entity& entity)

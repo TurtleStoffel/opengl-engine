@@ -1,9 +1,9 @@
-#include "engine/entity/background.hpp"
+#include "engine/entities/background.hpp"
 
 #include "engine/components/models/background_model.hpp"
 #include "engine/components/models/model_factory.hpp"
 #include "engine/components/shader.hpp"
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 #include "engine/shaders/backgroundshader.hpp"
 
 namespace Engine {

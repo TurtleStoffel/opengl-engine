@@ -1,6 +1,6 @@
 #include "planetscene.hpp"
 
-#include "engine/entity/planet.hpp"
+#include "engine/entities/planet.hpp"
 
 PlanetScene::PlanetScene(Engine::ShaderRegistry& shaderRegistry)
       : Engine::Scene{shaderRegistry} {

@@ -1,4 +1,4 @@
-#include "engine/entity/planet.hpp"
+#include "engine/entities/planet.hpp"
 
 #include "engine/color.hpp"
 #include "engine/components/collider.hpp"
@@ -12,7 +12,7 @@
 #include "engine/components/models/sphere.hpp"
 #include "engine/components/shader.hpp"
 #include "engine/components/state/planet_state.hpp"
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 #include "engine/noise/simplex_noise.hpp"
 #include "engine/shaders/lowpolyshader.hpp"
 #include "engine/util.hpp"

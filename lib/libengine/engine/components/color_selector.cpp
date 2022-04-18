@@ -1,7 +1,7 @@
 #include "engine/components/color_selector.hpp"
 
 #include "engine/color.hpp"
-#include "engine/entity/entity.hpp"
+#include "engine/entities/entity.hpp"
 
 #include "imgui.h"
 

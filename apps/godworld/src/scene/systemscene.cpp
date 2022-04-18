@@ -4,9 +4,9 @@
 #include "engine/components/gui_component.hpp"
 #include "engine/components/script.hpp"
 #include "engine/components/scripts/planet_rotation.hpp"
-#include "engine/entity/background.hpp"
-#include "engine/entity/planet.hpp"
-#include "engine/entity/star.hpp"
+#include "engine/entities/background.hpp"
+#include "engine/entities/planet.hpp"
+#include "engine/entities/star.hpp"
 #include "engine/util.hpp"
 
 #include <utility>
