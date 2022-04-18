@@ -1,5 +1,4 @@
 set(sources
-    "src/scene/planetscene.cpp"
     "src/scene/systemscene.cpp"
     "src/gameapplication.cpp"
     "src/godworld.cpp"
