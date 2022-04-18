@@ -83,7 +83,7 @@ namespace Engine {
         return handled;
     }
 
-    auto Camera::update(int dt, const Engine::ShaderRegistry& shaderContainer) -> void {
+    auto Camera::update(int dt, const Shaders::Registry& shaderContainer) -> void {
         moveFlat(dt);
 
         if (m_dirty) {
@@ -92,7 +92,7 @@ namespace Engine {
         }
     }
 
-    auto Camera::configureShader(const Engine::ShaderRegistry& shaderContainer) -> void {
+    auto Camera::configureShader(const Shaders::Registry& shaderContainer) -> void {
         // calculate projection and view matrix
         auto ratio         = (float)m_windowWidth / m_windowHeight;
         m_projectionMatrix = glm::ortho(-5.0f * ratio, 5.0f * ratio, -5.0f, 5.0f, 0.1f, 100.0f);

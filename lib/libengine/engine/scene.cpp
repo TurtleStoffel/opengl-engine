@@ -7,7 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Engine {
-    Scene::Scene(ShaderRegistry& shaderRegistry)
+    Scene::Scene(Shaders::Registry& shaderRegistry)
           : m_shaderRegistry{shaderRegistry}
           , m_renderingSystem{shaderRegistry} {
     }

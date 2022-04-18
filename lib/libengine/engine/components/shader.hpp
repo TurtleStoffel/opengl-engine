@@ -16,7 +16,7 @@ namespace Engine::Components {
      */
     class Shader : public Component {
       public:
-        Shader(Entity& entity, Engine::Shader& shader);
+        Shader(Entity& entity, Shaders::Shader& shader);
         ~Shader() override = default;
 
         auto use() -> void;
@@ -25,6 +25,6 @@ namespace Engine::Components {
         auto renderConfiguration() -> void override;
 
       private:
-        Engine::Shader& m_shader;
+        Shaders::Shader& m_shader;
     };
 }

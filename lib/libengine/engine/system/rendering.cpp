@@ -5,7 +5,7 @@
 #include "engine/components/model.hpp"
 
 namespace Engine::System {
-    Rendering::Rendering(ShaderRegistry& shaderRegistry)
+    Rendering::Rendering(Shaders::Registry& shaderRegistry)
           : m_shaderRegistry{shaderRegistry} {
     }
 

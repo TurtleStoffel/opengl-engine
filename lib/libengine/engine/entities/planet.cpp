@@ -14,14 +14,14 @@
 #include "engine/components/state/planet_state.hpp"
 #include "engine/entities/entity.hpp"
 #include "engine/noise/simplex_noise.hpp"
-#include "engine/shaders/lowpolyshader.hpp"
+#include "engine/shaders/lowpoly.hpp"
 #include "engine/util.hpp"
 
 #include <math.h>
 #include <utility>
 
 namespace Engine {
-    auto Planet::createDefault(float distance, float radius, ShaderRegistry& shaderRegistry)
+    auto Planet::createDefault(float distance, float radius, Shaders::Registry& shaderRegistry)
         -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Planet");
 
@@ -70,9 +70,8 @@ namespace Engine {
             Components::Models::Sphere>(*entity, colorFunction, noiseFunction);
         entity->registerComponent<Components::Model>(std::move(model));
 
-        entity->createAndRegisterComponent<Components::Shader>(*entity,
-                                                               shaderRegistry
-                                                                   .getOrCreate<LowPolyShader>());
+        entity->createAndRegisterComponent<
+            Components::Shader>(*entity, shaderRegistry.getOrCreate<Shaders::LowPoly>());
 
         auto transform = std::make_unique<Components::Transform>(*entity);
         transform->scale(glm::vec3{radius, radius, radius});

@@ -4,7 +4,7 @@
 
 #include "engine/opengl.hpp"
 
-namespace Engine {
+namespace Engine::Shaders {
     /**
      * Class responsible to hold all information for a specific Shader and responsible for all
      * OpenGL calls related to that specific shader.

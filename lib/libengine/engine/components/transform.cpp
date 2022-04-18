@@ -46,7 +46,8 @@ namespace Engine::Components {
         return m_rotationYXZ;
     }
 
-    auto Transform::passModelMatrixToShader(const ShaderRegistry& shaderContainer) const -> void {
+    auto Transform::passModelMatrixToShader(const Shaders::Registry& shaderContainer) const
+        -> void {
         glm::mat4 modelMatrix = calculateModelMatrix();
 
         // Apply model transformation matrix

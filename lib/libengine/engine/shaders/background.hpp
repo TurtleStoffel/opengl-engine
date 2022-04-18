@@ -2,10 +2,10 @@
 
 #include "engine/shaders/shader.hpp"
 
-namespace Engine {
-    class BackgroundShader final : public Shader {
+namespace Engine::Shaders {
+    class Background final : public Shader {
       public:
-        BackgroundShader()
+        Background()
               : Shader{"shaders/background/vertex.glsl", "shaders/background/fragment.glsl"} {
         }
     };

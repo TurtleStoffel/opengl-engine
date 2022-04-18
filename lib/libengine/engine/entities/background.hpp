@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 #include "engine/system/rendering.hpp"
 
 #include <memory>
@@ -12,6 +12,6 @@ namespace Engine {
 namespace Engine {
     class Background {
       public:
-        static auto createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity>;
+        static auto createDefault(Shaders::Registry& shaderRegistry) -> std::unique_ptr<Entity>;
     };
 }

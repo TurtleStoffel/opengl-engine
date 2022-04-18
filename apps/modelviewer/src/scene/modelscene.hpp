@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/scene.hpp"
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 
 #include <limits>
 
@@ -12,7 +12,7 @@ namespace Engine {
 namespace ModelViewer {
     class ModelScene final : public Engine::Scene {
       public:
-        ModelScene(Engine::ShaderRegistry& shaderRegistry);
+        ModelScene(Engine::Shaders::Registry& shaderRegistry);
         ~ModelScene() override = default;
 
       protected:

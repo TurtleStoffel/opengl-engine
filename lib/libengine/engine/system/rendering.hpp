@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/entities/entity.hpp"
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 
 #include <set>
 
@@ -11,7 +11,7 @@ namespace Engine::System {
      */
     class Rendering final {
       public:
-        explicit Rendering(ShaderRegistry& shaderRegistry);
+        explicit Rendering(Shaders::Registry& shaderRegistry);
 
         auto render() const -> void;
 
@@ -20,6 +20,6 @@ namespace Engine::System {
 
       private:
         std::set<Entity*> m_entities;
-        ShaderRegistry& m_shaderRegistry;
+        Shaders::Registry& m_shaderRegistry;
     };
 }

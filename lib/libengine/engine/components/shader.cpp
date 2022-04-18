@@ -3,7 +3,7 @@
 #include "imgui.h"
 
 namespace Engine::Components {
-    Shader::Shader(Entity& entity, Engine::Shader& shader)
+    Shader::Shader(Entity& entity, Shaders::Shader& shader)
           : Component{entity, "Generic Shader"}
           , m_shader{shader} {};
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 #include "engine/system/rendering.hpp"
 
 #include <memory>
@@ -12,7 +12,7 @@ namespace Engine {
 namespace Engine {
     class Planet final {
       public:
-        static auto createDefault(float distance, float radius, ShaderRegistry& shaderRegistry)
+        static auto createDefault(float distance, float radius, Shaders::Registry& shaderRegistry)
             -> std::unique_ptr<Entity>;
     };
 }

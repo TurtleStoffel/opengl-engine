@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 
-namespace Engine {
+namespace Engine::Shaders {
     Shader::Shader(std::string vertexShader, std::string fragmentShader)
           : m_vertexShaderFilename{vertexShader}
           , m_fragmentShaderFilename{fragmentShader} {

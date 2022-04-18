@@ -11,10 +11,10 @@
 
 #include <glm/glm.hpp>
 
-namespace Engine {
-    class ShaderRegistry final {
+namespace Engine::Shaders {
+    class Registry final {
       public:
-        ShaderRegistry();
+        Registry();
 
         /**
          * View and Projection matrix are always set simultaneously by the Camera
@@ -39,7 +39,7 @@ namespace Engine {
     };
 
     template <typename TShaderType>
-    auto ShaderRegistry::getOrCreate() -> TShaderType& {
+    auto Registry::getOrCreate() -> TShaderType& {
         auto iterator = m_shaders.find(typeid(TShaderType).hash_code());
         if (iterator == m_shaders.end()) {
             iterator = registerShader(std::make_unique<TShaderType>());
@@ -48,7 +48,7 @@ namespace Engine {
     }
 
     template <typename TShaderType>
-    auto ShaderRegistry::registerShader(std::unique_ptr<TShaderType> shader) {
+    auto Registry::registerShader(std::unique_ptr<TShaderType> shader) {
         if (m_matrixBlockIndex == GL_INVALID_INDEX) {
             // Bind Uniform Block to Uniform Buffer Object
             m_matrixBlockIndex = shader->getUniformBlockIndex("ModelViewProjection");

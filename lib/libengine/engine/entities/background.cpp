@@ -4,14 +4,14 @@
 #include "engine/components/models/model_factory.hpp"
 #include "engine/components/shader.hpp"
 #include "engine/entities/entity.hpp"
-#include "engine/shaders/backgroundshader.hpp"
+#include "engine/shaders/background.hpp"
 
 namespace Engine {
-    auto Background::createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
+    auto Background::createDefault(Shaders::Registry& shaderRegistry) -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Background");
 
         entity->createAndRegisterComponent<
-            Components::Shader>(*entity, shaderRegistry.getOrCreate<BackgroundShader>());
+            Components::Shader>(*entity, shaderRegistry.getOrCreate<Shaders::Background>());
 
         entity->createAndRegisterComponent<Components::Transform>(*entity);
 

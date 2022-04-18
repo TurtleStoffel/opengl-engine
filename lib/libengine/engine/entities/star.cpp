@@ -8,14 +8,14 @@
 #include "engine/components/models/sphere.hpp"
 #include "engine/components/shader.hpp"
 #include "engine/components/state/star_state.hpp"
-#include "engine/shaderregistry.hpp"
-#include "engine/shaders/star_shader.hpp"
+#include "engine/shaders/registry.hpp"
+#include "engine/shaders/star.hpp"
 
 #include <memory>
 #include <utility>
 
 namespace Engine {
-    auto Star::createDefault(ShaderRegistry& shaderRegistry) -> std::unique_ptr<Entity> {
+    auto Star::createDefault(Shaders::Registry& shaderRegistry) -> std::unique_ptr<Entity> {
         auto entity = std::make_unique<Entity>(nullptr, "Star");
 
         entity->createAndRegisterComponent<Components::StarState>(*entity);
@@ -35,7 +35,7 @@ namespace Engine {
 
         entity->createAndRegisterComponent<Components::Shader>(*entity,
                                                                shaderRegistry
-                                                                   .getOrCreate<StarShader>());
+                                                                   .getOrCreate<Shaders::Star>());
 
         entity->registerComponent<Components::GuiComponent>(
             std::make_unique<Components::Gui::CompositeGui>(*entity));

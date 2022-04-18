@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/components/component.hpp"
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 
 #include <glm/glm.hpp>
 
@@ -27,7 +27,7 @@ namespace Engine::Components {
         auto getScale() const -> const glm::vec3&;
         auto getRotation() const -> const glm::vec3&;
 
-        auto passModelMatrixToShader(const ShaderRegistry& shaderContainer) const -> void;
+        auto passModelMatrixToShader(const Shaders::Registry& shaderContainer) const -> void;
 
         auto renderConfiguration() -> void override;
 

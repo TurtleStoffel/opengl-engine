@@ -2,7 +2,7 @@
 
 #include "engine/const.hpp"
 #include "engine/opengl.hpp"
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 
 #include <glm/glm.hpp>
 
@@ -23,13 +23,13 @@ namespace Engine {
          */
         auto handleInput(SDL_Event event) -> bool;
 
-        auto update(int dt, const Engine::ShaderRegistry& shaderContainer) -> void;
+        auto update(int dt, const Shaders::Registry& shaderContainer) -> void;
 
       private:
         /**
          * Calculate _projectionMatrix/_viewMatrix and set shader uniforms
          */
-        auto configureShader(const Engine::ShaderRegistry& shaderContainer) -> void;
+        auto configureShader(const Shaders::Registry& shaderContainer) -> void;
 
         auto moveFlat(int dt) -> void;
 

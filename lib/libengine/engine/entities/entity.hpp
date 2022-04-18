@@ -13,8 +13,6 @@
 #include <unordered_map>
 #include <utility>
 
-class ShaderRegistry;
-
 namespace Engine {
     class Entity final : public TreeNode<Entity> {
       public:

@@ -2,17 +2,17 @@
 
 #include "engine/components/model.hpp"
 #include "engine/entities/entity.hpp"
-#include "engine/shaderregistry.hpp"
-#include "engine/shaders/glowshader.hpp"
+#include "engine/shaders/glow.hpp"
+#include "engine/shaders/registry.hpp"
 
 namespace Engine::Components::Effects {
     Glow::Glow(Entity& entity)
           : Effect{entity} {
     }
 
-    void Glow::render(ShaderRegistry& shaderRegistry) const {
+    void Glow::render(Shaders::Registry& shaderRegistry) const {
         glDisable(GL_DEPTH_TEST);
-        shaderRegistry.getOrCreate<GlowShader>().use();
+        shaderRegistry.getOrCreate<Shaders::Glow>().use();
         m_entity.getRequired<Model>().glDraw();
         glEnable(GL_DEPTH_TEST);
     }

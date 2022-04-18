@@ -1,7 +1,7 @@
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 
-namespace Engine {
-    ShaderRegistry::ShaderRegistry() {
+namespace Engine::Shaders {
+    Registry::Registry() {
         // Create uniform buffer object to store Model/View/Projection matrix
         glGenBuffers(1, &m_matrixUBO);
         glBindBuffer(GL_UNIFORM_BUFFER, m_matrixUBO);
@@ -9,7 +9,7 @@ namespace Engine {
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }
 
-    void ShaderRegistry::setViewProjectionMatrix(void* view, void* projection) const {
+    void Registry::setViewProjectionMatrix(void* view, void* projection) const {
         glBindBuffer(GL_UNIFORM_BUFFER, m_matrixUBO);
 
         if (view) {
@@ -25,7 +25,7 @@ namespace Engine {
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }
 
-    void ShaderRegistry::setModelMatrix(void* model) const {
+    void Registry::setModelMatrix(void* model) const {
         glBindBuffer(GL_UNIFORM_BUFFER, m_matrixUBO);
 
         if (model) {

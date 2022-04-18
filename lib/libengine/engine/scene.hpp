@@ -3,7 +3,7 @@
 #include "engine/camera.hpp"
 #include "engine/entities/entity.hpp"
 #include "engine/opengl.hpp"
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 #include "engine/system/rendering.hpp"
 
 #include <vector>
@@ -11,7 +11,7 @@
 namespace Engine {
     class Scene {
       public:
-        Scene(ShaderRegistry& shaderRegistry);
+        Scene(Shaders::Registry& shaderRegistry);
         virtual ~Scene() = default;
 
         auto update(int dt) -> void;
@@ -28,7 +28,7 @@ namespace Engine {
         auto clearEntities() -> void;
 
         Camera m_camera;
-        ShaderRegistry& m_shaderRegistry;
+        Shaders::Registry& m_shaderRegistry;
 
       private:
         auto mousePick(SDL_Event event) -> void;

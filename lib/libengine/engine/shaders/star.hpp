@@ -2,11 +2,11 @@
 
 #include "engine/shaders/shader.hpp"
 
-namespace Engine {
-    class StarShader final : public Shader {
+namespace Engine::Shaders {
+    class Star final : public Shader {
       public:
-        StarShader()
+        Star()
               : Shader{"shaders/star/vertex.glsl", "shaders/star/fragment.glsl"} {};
-        ~StarShader() override = default;
+        ~Star() override = default;
     };
 }

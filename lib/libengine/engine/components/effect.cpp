@@ -11,12 +11,12 @@ namespace Engine::Components {
         m_effects.push_back(std::move(effect));
     }
 
-    auto Effect::renderEffects(ShaderRegistry& shaderRegistry) const -> void {
+    auto Effect::renderEffects(Shaders::Registry& shaderRegistry) const -> void {
         for (auto& effect : m_effects) {
             effect->render(shaderRegistry);
         }
     }
 
-    auto Effect::render([[maybe_unused]] ShaderRegistry& shaderRegistry) const -> void {
+    auto Effect::render([[maybe_unused]] Shaders::Registry& shaderRegistry) const -> void {
     }
 }

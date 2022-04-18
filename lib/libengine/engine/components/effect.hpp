@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/components/component.hpp"
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 
 #include <memory>
 #include <vector>
@@ -17,10 +17,10 @@ namespace Engine::Components {
         ~Effect() override = default;
 
         auto addEffect(std::unique_ptr<Effect> effect) -> void;
-        auto renderEffects(ShaderRegistry& shaderRegistry) const -> void;
+        auto renderEffects(Shaders::Registry& shaderRegistry) const -> void;
 
       protected:
-        virtual auto render(ShaderRegistry& shaderRegistry) const -> void;
+        virtual auto render(Shaders::Registry& shaderRegistry) const -> void;
 
       private:
         std::vector<std::unique_ptr<Effect>> m_effects;

@@ -11,7 +11,7 @@
 
 #include <utility>
 
-SystemScene::SystemScene(Engine::ShaderRegistry& shaderRegistry)
+SystemScene::SystemScene(Engine::Shaders::Registry& shaderRegistry)
       : Scene{shaderRegistry} {
     addEntity(Engine::Background::createDefault(m_shaderRegistry));
     // Create objects

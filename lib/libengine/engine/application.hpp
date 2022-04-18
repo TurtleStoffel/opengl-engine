@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine/scene.hpp"
-#include "engine/shaderregistry.hpp"
+#include "engine/shaders/registry.hpp"
 
 #include <SDL2/SDL.h>
 #include <memory>
@@ -20,7 +20,7 @@ namespace Engine {
         void run();
 
       protected:
-        ShaderRegistry m_shaderRegistry;
+        Shaders::Registry m_shaderRegistry;
 
         std::unique_ptr<Engine::Scene> m_scene;
 
