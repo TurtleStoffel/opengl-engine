@@ -27,7 +27,7 @@ namespace Engine {
         auto getEntities() -> const std::vector<std::unique_ptr<Entity>>&;
         auto clearEntities() -> void;
 
-        std::unique_ptr<Camera> m_camera;
+        Camera m_camera;
         ShaderRegistry& m_shaderRegistry;
 
       private:
