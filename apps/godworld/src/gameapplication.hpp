@@ -5,7 +5,7 @@
 namespace Godworld {
     class GameApplication : public Engine::Application {
       public:
-        GameApplication(SDL_Window* pWindow);
+        GameApplication(SDL_Window& window);
         ~GameApplication() override = default;
     };
 }

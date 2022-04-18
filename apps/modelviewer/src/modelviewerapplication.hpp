@@ -5,7 +5,7 @@
 namespace ModelViewer {
     class ModelViewerApplication : public Engine::Application {
       public:
-        ModelViewerApplication(SDL_Window* pWindow);
+        ModelViewerApplication(SDL_Window& window);
         ~ModelViewerApplication() override = default;
     };
 }

@@ -14,7 +14,7 @@ namespace Engine {
         /**
          * Constructor can only be called once in the entire program, otherwise will throw error
          */
-        Application(SDL_Window* pWindow);
+        Application(SDL_Window& window);
         virtual ~Application() = default;
 
         void run();
@@ -37,6 +37,6 @@ namespace Engine {
         int m_lastFpsTicks;
         int m_lastUpdateTicks;
 
-        SDL_Window* m_window;
+        SDL_Window& m_window;
     };
 }

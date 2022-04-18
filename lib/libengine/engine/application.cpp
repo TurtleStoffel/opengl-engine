@@ -8,7 +8,7 @@
 #include "imgui.h"
 
 namespace Engine {
-    Application::Application(SDL_Window* window)
+    Application::Application(SDL_Window& window)
           : m_window(window) {
         m_lastFpsTicks    = SDL_GetTicks();
         m_lastUpdateTicks = SDL_GetTicks();
@@ -17,7 +17,7 @@ namespace Engine {
     auto Application::run() -> void {
         while (m_running) {
             ImGui_ImplOpenGL3_NewFrame();
-            ImGui_ImplSDL2_NewFrame(m_window);
+            ImGui_ImplSDL2_NewFrame(&m_window);
             ImGui::NewFrame();
 
             handleInput();
@@ -82,7 +82,7 @@ namespace Engine {
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        SDL_GL_SwapWindow(m_window);
+        SDL_GL_SwapWindow(&m_window);
     }
 
     auto Application::throttleFps() -> void {
