@@ -1,5 +1,6 @@
 set(ENGINE_SOURCES 
     "libengine/engine/components/effects/debug_vectors.cpp"
+    "libengine/engine/components/effects/effect_container.cpp"
     "libengine/engine/components/effects/glow.cpp"
     "libengine/engine/components/effects/outline.cpp"
     "libengine/engine/components/gui/component_gui.cpp"

@@ -2,6 +2,7 @@
 
 #include "engine/components/collider.hpp"
 #include "engine/components/effect.hpp"
+#include "engine/components/effects/effect_container.hpp"
 #include "engine/components/effects/glow.hpp"
 #include "engine/components/gui/composite_gui.hpp"
 #include "engine/components/models/model_factory.hpp"
@@ -20,9 +21,10 @@ namespace Engine {
 
         entity->createAndRegisterComponent<Components::StarState>(*entity);
 
-        auto effectComponent = std::make_unique<Components::Effect>(*entity);
-        effectComponent->addEffect(std::make_unique<Components::Effects::Glow>(*entity));
-        entity->registerComponent<Components::Effect>(std::move(effectComponent));
+        auto effectComponent = std::make_unique<Components::EffectContainer>(*entity);
+        effectComponent->addEffect(
+            std::make_unique<Components::Effects::Glow>(*entity, shaderRegistry));
+        entity->registerComponent<Components::EffectContainer>(std::move(effectComponent));
 
         auto colorGenerator = [entity = entity.get()]([[maybe_unused]] float height) {
             auto& starState = entity->getRequired<Components::StarState>();

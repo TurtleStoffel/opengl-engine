@@ -11,18 +11,15 @@ namespace Engine {
 }
 
 namespace Engine::Components {
+    /**
+     * Effects are expected to store all their requirements for rendering in their state (e.g.,
+     * Shaders)
+     */
     class Effect : public Component {
       public:
         Effect(Entity& entity);
         ~Effect() override = default;
 
-        auto addEffect(std::unique_ptr<Effect> effect) -> void;
-        auto renderEffects(Shaders::Registry& shaderRegistry) const -> void;
-
-      protected:
-        virtual auto render(Shaders::Registry& shaderRegistry) const -> void;
-
-      private:
-        std::vector<std::unique_ptr<Effect>> m_effects;
+        virtual auto render() const -> void = 0;
     };
 }

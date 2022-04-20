@@ -14,7 +14,7 @@ namespace Engine::Components::Effects {
             Models::ModelFactory::make<Models::Vector>(entity, glm::vec3(0.0f, 0.0f, 1.0f)));
     }
 
-    auto DebugVectors::render([[maybe_unused]] Shaders::Registry& shaderRegistry) const -> void {
+    auto DebugVectors::render() const -> void {
         for (auto& vector : m_vectors) {
             vector->render();
         }

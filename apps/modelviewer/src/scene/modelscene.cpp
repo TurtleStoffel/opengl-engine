@@ -1,7 +1,7 @@
 #include "modelscene.hpp"
 
-#include "engine/components/effect.hpp"
 #include "engine/components/effects/debug_vectors.hpp"
+#include "engine/components/effects/effect_container.hpp"
 #include "engine/components/gui/component_gui.hpp"
 #include "engine/components/gui/star_configuration_gui.hpp"
 #include "engine/components/gui_component.hpp"
@@ -86,7 +86,7 @@ namespace ModelViewer {
         }
 
         if (object) {
-            auto& effectComponent = object->getRequired<Effect>();
+            auto& effectComponent = object->getRequired<EffectContainer>();
             effectComponent.addEffect(std::make_unique<Effects::DebugVectors>(*object));
 
             addEntity(std::move(object));

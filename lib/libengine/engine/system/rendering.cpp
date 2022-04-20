@@ -1,6 +1,6 @@
 #include "engine/system/rendering.hpp"
 
-#include "engine/components/effect.hpp"
+#include "engine/components/effects/effect_container.hpp"
 #include "engine/components/gui_component.hpp"
 #include "engine/components/model.hpp"
 
@@ -11,10 +11,10 @@ namespace Engine::System {
 
     auto Rendering::render() const -> void {
         for (const auto& entity : m_entities) {
-            if (const auto& effect = entity->get<Components::Effect>()) {
+            if (const auto& effect = entity->get<Components::EffectContainer>()) {
                 entity->getRequired<Components::Transform>().passModelMatrixToShader(
                     m_shaderRegistry);
-                effect->renderEffects(m_shaderRegistry);
+                effect->renderEffects();
             }
             if (const auto& model = entity->get<Components::Model>()) {
                 entity->getRequired<Components::Transform>().passModelMatrixToShader(

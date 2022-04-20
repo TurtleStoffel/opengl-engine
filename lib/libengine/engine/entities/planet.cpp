@@ -4,6 +4,7 @@
 #include "engine/components/collider.hpp"
 #include "engine/components/color_selector.hpp"
 #include "engine/components/effect.hpp"
+#include "engine/components/effects/effect_container.hpp"
 #include "engine/components/effects/outline.hpp"
 #include "engine/components/gui/composite_gui.hpp"
 #include "engine/components/gui/planet_gui.hpp"
@@ -62,9 +63,10 @@ namespace Engine {
             point *= heightFactor;
             return normalizedHeight;
         };
-        auto effectComponent = std::make_unique<Components::Effect>(*entity);
-        effectComponent->addEffect(std::make_unique<Components::Effects::Outline>(*entity));
-        entity->registerComponent<Components::Effect>(std::move(effectComponent));
+        auto effectComponent = std::make_unique<Components::EffectContainer>(*entity);
+        effectComponent->addEffect(
+            std::make_unique<Components::Effects::Outline>(*entity, shaderRegistry));
+        entity->registerComponent<Components::EffectContainer>(std::move(effectComponent));
 
         auto model = Components::Models::ModelFactory::make<
             Components::Models::Sphere>(*entity, colorFunction, noiseFunction);

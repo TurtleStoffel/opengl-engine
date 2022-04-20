@@ -1,17 +1,18 @@
 #pragma once
 
 #include "engine/components/effect.hpp"
-
-namespace Engine {
-    class Entity;
-}
+#include "engine/entities/entity.hpp"
+#include "engine/shaders/silhouette.hpp"
 
 namespace Engine::Components::Effects {
     class Outline final : public Effect {
       public:
-        Outline(Entity& entity);
+        Outline(Entity& entity, Shaders::Registry& shaderRegistry);
         ~Outline() override = default;
 
-        auto render(Shaders::Registry& shaderRegistry) const -> void override;
+        auto render() const -> void override;
+
+      private:
+        Shaders::Silhouette& m_silhouetteShader;
     };
 }
