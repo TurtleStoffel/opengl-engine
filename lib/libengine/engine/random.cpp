@@ -1,8 +1,8 @@
-#include "util.hpp"
+#include "engine/random.hpp"
 
 #include <math.h>
 
-namespace Engine {
+namespace Engine::Random {
     auto randf() -> float {
         return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
     }

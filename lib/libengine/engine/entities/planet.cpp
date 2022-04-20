@@ -15,8 +15,8 @@
 #include "engine/components/state/planet_state.hpp"
 #include "engine/entities/entity.hpp"
 #include "engine/noise/simplex_noise.hpp"
+#include "engine/random.hpp"
 #include "engine/shaders/lowpoly.hpp"
-#include "engine/util.hpp"
 
 #include <math.h>
 #include <utility>
@@ -27,8 +27,8 @@ namespace Engine {
         auto entity = std::make_unique<Entity>(nullptr, "Planet");
 
         auto planetState               = std::make_unique<Components::PlanetState>(*entity);
-        planetState->m_rotationalSpeed = randf(0.00003f, 0.0001f);
-        planetState->m_rotationAngle   = randRadian();
+        planetState->m_rotationalSpeed = Random::randf(0.00003f, 0.0001f);
+        planetState->m_rotationAngle   = Random::randRadian();
         planetState->m_distance        = distance;
         entity->registerComponent<Components::PlanetState>(std::move(planetState));
 

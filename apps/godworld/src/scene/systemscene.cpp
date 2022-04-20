@@ -7,7 +7,7 @@
 #include "engine/entities/background.hpp"
 #include "engine/entities/planet.hpp"
 #include "engine/entities/star.hpp"
-#include "engine/util.hpp"
+#include "engine/random.hpp"
 
 #include <utility>
 
@@ -27,9 +27,9 @@ SystemScene::SystemScene(Engine::Shaders::Registry& shaderRegistry)
 
     float currentPlanetOffset = 3.0f;
 
-    for (int i = 0; i < Engine::randi(1, 3); i++) {
-        currentPlanetOffset += Engine::randf(minPlanetOffset, maxPlanetOffset);
-        float planetRadius = Engine::randf(minPlanetRadius, maxPlanetRadius);
+    for (int i = 0; i < Engine::Random::randi(1, 3); i++) {
+        currentPlanetOffset += Engine::Random::randf(minPlanetOffset, maxPlanetOffset);
+        float planetRadius = Engine::Random::randf(minPlanetRadius, maxPlanetRadius);
 
         auto planet = Engine::Planet::createDefault(currentPlanetOffset,
                                                     planetRadius,

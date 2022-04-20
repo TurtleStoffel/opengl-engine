@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Engine {
+namespace Engine::Random {
     // Float in range [0, 1[
     auto randf() -> float;
     // Float in range [min, max[

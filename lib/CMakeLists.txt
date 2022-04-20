@@ -34,9 +34,9 @@ set(ENGINE_SOURCES
     "libengine/engine/application.cpp"
     "libengine/engine/camera.cpp"
     "libengine/engine/color.cpp"
+    "libengine/engine/random.cpp"
     "libengine/engine/scene.cpp"
     "libengine/engine/sdl.cpp"
-    "libengine/engine/util.cpp"
 )
 
 add_library(engine ${ENGINE_SOURCES})
