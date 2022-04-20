@@ -3,7 +3,7 @@
 #include <string>
 
 namespace Engine {
-    class Entity;
+    class Entity; // Required forward declare because of circular dependency with component
 }
 
 namespace Engine::Components {
