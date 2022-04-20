@@ -7,18 +7,18 @@
 #include "imgui.h"
 
 namespace Engine {
-    auto SDL::createWindow(const std::string name) -> SDL_Window* {
+    auto SDL::createWindow(const std::string& name) -> SDL_Window* {
         SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
 
         SDL_Init(SDL_INIT_VIDEO);
 
         // Add SDL_WINDOW_FULLSCREEN_DESKTOP flag for Fullscreen at desktop resolution
-        SDL_Window* pWindow = SDL_CreateWindow(name.c_str(),
-                                               SDL_WINDOWPOS_CENTERED,
-                                               SDL_WINDOWPOS_CENTERED,
-                                               INITIAL_WINDOW_WIDTH,
-                                               INITIAL_WINDOW_HEIGHT,
-                                               SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
+        auto window = SDL_CreateWindow(name.c_str(),
+                                       SDL_WINDOWPOS_CENTERED,
+                                       SDL_WINDOWPOS_CENTERED,
+                                       INITIAL_WINDOW_WIDTH,
+                                       INITIAL_WINDOW_HEIGHT,
+                                       SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
 
         // Generate OpenGL Context
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -28,13 +28,13 @@ namespace Engine {
         // Enable Stencil Buffer for NanoVG
         SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 1);
 
-        SDL_GLContext glContext = SDL_GL_CreateContext(pWindow);
+        auto glContext = SDL_GL_CreateContext(window);
 
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
 
-        ImGui_ImplSDL2_InitForOpenGL(pWindow, glContext);
+        ImGui_ImplSDL2_InitForOpenGL(window, glContext);
         ImGui_ImplOpenGL3_Init("#version 330");
 
 #ifndef __APPLE__
@@ -56,11 +56,11 @@ namespace Engine {
         // Only render triangles that are facing towards the camera
         glEnable(GL_CULL_FACE);
 
-        return pWindow;
+        return window;
     }
 
-    auto SDL::destroy(SDL_Window* pWindow) -> void {
-        SDL_DestroyWindow(pWindow);
+    auto SDL::destroy(SDL_Window* window) -> void {
+        SDL_DestroyWindow(window);
         SDL_Quit();
     }
 }
