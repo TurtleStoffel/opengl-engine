@@ -1,2 +1,3 @@
 add_subdirectory(godworld)
+add_subdirectory(modeleditor)
 add_subdirectory(modelviewer)
