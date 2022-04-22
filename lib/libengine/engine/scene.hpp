@@ -21,8 +21,6 @@ namespace Engine {
         auto setWindowSize(int windowWidth, int windowHeight) -> void;
 
       protected:
-        virtual auto renderGui() -> void;
-
         auto addEntity(std::unique_ptr<Entity> entity) -> void;
         auto getEntities() -> const std::vector<std::unique_ptr<Entity>>&;
         auto clearEntities() -> void;
@@ -31,6 +29,8 @@ namespace Engine {
         Shaders::Registry& m_shaderRegistry;
 
       private:
+        virtual auto renderGui() -> void{};
+
         auto mousePick(SDL_Event event) -> void;
 
         std::vector<std::unique_ptr<Entity>> m_entities;

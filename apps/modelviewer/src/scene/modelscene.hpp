@@ -15,10 +15,9 @@ namespace ModelViewer {
         ModelScene(Engine::Shaders::Registry& shaderRegistry);
         ~ModelScene() override = default;
 
-      protected:
+      private:
         auto renderGui() -> void override;
 
-      private:
         auto createModel(const char* model) -> void;
         auto resetSelectedObject() -> void;
 
