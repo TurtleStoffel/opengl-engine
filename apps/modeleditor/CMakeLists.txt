@@ -1,4 +1,6 @@
 set(modelEditorSources
+    "src/entities/triangle.cpp"
+    "src/models/triangle.cpp"
     "src/scene/scene.cpp"
     "src/application.cpp"
     "src/model_editor.cpp"

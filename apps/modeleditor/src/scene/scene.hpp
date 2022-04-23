@@ -8,5 +8,10 @@ namespace ModelEditor {
       public:
         Scene(Engine::Shaders::Registry& shaderRegistry);
         ~Scene() override = default;
+
+      private:
+        auto renderGui() -> void override;
+
+        auto createTriangle() -> void;
     };
 }
