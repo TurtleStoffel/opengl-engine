@@ -30,7 +30,7 @@ set(ENGINE_SOURCES
     "libengine/engine/shaders/registry.cpp"
     "libengine/engine/shaders/shader.cpp"
     "libengine/engine/shaders/silhouette.cpp"
-    "libengine/engine/system/rendering.cpp"
+    "libengine/engine/systems/rendering.cpp"
     "libengine/engine/application.cpp"
     "libengine/engine/camera.cpp"
     "libengine/engine/color.cpp"

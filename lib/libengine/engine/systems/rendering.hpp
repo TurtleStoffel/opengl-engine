@@ -5,7 +5,7 @@
 
 #include <set>
 
-namespace Engine::System {
+namespace Engine::Systems {
     /**
      * Each entity must be unregistered in the render system before being destructed
      */

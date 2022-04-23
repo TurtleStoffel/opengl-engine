@@ -1,10 +1,10 @@
-#include "engine/system/rendering.hpp"
+#include "engine/systems/rendering.hpp"
 
 #include "engine/components/effects/effect_container.hpp"
 #include "engine/components/gui_component.hpp"
 #include "engine/components/model.hpp"
 
-namespace Engine::System {
+namespace Engine::Systems {
     Rendering::Rendering(Shaders::Registry& shaderRegistry)
           : m_shaderRegistry{shaderRegistry} {
     }

@@ -4,7 +4,7 @@
 #include "engine/entities/entity.hpp"
 #include "engine/opengl.hpp"
 #include "engine/shaders/registry.hpp"
-#include "engine/system/rendering.hpp"
+#include "engine/systems/rendering.hpp"
 
 #include <vector>
 
@@ -34,6 +34,6 @@ namespace Engine {
         auto mousePick(SDL_Event event) -> void;
 
         std::vector<std::unique_ptr<Entity>> m_entities;
-        System::Rendering m_renderingSystem;
+        Systems::Rendering m_renderingSystem;
     };
 }
