@@ -29,9 +29,6 @@ namespace Engine::Components {
         auto glDraw() const -> void;
 
       protected:
-        // Fill m_vertices and m_indices.
-        virtual auto generateImpl() -> void = 0;
-
         struct Vertex {
             glm::vec3 position;
             glm::vec3 normal;
@@ -44,6 +41,9 @@ namespace Engine::Components {
         std::vector<unsigned int> m_indices;
 
       private:
+        // Fill m_vertices and m_indices.
+        virtual auto generateImpl() -> void = 0;
+
         auto generateOpenGLBuffers() -> void;
         auto setupBuffers() -> void;
 
